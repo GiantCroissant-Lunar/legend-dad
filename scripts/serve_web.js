@@ -3,14 +3,25 @@
  * Static file server for Godot web exports.
  * Sets Cross-Origin-Opener-Policy and Cross-Origin-Embedder-Policy headers
  * required for SharedArrayBuffer support (needed by Godot WASM).
+ *
+ * Supports HTTPS mode for cross-machine testing (Godot requires secure context).
+ * Usage:
+ *   node serve_web.js [root_dir]           # HTTP on :8080
+ *   SERVE_HTTPS=1 node serve_web.js        # HTTPS on :8443 with self-signed cert
  */
 
-import { createServer } from "node:http";
+import { createServer as createHttpServer } from "node:http";
+import { createServer as createHttpsServer } from "node:https";
 import { readFile, stat } from "node:fs/promises";
+import { execSync } from "node:child_process";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import { extname, join, resolve } from "node:path";
+import { networkInterfaces } from "node:os";
 
-const PORT = Number.parseInt(process.env.SERVE_PORT || "8080", 10);
+const USE_HTTPS = process.env.SERVE_HTTPS === "1";
+const PORT = Number.parseInt(process.env.SERVE_PORT || (USE_HTTPS ? "8443" : "8080"), 10);
 const ROOT = resolve(process.argv[2] || "build/_artifacts/latest/web");
+const CERT_DIR = resolve("build/_certs");
 
 const MIME_TYPES = {
   ".html": "text/html",
@@ -24,7 +35,41 @@ const MIME_TYPES = {
   ".css": "text/css",
 };
 
-const server = createServer(async (req, res) => {
+function getLanIp() {
+  const nets = networkInterfaces();
+  for (const iface of Object.values(nets)) {
+    for (const addr of iface) {
+      if (addr.family === "IPv4" && !addr.internal) {
+        return addr.address;
+      }
+    }
+  }
+  return "127.0.0.1";
+}
+
+function ensureCerts() {
+  const keyPath = join(CERT_DIR, "key.pem");
+  const certPath = join(CERT_DIR, "cert.pem");
+
+  if (existsSync(keyPath) && existsSync(certPath)) {
+    return { key: readFileSync(keyPath), cert: readFileSync(certPath) };
+  }
+
+  mkdirSync(CERT_DIR, { recursive: true });
+  const lanIp = getLanIp();
+
+  console.log(`[serve] Generating self-signed cert for localhost + ${lanIp}...`);
+  execSync(
+    `openssl req -x509 -newkey rsa:2048 -keyout "${keyPath}" -out "${certPath}" ` +
+      `-days 365 -nodes -subj "/CN=localhost" ` +
+      `-addext "subjectAltName=DNS:localhost,IP:127.0.0.1,IP:${lanIp}"`,
+    { stdio: "pipe" },
+  );
+
+  return { key: readFileSync(keyPath), cert: readFileSync(certPath) };
+}
+
+async function handler(req, res) {
   // COOP/COEP headers for SharedArrayBuffer
   res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
   res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
@@ -48,10 +93,25 @@ const server = createServer(async (req, res) => {
     res.writeHead(404, { "Content-Type": "text/plain" });
     res.end("Not found\n");
   }
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`[serve] Godot web build at http://localhost:${PORT}`);
+const lanIp = getLanIp();
+const protocol = USE_HTTPS ? "https" : "http";
+
+let server;
+if (USE_HTTPS) {
+  const certs = ensureCerts();
+  server = createHttpsServer(certs, handler);
+} else {
+  server = createHttpServer(handler);
+}
+
+server.listen(PORT, "0.0.0.0", () => {
+  console.log(`[serve] Godot web build at ${protocol}://localhost:${PORT}`);
+  console.log(`[serve] LAN access: ${protocol}://${lanIp}:${PORT}`);
   console.log(`[serve] Root: ${ROOT}`);
   console.log("[serve] COOP/COEP headers enabled (SharedArrayBuffer support)");
+  if (USE_HTTPS) {
+    console.log("[serve] HTTPS mode — accept the self-signed cert in your browser");
+  }
 });

@@ -8,6 +8,7 @@ project/hosts/complete-app/.godot/
 # Build artifacts
 build/_artifacts/*
 !build/_artifacts/.gitkeep
+build/_certs/
 
 # Node
 node_modules/

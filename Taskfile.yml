@@ -59,6 +59,13 @@ tasks:
     cmds:
       - node scripts/serve_web.js {{.ARTIFACTS_DIR}}/latest/web
 
+  serve:https:
+    desc: Serve latest web build over HTTPS (for cross-machine testing)
+    env:
+      SERVE_HTTPS: "1"
+    cmds:
+      - node scripts/serve_web.js {{.ARTIFACTS_DIR}}/latest/web
+
   lint:
     desc: Run all linters
     cmds:
