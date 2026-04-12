@@ -32,7 +32,7 @@ tasks:
       - >-
         {{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}}
         --export-release "Web"
-        ../../../../{{.ARTIFACTS_DIR}}/{{.VERSION}}/web/complete-app.html
+        {{.ROOT_DIR}}/{{.ARTIFACTS_DIR}}/{{.VERSION}}/web/complete-app.html
       - rm -f {{.ARTIFACTS_DIR}}/latest
       - ln -s {{.VERSION}} {{.ARTIFACTS_DIR}}/latest
       - echo "Built version {{.VERSION}} -> {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/"
