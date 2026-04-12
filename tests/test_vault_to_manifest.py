@@ -1,4 +1,7 @@
 import json
+import subprocess
+import sys
+from pathlib import Path
 
 import jsonschema
 
@@ -126,3 +129,37 @@ def test_generate_manifest_json_roundtrip(tmp_vault, schema):
     text = json.dumps(manifest, indent=2)
     reloaded = json.loads(text)
     jsonschema.validate(reloaded, schema)
+
+
+def test_cli_generates_manifest_file(tmp_vault):
+    vault_world = tmp_vault / "vault" / "world"
+    output_file = tmp_vault / "import-manifest.json"
+    result = subprocess.run(
+        [sys.executable, "scripts/vault_to_manifest.py", str(vault_world), str(output_file)],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    assert output_file.exists()
+    data = json.loads(output_file.read_text())
+    assert len(data["entities"]) == 2
+
+
+def test_cli_validates_against_schema_flag(tmp_vault):
+    vault_world = tmp_vault / "vault" / "world"
+    output_file = tmp_vault / "import-manifest.json"
+    schema_file = Path(__file__).parent.parent / "project" / "articy" / "schemas" / "import-manifest.schema.json"
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/vault_to_manifest.py",
+            str(vault_world),
+            str(output_file),
+            "--schema",
+            str(schema_file),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0, result.stderr
+    assert "Validated against schema" in result.stdout
