@@ -11,10 +11,13 @@
 	"dependencies": {
 		"@mastra/core": "^1.24.1",
 		"@mastra/mcp": "^1.4.2",
+		"fastembed": "^2.1.0",
+		"surrealdb": "^2.0.3",
 		"ws": "^8.18.0",
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
-		"nodemon": "^3.1.0"
+		"nodemon": "^3.1.0",
+		"quicktype": "^23.2.6"
 	}
 }
