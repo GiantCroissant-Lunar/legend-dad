@@ -9,9 +9,17 @@ export function createGetStateTool(stateStore) {
 		inputSchema: z.object({}),
 		outputSchema: z.object({
 			state: z.any().nullable(),
+			error: z.string().nullable(),
 		}),
 		execute: async () => {
-			return { state: stateStore.getState() };
+			const state = stateStore.getState();
+			if (state === null) {
+				return {
+					state: null,
+					error: "no game state available — Godot may not be connected",
+				};
+			}
+			return { state, error: null };
 		},
 	});
 }
