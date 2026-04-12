@@ -18,8 +18,8 @@ Read RFC and design documents, identify world-building facts (not game mechanics
 1. Read the source document(s) specified in the task.
 2. Identify **world facts**: character descriptions, location details, faction information, historical events, cultural elements, quest narratives.
 3. Separate world facts from pure game mechanics (stat tables, THAC0 progressions, damage formulas stay in the RFCs).
-4. For each distinct concept, create or update a vault page at the correct path under `world/`.
-5. Follow frontmatter schema from `world/_meta/conventions.md`.
+4. For each distinct concept, create or update a vault page at the correct path under `vault/world/`.
+5. Follow frontmatter schema from `vault/world/_meta/conventions.md`.
 
 ## Extraction Rules
 

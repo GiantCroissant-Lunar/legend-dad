@@ -52,20 +52,12 @@ tasks:
   dev:static:
     desc: Serve latest web build with COOP/COEP headers
     cmds:
-      - >-
-        npx sirv-cli {{.ARTIFACTS_DIR}}/latest/web
-        --port 8080 --cors --single
-        --header "Cross-Origin-Opener-Policy=same-origin"
-        --header "Cross-Origin-Embedder-Policy=require-corp"
+      - node scripts/serve_web.js {{.ARTIFACTS_DIR}}/latest/web
 
   serve:
     desc: Serve latest web build only (no WS server)
     cmds:
-      - >-
-        npx sirv-cli {{.ARTIFACTS_DIR}}/latest/web
-        --port 8080 --cors --single
-        --header "Cross-Origin-Opener-Policy=same-origin"
-        --header "Cross-Origin-Embedder-Policy=require-corp"
+      - node scripts/serve_web.js {{.ARTIFACTS_DIR}}/latest/web
 
   lint:
     desc: Run all linters

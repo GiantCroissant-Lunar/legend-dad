@@ -11,14 +11,14 @@ related_skills:
 
 # World Writer
 
-Generate rich, internally consistent lore pages for the world bible vault at `world/`.
+Generate rich, internally consistent lore pages for the world bible vault at `vault/world/`.
 
 ## Process
 
-1. **Read context first.** Always read `world/history/timeline.md` before writing anything. Read all pages listed in the topic's `connections` or referenced in the prompt template.
-2. **Read the prompt template** from `world/_meta/prompts/` matching the content type (character-backstory, location-history, culture-profile, timeline-event, faction-profile, bestiary-entry).
+1. **Read context first.** Always read `vault/world/history/timeline.md` before writing anything. Read all pages listed in the topic's `connections` or referenced in the prompt template.
+2. **Read the prompt template** from `vault/world/_meta/prompts/` matching the content type (character-backstory, location-history, culture-profile, timeline-event, faction-profile, bestiary-entry).
 3. **Read relevant RFCs/design docs** when the prompt template specifies mechanical constraints.
-4. **Generate the page** with proper YAML frontmatter and all required sections per `world/_meta/conventions.md`.
+4. **Generate the page** with proper YAML frontmatter and all required sections per `vault/world/_meta/conventions.md`.
 5. **Delegate to @lore-checker** to validate the draft against timeline and canon.
 
 ## Writing Guidelines
@@ -71,7 +71,7 @@ Each prompt type uses a fenced `prompt` block. Include only the types relevant t
 
 ## Prompt Templates
 
-Templates live in `world/_meta/prompts/`. Each includes:
+Templates live in `vault/world/_meta/prompts/`. Each includes:
 - Output format (frontmatter + required sections)
 - Tone guidelines
 - Required context reads
