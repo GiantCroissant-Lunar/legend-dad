@@ -2,15 +2,15 @@
 date: 2026-04-12
 agent: claude-code
 branch: main
-version: 0.1.0-95
-tags: [websocket, agent, mastra, replay, surrealdb, fastembed]
+version: 0.1.0-99
+tags: [websocket, agent, mastra, replay, surrealdb, fastembed, infra]
 ---
 
-# Session Log — WS Agent Protocol + Replay System
+# Session Log — WS Agent Protocol + Replay System + Infra
 
 ## Summary
 
-Built two interconnected features: a WebSocket agent protocol that lets AI agents control the game as a normal player, and a replay system that records sessions to SurrealDB with per-turn vector embeddings for agent learning.
+Built two interconnected features plus infrastructure: a WebSocket agent protocol that lets AI agents control the game as a normal player, a replay system that records sessions to SurrealDB with per-turn vector embeddings for agent learning, and model provider rotation with centralized env config.
 
 ## What Was Built
 
@@ -35,16 +35,24 @@ Built two interconnected features: a WebSocket agent protocol that lets AI agent
 - **JSON schemas** — canonical schemas for WS messages, game state, replay records (quicktype-ready)
 - **Agent updated** — `createGameAgent` now async, injects replay context into instructions
 
+### Model Provider Rotation + Infra
+
+- **Provider rotation** — round-robin between Z.AI (GLM-5.1) and Alibaba (Qwen 3.5-plus) to avoid rate limits
+- **`infra/.env`** — centralized environment config for API keys, SurrealDB, ports (gitignored)
+- **`infra/.env.example`** — committed template without secrets
+
 ## Verification
 
 - Agent (GLM-5.1 via Z.AI) successfully controlled game: `get_state → move right → move right → move down`
 - Agent recognized nearby enemy (slime) and warned about it
 - Replay data written to SurrealDB: sessions, events, turns with embeddings
 - Context builder retrieves past session history + similar turns via vector search
+- Replay learning confirmed: context grew across 3 runs (155 → 519 → 892 chars)
+- Provider rotation tested: zai selected, alibaba available as fallback
 
 ## Commits
 
-32 commits on `feature/ws-agent-protocol`, merged to main as `d37d206`.
+35 commits total (32 on `feature/ws-agent-protocol` merged as `d37d206`, plus 3 post-merge).
 
 Key commits:
 - `80ab47c` chore: add mastra and zod dependencies
@@ -56,6 +64,8 @@ Key commits:
 - `550a95b` feat: add fastembed wrapper
 - `0023d90` feat: add replay Recorder
 - `b13abb9` test: update agent test to verify replay recording
+- `e7918ef` feat: add model provider rotation (zai + alibaba)
+- `5ad4990` chore: add infra/.env.example and gitignore secrets
 
 ## Decisions
 
@@ -69,6 +79,8 @@ Key commits:
 | Embedding granularity | Per-turn | Action + surrounding state = natural decision unit |
 | Recording location | Node.js only | Server sees all WS traffic; Godot unchanged |
 | Agent model | GLM-5.1 via Z.AI (OpenAI-compatible) | Available via coding plan API |
+| Fallback model | Qwen 3.5-plus via Alibaba | Round-robin rotation to avoid rate limits |
+| Env config | `infra/.env` (gitignored) | Centralized secrets, `.env.example` committed |
 
 ## Known Issues
 
@@ -83,9 +95,10 @@ None.
 
 ## Next Steps
 
-1. **Verify agent learns from replay** — run agent multiple times, confirm context builder improves decisions on subsequent runs
-2. **Wire MCP transport** — enable Claude Code to call game tools directly
-3. **Godot gameplay replay** — father's recorded actions replay during son's adventure (separate design spec needed)
-4. **Playwright integration** — automated browser testing with the real Godot web build
-5. **Battle system WS commands** — currently observe-only, add battle action tools
-6. **Fix biome pre-commit version** — pin project biome to match hook version
+1. **Wire `.env` into Taskfile/nodemon** — `task dev` should auto-load `infra/.env`
+2. **Test with real Godot build** — `task build && task serve`, verify WSClient connects in browser
+3. **Wire MCP transport** — enable Claude Code to call game tools directly
+4. **Godot gameplay replay** — father's recorded actions replay during son's adventure (separate design spec needed)
+5. **Playwright integration** — automated browser testing with the real Godot web build
+6. **Battle system WS commands** — currently observe-only, add battle action tools
+7. **Fix biome pre-commit version** — pin project biome to match hook version
