@@ -54,10 +54,13 @@ func _process_move(entities: Array[Entity], direction: Vector2i) -> void:
 				grid_pos.row = new_row
 				_cooldown_timer = move_cooldown
 				# Emit state change for WS
+				var era_str = "FATHER" if era_comp.era == C_TimelineEra.Era.FATHER else "SON"
 				GameActions.state_changed.emit("entity_updated", {
 					"entity_id": entity.name,
 					"components": {
 						"grid_position": { "col": grid_pos.col, "row": grid_pos.row, "facing": _vec2i_to_string(grid_pos.facing) },
+						"timeline_era": { "era": era_str },
+						"player_controlled": { "active": pc.active },
 					},
 				})
 
