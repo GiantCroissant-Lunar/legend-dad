@@ -29,3 +29,6 @@ vault/.obsidian/plugins/*/data.json
 .idea/
 *.swp
 *.swo
+
+# Superpowers brainstorm sessions
+.superpowers/
