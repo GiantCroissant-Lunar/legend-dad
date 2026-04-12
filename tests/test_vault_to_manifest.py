@@ -1,4 +1,4 @@
-from vault_to_manifest import extract_creative_prompts, extract_sections, parse_vault_page
+from vault_to_manifest import build_entity, extract_creative_prompts, extract_sections, parse_vault_page
 
 
 def test_parse_frontmatter_extracts_type(sample_character_md):
@@ -46,3 +46,44 @@ def test_extract_creative_prompts(sample_character_md):
     assert "voice" in prompts
     assert "theme-music" in prompts
     assert len(prompts["portrait"]) >= 100
+
+
+def test_build_entity_sets_display_name(sample_character_md):
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    assert entity["display_name"] == "Sera"
+
+
+def test_build_entity_sets_type(sample_character_md):
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    assert entity["type"] == "character"
+
+
+def test_build_entity_extracts_template_properties(sample_character_md):
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    props = entity["template_properties"]
+    assert "backstory" in props
+    assert "personality_and_motivation" in props
+    assert "overview" in props
+
+
+def test_build_entity_extracts_creative_prompts(sample_character_md):
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    assert "portrait" in entity["creative_prompts"]
+    assert "voice" in entity["creative_prompts"]
+    assert "theme-music" in entity["creative_prompts"]
+
+
+def test_build_entity_parses_connections(sample_character_md):
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    targets = [c["target_vault_path"] for c in entity["connections"]]
+    assert any("Elder Aldric" in t for t in targets)
+
+
+def test_build_entity_sets_vault_path(sample_character_md):
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    assert entity["vault_path"] == "vault/world/characters/sera.md"
+
+
+def test_build_entity_defaults_status_to_new(sample_character_md):
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    assert entity["status"] == "new"
