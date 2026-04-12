@@ -121,6 +121,24 @@ Always run `@context-discovery` before implementation work and `@validation-guar
 - Never commit `.godot/` cache directory (pre-commit hook enforces this)
 - Web export goes through `task build`, not the Godot editor
 
+## Addon Conventions
+
+- Addons live in `project/hosts/complete-app/addons/`
+- **Web export compatibility is mandatory** — only install addons that are pure GDScript or include WASM binaries. No native-only GDExtensions
+- Before installing an addon, check for `.gdextension`, `.so`, `.dll`, `.dylib` files — if present without `.wasm` counterparts, the addon will break web export
+- Addons are committed to the repo (no package manager) — pin to a specific version tag
+- Enable addons in `project.godot` under `[editor_plugins]`
+
+### Installed Addons
+
+| Addon | Version | Source | Web Compatible | Notes |
+|---|---|---|---|---|
+| Phantom Camera | 0.9.4.2 | [ramokz/phantom-camera](https://github.com/ramokz/phantom-camera) | Yes (pure GDScript) | Cinematic 2D/3D camera system |
+| Beehave | 2.9.2 | [bitbrain/beehave](https://github.com/bitbrain/beehave) | Yes (pure GDScript) | Behaviour tree AI. Auto-registers autoloads (metrics, debugger) |
+| Dialogue Manager | 3.9.1 | [nathanhoad/godot_dialogue_manager](https://github.com/nathanhoad/godot_dialogue_manager) | Yes (pure GDScript) | Dialogue system with `.dialogue` files, compiler, balloon UI |
+| GECS | 7.1.0 | [csprance/gecs](https://github.com/csprance/gecs) | Yes (pure GDScript) | ECS framework. `ECS` autoload errors in headless build (harmless) |
+| G.U.I.D.E | 0.9.1 | [godotneers/G.U.I.D.E](https://github.com/godotneers/G.U.I.D.E) | Yes (pure GDScript) | Input mapping, context-based. Minor `cleanup` error in headless export (harmless) |
+
 ## Server Conventions
 
 - All Node.js code under `project/server/`
