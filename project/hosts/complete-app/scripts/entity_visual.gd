@@ -5,11 +5,13 @@ extends Node2D
 
 const TILE_SIZE := 32
 
-enum VisualType { PLAYER_FATHER, PLAYER_SON, BOULDER, BLOCKED }
+enum VisualType { PLAYER_FATHER, PLAYER_SON, BOULDER, BLOCKED, ENEMY }
 
 var visual_type: VisualType = VisualType.PLAYER_FATHER
 ## The ECS entity this visual represents — used to read component data.
 var entity: Entity = null
+## For enemies: the color from BattleData.
+var enemy_color: Color = Color(0.2, 0.8, 0.3)
 
 func _draw() -> void:
 	match visual_type:
@@ -23,6 +25,17 @@ func _draw() -> void:
 			draw_circle(Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0), TILE_SIZE / 3.0, Color(0.5, 0.5, 0.5))
 		VisualType.BLOCKED:
 			draw_circle(Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0), TILE_SIZE / 3.0, Color(0.4, 0.2, 0.2))
+		VisualType.ENEMY:
+			# Draw enemy as a diamond shape
+			var center = Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0)
+			var half = TILE_SIZE / 3.0
+			var points = PackedVector2Array([
+				center + Vector2(0, -half),
+				center + Vector2(half, 0),
+				center + Vector2(0, half),
+				center + Vector2(-half, 0),
+			])
+			draw_colored_polygon(points, enemy_color)
 
 func _draw_facing_arrow() -> void:
 	if not entity:
