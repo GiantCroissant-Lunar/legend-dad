@@ -92,20 +92,26 @@ func _process_interact(entities: Array[Entity]) -> void:
 
 func _activate(_entity: Entity, interactable: C_Interactable) -> void:
 	interactable.state = C_Interactable.InteractState.ACTIVATED
+
+	var link = _entity.get_component(C_TimelineLinked) as C_TimelineLinked
+	var linked_id := ""
+	if link and not link.linked_entity_id.is_empty():
+		linked_id = link.linked_entity_id
+
 	# Emit state change for WS
 	GameActions.state_changed.emit("interaction_result", {
 		"entity_id": _entity.name,
 		"interactable_type": "BOULDER" if interactable.type == C_Interactable.InteractType.BOULDER else "SWITCH",
 		"new_state": "ACTIVATED",
+		"linked_entity_id": linked_id,
 	})
 
-	var link = _entity.get_component(C_TimelineLinked) as C_TimelineLinked
-	if not link or link.linked_entity_id.is_empty():
+	if linked_id.is_empty():
 		return
 
 	var all_linked = ECS.world.query.with_all([C_TimelineLinked, C_Interactable]).execute()
 	for linked_entity in all_linked:
-		if linked_entity.id == link.linked_entity_id:
+		if linked_entity.id == linked_id:
 			var linked_interact = linked_entity.get_component(C_Interactable) as C_Interactable
 			linked_interact.state = C_Interactable.InteractState.ACTIVATED
 			break
