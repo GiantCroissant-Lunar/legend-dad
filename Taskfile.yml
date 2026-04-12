@@ -5,7 +5,7 @@ vars:
   SERVER_DIR: "project/server"
   GAME_SERVER_DIR: "project/server/packages/game-server"
   GODOT_PROJECT_DIR: "project/hosts/complete-app"
-  BUILD_DIR: "builds/web"
+  ARTIFACTS_DIR: "build/_artifacts"
 
 tasks:
   setup:
@@ -15,11 +15,27 @@ tasks:
       - cd {{.SERVER_DIR}} && pnpm install
       - pre-commit install
 
-  build:
-    desc: Export Godot project for web
+  version:
+    desc: Print the current GitVersion SemVer
     cmds:
-      - mkdir -p {{.BUILD_DIR}}
-      - '{{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}} --export-release "Web" ../../../../{{.BUILD_DIR}}/complete-app.html'
+      - dotnet-gitversion /showvariable SemVer
+
+  build:
+    desc: Export Godot project for web into a versioned artifact directory
+    vars:
+      VERSION:
+        sh: dotnet-gitversion /showvariable SemVer
+    cmds:
+      - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/web
+      - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/screenshots
+      - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/replay
+      - >-
+        {{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}}
+        --export-release "Web"
+        ../../../../{{.ARTIFACTS_DIR}}/{{.VERSION}}/web/complete-app.html
+      - rm -f {{.ARTIFACTS_DIR}}/latest
+      - ln -s {{.VERSION}} {{.ARTIFACTS_DIR}}/latest
+      - echo "Built version {{.VERSION}} -> {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/"
 
   dev:
     desc: Start WebSocket server (nodemon) and static file server in parallel
@@ -34,14 +50,22 @@ tasks:
       - pnpm run dev
 
   dev:static:
-    desc: Serve web build with COOP/COEP headers
+    desc: Serve latest web build with COOP/COEP headers
     cmds:
-      - npx sirv-cli {{.BUILD_DIR}} --port 8080 --cors --single --header "Cross-Origin-Opener-Policy=same-origin" --header "Cross-Origin-Embedder-Policy=require-corp"
+      - >-
+        npx sirv-cli {{.ARTIFACTS_DIR}}/latest/web
+        --port 8080 --cors --single
+        --header "Cross-Origin-Opener-Policy=same-origin"
+        --header "Cross-Origin-Embedder-Policy=require-corp"
 
   serve:
-    desc: Serve web build only (no WS server)
+    desc: Serve latest web build only (no WS server)
     cmds:
-      - npx sirv-cli {{.BUILD_DIR}} --port 8080 --cors --single --header "Cross-Origin-Opener-Policy=same-origin" --header "Cross-Origin-Embedder-Policy=require-corp"
+      - >-
+        npx sirv-cli {{.ARTIFACTS_DIR}}/latest/web
+        --port 8080 --cors --single
+        --header "Cross-Origin-Opener-Policy=same-origin"
+        --header "Cross-Origin-Embedder-Policy=require-corp"
 
   lint:
     desc: Run all linters
@@ -56,10 +80,10 @@ tasks:
       - ruff format scripts/
 
   clean:
-    desc: Remove web build output
+    desc: Remove all build artifacts
     cmds:
-      - rm -rf {{.BUILD_DIR}}/*
-      - touch {{.BUILD_DIR}}/.gitkeep
+      - rm -rf {{.ARTIFACTS_DIR}}/*
+      - touch {{.ARTIFACTS_DIR}}/.gitkeep
 
   changelog:
     desc: Generate changelog with git-cliff

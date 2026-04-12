@@ -1,0 +1,44 @@
+next-version: 0.1.0
+
+branches:
+  main:
+    label: ""
+    increment: Patch
+    prevent-increment:
+      of-merged-branch: true
+    track-merge-target: false
+    regex: ^master$|^main$
+    source-branches:
+      - feature
+      - fix
+    is-source-branch-for: []
+    is-main-branch: true
+
+  feature:
+    label: "{BranchName}"
+    increment: Inherit
+    regex: ^features?[/-](?<BranchName>.+)
+    source-branches:
+      - main
+    is-source-branch-for: []
+
+  fix:
+    label: "{BranchName}"
+    increment: Patch
+    regex: ^fix(es)?[/-](?<BranchName>.+)
+    source-branches:
+      - main
+    is-source-branch-for: []
+
+  release:
+    label: rc
+    increment: None
+    regex: ^releases?[/-](?<BranchName>.+)
+    source-branches:
+      - main
+      - feature
+      - fix
+    is-source-branch-for: []
+    is-release-branch: true
+
+merge-message-formats: {}

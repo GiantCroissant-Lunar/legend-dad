@@ -5,9 +5,9 @@ Thumbs.db
 # Godot
 project/hosts/complete-app/.godot/
 
-# Builds
-builds/web/*
-!builds/web/.gitkeep
+# Build artifacts
+build/_artifacts/*
+!build/_artifacts/.gitkeep
 
 # Node
 node_modules/
