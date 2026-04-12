@@ -22,6 +22,8 @@ export class ConnectionManager {
 		this.agentClients = new Map();
 		/** @type {Map<string, { resolve: Function, reject: Function, timer: ReturnType<typeof setTimeout> }>} */
 		this._pendingAcks = new Map();
+		/** @type {Array<(direction: string, msg: object) => void>} */
+		this._eventListeners = [];
 	}
 
 	/**
@@ -85,7 +87,27 @@ export class ConnectionManager {
 
 			this._pendingAcks.set(cmd.id, { resolve, reject, timer });
 			this.godotClient.ws.send(JSON.stringify(cmd));
+			this._emitEvent("to_godot", cmd);
 		});
+	}
+
+	/**
+	 * Register a callback for all WS messages (both directions).
+	 * @param {(direction: string, msg: object) => void} callback
+	 */
+	onEvent(callback) {
+		this._eventListeners.push(callback);
+	}
+
+	/** @private */
+	_emitEvent(direction, msg) {
+		for (const cb of this._eventListeners) {
+			try {
+				cb(direction, msg);
+			} catch (err) {
+				console.error("[conn] event listener error:", err.message);
+			}
+		}
 	}
 
 	_registerGodot(ws, sessionId) {
@@ -98,6 +120,7 @@ export class ConnectionManager {
 		// Request initial state snapshot
 		const cmd = createCommand("get_state");
 		ws.send(JSON.stringify(cmd));
+		this._emitEvent("to_godot", cmd);
 	}
 
 	_registerAgent(ws, sessionId) {
@@ -110,13 +133,16 @@ export class ConnectionManager {
 	_routeMessage(_ws, msg) {
 		switch (msg.type) {
 			case "command_ack":
+				this._emitEvent("from_godot", msg);
 				this._handleCommandAck(msg);
 				break;
 			case "state_snapshot":
+				this._emitEvent("from_godot", msg);
 				this.stateStore.setSnapshot(msg.data);
 				this._broadcastToAgents(msg);
 				break;
 			case "state_event":
+				this._emitEvent("from_godot", msg);
 				this.stateStore.pushEvent(msg);
 				this._broadcastToAgents(msg);
 				break;
