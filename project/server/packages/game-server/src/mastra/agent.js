@@ -31,19 +31,55 @@ const BASE_INSTRUCTIONS = `You are an AI agent playing the game "Legend Dad". Yo
 When asked to explore or play, start by getting the state, then move around the map systematically.`;
 
 /**
+ * Default model providers. Rotated round-robin to avoid rate limits.
+ * Override with AGENT_PROVIDERS env var (JSON array) or opts.providers.
+ */
+const DEFAULT_PROVIDERS = [
+	{
+		name: "zai",
+		url: "https://api.z.ai/api/coding/paas/v4",
+		apiKey: process.env.ZAI_API_KEY || "",
+		model: process.env.ZAI_MODEL || "glm-5.1",
+	},
+	{
+		name: "alibaba",
+		url: "https://coding-intl.dashscope.aliyuncs.com/v1",
+		apiKey: process.env.ALIBABA_API_KEY || "",
+		model: process.env.ALIBABA_MODEL || "qwen3.5-plus",
+	},
+];
+
+let _providerIndex = 0;
+
+/**
+ * Pick the next provider from the rotation.
+ * Skips providers with empty API keys.
+ * @param {Array} providers
+ * @returns {object} { name, url, apiKey, model }
+ */
+export function nextProvider(providers = DEFAULT_PROVIDERS) {
+	const available = providers.filter((p) => p.apiKey);
+	if (available.length === 0) {
+		throw new Error(
+			"no model providers configured — set ZAI_API_KEY or ALIBABA_API_KEY",
+		);
+	}
+	const provider = available[_providerIndex % available.length];
+	_providerIndex++;
+	console.log(`[agent] using provider: ${provider.name} (${provider.model})`);
+	return provider;
+}
+
+/**
  * Create a game-playing agent bound to the Mastra tools.
- * Now async — builds replay context before creating the agent.
+ * Async — builds replay context and rotates model providers.
  *
  * @param {object} tools — { moveTool, interactTool, switchEraTool, getStateTool }
- * @param {object} opts — { modelUrl, apiKey, modelId, contextBuilder, stateStore }
+ * @param {object} opts — { providers, contextBuilder, stateStore }
  */
 export async function createGameAgent(tools, opts = {}) {
-	const modelUrl =
-		opts.modelUrl ||
-		process.env.ZAI_BASE_URL ||
-		"https://api.z.ai/api/coding/paas/v4";
-	const apiKey = opts.apiKey || process.env.ZAI_API_KEY || "";
-	const modelId = opts.modelId || process.env.ZAI_MODEL || "glm-5.1";
+	const providers = opts.providers || DEFAULT_PROVIDERS;
+	const provider = nextProvider(providers);
 
 	// Build replay context if context builder is available
 	let replayContext = "";
@@ -67,9 +103,9 @@ export async function createGameAgent(tools, opts = {}) {
 		name: "Legend Dad Player Agent",
 		instructions,
 		model: {
-			id: `custom/${modelId}`,
-			url: modelUrl,
-			apiKey: apiKey,
+			id: `custom/${provider.model}`,
+			url: provider.url,
+			apiKey: provider.apiKey,
 		},
 		tools: {
 			move: tools.moveTool,

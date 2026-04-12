@@ -299,16 +299,30 @@ async function runAgent() {
 			recorder.recordEvent(direction, msg).catch(console.error);
 		});
 
-		await recorder.startSession("agent", "glm-5.1");
+		await recorder.startSession("agent", "rotating");
 		console.log("[test] replay recording enabled\n");
 	} catch (err) {
 		console.warn("[test] replay disabled:", err.message);
 	}
 
+	// Provider rotation — both keys from env vars
+	const providers = [
+		{
+			name: "zai",
+			url: "https://api.z.ai/api/coding/paas/v4",
+			apiKey: process.env.ZAI_API_KEY || "",
+			model: process.env.ZAI_MODEL || "glm-5.1",
+		},
+		{
+			name: "alibaba",
+			url: "https://coding-intl.dashscope.aliyuncs.com/v1",
+			apiKey: process.env.ALIBABA_API_KEY || "",
+			model: process.env.ALIBABA_MODEL || "qwen3.5-plus",
+		},
+	];
+
 	const agent = await createGameAgent(tools, {
-		modelUrl: "https://api.z.ai/api/coding/paas/v4",
-		apiKey: process.env.ZAI_API_KEY,
-		modelId: process.env.ZAI_MODEL || "glm-5.1",
+		providers,
 		contextBuilder,
 		stateStore,
 	});
