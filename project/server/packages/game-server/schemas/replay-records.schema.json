@@ -1,0 +1,69 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "ReplayRecords",
+	"description": "SurrealDB replay record types",
+	"definitions": {
+		"ReplaySession": {
+			"type": "object",
+			"required": ["started_at", "player_type"],
+			"properties": {
+				"id": { "type": "string" },
+				"started_at": { "type": "string", "format": "date-time" },
+				"ended_at": { "type": ["string", "null"], "format": "date-time" },
+				"player_type": { "type": "string", "enum": ["agent", "human"] },
+				"agent_model": { "type": ["string", "null"] },
+				"initial_state": { "type": ["object", "null"] },
+				"summary": { "type": ["string", "null"] },
+				"total_actions": { "type": "integer" },
+				"outcome": {
+					"type": ["string", "null"],
+					"enum": ["completed", "abandoned", "stuck", null]
+				}
+			}
+		},
+		"ReplayEvent": {
+			"type": "object",
+			"required": ["session", "timestamp", "direction", "message", "sequence"],
+			"properties": {
+				"id": { "type": "string" },
+				"session": { "type": "string" },
+				"timestamp": { "type": "string", "format": "date-time" },
+				"direction": { "type": "string", "enum": ["to_godot", "from_godot"] },
+				"message": { "type": "object" },
+				"sequence": { "type": "integer" }
+			}
+		},
+		"ReplayTurn": {
+			"type": "object",
+			"required": [
+				"session",
+				"sequence",
+				"action",
+				"payload",
+				"result",
+				"text"
+			],
+			"properties": {
+				"id": { "type": "string" },
+				"session": { "type": "string" },
+				"sequence": { "type": "integer" },
+				"state_before": { "type": ["object", "null"] },
+				"action": { "type": "string" },
+				"payload": { "type": "object" },
+				"result": {
+					"type": "object",
+					"properties": {
+						"success": { "type": "boolean" },
+						"error": { "type": ["string", "null"] }
+					}
+				},
+				"state_after": { "type": ["object", "null"] },
+				"text": { "type": "string" },
+				"embedding": {
+					"type": ["array", "null"],
+					"items": { "type": "number" }
+				}
+			}
+		}
+	}
+}
