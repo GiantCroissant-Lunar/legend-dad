@@ -45,6 +45,8 @@ var father_player: E_Player
 var son_player: E_Player
 var father_tilemap: TileMapLayer
 var son_tilemap: TileMapLayer
+var boulder_entity: E_Interactable
+var blocked_entity: E_Interactable
 
 var active_era: C_TimelineEra.Era = C_TimelineEra.Era.FATHER
 var map_is_open := false
@@ -52,9 +54,13 @@ var map_is_open := false
 const ACTIVE_VIEW_SCALE := 0.50
 const INACTIVE_VIEW_SCALE := 0.40
 
+# Visual nodes (Node2D) that live in SubViewports — synced from ECS data.
+var _visuals: Array[EntityVisual] = []
+
 func _ready() -> void:
 	tileset = TilesetFactory.create_tileset()
 
+	# Create ECS World — entities live here as children of the World node.
 	world = World.new()
 	world.name = "World"
 	add_child(world)
@@ -67,49 +73,50 @@ func _ready() -> void:
 	add_child(father_view)
 	add_child(son_view)
 
-	# Store tilemap references as metadata for systems
+	# Store tilemap references as metadata for systems to find.
 	world.set_meta("father_tilemap", father_tilemap)
 	world.set_meta("son_tilemap", son_tilemap)
 
-	# Spawn players — add_to_tree=false, manually placed in SubViewport
+	# --- Spawn entities (GECS manages tree placement) ---
 	father_player = E_Player.new()
 	father_player.era = C_TimelineEra.Era.FATHER
 	father_player.start_col = 2
 	father_player.start_row = 2
 	father_player.name = "FatherPlayer"
-	father_view.get_node("SubViewport").add_child(father_player)
-	ECS.world.add_entity(father_player, [], false)
+	ECS.world.add_entity(father_player)
 
 	son_player = E_Player.new()
 	son_player.era = C_TimelineEra.Era.SON
 	son_player.start_col = 7
 	son_player.start_row = 4
 	son_player.name = "SonPlayer"
-	son_view.get_node("SubViewport").add_child(son_player)
-	ECS.world.add_entity(son_player, [], false)
+	ECS.world.add_entity(son_player)
 
-	# Spawn interactables
-	var boulder = E_Interactable.new()
-	boulder.era = C_TimelineEra.Era.FATHER
-	boulder.start_col = BOULDER_COL
-	boulder.start_row = BOULDER_ROW
-	boulder.interact_type = C_Interactable.InteractType.BOULDER
-	boulder.id = "boulder_father"
-	boulder.linked_id = "blocked_son"
-	boulder.name = "Boulder"
-	father_view.get_node("SubViewport").add_child(boulder)
-	ECS.world.add_entity(boulder, [], false)
+	boulder_entity = E_Interactable.new()
+	boulder_entity.era = C_TimelineEra.Era.FATHER
+	boulder_entity.start_col = BOULDER_COL
+	boulder_entity.start_row = BOULDER_ROW
+	boulder_entity.interact_type = C_Interactable.InteractType.BOULDER
+	boulder_entity.id = "boulder_father"
+	boulder_entity.linked_id = "blocked_son"
+	boulder_entity.name = "Boulder"
+	ECS.world.add_entity(boulder_entity)
 
-	var blocked = E_Interactable.new()
-	blocked.era = C_TimelineEra.Era.SON
-	blocked.start_col = BLOCKED_COL
-	blocked.start_row = BLOCKED_ROW
-	blocked.interact_type = C_Interactable.InteractType.BOULDER
-	blocked.id = "blocked_son"
-	blocked.linked_id = "boulder_father"
-	blocked.name = "BlockedPath"
-	son_view.get_node("SubViewport").add_child(blocked)
-	ECS.world.add_entity(blocked, [], false)
+	blocked_entity = E_Interactable.new()
+	blocked_entity.era = C_TimelineEra.Era.SON
+	blocked_entity.start_col = BLOCKED_COL
+	blocked_entity.start_row = BLOCKED_ROW
+	blocked_entity.interact_type = C_Interactable.InteractType.BOULDER
+	blocked_entity.id = "blocked_son"
+	blocked_entity.linked_id = "boulder_father"
+	blocked_entity.name = "BlockedPath"
+	ECS.world.add_entity(blocked_entity)
+
+	# --- Create visual sprites in SubViewports ---
+	_create_visual(father_view, father_player, EntityVisual.VisualType.PLAYER_FATHER)
+	_create_visual(son_view, son_player, EntityVisual.VisualType.PLAYER_SON)
+	_create_visual(father_view, boulder_entity, EntityVisual.VisualType.BOULDER)
+	_create_visual(son_view, blocked_entity, EntityVisual.VisualType.BLOCKED)
 
 	# Register systems
 	var input_system = S_PlayerInput.new()
@@ -120,18 +127,44 @@ func _ready() -> void:
 	_update_layout()
 	get_viewport().size_changed.connect(_update_layout)
 
+func _create_visual(view: SubViewportContainer, entity: Entity, type: EntityVisual.VisualType) -> void:
+	var visual = EntityVisual.new()
+	visual.visual_type = type
+	visual.entity = entity
+	var grid_pos = entity.get_component(C_GridPosition) as C_GridPosition
+	if grid_pos:
+		visual.position = Vector2(grid_pos.visual_x, grid_pos.visual_y)
+	view.get_node("SubViewport").add_child(visual)
+	_visuals.append(visual)
+
 func _input(event: InputEvent) -> void:
+	# Tab toggles active era
 	if event is InputEventKey and event.pressed and event.keycode == KEY_TAB:
 		get_viewport().set_input_as_handled()
 		_toggle_era()
+	# M toggles world map
 	if event is InputEventKey and event.pressed and event.keycode == KEY_M:
 		get_viewport().set_input_as_handled()
 		_toggle_map()
 
 func _process(delta: float) -> void:
 	ECS.process(delta)
+	_sync_visuals()
+	_update_cameras()
 
-	# Update cameras to follow players
+func _sync_visuals() -> void:
+	for visual in _visuals:
+		if not visual.entity:
+			continue
+		var grid_pos = visual.entity.get_component(C_GridPosition) as C_GridPosition
+		if grid_pos:
+			visual.position = Vector2(grid_pos.visual_x, grid_pos.visual_y)
+		# Hide interactables that have been activated
+		if visual.entity.has_component(C_Interactable):
+			var interact = visual.entity.get_component(C_Interactable) as C_Interactable
+			visual.visible = (interact.state == C_Interactable.InteractState.DEFAULT)
+
+func _update_cameras() -> void:
 	var active_player = father_player if active_era == C_TimelineEra.Era.FATHER else son_player
 	var inactive_player = son_player if active_era == C_TimelineEra.Era.FATHER else father_player
 	var active_view = father_view if active_era == C_TimelineEra.Era.FATHER else son_view
@@ -139,10 +172,16 @@ func _process(delta: float) -> void:
 
 	var active_cam = active_view.get_node("SubViewport/Camera2D") as Camera2D
 	var inactive_cam = inactive_view.get_node("SubViewport/Camera2D") as Camera2D
-	if active_player:
-		active_cam.position = active_cam.position.lerp(active_player.position, 0.1)
-	if inactive_player:
-		inactive_cam.position = inactive_cam.position.lerp(inactive_player.position, 0.1)
+
+	# Follow players via component data (entities don't have position).
+	var active_gp = active_player.get_component(C_GridPosition) as C_GridPosition
+	var inactive_gp = inactive_player.get_component(C_GridPosition) as C_GridPosition
+	if active_gp:
+		var target = Vector2(active_gp.visual_x + TILE_SIZE / 2.0, active_gp.visual_y + TILE_SIZE / 2.0)
+		active_cam.position = active_cam.position.lerp(target, 0.1)
+	if inactive_gp:
+		var target = Vector2(inactive_gp.visual_x + TILE_SIZE / 2.0, inactive_gp.visual_y + TILE_SIZE / 2.0)
+		inactive_cam.position = inactive_cam.position.lerp(target, 0.1)
 
 func _toggle_era() -> void:
 	if active_era == C_TimelineEra.Era.FATHER:
@@ -198,6 +237,7 @@ func _update_layout() -> void:
 		inactive_view_node.size = Vector2(inactive_w, inactive_h)
 		inactive_view_node.get_node("SubViewport").size = Vector2i(int(inactive_w), int(inactive_h))
 
+		# Active view in front
 		move_child(active_view_node, get_child_count() - 1)
 
 		var tween = create_tween().set_parallel(true)
@@ -220,27 +260,31 @@ func _build_game_view(era: C_TimelineEra.Era, map_data: Array, source_id: int) -
 	viewport.canvas_item_default_texture_filter = SubViewport.DEFAULT_CANVAS_ITEM_TEXTURE_FILTER_NEAREST
 	container.add_child(viewport)
 
+	# TileMapLayer
 	var tilemap = TileMapLayer.new()
 	tilemap.name = "TileMapLayer"
 	tilemap.tile_set = tileset
 	viewport.add_child(tilemap)
 
+	# Populate tiles
 	for row in range(MAP_HEIGHT):
 		for col in range(MAP_WIDTH):
 			var atlas_coord = Vector2i(map_data[row][col], 0)
 			tilemap.set_cell(Vector2i(col, row), source_id, atlas_coord)
 
+	# Store tilemap reference
 	if era == C_TimelineEra.Era.FATHER:
 		father_tilemap = tilemap
 	else:
 		son_tilemap = tilemap
 
+	# Camera centered on map
 	var camera = Camera2D.new()
 	camera.name = "Camera2D"
-	camera.position = Vector2(MAP_WIDTH * TILE_SIZE / 2, MAP_HEIGHT * TILE_SIZE / 2)
+	camera.position = Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0)
 	viewport.add_child(camera)
 
-	# Era label overlay on the container
+	# Era label overlay
 	var label = Label.new()
 	label.name = "EraLabel"
 	var era_text = "FATHER ERA" if era == C_TimelineEra.Era.FATHER else "SON ERA"

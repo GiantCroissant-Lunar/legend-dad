@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Same Spot Overlap</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background:#1a1a2e; color:#e0d5c0; font-family:'Segoe UI',system-ui,sans-serif;
+    padding:24px; max-width:800px; margin:0 auto;
+  }
+  h2 { color:#e0d5c0; margin-bottom:4px; font-size:20px; }
+  .subtitle { color:#9a8e7a; margin-bottom:24px; font-size:14px; }
+  h3 { color:#c4a265; margin-bottom:8px; font-size:16px; }
+
+  .concept {
+    background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+    border-radius:10px; padding:20px; margin-bottom:20px;
+    transition: border-color 0.3s;
+  }
+  .concept:hover { border-color:rgba(196,162,101,0.3); }
+
+  .concept-header {
+    display:flex; align-items:center; gap:12px; margin-bottom:12px;
+  }
+  .concept-icon {
+    width:40px; height:40px; border-radius:8px; display:flex;
+    align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+  }
+
+  .demo-frame {
+    position:relative; width:100%; height:200px;
+    background:linear-gradient(135deg,#1a1a2e,#2a2a4e);
+    border-radius:8px; overflow:hidden; margin:12px 0;
+    border:1px solid rgba(255,255,255,0.1);
+  }
+
+  /* Concept A: Temporal Resonance */
+  .resonance-left, .resonance-right {
+    position:absolute; top:10px; bottom:10px; width:47%;
+    border-radius:6px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+  }
+  .resonance-left { left:10px; background:linear-gradient(135deg,#1a3a0a,#2d5016); border:2px solid #ffcc00; }
+  .resonance-right { right:10px; background:linear-gradient(135deg,#2a1515,#4a2525); border:2px solid #aa5555; }
+  .resonance-link {
+    position:absolute; top:50%; left:47%; width:6%; height:2px;
+    background:linear-gradient(90deg,#ffcc00,#ff6666);
+    animation: linkPulse 1.5s ease-in-out infinite;
+  }
+  @keyframes linkPulse {
+    0%,100% { opacity:0.3; height:2px; }
+    50% { opacity:1; height:4px; }
+  }
+  .era-label { font-size:9px; font-weight:bold; margin-bottom:6px; }
+  .era-label.gold { color:#ffcc00; }
+  .era-label.red { color:#ff8888; }
+
+  .tile-row { display:flex; gap:2px; margin:2px 0; }
+  .t { width:18px; height:18px; border-radius:2px; transition:all 0.5s; }
+  .t-grass { background:#3a6b1e; }
+  .t-path { background:#8b7355; }
+  .t-stone { background:#777; }
+  .t-stone-moved { background:#777; transform:translateX(18px); }
+  .t-empty { background:#2a4a12; }
+  .t-open { background:#8b7355; }
+  .t-blocked { background:#555; }
+  .t-ruin { background:#4a3a2a; }
+  .t-water { background:#2a5a8b; }
+
+  .demo-btn {
+    position:absolute; bottom:8px; left:50%; transform:translateX(-50%);
+    background:#5a4a2a; color:#e0d5c0; border:1px solid #8b7355;
+    padding:4px 12px; border-radius:4px; font-size:10px; cursor:pointer;
+    z-index:10;
+  }
+  .demo-btn:hover { background:#6b5a3a; border-color:#ffcc00; }
+
+  /* Concept B: Echo Battle */
+  .battle-frame { height:180px; }
+  .battle-side {
+    position:absolute; top:10px; bottom:10px; width:47%;
+    border-radius:6px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:8px;
+  }
+  .battle-left { left:10px; background:linear-gradient(135deg,#1a3a0a,#2d5016); border:2px solid #ffcc00; }
+  .battle-right { right:10px; background:linear-gradient(135deg,#2a1515,#4a2525); border:2px solid #aa5555; }
+  .enemy-sprite { font-size:28px; position:relative; }
+  .hp-bar {
+    width:60px; height:6px; background:#333; border-radius:3px; overflow:hidden;
+  }
+  .hp-fill { height:100%; border-radius:3px; transition:width 0.5s; }
+  .hp-fill.full { width:100%; background:#4CAF50; }
+  .hp-fill.wounded { width:60%; background:#ff9800; }
+  .hp-fill.critical { width:20%; background:#f44336; }
+  .scar-mark {
+    position:absolute; top:-2px; right:-6px; font-size:12px; color:#ff4444;
+    opacity:0; transition:opacity 0.5s;
+  }
+  .scar-mark.visible { opacity:1; }
+  .attack-flash {
+    position:absolute; inset:0; background:rgba(255,204,0,0.3);
+    opacity:0; transition:opacity 0.2s; pointer-events:none; border-radius:6px;
+  }
+
+  /* Concept C: Convergence */
+  .convergence-frame { height:220px; position:relative; }
+  .merge-view {
+    position:absolute; top:10px; left:50%; transform:translateX(-50%);
+    width:85%; height:calc(100% - 20px); border-radius:8px;
+    overflow:hidden; border:2px solid;
+    transition:all 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+  .merge-view.split {
+    border-image:linear-gradient(90deg,#ffcc00 50%,#aa5555 50%) 1;
+  }
+  .merge-view.merged {
+    border-color:#c4a265;
+  }
+  .merge-inner {
+    display:flex; width:100%; height:100%; transition:all 0.8s;
+  }
+  .merge-half {
+    flex:1; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; transition:all 0.8s;
+  }
+  .merge-half.father-half { background:linear-gradient(135deg,#1a3a0a,#2d5016); }
+  .merge-half.son-half { background:linear-gradient(135deg,#2a1515,#4a2525); }
+  .merge-half.merged-half { background:linear-gradient(135deg,#2a2a10,#4a4a25); }
+  .merge-divider {
+    width:3px; background:linear-gradient(180deg,#ffcc00,#aa5555);
+    transition:all 0.8s; position:relative;
+  }
+  .merge-divider::after {
+    content:'⟷'; position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%); color:#fff; font-size:14px;
+    text-shadow:0 0 8px rgba(196,162,101,0.8);
+  }
+  .merge-divider.hidden { width:0; opacity:0; }
+  .char-icon { font-size:24px; margin-bottom:4px; }
+  .location-label {
+    font-size:9px; color:#aaa; background:rgba(0,0,0,0.4);
+    padding:2px 8px; border-radius:3px;
+  }
+
+  /* Concept D: Temporal Puzzle */
+  .puzzle-frame { height:200px; }
+  .puzzle-view {
+    position:absolute; top:10px; bottom:10px; width:47%;
+    border-radius:6px; display:flex; flex-direction:column;
+    align-items:center; padding-top:22px;
+  }
+  .puzzle-left { left:10px; background:linear-gradient(135deg,#1a3a0a,#2d5016); border:2px solid #ffcc00; }
+  .puzzle-right { right:10px; background:linear-gradient(135deg,#2a1515,#4a2525); border:2px solid #aa5555; }
+  .puzzle-grid {
+    display:grid; grid-template-columns:repeat(5,22px); grid-template-rows:repeat(3,22px);
+    gap:2px;
+  }
+  .p { width:22px; height:22px; border-radius:2px; display:flex;
+    align-items:center; justify-content:center; font-size:10px;
+    transition:all 0.5s;
+  }
+  .p-floor { background:#5a4a2a; }
+  .p-wall { background:#333; }
+  .p-door { background:#8b6914; }
+  .p-door-locked { background:#555; border:1px solid #ff4444; }
+  .p-door-open { background:#8b7355; }
+  .p-switch { background:#2a5a2a; cursor:pointer; }
+  .p-switch-on { background:#4CAF50; }
+  .p-water { background:#2a5a8b; }
+  .p-dry { background:#8b7355; }
+  .p-hero { background:#ffcc0044; }
+  .p-son { background:#ff666644; }
+
+  .description { color:#9a8e7a; font-size:13px; line-height:1.7; margin:8px 0; }
+  .tag {
+    display:inline-block; padding:2px 8px; border-radius:12px;
+    font-size:10px; font-weight:bold; margin:2px;
+  }
+  .tag-puzzle { background:rgba(76,175,80,0.2); color:#81C784; }
+  .tag-combat { background:rgba(244,67,54,0.2); color:#ef9a9a; }
+  .tag-story { background:rgba(33,150,243,0.2); color:#90CAF9; }
+  .tag-unique { background:rgba(196,162,101,0.2); color:#c4a265; }
+
+  .summary {
+    background:rgba(196,162,101,0.08); border:1px solid rgba(196,162,101,0.2);
+    border-radius:10px; padding:20px; margin-top:24px;
+  }
+  .summary h3 { color:#e0d5c0; }
+  .summary ul { list-style:none; padding:0; }
+  .summary li {
+    font-size:13px; color:#9a8e7a; line-height:2;
+    padding-left:16px; position:relative;
+  }
+  .summary li::before {
+    content:'→'; position:absolute; left:0; color:#c4a265;
+  }
+</style>
+</head>
+<body>
+
+<h2>When Father & Son Are at the Same Location</h2>
+<p class="subtitle">The world map shows overlapping markers. What special gameplay unlocks?</p>
+
+<!-- Concept A: Temporal Resonance Puzzle -->
+<div class="concept">
+  <div class="concept-header">
+    <div class="concept-icon" style="background:rgba(76,175,80,0.15);">🔗</div>
+    <div>
+      <h3>A. Temporal Resonance — Real-Time Cause & Effect</h3>
+      <span class="tag tag-puzzle">Puzzle</span>
+      <span class="tag tag-unique">Signature Mechanic</span>
+    </div>
+  </div>
+  <p class="description">
+    When both characters are at the same location, their views become <strong>linked</strong>.
+    Father's actions in the past update the son's view in real-time. Move a boulder as the father —
+    watch the path open in the son's view instantly. This is the tightest version of your cause-and-effect loop.
+  </p>
+  <div class="demo-frame" id="resonanceDemo">
+    <div class="resonance-left">
+      <div class="era-label gold">FATHER — 20 YEARS AGO</div>
+      <div class="tile-row">
+        <div class="t t-grass"></div><div class="t t-grass"></div><div class="t t-path"></div><div class="t t-grass"></div>
+      </div>
+      <div class="tile-row">
+        <div class="t t-grass"></div><div class="t t-path" id="fatherPath"></div><div class="t t-stone" id="fatherStone">◼</div><div class="t t-grass"></div>
+      </div>
+      <div class="tile-row">
+        <div class="t t-grass"></div><div class="t t-path"></div><div class="t t-grass"></div><div class="t t-grass"></div>
+      </div>
+    </div>
+    <div class="resonance-link"></div>
+    <div class="resonance-right">
+      <div class="era-label red">SON — PRESENT DAY</div>
+      <div class="tile-row">
+        <div class="t t-ruin"></div><div class="t t-ruin"></div><div class="t t-path"></div><div class="t t-ruin"></div>
+      </div>
+      <div class="tile-row">
+        <div class="t t-ruin"></div><div class="t t-path"></div><div class="t t-blocked" id="sonBlocked">✕</div><div class="t t-ruin"></div>
+      </div>
+      <div class="tile-row">
+        <div class="t t-ruin"></div><div class="t t-path"></div><div class="t t-ruin"></div><div class="t t-ruin"></div>
+      </div>
+    </div>
+    <button class="demo-btn" onclick="demoResonance()">▶ Father pushes the stone</button>
+  </div>
+  <p class="description" style="font-size:12px;color:#7a6e5a;">
+    Click to see: Father moves a boulder → Son's blocked path opens in the other view simultaneously.
+  </p>
+</div>
+
+<!-- Concept B: Echo Battle -->
+<div class="concept">
+  <div class="concept-header">
+    <div class="concept-icon" style="background:rgba(244,67,54,0.15);">⚔️</div>
+    <div>
+      <h3>B. Echo Battle — Cross-Timeline Combat</h3>
+      <span class="tag tag-combat">Combat</span>
+      <span class="tag tag-unique">Signature Mechanic</span>
+    </div>
+  </div>
+  <p class="description">
+    Father fights a powerful enemy at a location. In the son's era, the same enemy (or its descendant)
+    exists — but it still carries <strong>scars from the father's battle</strong>. When both are at the same spot,
+    combat becomes linked: father's attacks in the past create lasting weaknesses the son can exploit in the future.
+  </p>
+  <div class="demo-frame battle-frame" id="battleDemo">
+    <div class="battle-side battle-left">
+      <div class="era-label gold">FATHER FIGHTS</div>
+      <div class="enemy-sprite" id="enemyPast">
+        🐉
+        <span class="scar-mark" id="scarPast">💥</span>
+      </div>
+      <div class="hp-bar"><div class="hp-fill full" id="hpPast"></div></div>
+      <div style="font-size:9px;color:#8fbc5a;margin-top:4px;">Dragon Lord</div>
+      <div class="attack-flash" id="flashPast"></div>
+    </div>
+    <div class="resonance-link"></div>
+    <div class="battle-side battle-right">
+      <div class="era-label red">SON EXPLOITS</div>
+      <div class="enemy-sprite" id="enemyFuture">
+        🐉
+        <span class="scar-mark" id="scarFuture">⚡</span>
+      </div>
+      <div class="hp-bar"><div class="hp-fill full" id="hpFuture"></div></div>
+      <div style="font-size:9px;color:#cc7777;margin-top:4px;">Ancient Dragon Lord</div>
+      <div class="attack-flash" id="flashFuture"></div>
+    </div>
+    <button class="demo-btn" onclick="demoBattle()">▶ Father wounds the dragon</button>
+  </div>
+  <p class="description" style="font-size:12px;color:#7a6e5a;">
+    Click to see: Father's attack creates a scar → Dragon in son's era appears weakened at that same point.
+  </p>
+</div>
+
+<!-- Concept C: Timeline Convergence -->
+<div class="concept">
+  <div class="concept-header">
+    <div class="concept-icon" style="background:rgba(33,150,243,0.15);">🌀</div>
+    <div>
+      <h3>C. Timeline Convergence — The Views Merge</h3>
+      <span class="tag tag-story">Story</span>
+      <span class="tag tag-puzzle">Puzzle</span>
+      <span class="tag tag-unique">Signature Mechanic</span>
+    </div>
+  </div>
+  <p class="description">
+    At key story moments when both characters are at the same sacred location, the two windows
+    <strong>physically merge into one larger view</strong> — father and son occupy the same space across time.
+    They can't see each other, but their actions interleave. The son steps on a floor plate that the father
+    needs to unlock a door. The father lights a torch that illuminates the son's dark room.
+  </p>
+  <div class="demo-frame convergence-frame" id="convergenceDemo">
+    <div class="merge-view split" id="mergeView">
+      <div class="merge-inner">
+        <div class="merge-half father-half" id="fatherMerge">
+          <div class="era-label gold">FATHER</div>
+          <div class="char-icon">⚔️</div>
+          <div class="location-label">Ancient Temple — 20 Years Ago</div>
+        </div>
+        <div class="merge-divider" id="mergeDivider"></div>
+        <div class="merge-half son-half" id="sonMerge">
+          <div class="era-label red">SON</div>
+          <div class="char-icon">🛡️</div>
+          <div class="location-label">Ancient Temple Ruins — Present</div>
+        </div>
+      </div>
+    </div>
+    <button class="demo-btn" onclick="demoConvergence()">▶ Timelines converge</button>
+  </div>
+  <p class="description" style="font-size:12px;color:#7a6e5a;">
+    Click to see: The two windows merge into a single unified view for special convergence moments.
+  </p>
+</div>
+
+<!-- Concept D: Temporal Dungeon -->
+<div class="concept">
+  <div class="concept-header">
+    <div class="concept-icon" style="background:rgba(156,39,176,0.15);">🏛️</div>
+    <div>
+      <h3>D. Temporal Dungeon — Two-Era Linked Dungeon</h3>
+      <span class="tag tag-puzzle">Puzzle</span>
+      <span class="tag tag-combat">Combat</span>
+    </div>
+  </div>
+  <p class="description">
+    When both are at the same dungeon, it becomes a <strong>two-era linked dungeon</strong>. Same floor plan,
+    different states. Father's dungeon is intact with traps and guards; son's is ruined but has collapsed paths.
+    The player must switch between them to solve rooms: father opens water gates, son walks on the drained floor.
+    Father defeats a guard blocking a lever, son uses the lever 20 years later.
+  </p>
+  <div class="demo-frame puzzle-frame" id="puzzleDemo">
+    <div class="puzzle-view puzzle-left">
+      <div class="era-label gold">FATHER'S DUNGEON (intact)</div>
+      <div class="puzzle-grid" style="margin-top:8px;">
+        <div class="p p-wall"></div><div class="p p-wall"></div><div class="p p-door">🚪</div><div class="p p-wall"></div><div class="p p-wall"></div>
+        <div class="p p-floor"></div><div class="p p-hero" id="fatherPos">⚔</div><div class="p p-floor"></div><div class="p p-water" id="waterTile">💧</div><div class="p p-floor"></div>
+        <div class="p p-wall"></div><div class="p p-switch" id="gateSwitch" onclick="demoPuzzle()">⚙</div><div class="p p-floor"></div><div class="p p-wall"></div><div class="p p-wall"></div>
+      </div>
+      <div style="font-size:9px;color:#8fbc5a;margin-top:6px;">Click the ⚙ switch!</div>
+    </div>
+    <div class="resonance-link"></div>
+    <div class="puzzle-view puzzle-right">
+      <div class="era-label red">SON'S DUNGEON (ruined)</div>
+      <div class="puzzle-grid" style="margin-top:8px;">
+        <div class="p p-wall"></div><div class="p p-ruin"></div><div class="p p-door-locked" id="sonDoor">🔒</div><div class="p p-wall"></div><div class="p p-ruin"></div>
+        <div class="p p-ruin"></div><div class="p p-floor"></div><div class="p p-floor"></div><div class="p p-water" id="sonWater">💧</div><div class="p p-son" id="sonPos">🛡</div>
+        <div class="p p-wall"></div><div class="p p-ruin"></div><div class="p p-floor"></div><div class="p p-ruin"></div><div class="p p-wall"></div>
+      </div>
+      <div style="font-size:9px;color:#cc7777;margin-top:6px;">Blocked by water...</div>
+    </div>
+  </div>
+  <p class="description" style="font-size:12px;color:#7a6e5a;">
+    Click the ⚙ switch in father's dungeon to drain the water in son's dungeon.
+  </p>
+</div>
+
+<!-- Summary -->
+<div class="summary">
+  <h3>These aren't mutually exclusive</h3>
+  <ul>
+    <li><strong>Resonance (A)</strong> can be the default mechanic when both are at any shared location</li>
+    <li><strong>Echo Battle (B)</strong> can be how boss fights work at shared locations</li>
+    <li><strong>Convergence (C)</strong> can be reserved for 3-4 major story moments (rare, impactful)</li>
+    <li><strong>Temporal Dungeon (D)</strong> can be the structure for shared-location dungeons</li>
+    <li>Normal locations use A. Bosses use A+B. Story climaxes use C. Dungeons use A+D.</li>
+  </ul>
+</div>
+
+<script>
+let resonanceToggle = false;
+function demoResonance() {
+  resonanceToggle = !resonanceToggle;
+  const stone = document.getElementById('fatherStone');
+  const blocked = document.getElementById('sonBlocked');
+  const btn = event.target;
+  if (resonanceToggle) {
+    stone.style.background = '#2a4a12';
+    stone.textContent = '';
+    blocked.style.background = '#8b7355';
+    blocked.textContent = '✓';
+    blocked.style.color = '#4CAF50';
+    btn.textContent = '◀ Reset';
+  } else {
+    stone.style.background = '#777';
+    stone.textContent = '◼';
+    blocked.style.background = '#555';
+    blocked.textContent = '✕';
+    blocked.style.color = '';
+    btn.textContent = '▶ Father pushes the stone';
+  }
+}
+
+let battleStep = 0;
+function demoBattle() {
+  battleStep = (battleStep + 1) % 3;
+  const hpPast = document.getElementById('hpPast');
+  const hpFuture = document.getElementById('hpFuture');
+  const scarPast = document.getElementById('scarPast');
+  const scarFuture = document.getElementById('scarFuture');
+  const flashPast = document.getElementById('flashPast');
+  const btn = event.target;
+
+  if (battleStep === 1) {
+    flashPast.style.opacity = '1';
+    setTimeout(() => flashPast.style.opacity = '0', 300);
+    hpPast.className = 'hp-fill wounded';
+    scarPast.classList.add('visible');
+    setTimeout(() => {
+      hpFuture.className = 'hp-fill wounded';
+      scarFuture.classList.add('visible');
+    }, 500);
+    btn.textContent = '▶ Father strikes again!';
+  } else if (battleStep === 2) {
+    flashPast.style.opacity = '1';
+    setTimeout(() => flashPast.style.opacity = '0', 300);
+    hpPast.className = 'hp-fill critical';
+    setTimeout(() => {
+      hpFuture.className = 'hp-fill critical';
+    }, 500);
+    btn.textContent = '◀ Reset';
+  } else {
+    hpPast.className = 'hp-fill full';
+    hpFuture.className = 'hp-fill full';
+    scarPast.classList.remove('visible');
+    scarFuture.classList.remove('visible');
+    btn.textContent = '▶ Father wounds the dragon';
+  }
+}
+
+let mergeToggle = false;
+function demoConvergence() {
+  mergeToggle = !mergeToggle;
+  const view = document.getElementById('mergeView');
+  const divider = document.getElementById('mergeDivider');
+  const fatherMerge = document.getElementById('fatherMerge');
+  const sonMerge = document.getElementById('sonMerge');
+  const btn = event.target;
+
+  if (mergeToggle) {
+    view.classList.remove('split');
+    view.classList.add('merged');
+    divider.classList.add('hidden');
+    fatherMerge.classList.add('merged-half');
+    sonMerge.classList.add('merged-half');
+    fatherMerge.querySelector('.location-label').textContent = 'Ancient Temple — Time Converged';
+    sonMerge.querySelector('.location-label').textContent = 'Ancient Temple — Time Converged';
+    btn.textContent = '◀ Separate timelines';
+  } else {
+    view.classList.add('split');
+    view.classList.remove('merged');
+    divider.classList.remove('hidden');
+    fatherMerge.classList.remove('merged-half');
+    sonMerge.classList.remove('merged-half');
+    fatherMerge.querySelector('.location-label').textContent = 'Ancient Temple — 20 Years Ago';
+    sonMerge.querySelector('.location-label').textContent = 'Ancient Temple Ruins — Present';
+    btn.textContent = '▶ Timelines converge';
+  }
+}
+
+let puzzleToggle = false;
+function demoPuzzle() {
+  puzzleToggle = !puzzleToggle;
+  const sw = document.getElementById('gateSwitch');
+  const water = document.getElementById('waterTile');
+  const sonWater = document.getElementById('sonWater');
+
+  if (puzzleToggle) {
+    sw.classList.add('p-switch-on');
+    sw.textContent = '✓';
+    water.style.background = '#8b7355';
+    water.textContent = '';
+    setTimeout(() => {
+      sonWater.style.background = '#8b7355';
+      sonWater.textContent = '→';
+      sonWater.style.color = '#4CAF50';
+    }, 400);
+  } else {
+    sw.classList.remove('p-switch-on');
+    sw.textContent = '⚙';
+    water.style.background = '#2a5a8b';
+    water.textContent = '💧';
+    sonWater.style.background = '#2a5a8b';
+    sonWater.textContent = '💧';
+    sonWater.style.color = '';
+  }
+}
+</script>
+
+</body>
+</html>

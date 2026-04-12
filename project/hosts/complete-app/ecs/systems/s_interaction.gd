@@ -36,11 +36,11 @@ func process(entities: Array[Entity], _components: Array, _delta: float) -> void
 				_activate(target_entity, interactable)
 			break
 
-func _activate(entity: Entity, interactable: C_Interactable) -> void:
+func _activate(_entity: Entity, interactable: C_Interactable) -> void:
+	# Set component state — visual sync in main.gd hides the EntityVisual.
 	interactable.state = C_Interactable.InteractState.ACTIVATED
-	entity.visible = false
 
-	var link = entity.get_component(C_TimelineLinked) as C_TimelineLinked
+	var link = _entity.get_component(C_TimelineLinked) as C_TimelineLinked
 	if not link or link.linked_entity_id.is_empty():
 		return
 
@@ -49,5 +49,4 @@ func _activate(entity: Entity, interactable: C_Interactable) -> void:
 		if linked_entity.id == link.linked_entity_id:
 			var linked_interact = linked_entity.get_component(C_Interactable) as C_Interactable
 			linked_interact.state = C_Interactable.InteractState.ACTIVATED
-			linked_entity.visible = false
 			break

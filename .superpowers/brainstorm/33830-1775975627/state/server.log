@@ -1,0 +1,5 @@
+{"type":"server-started","port":63362,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:63362","screen_dir":"/Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad/.superpowers/brainstorm/33830-1775975627/content","state_dir":"/Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad/.superpowers/brainstorm/33830-1775975627/state"}
+{"type":"screen-added","file":"/Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad/.superpowers/brainstorm/33830-1775975627/content/screen-split-layout.html"}
+{"type":"screen-added","file":"/Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad/.superpowers/brainstorm/33830-1775975627/content/floating-views-layout.html"}
+{"type":"screen-added","file":"/Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad/.superpowers/brainstorm/33830-1775975627/content/map-peek-interaction.html"}
+{"type":"server-stopped","reason":"owner process exited"}
