@@ -1,0 +1,30 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Godot
+project/hosts/complete-app/.godot/
+
+# Builds
+builds/web/*
+!builds/web/.gitkeep
+
+# Node
+node_modules/
+*.tgz
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Obsidian volatile
+vault/.obsidian/workspace.json
+vault/.obsidian/workspace-mobile.json
+vault/.obsidian/plugins/*/data.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
