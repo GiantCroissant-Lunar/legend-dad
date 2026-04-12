@@ -60,6 +60,17 @@ var _visuals: Array[EntityVisual] = []
 # Debug HUD
 var _debug_label: Label
 
+# Battle state
+var in_battle := false
+var _battle_manager: BattleManager = null
+var _battle_ui: BattleUI = null
+var _battle_enemy_entity: E_Enemy = null
+var _battle_enemy_visual: EntityVisual = null
+
+# Enemy entities
+var _enemy_entities: Array[E_Enemy] = []
+var _enemy_visuals: Array[EntityVisual] = []
+
 func _ready() -> void:
 	tileset = TilesetFactory.create_tileset()
 
@@ -144,6 +155,10 @@ func _ready() -> void:
 	add_child(hud_layer)
 	hud_layer.add_child(_debug_label)
 
+	# --- Spawn overworld enemies ---
+	_spawn_enemy(C_TimelineEra.Era.FATHER, 4, 4, "slime")
+	_spawn_enemy(C_TimelineEra.Era.FATHER, 7, 6, "slime")
+
 	_update_layout()
 	get_viewport().size_changed.connect(_update_layout)
 
@@ -157,7 +172,112 @@ func _create_visual(view: SubViewportContainer, entity: Entity, type: EntityVisu
 	view.get_node("SubViewport").add_child(visual)
 	_visuals.append(visual)
 
+func _spawn_enemy(era: C_TimelineEra.Era, col: int, row: int, enemy_type: String) -> void:
+	var enemy = E_Enemy.new()
+	enemy.era = era
+	enemy.start_col = col
+	enemy.start_row = row
+	enemy.enemy_type = enemy_type
+	enemy.name = "Enemy_%s_%d_%d" % [enemy_type, col, row]
+	ECS.world.add_entity(enemy)
+	_enemy_entities.append(enemy)
+
+	var view = father_view if era == C_TimelineEra.Era.FATHER else son_view
+	var visual = EntityVisual.new()
+	visual.visual_type = EntityVisual.VisualType.ENEMY
+	visual.entity = enemy
+	var enemy_data = BattleData.ENEMIES.get(enemy_type, {})
+	visual.enemy_color = enemy_data.get("color", Color(0.2, 0.8, 0.3))
+	var gp = enemy.get_component(C_GridPosition) as C_GridPosition
+	if gp:
+		visual.position = Vector2(gp.visual_x, gp.visual_y)
+	view.get_node("SubViewport").add_child(visual)
+	_visuals.append(visual)
+	_enemy_visuals.append(visual)
+
+func _check_enemy_encounter() -> void:
+	var active_player = father_player if active_era == C_TimelineEra.Era.FATHER else son_player
+	var player_gp = active_player.get_component(C_GridPosition) as C_GridPosition
+	var player_era = active_player.get_component(C_TimelineEra) as C_TimelineEra
+	if not player_gp or not player_era:
+		return
+
+	var face_col = player_gp.col + player_gp.facing.x
+	var face_row = player_gp.row + player_gp.facing.y
+
+	for i in _enemy_entities.size():
+		var enemy = _enemy_entities[i]
+		var e_era = enemy.get_component(C_TimelineEra) as C_TimelineEra
+		if e_era.era != player_era.era:
+			continue
+		var e_gp = enemy.get_component(C_GridPosition) as C_GridPosition
+		if e_gp.col == face_col and e_gp.row == face_row:
+			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
+				_start_battle(enemy, _enemy_visuals[i])
+				return
+
+func _start_battle(enemy_entity: E_Enemy, enemy_visual: EntityVisual) -> void:
+	in_battle = true
+	_battle_enemy_entity = enemy_entity
+	_battle_enemy_visual = enemy_visual
+
+	var active_view = father_view if active_era == C_TimelineEra.Era.FATHER else son_view
+	var viewport = active_view.get_node("SubViewport")
+
+	_battle_ui = BattleUI.new()
+	_battle_ui.name = "BattleUI"
+	_battle_ui.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	_battle_ui.z_index = 100
+	viewport.add_child(_battle_ui)
+
+	_battle_manager = BattleManager.new()
+	_battle_manager.name = "BattleManager"
+	add_child(_battle_manager)
+	_battle_manager.battle_ended.connect(_on_battle_ended)
+
+	var party_combatants: Array[Combatant] = []
+	if active_era == C_TimelineEra.Era.FATHER:
+		party_combatants.append(Combatant.from_dict(BattleData.FATHER_STATS))
+	else:
+		party_combatants.append(Combatant.from_dict(BattleData.SON_STATS))
+		party_combatants.append(Combatant.from_dict(BattleData.ALLY1_STATS))
+		party_combatants.append(Combatant.from_dict(BattleData.ALLY2_STATS))
+
+	var enemy_comp = enemy_entity.get_component(C_Enemy) as C_Enemy
+	var enemy_data = BattleData.ENEMIES.get(enemy_comp.enemy_type, BattleData.ENEMIES["slime"])
+	var enemy_combatants: Array[Combatant] = []
+	enemy_combatants.append(Combatant.from_dict(enemy_data, true))
+
+	_battle_manager.start_battle(party_combatants, enemy_combatants, _battle_ui)
+
+func _on_battle_ended(result: Dictionary) -> void:
+	in_battle = false
+
+	if _battle_ui:
+		_battle_ui.queue_free()
+		_battle_ui = null
+	if _battle_manager:
+		_battle_manager.battle_ended.disconnect(_on_battle_ended)
+		_battle_manager.queue_free()
+		_battle_manager = null
+
+	if result.get("won", false) or result.get("fled", false):
+		if _battle_enemy_visual:
+			_battle_enemy_visual.queue_free()
+			_visuals.erase(_battle_enemy_visual)
+			_enemy_visuals.erase(_battle_enemy_visual)
+		if _battle_enemy_entity:
+			_enemy_entities.erase(_battle_enemy_entity)
+			ECS.world.remove_entity(_battle_enemy_entity)
+		_battle_enemy_entity = null
+		_battle_enemy_visual = null
+
+	if not result.get("won", false) and not result.get("fled", false):
+		get_tree().reload_current_scene()
+
 func _input(event: InputEvent) -> void:
+	if in_battle:
+		return  # Battle manager handles input
 	# Tab toggles active era
 	if event is InputEventKey and event.pressed and event.keycode == KEY_TAB:
 		get_viewport().set_input_as_handled()
@@ -168,10 +288,13 @@ func _input(event: InputEvent) -> void:
 		_toggle_map()
 
 func _process(delta: float) -> void:
+	if in_battle:
+		return  # BattleManager drives its own _process
 	ECS.process(delta)
 	_sync_visuals()
 	_update_cameras()
 	_update_debug_hud()
+	_check_enemy_encounter()
 
 func _sync_visuals() -> void:
 	for visual in _visuals:
