@@ -57,6 +57,9 @@ const INACTIVE_VIEW_SCALE := 0.40
 # Visual nodes (Node2D) that live in SubViewports — synced from ECS data.
 var _visuals: Array[EntityVisual] = []
 
+# Debug HUD
+var _debug_label: Label
+
 func _ready() -> void:
 	tileset = TilesetFactory.create_tileset()
 
@@ -124,6 +127,23 @@ func _ready() -> void:
 	var interaction_system = S_Interaction.new()
 	world.add_systems([input_system, movement_system, interaction_system])
 
+	# Debug HUD (top-right corner, above everything)
+	_debug_label = Label.new()
+	_debug_label.name = "DebugHUD"
+	_debug_label.add_theme_font_size_override("font_size", 11)
+	_debug_label.add_theme_color_override("font_color", Color.WHITE)
+	_debug_label.add_theme_color_override("font_shadow_color", Color.BLACK)
+	_debug_label.add_theme_constant_override("shadow_offset_x", 1)
+	_debug_label.add_theme_constant_override("shadow_offset_y", 1)
+	_debug_label.position = Vector2(10, 10)
+	_debug_label.z_index = 100
+	# Use a CanvasLayer so it's always on top
+	var hud_layer = CanvasLayer.new()
+	hud_layer.layer = 100
+	hud_layer.name = "DebugHUDLayer"
+	add_child(hud_layer)
+	hud_layer.add_child(_debug_label)
+
 	_update_layout()
 	get_viewport().size_changed.connect(_update_layout)
 
@@ -151,6 +171,7 @@ func _process(delta: float) -> void:
 	ECS.process(delta)
 	_sync_visuals()
 	_update_cameras()
+	_update_debug_hud()
 
 func _sync_visuals() -> void:
 	for visual in _visuals:
@@ -328,3 +349,47 @@ func _build_world_map() -> void:
 		label.name = "Loc_" + loc_name.replace(" ", "")
 		label.position = locations[loc_name] * Vector2(1024, 600)
 		world_map_layer.add_child(label)
+
+func _update_debug_hud() -> void:
+	if not _debug_label:
+		return
+	var active_player = father_player if active_era == C_TimelineEra.Era.FATHER else son_player
+	var era_name = "FATHER" if active_era == C_TimelineEra.Era.FATHER else "SON"
+	var gp = active_player.get_component(C_GridPosition) as C_GridPosition
+	var facing_name = "?"
+	if gp:
+		if gp.facing == Vector2i.UP: facing_name = "UP"
+		elif gp.facing == Vector2i.DOWN: facing_name = "DOWN"
+		elif gp.facing == Vector2i.LEFT: facing_name = "LEFT"
+		elif gp.facing == Vector2i.RIGHT: facing_name = "RIGHT"
+
+	var target_col = gp.col + gp.facing.x if gp else 0
+	var target_row = gp.row + gp.facing.y if gp else 0
+
+	# Check what's at the facing tile
+	var facing_content = "empty"
+	var interactables = ECS.world.query.with_all([C_Interactable, C_GridPosition, C_TimelineEra]).execute()
+	for e in interactables:
+		var e_era = e.get_component(C_TimelineEra) as C_TimelineEra
+		if e_era.era != active_era:
+			continue
+		var e_pos = e.get_component(C_GridPosition) as C_GridPosition
+		if e_pos.col == target_col and e_pos.row == target_row:
+			var interact = e.get_component(C_Interactable) as C_Interactable
+			facing_content = "BOULDER (%s)" % ("active" if interact.state == C_Interactable.InteractState.DEFAULT else "DONE")
+			break
+
+	var boulder_state = boulder_entity.get_component(C_Interactable) as C_Interactable
+	var blocked_state = blocked_entity.get_component(C_Interactable) as C_Interactable
+
+	var entity_count = ECS.world.query.with_all([C_GridPosition]).execute().size()
+
+	_debug_label.text = (
+		"Era: %s | Pos: (%d,%d) | Facing: %s\n" % [era_name, gp.col if gp else 0, gp.row if gp else 0, facing_name]
+		+ "Looking at: (%d,%d) = %s\n" % [target_col, target_row, facing_content]
+		+ "Boulder: %s | Blocked: %s\n" % [
+			"DEFAULT" if boulder_state.state == C_Interactable.InteractState.DEFAULT else "ACTIVATED",
+			"DEFAULT" if blocked_state.state == C_Interactable.InteractState.DEFAULT else "ACTIVATED"]
+		+ "Entities in world: %d\n" % entity_count
+		+ "Controls: Arrows=move | Tab=switch era | M=map | E=interact"
+	)

@@ -5,7 +5,8 @@ func query() -> QueryBuilder:
 	return q.with_all([C_PlayerControlled, C_GridPosition, C_TimelineEra])
 
 func process(entities: Array[Entity], _components: Array, _delta: float) -> void:
-	if not Input.is_action_just_pressed("ui_accept"):
+	# ui_accept (Enter/Space) or custom interact key (E)
+	if not Input.is_action_just_pressed("ui_accept") and not Input.is_action_just_pressed("interact"):
 		return
 
 	for entity in entities:
