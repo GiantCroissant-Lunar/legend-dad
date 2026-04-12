@@ -23,7 +23,9 @@ repos:
     hooks:
       - id: ruff
         args: ["--fix"]
+        exclude: ^\.agent/
       - id: ruff-format
+        exclude: ^\.agent/
 
   - repo: local
     hooks:
