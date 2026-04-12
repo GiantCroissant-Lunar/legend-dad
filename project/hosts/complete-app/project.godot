@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 ECS="*uid://dfqwl5njvdnmq"
+GameActions="*res://scripts/game_actions.gd"
 
 [editor_plugins]
 
