@@ -1,17 +1,17 @@
 {
-  "name": "@legend-dad/game-server",
-  "version": "0.0.1",
-  "private": true,
-  "type": "module",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon"
-  },
-  "dependencies": {
-    "ws": "^8.18.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0"
-  }
+	"name": "@legend-dad/game-server",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"main": "src/index.js",
+	"scripts": {
+		"start": "node src/index.js",
+		"dev": "nodemon"
+	},
+	"dependencies": {
+		"ws": "^8.18.0"
+	},
+	"devDependencies": {
+		"nodemon": "^3.1.0"
+	}
 }
