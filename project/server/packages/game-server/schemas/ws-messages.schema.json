@@ -1,0 +1,81 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema#",
+	"title": "WSMessages",
+	"description": "All WebSocket message types between Node.js server and Godot",
+	"oneOf": [
+		{ "$ref": "#/definitions/Command" },
+		{ "$ref": "#/definitions/CommandAck" },
+		{ "$ref": "#/definitions/StateEvent" },
+		{ "$ref": "#/definitions/StateSnapshot" },
+		{ "$ref": "#/definitions/Handshake" },
+		{ "$ref": "#/definitions/HandshakeAck" }
+	],
+	"definitions": {
+		"Command": {
+			"type": "object",
+			"required": ["type", "id", "action", "payload"],
+			"properties": {
+				"type": { "const": "command" },
+				"id": { "type": "string" },
+				"action": {
+					"type": "string",
+					"enum": ["move", "interact", "switch_era", "get_state"]
+				},
+				"payload": { "type": "object" }
+			}
+		},
+		"CommandAck": {
+			"type": "object",
+			"required": ["type", "id", "success"],
+			"properties": {
+				"type": { "const": "command_ack" },
+				"id": { "type": "string" },
+				"success": { "type": "boolean" },
+				"error": { "type": ["string", "null"] }
+			}
+		},
+		"StateEvent": {
+			"type": "object",
+			"required": ["type", "event", "data"],
+			"properties": {
+				"type": { "const": "state_event" },
+				"event": {
+					"type": "string",
+					"enum": [
+						"entity_updated",
+						"interaction_result",
+						"era_switched",
+						"game_disconnected",
+						"battle_started"
+					]
+				},
+				"data": { "type": "object" }
+			}
+		},
+		"StateSnapshot": {
+			"type": "object",
+			"required": ["type", "data"],
+			"properties": {
+				"type": { "const": "state_snapshot" },
+				"data": { "$ref": "game-state.schema.json" }
+			}
+		},
+		"Handshake": {
+			"type": "object",
+			"required": ["type", "client_type"],
+			"properties": {
+				"type": { "const": "handshake" },
+				"client_type": { "type": "string", "enum": ["godot", "agent"] },
+				"name": { "type": "string" }
+			}
+		},
+		"HandshakeAck": {
+			"type": "object",
+			"required": ["type", "session_id"],
+			"properties": {
+				"type": { "const": "handshake_ack" },
+				"session_id": { "type": "string" }
+			}
+		}
+	}
+}
