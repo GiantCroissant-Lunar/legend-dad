@@ -66,6 +66,7 @@ var _battle_manager: BattleManager = null
 var _battle_ui: BattleUI = null
 var _battle_enemy_entity: E_Enemy = null
 var _battle_enemy_visual: EntityVisual = null
+var _ws_client: Node = null
 
 # Enemy entities
 var _enemy_entities: Array[E_Enemy] = []
@@ -135,8 +136,8 @@ func _ready() -> void:
 	# Register systems
 	var input_system = S_PlayerInput.new()
 	var movement_system = S_GridMovement.new()
-	var interaction_system = S_Interaction.new()
-	world.add_systems([input_system, movement_system, interaction_system])
+	var action_processor = S_ActionProcessor.new()
+	world.add_systems([input_system, movement_system, action_processor])
 
 	# Debug HUD (top-right corner, above everything)
 	_debug_label = Label.new()
@@ -158,6 +159,18 @@ func _ready() -> void:
 	# --- Spawn overworld enemies ---
 	_spawn_enemy(C_TimelineEra.Era.FATHER, 4, 4, "slime")
 	_spawn_enemy(C_TimelineEra.Era.FATHER, 7, 6, "slime")
+
+	# --- WebSocket client ---
+	var ws_client_script = preload("res://scripts/ws_client.gd")
+	var ws_client = ws_client_script.new()
+	ws_client.name = "WSClient"
+	add_child(ws_client)
+	_ws_client = ws_client
+
+	GameActions.action_switch_era.connect(_switch_active_era)
+	GameActions.state_changed.connect(func(event_name: String, data: Dictionary):
+		_ws_client.send_state_event(event_name, data)
+	)
 
 	_update_layout()
 	get_viewport().size_changed.connect(_update_layout)
@@ -281,7 +294,7 @@ func _input(event: InputEvent) -> void:
 	# Tab toggles active era
 	if event is InputEventKey and event.pressed and event.keycode == KEY_TAB:
 		get_viewport().set_input_as_handled()
-		_toggle_era()
+		GameActions.switch_era()
 	# M toggles world map
 	if event is InputEventKey and event.pressed and event.keycode == KEY_M:
 		get_viewport().set_input_as_handled()
@@ -327,18 +340,21 @@ func _update_cameras() -> void:
 		var target = Vector2(inactive_gp.visual_x + TILE_SIZE / 2.0, inactive_gp.visual_y + TILE_SIZE / 2.0)
 		inactive_cam.position = inactive_cam.position.lerp(target, 0.1)
 
-func _toggle_era() -> void:
+func _switch_active_era() -> void:
 	if active_era == C_TimelineEra.Era.FATHER:
 		active_era = C_TimelineEra.Era.SON
+		father_player.get_component(C_PlayerControlled).active = false
+		son_player.get_component(C_PlayerControlled).active = true
 	else:
 		active_era = C_TimelineEra.Era.FATHER
-
-	var father_pc = father_player.get_component(C_PlayerControlled) as C_PlayerControlled
-	var son_pc = son_player.get_component(C_PlayerControlled) as C_PlayerControlled
-	father_pc.active = (active_era == C_TimelineEra.Era.FATHER)
-	son_pc.active = (active_era == C_TimelineEra.Era.SON)
-
+		father_player.get_component(C_PlayerControlled).active = true
+		son_player.get_component(C_PlayerControlled).active = false
 	_update_layout()
+	# Emit state change for WS
+	GameActions.state_changed.emit("era_switched", {
+		"active_era": "FATHER" if active_era == C_TimelineEra.Era.FATHER else "SON",
+		"active_entity_id": "father" if active_era == C_TimelineEra.Era.FATHER else "son",
+	})
 
 func _toggle_map() -> void:
 	map_is_open = not map_is_open
