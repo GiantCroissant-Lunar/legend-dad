@@ -112,6 +112,19 @@ export class EventQueueRegistry {
 		}
 	}
 
+	/**
+	 * Get the first available queue (for single-client fallback).
+	 * Updates last-access timestamp.
+	 * @returns {EventQueue|null}
+	 */
+	getFirstQueue() {
+		for (const [, entry] of this._sessions) {
+			entry.lastAccess = Date.now();
+			return entry.queue;
+		}
+		return null;
+	}
+
 	/** Stop the GC interval (for clean shutdown / tests). */
 	dispose() {
 		clearInterval(this._gcInterval);
