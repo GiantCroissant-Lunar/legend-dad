@@ -1,0 +1,211 @@
+from collections.abc import Callable
+from dataclasses import dataclass
+from datetime import datetime
+from enum import Enum
+from typing import Any, TypeVar, cast
+
+import dateutil.parser
+
+T = TypeVar("T")
+EnumT = TypeVar("EnumT", bound=Enum)
+
+
+def from_str(x: Any) -> str:
+    assert isinstance(x, str)
+    return x
+
+
+def from_list(f: Callable[[Any], T], x: Any) -> list[T]:
+    assert isinstance(x, list)
+    return [f(y) for y in x]
+
+
+def from_dict(f: Callable[[Any], T], x: Any) -> dict[str, T]:
+    assert isinstance(x, dict)
+    return {k: f(v) for (k, v) in x.items()}
+
+
+def from_none(x: Any) -> Any:
+    assert x is None
+    return x
+
+
+def from_union(fs, x):
+    for f in fs:
+        try:
+            return f(x)
+        except:
+            pass
+    assert False
+
+
+def to_class(c: type[T], x: Any) -> dict:
+    assert isinstance(x, c)
+    return cast(Any, x).to_dict()
+
+
+def to_enum(c: type[EnumT], x: Any) -> EnumT:
+    assert isinstance(x, c)
+    return x.value
+
+
+def from_datetime(x: Any) -> datetime:
+    return dateutil.parser.parse(x)
+
+
+@dataclass
+class ConnectionElement:
+    relation: str
+    """Relationship type (e.g. member_of, mentor, located_in)"""
+
+    target_vault_path: str
+    """Vault path of the target entity"""
+
+    @staticmethod
+    def from_dict(obj: Any) -> "ConnectionElement":
+        assert isinstance(obj, dict)
+        relation = from_str(obj.get("relation"))
+        target_vault_path = from_str(obj.get("target_vault_path"))
+        return ConnectionElement(relation, target_vault_path)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["relation"] = from_str(self.relation)
+        result["target_vault_path"] = from_str(self.target_vault_path)
+        return result
+
+
+class Status(Enum):
+    """Diff status vs previous manifest"""
+
+    NEW = "new"
+    UNCHANGED = "unchanged"
+    UPDATED = "updated"
+
+
+class TypeEnum(Enum):
+    """Entity type, maps to articy template"""
+
+    BESTIARY = "bestiary"
+    CHARACTER = "character"
+    EVENT = "event"
+    FACTION = "faction"
+    ITEM = "item"
+    LOCATION = "location"
+    LORE = "lore"
+    QUEST = "quest"
+
+
+@dataclass
+class EntityElement:
+    articy_id: str
+    """Articy entity ID. Empty on first run, filled by MDK plugin."""
+
+    connections: list[ConnectionElement]
+    """Relationships to other entities"""
+
+    creative_prompts: dict[str, str]
+    """Asset generation prompts keyed by type (portrait, voice, etc.)"""
+
+    display_name: str
+    """Entity display name in articy"""
+
+    status: Status
+    """Diff status vs previous manifest"""
+
+    template_properties: dict[str, str]
+    """Flat key-value map matching articy template fields"""
+
+    type: TypeEnum
+    """Entity type, maps to articy template"""
+
+    vault_path: str
+    """Relative path to the source vault page"""
+
+    dialogue_hooks: list[str] | None = None
+    """Hints for dialogue authoring in articy"""
+
+    flow_notes: str | None = None
+    """Hints for quest/flow design in articy"""
+
+    @staticmethod
+    def from_dict(obj: Any) -> "EntityElement":
+        assert isinstance(obj, dict)
+        articy_id = from_str(obj.get("articy_id"))
+        connections = from_list(ConnectionElement.from_dict, obj.get("connections"))
+        creative_prompts = from_dict(from_str, obj.get("creative_prompts"))
+        display_name = from_str(obj.get("display_name"))
+        status = Status(obj.get("status"))
+        template_properties = from_dict(from_str, obj.get("template_properties"))
+        type = TypeEnum(obj.get("type"))
+        vault_path = from_str(obj.get("vault_path"))
+        dialogue_hooks = from_union([lambda x: from_list(from_str, x), from_none], obj.get("dialogue_hooks"))
+        flow_notes = from_union([from_str, from_none], obj.get("flow_notes"))
+        return EntityElement(
+            articy_id,
+            connections,
+            creative_prompts,
+            display_name,
+            status,
+            template_properties,
+            type,
+            vault_path,
+            dialogue_hooks,
+            flow_notes,
+        )
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["articy_id"] = from_str(self.articy_id)
+        result["connections"] = from_list(lambda x: to_class(ConnectionElement, x), self.connections)
+        result["creative_prompts"] = from_dict(from_str, self.creative_prompts)
+        result["display_name"] = from_str(self.display_name)
+        result["status"] = to_enum(Status, self.status)
+        result["template_properties"] = from_dict(from_str, self.template_properties)
+        result["type"] = to_enum(TypeEnum, self.type)
+        result["vault_path"] = from_str(self.vault_path)
+        if self.dialogue_hooks is not None:
+            result["dialogue_hooks"] = from_union([lambda x: from_list(from_str, x), from_none], self.dialogue_hooks)
+        if self.flow_notes is not None:
+            result["flow_notes"] = from_union([from_str, from_none], self.flow_notes)
+        return result
+
+
+@dataclass
+class ImportManifest:
+    """Contract between vault parser and MDK plugin. Generated by vault_to_manifest.py."""
+
+    entities: list[EntityElement]
+    generated: datetime
+    """ISO 8601 timestamp of generation"""
+
+    generated_by: str
+    """Tool that generated this manifest"""
+
+    version: str
+    """Schema version (semver)"""
+
+    @staticmethod
+    def from_dict(obj: Any) -> "ImportManifest":
+        assert isinstance(obj, dict)
+        entities = from_list(EntityElement.from_dict, obj.get("entities"))
+        generated = from_datetime(obj.get("generated"))
+        generated_by = from_str(obj.get("generated_by"))
+        version = from_str(obj.get("version"))
+        return ImportManifest(entities, generated, generated_by, version)
+
+    def to_dict(self) -> dict:
+        result: dict = {}
+        result["entities"] = from_list(lambda x: to_class(EntityElement, x), self.entities)
+        result["generated"] = self.generated.isoformat()
+        result["generated_by"] = from_str(self.generated_by)
+        result["version"] = from_str(self.version)
+        return result
+
+
+def import_manifest_from_dict(s: Any) -> ImportManifest:
+    return ImportManifest.from_dict(s)
+
+
+def import_manifest_to_dict(x: ImportManifest) -> Any:
+    return to_class(ImportManifest, x)

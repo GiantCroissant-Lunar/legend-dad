@@ -17,7 +17,7 @@ Autonomous iterative improvement loop for world bible vault pages. Scores pages 
 | # | Metric | How to Measure | Pass Threshold |
 |---|--------|---------------|----------------|
 | 1 | **Link Coverage** | Count `[[links]]` in content | ≥ 3 for characters/locations, ≥ 2 for lore/bestiary |
-| 2 | **Timeline Consistency** | Cross-check dates/events against `world/history/timeline.md` | 0 contradictions |
+| 2 | **Timeline Consistency** | Cross-check dates/events against `vault/world/history/timeline.md` | 0 contradictions |
 | 3 | **Name Consistency** | All proper nouns match spelling across referenced pages | 0 mismatches |
 | 4 | **Creative Prompt Completeness** | Required prompt types present per page type | All required types present |
 | 5 | **Creative Prompt Quality** | Each prompt ≥ 100 chars, includes art style prefix for visual prompts | All prompts pass |

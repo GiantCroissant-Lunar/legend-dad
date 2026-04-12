@@ -88,3 +88,40 @@ tasks:
     desc: Generate changelog with git-cliff
     cmds:
       - git-cliff -o CHANGELOG.md
+
+  articy:prep:
+    desc: Generate articy import manifest from vault/world/
+    cmds:
+      - >-
+        python3 scripts/vault_to_manifest.py
+        vault/world
+        project/articy/import-manifest.json
+        --schema project/articy/schemas/import-manifest.schema.json
+
+  articy:types:
+    desc: Regenerate typed code from articy JSON schemas via quicktype
+    cmds:
+      - mkdir -p project/articy/generated/python
+      - mkdir -p project/articy/generated/csharp
+      - >-
+        quicktype
+        --src-lang schema
+        --lang python
+        --python-version 3.7
+        -o project/articy/generated/python/import_manifest.py
+        project/articy/schemas/import-manifest.schema.json
+      - >-
+        quicktype
+        --src-lang schema
+        --lang csharp
+        --namespace LegendDad.Articy
+        -o project/articy/generated/csharp/ImportManifest.cs
+        project/articy/schemas/import-manifest.schema.json
+      - echo "Types generated in project/articy/generated/"
+
+  articy:validate:
+    desc: Validate existing import manifest against JSON schema
+    cmds:
+      - >-
+        python3 -c
+        "import json, jsonschema; schema = json.load(open('project/articy/schemas/import-manifest.schema.json')); manifest = json.load(open('project/articy/import-manifest.json')); jsonschema.validate(manifest, schema); k='entities'; print(f'Valid: {len(manifest[k])} entities')"

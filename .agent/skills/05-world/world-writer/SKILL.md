@@ -17,7 +17,7 @@ Generate rich, internally consistent lore pages for the world bible vault at `va
 
 1. **Read context first.** Always read `vault/world/history/timeline.md` before writing anything. Read all pages listed in the topic's `connections` or referenced in the prompt template.
 2. **Read the prompt template** from `vault/world/_meta/prompts/` matching the content type (character-backstory, location-history, culture-profile, timeline-event, faction-profile, bestiary-entry).
-3. **Read relevant RFCs/design docs** when the prompt template specifies mechanical constraints.
+3. **Read relevant design docs** from `vault/specs/` or `vault/design/` when the prompt template specifies mechanical constraints.
 4. **Generate the page** with proper YAML frontmatter and all required sections per `vault/world/_meta/conventions.md`.
 5. **Delegate to @lore-checker** to validate the draft against timeline and canon.
 
@@ -51,7 +51,7 @@ Set `status: draft` always. Only humans promote to `reviewed`.
 
 Every page MUST end with a `## Creative Prompts` section containing structured prompt blocks for downstream asset generation agents (art, music, sound, voice). These prompts are the bridge between the world bible and production.
 
-Each prompt type uses a fenced `prompt` block. Include only the types relevant to the page's content type — see `world/_meta/conventions.md` for the full mapping:
+Each prompt type uses a fenced `prompt` block. Include only the types relevant to the page's content type — see `vault/world/_meta/conventions.md` for the full mapping:
 
 | Page Type | Required Prompts |
 |-----------|-----------------|
