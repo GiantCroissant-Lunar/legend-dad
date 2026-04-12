@@ -1,0 +1,67 @@
+version: "3"
+
+vars:
+  GODOT_PATH: '{{.GODOT_PATH | default "/Users/apprenticegc/Work/lunar-horse/tools/Godot.app/Contents/MacOS/Godot"}}'
+  SERVER_DIR: "project/server"
+  GAME_SERVER_DIR: "project/server/packages/game-server"
+  GODOT_PROJECT_DIR: "project/hosts/complete-app"
+  BUILD_DIR: "builds/web"
+
+tasks:
+  setup:
+    desc: Install all dependencies and download Godot export templates
+    cmds:
+      - python3 scripts/download_templates.py
+      - cd {{.SERVER_DIR}} && pnpm install
+      - pre-commit install
+
+  build:
+    desc: Export Godot project for web
+    cmds:
+      - mkdir -p {{.BUILD_DIR}}
+      - '{{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}} --export-release "Web" ../../../../{{.BUILD_DIR}}/complete-app.html'
+
+  dev:
+    desc: Start WebSocket server (nodemon) and static file server in parallel
+    deps:
+      - dev:ws
+      - dev:static
+
+  dev:ws:
+    desc: Start WebSocket game server with nodemon
+    dir: "{{.GAME_SERVER_DIR}}"
+    cmds:
+      - pnpm run dev
+
+  dev:static:
+    desc: Serve web build with COOP/COEP headers
+    cmds:
+      - npx sirv-cli {{.BUILD_DIR}} --port 8080 --cors --single --header "Cross-Origin-Opener-Policy=same-origin" --header "Cross-Origin-Embedder-Policy=require-corp"
+
+  serve:
+    desc: Serve web build only (no WS server)
+    cmds:
+      - npx sirv-cli {{.BUILD_DIR}} --port 8080 --cors --single --header "Cross-Origin-Opener-Policy=same-origin" --header "Cross-Origin-Embedder-Policy=require-corp"
+
+  lint:
+    desc: Run all linters
+    cmds:
+      - cd {{.SERVER_DIR}} && pnpm run lint
+      - ruff check scripts/
+
+  format:
+    desc: Run all formatters
+    cmds:
+      - cd {{.SERVER_DIR}} && pnpm run format
+      - ruff format scripts/
+
+  clean:
+    desc: Remove web build output
+    cmds:
+      - rm -rf {{.BUILD_DIR}}/*
+      - touch {{.BUILD_DIR}}/.gitkeep
+
+  changelog:
+    desc: Generate changelog with git-cliff
+    cmds:
+      - git-cliff -o CHANGELOG.md
