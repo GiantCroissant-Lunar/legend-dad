@@ -30,5 +30,12 @@ vault/.obsidian/plugins/*/data.json
 *.swp
 *.swo
 
+# Environment files (contain secrets)
+infra/.env
+infra/.env.local
+.env
+.env.local
+.env.*.local
+
 # Superpowers brainstorm sessions
 .superpowers/
