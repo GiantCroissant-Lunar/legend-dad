@@ -2,6 +2,7 @@
 import { createServer } from "node:http";
 import { WebSocketServer } from "ws";
 import { createMastraServer } from "./mastra/index.js";
+import { EventQueueRegistry } from "./mcp/event-queue.js";
 import { ContextBuilder } from "./replay/context-builder.js";
 import { initReplayDB } from "./replay/db.js";
 import { initEmbedder } from "./replay/embedder.js";
@@ -15,6 +16,19 @@ async function main() {
 	// --- State & connections ---
 	const stateStore = new GameStateStore();
 	const connMgr = new ConnectionManager(stateStore);
+
+	// --- MCP event queue registry ---
+	const eventRegistry = new EventQueueRegistry();
+
+	// Subscribe registry to all game events from Godot
+	connMgr.onEvent((direction, msg) => {
+		if (
+			direction === "from_godot" &&
+			(msg.type === "state_event" || msg.type === "state_snapshot")
+		) {
+			eventRegistry.broadcast(msg);
+		}
+	});
 
 	// --- Replay system ---
 	let recorder = null;
@@ -39,11 +53,39 @@ async function main() {
 		console.warn("[replay] server will run without replay recording");
 	}
 
-	// --- Mastra MCP server ---
-	const { mcpServer } = createMastraServer(connMgr, stateStore);
+	// --- Mastra MCP server (with event registry for poll_events) ---
+	const { mcpServer } = createMastraServer(connMgr, stateStore, eventRegistry);
 
-	// --- HTTP server (health check) ---
-	const server = createServer((req, res) => {
+	// --- HTTP server (health check + MCP endpoint) ---
+	const server = createServer(async (req, res) => {
+		const url = new URL(req.url || "", `http://localhost:${PORT}`);
+
+		// MCP Streamable HTTP endpoint
+		if (url.pathname === "/mcp") {
+			try {
+				await mcpServer.startHTTP({
+					url,
+					httpPath: "/mcp",
+					req,
+					res,
+					options: {
+						onsessioninitialized: (sessionId) => {
+							eventRegistry.create(sessionId);
+							console.log(`[mcp] session initialized: ${sessionId}`);
+						},
+					},
+				});
+			} catch (err) {
+				console.error("[mcp] error:", err.message);
+				if (!res.headersSent) {
+					res.writeHead(500, { "Content-Type": "application/json" });
+					res.end(JSON.stringify({ error: "MCP error" }));
+				}
+			}
+			return;
+		}
+
+		// Health check (default)
 		res.writeHead(200, { "Content-Type": "application/json" });
 		res.end(
 			JSON.stringify({
@@ -52,6 +94,7 @@ async function main() {
 				godot_connected: connMgr.godotClient !== null,
 				agent_count: connMgr.agentClients.size,
 				replay_enabled: recorder !== null,
+				mcp_enabled: true,
 			}),
 		);
 	});
@@ -100,7 +143,10 @@ async function main() {
 		console.log(`[server] listening on http://localhost:${PORT}`);
 		console.log(`[ws] WebSocket server ready on ws://localhost:${PORT}`);
 		console.log(
-			"[mcp] MCP server initialized — tools: move, interact, switch_era, get_state",
+			`[mcp] Streamable HTTP endpoint at http://localhost:${PORT}/mcp`,
+		);
+		console.log(
+			"[mcp] tools: move, interact, switch_era, get_state, poll_events",
 		);
 	});
 }
