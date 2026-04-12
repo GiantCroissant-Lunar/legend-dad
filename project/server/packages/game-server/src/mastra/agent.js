@@ -1,24 +1,7 @@
 // project/server/packages/game-server/src/mastra/agent.js
 import { Agent } from "@mastra/core/agent";
 
-/**
- * Create a game-playing agent bound to the Mastra tools.
- *
- * @param {object} tools — { moveTool, interactTool, switchEraTool, getStateTool }
- * @param {object} opts — { modelUrl, apiKey, modelId }
- */
-export function createGameAgent(tools, opts = {}) {
-	const modelUrl =
-		opts.modelUrl ||
-		process.env.ZAI_BASE_URL ||
-		"https://api.z.ai/api/coding/paas/v4";
-	const apiKey = opts.apiKey || process.env.ZAI_API_KEY || "";
-	const modelId = opts.modelId || process.env.ZAI_MODEL || "glm-5.1";
-
-	return new Agent({
-		id: "legend-dad-player",
-		name: "Legend Dad Player Agent",
-		instructions: `You are an AI agent playing the game "Legend Dad". You control a character on a 10x8 tile grid.
+const BASE_INSTRUCTIONS = `You are an AI agent playing the game "Legend Dad". You control a character on a 10x8 tile grid.
 
 ## Game World
 - Two timelines: FATHER (present) and SON (future/ruined)
@@ -45,7 +28,44 @@ export function createGameAgent(tools, opts = {}) {
 3. Interact with objects when you're adjacent and facing them
 4. Use switch_era when you need to affect the other timeline
 
-When asked to explore or play, start by getting the state, then move around the map systematically.`,
+When asked to explore or play, start by getting the state, then move around the map systematically.`;
+
+/**
+ * Create a game-playing agent bound to the Mastra tools.
+ * Now async — builds replay context before creating the agent.
+ *
+ * @param {object} tools — { moveTool, interactTool, switchEraTool, getStateTool }
+ * @param {object} opts — { modelUrl, apiKey, modelId, contextBuilder, stateStore }
+ */
+export async function createGameAgent(tools, opts = {}) {
+	const modelUrl =
+		opts.modelUrl ||
+		process.env.ZAI_BASE_URL ||
+		"https://api.z.ai/api/coding/paas/v4";
+	const apiKey = opts.apiKey || process.env.ZAI_API_KEY || "";
+	const modelId = opts.modelId || process.env.ZAI_MODEL || "glm-5.1";
+
+	// Build replay context if context builder is available
+	let replayContext = "";
+	if (opts.contextBuilder && opts.stateStore) {
+		const currentState = opts.stateStore.getState();
+		replayContext = await opts.contextBuilder.buildContext(currentState);
+		if (replayContext) {
+			console.log(
+				"[agent] injected replay context (%d chars)",
+				replayContext.length,
+			);
+		}
+	}
+
+	const instructions = replayContext
+		? `${BASE_INSTRUCTIONS}\n${replayContext}`
+		: BASE_INSTRUCTIONS;
+
+	return new Agent({
+		id: "legend-dad-player",
+		name: "Legend Dad Player Agent",
+		instructions,
 		model: {
 			id: `custom/${modelId}`,
 			url: modelUrl,
