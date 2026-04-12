@@ -123,10 +123,5 @@ tasks:
     desc: Validate existing import manifest against JSON schema
     cmds:
       - >-
-        python3 -c "
-        import json, jsonschema, sys;
-        schema = json.load(open('project/articy/schemas/import-manifest.schema.json'));
-        manifest = json.load(open('project/articy/import-manifest.json'));
-        jsonschema.validate(manifest, schema);
-        print(f'Valid: {len(manifest[\"entities\"])} entities')
-        "
+        python3 -c
+        "import json, jsonschema; schema = json.load(open('project/articy/schemas/import-manifest.schema.json')); manifest = json.load(open('project/articy/import-manifest.json')); jsonschema.validate(manifest, schema); k='entities'; print(f'Valid: {len(manifest[k])} entities')"
