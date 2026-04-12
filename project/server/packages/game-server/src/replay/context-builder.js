@@ -116,8 +116,9 @@ export class ContextBuilder {
 			`SELECT text, sequence, action, payload, result,
               vector::similarity::cosine(embedding, $vec) AS similarity
        FROM replay_turn
-       WHERE embedding <~$limit:COSINE:> $vec
-       ORDER BY similarity DESC`,
+       WHERE embedding <|10,COSINE|> $vec
+       ORDER BY similarity DESC
+       LIMIT $limit`,
 			{ vec: queryEmbedding, limit: maxTurns },
 		);
 

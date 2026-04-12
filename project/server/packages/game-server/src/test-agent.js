@@ -15,6 +15,10 @@ import { createServer } from "node:http";
 import { WebSocket, WebSocketServer } from "ws";
 import { createGameAgent } from "./mastra/agent.js";
 import { createMastraServer } from "./mastra/index.js";
+import { ContextBuilder } from "./replay/context-builder.js";
+import { initReplayDB } from "./replay/db.js";
+import { initEmbedder } from "./replay/embedder.js";
+import { Recorder } from "./replay/recorder.js";
 import { GameStateStore } from "./state/store.js";
 import { ConnectionManager } from "./ws/connection.js";
 
@@ -279,10 +283,34 @@ setTimeout(runAgent, 2000);
 async function runAgent() {
 	console.log("\n=== AGENT TEST START ===\n");
 
-	const agent = createGameAgent(tools, {
+	// --- Replay setup ---
+	let recorder = null;
+	let contextBuilder = null;
+	let replayDb = null;
+	try {
+		replayDb = await initReplayDB();
+		await initEmbedder();
+		recorder = new Recorder(replayDb);
+		recorder.setStateStore(stateStore);
+		contextBuilder = new ContextBuilder(replayDb);
+
+		// Hook recorder into connection manager
+		connMgr.onEvent((direction, msg) => {
+			recorder.recordEvent(direction, msg).catch(console.error);
+		});
+
+		await recorder.startSession("agent", "glm-5.1");
+		console.log("[test] replay recording enabled\n");
+	} catch (err) {
+		console.warn("[test] replay disabled:", err.message);
+	}
+
+	const agent = await createGameAgent(tools, {
 		modelUrl: "https://api.z.ai/api/coding/paas/v4",
 		apiKey: process.env.ZAI_API_KEY,
 		modelId: process.env.ZAI_MODEL || "glm-5.1",
+		contextBuilder,
+		stateStore,
 	});
 
 	try {
@@ -313,10 +341,53 @@ async function runAgent() {
 		console.log(
 			`Match: ${fatherCol === 4 && fatherRow === 3 ? "✅ PASS" : "❌ FAIL (agent may have adapted to blocked tiles)"}`,
 		);
+		// --- Replay verification ---
+		if (recorder) {
+			await recorder.endSession("completed");
+
+			const [sessions] = await replayDb.query("SELECT * FROM replay_session");
+			const [eventCounts] = await replayDb.query(
+				"SELECT count() FROM replay_event GROUP ALL",
+			);
+			const [turns] = await replayDb.query(
+				"SELECT text, sequence FROM replay_turn ORDER BY sequence",
+			);
+
+			console.log("\n=== REPLAY VERIFICATION ===");
+			console.log(`Sessions: ${sessions?.length || 0}`);
+			console.log(`Events: ${eventCounts?.[0]?.count || 0}`);
+			console.log(`Turns: ${turns?.length || 0}`);
+			if (turns?.length > 0) {
+				console.log("Turn texts:");
+				for (const t of turns) {
+					console.log(`  [${t.sequence}] ${t.text}`);
+				}
+			}
+			console.log(
+				`Replay: ${(sessions?.length || 0) > 0 && (turns?.length || 0) > 0 ? "✅ PASS" : "❌ FAIL"}`,
+			);
+
+			// Test context builder
+			const context = await contextBuilder.buildContext(stateStore.getState());
+			console.log("\n=== CONTEXT BUILDER OUTPUT ===");
+			console.log(
+				context || "(empty — first run, no prior sessions to reference)",
+			);
+
+			await replayDb.close();
+		}
+
 		console.log("\n=== AGENT TEST COMPLETE ===\n");
 	} catch (err) {
 		console.error("[agent] Error:", err.message);
 		if (err.cause) console.error("[agent] Cause:", err.cause);
+		if (replayDb) {
+			try {
+				await replayDb.close();
+			} catch (_) {
+				// ignore
+			}
+		}
 	}
 
 	// Cleanup

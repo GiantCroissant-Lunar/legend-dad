@@ -1,5 +1,4 @@
 // project/server/packages/game-server/src/replay/recorder.js
-import { Table } from "surrealdb";
 import { embed } from "./embedder.js";
 
 /**
@@ -34,16 +33,20 @@ export class Recorder {
 	 * @returns {Promise<string>} session record ID
 	 */
 	async startSession(playerType, agentModel = null) {
-		const [session] = await this._db.create(new Table("replay_session"), {
-			started_at: new Date().toISOString(),
-			ended_at: null,
-			player_type: playerType,
-			agent_model: agentModel,
-			initial_state: this._stateStore?.getState() ?? null,
-			summary: null,
-			total_actions: 0,
-			outcome: null,
-		});
+		const initialState = this._stateStore?.getState() ?? null;
+		const [[session]] = await this._db.query(
+			`CREATE replay_session SET
+         started_at = time::now(),
+         player_type = $player_type,
+         agent_model = $agent_model,
+         initial_state = $initial_state,
+         total_actions = 0`,
+			{
+				player_type: playerType,
+				agent_model: agentModel ?? "",
+				initial_state: initialState ?? {},
+			},
+		);
 		this._sessionId = session.id;
 		this._sequence = 0;
 		this._turnSequence = 0;
@@ -66,12 +69,15 @@ export class Recorder {
 
 		const summary = this._buildSessionSummary(outcome);
 
-		await this._db.merge(this._sessionId, {
-			ended_at: new Date().toISOString(),
-			total_actions: this._turnSequence,
-			outcome,
-			summary,
-		});
+		await this._db.query(
+			"UPDATE $session_id SET ended_at = time::now(), total_actions = $total_actions, outcome = $outcome, summary = $summary",
+			{
+				session_id: this._sessionId,
+				total_actions: this._turnSequence,
+				outcome,
+				summary,
+			},
+		);
 
 		console.log(
 			`[recorder] session ended: ${this._sessionId} (${outcome}, ${this._turnSequence} actions)`,
@@ -89,13 +95,15 @@ export class Recorder {
 
 		// Write raw event
 		this._sequence++;
-		await this._db.create(new Table("replay_event"), {
-			session: this._sessionId,
-			timestamp: new Date().toISOString(),
-			direction,
-			message: msg,
-			sequence: this._sequence,
-		});
+		await this._db.query(
+			"CREATE replay_event SET session = $sid, timestamp = time::now(), direction = $direction, message = $message, sequence = $seq",
+			{
+				sid: this._sessionId,
+				direction,
+				message: msg,
+				seq: this._sequence,
+			},
+		);
 
 		// Turn detection
 		if (
@@ -148,17 +156,45 @@ export class Recorder {
 			console.error("[recorder] embedding failed:", err.message);
 		}
 
-		await this._db.create(new Table("replay_turn"), {
-			session: this._sessionId,
-			sequence: this._turnSequence,
-			state_before: turn.stateBefore,
+		const turnParams = {
+			sid: this._sessionId,
+			seq: this._turnSequence,
+			state_before: turn.stateBefore ?? {},
 			action: turn.action,
 			payload: turn.payload,
 			result,
-			state_after: stateAfter,
+			state_after: stateAfter ?? {},
 			text,
-			embedding,
-		});
+		};
+
+		if (embedding !== null) {
+			await this._db.query(
+				`CREATE replay_turn SET
+           session = $sid,
+           sequence = $seq,
+           state_before = $state_before,
+           action = $action,
+           payload = $payload,
+           result = $result,
+           state_after = $state_after,
+           text = $text,
+           embedding = $embedding`,
+				{ ...turnParams, embedding },
+			);
+		} else {
+			await this._db.query(
+				`CREATE replay_turn SET
+           session = $sid,
+           sequence = $seq,
+           state_before = $state_before,
+           action = $action,
+           payload = $payload,
+           result = $result,
+           state_after = $state_after,
+           text = $text`,
+				turnParams,
+			);
+		}
 	}
 
 	/** @private */
