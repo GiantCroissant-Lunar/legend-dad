@@ -49,12 +49,6 @@ Read RFC and design documents, identify world-building facts (not game mechanics
 > Extracted from: [source file path]
 ```
 
-## Priority Sources
+## Sources
 
-| Source | Key content |
-|--------|------------|
-| `docs/rfcs/rfc-003-overworld.md` | Moonhaven, NPC descriptions, locations |
-| `docs/rfcs/rfc-005-combat.md` | Enemy stats, spell system, equipment tiers |
-| `docs/rfcs/rfc-006-party.md` | Character classes, ability scores |
-| `docs/design/old-school-rules.md` | AD&D adaptations, MM mechanics |
-| `project/articy/` | Dialogue trees, quest variables, entity definitions |
+Read source documents specified in the task. Check `vault/specs/` and `vault/design/` for design documents.

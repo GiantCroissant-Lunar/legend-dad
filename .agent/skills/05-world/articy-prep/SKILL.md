@@ -15,28 +15,22 @@ Take vault pages with `status: reviewed` and produce structured summaries suitab
 
 ## Process
 
-1. Read the vault page — reject if `status` is not `reviewed`.
-2. Map content to Articy entity types (Character, NPC, Location, Quest, Item).
-3. Extract fields that match Articy template properties.
-4. Output a structured summary.
+1. Run `task articy:prep` to generate the import manifest.
+2. Read and review `project/articy/import-manifest.json`.
+3. Report entity count, any new entities, and any validation errors.
+4. If entities have empty `articy-id`, note they need MDK import.
 
 ## Output Format
 
-```yaml
-articy_entity:
-  type: Character | NPC | Location | Quest | Item
-  display_name: ""
-  template_properties:
-    # fields matching the Articy template for this entity type
-  dialogue_hooks:
-    # key lines or conversation topics to author in Articy
-  flow_notes:
-    # quest flow or branching logic notes
-```
+Report results in plain prose:
+
+- Total entity count from the manifest
+- List any new entities (not previously in the manifest)
+- List any validation errors found
+- List entities with empty `articy-id` that require MDK import
 
 ## Rules
 
 - Only process pages with `status: reviewed`. Reject draft pages.
 - Do not invent dialogue — only suggest hooks and topics for Articy authoring.
 - Reference existing Articy global variables from the project when relevant.
-- Check `project/articy/` for existing entity templates to match field names.

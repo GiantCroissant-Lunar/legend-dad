@@ -10,11 +10,11 @@ related_skills:
 
 # Lore Checker
 
-Consistency validator for the Ultima Magic world bible. Does NOT generate content — only validates.
+Consistency validator for the legend-dad world bible. Does NOT generate content — only validates.
 
 ## Process
 
-1. Read `world/history/timeline.md` (mandatory).
+1. Read `vault/world/history/timeline.md` (mandatory).
 2. Read all pages referenced in the target page's `connections` frontmatter.
 3. Read all pages that share the same `tags` values.
 4. Compare names, dates, locations, faction relationships, and character details.
@@ -41,8 +41,8 @@ If no issues: `### Status: PASS` with a brief confirmation.
 ## Validation Rules
 
 - **Proper nouns** — names must match exactly across pages (case-sensitive).
-- **Chronology** — events must respect ordering in `world/history/timeline.md`.
+- **Chronology** — events must respect ordering in `vault/world/history/timeline.md`.
 - **Faction membership** — characters must belong to factions they're listed under.
 - **Mechanical consistency** — spells, abilities, and equipment must not contradict RFC rules.
 - **Link coverage** — every page should reference at least one other vault page.
-- **Frontmatter completeness** — all required fields per `world/_meta/conventions.md`.
+- **Frontmatter completeness** — all required fields per `vault/world/_meta/conventions.md`.
