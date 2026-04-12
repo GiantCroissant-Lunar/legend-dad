@@ -13,6 +13,7 @@ Numbered categories create an implicit dependency hierarchy — lower numbers ar
 | `autoloop` | Autonomous iteration protocol — keep/discard cycle, git-as-state-machine, context window management, simplicity-weighted evaluation. | `@rfc-orchestrator`, `@validation-guard`, `@skill-creator` |
 | `implementation-review` | Three-pass code review: Pass 0 design intent vs RFC, Pass 1 critical issues, Pass 2 informational. AUTO/ASK/ESCALATE triage. | `@rfc-orchestrator`, `@validation-guard`, `@context-discovery` |
 | `rfc-review` | Structured RFC review with quantitative scoring across 6 dimensions. | `@rfc-orchestrator`, `@context-discovery` |
+| `dev-log` | **Mandatory end-of-session**: write a structured log entry to `vault/dev-log/` recording what was done, decisions made, and next steps. All agents must use this. | `@context-discovery`, `@validation-guard`, `@autoloop` |
 
 ## 03-presentation — UI & Design
 

@@ -43,7 +43,8 @@ legend-dad/
 │   ├── references/             # External references
 │   ├── specs/                  # Feature specs
 │   ├── plans/                  # Implementation plans
-│   └── world/                  # World bible / lore
+│   ├── world/                  # World bible / lore
+│   └── dev-log/                # Session logs from all agents
 ├── .agent/skills/              # Agent skill definitions
 ├── Taskfile.yml                # All dev commands
 ├── GitVersion.yml              # Versioning config
@@ -101,6 +102,16 @@ Agent skills live in `.agent/skills/` organized by numbered categories:
 - `05-world` — world bible, lore generation
 
 Always run `@context-discovery` before implementation work and `@validation-guard` after.
+
+## Session Logging (Mandatory)
+
+**Every agent must write a dev-log entry before ending a session.** See `@dev-log` skill for full format.
+
+- Write to: `vault/dev-log/YYYY-MM-DD-{slug}.md`
+- Include: summary, commits, decisions, blockers, next steps
+- Set `agent:` field to identify which agent wrote the entry
+- Run `dotnet-gitversion /showvariable SemVer` for the version field
+- This applies to all agents: Claude Code, Codex, Copilot, Cursor, human
 
 ## Godot Conventions
 
