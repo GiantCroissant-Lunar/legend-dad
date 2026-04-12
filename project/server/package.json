@@ -1,0 +1,13 @@
+{
+  "name": "legend-dad-server",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "lint:fix": "biome check --fix ."
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0"
+  }
+}
