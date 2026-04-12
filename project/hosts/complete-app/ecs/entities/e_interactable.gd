@@ -7,6 +7,10 @@ extends Entity
 @export var interact_type: C_Interactable.InteractType = C_Interactable.InteractType.BOULDER
 @export var linked_id: String = ""
 
+const TILE_SIZE := 32
+const BOULDER_COLOR := Color(0.5, 0.5, 0.5)  # Gray
+const BLOCKED_COLOR := Color(0.4, 0.2, 0.2)  # Dark red
+
 func define_components() -> Array:
 	return [
 		C_TimelineEra.new(era),
@@ -18,4 +22,14 @@ func define_components() -> Array:
 func on_ready():
 	var grid_pos = get_component(C_GridPosition) as C_GridPosition
 	if grid_pos:
-		position = Vector2(grid_pos.col * 32, grid_pos.row * 32)
+		position = Vector2(grid_pos.col * TILE_SIZE, grid_pos.row * TILE_SIZE)
+
+func _draw() -> void:
+	var interactable = get_component(C_Interactable) as C_Interactable
+	if not interactable or interactable.state == C_Interactable.InteractState.ACTIVATED:
+		return
+	var color = BOULDER_COLOR if era == C_TimelineEra.Era.FATHER else BLOCKED_COLOR
+	draw_circle(Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0), TILE_SIZE / 3.0, color)
+
+func _process(_delta: float) -> void:
+	queue_redraw()
