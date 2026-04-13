@@ -48,7 +48,7 @@ func _process_move(entities: Array[Entity], direction: Vector2i) -> void:
 
 		var era_comp = entity.get_component(C_TimelineEra) as C_TimelineEra
 		var tilemap = _get_tilemap_for_era(era_comp.era)
-		if tilemap and _is_tile_walkable(tilemap, new_col, new_row):
+		if tilemap and _is_tile_walkable(tilemap, new_col, new_row, era_comp.era):
 			if not _is_tile_occupied(new_col, new_row, era_comp.era, entity):
 				grid_pos.col = new_col
 				grid_pos.row = new_row
@@ -126,7 +126,12 @@ func _get_tilemap_for_era(era: C_TimelineEra.Era) -> TileMapLayer:
 		return world_node.get_meta(meta_key) as TileMapLayer
 	return null
 
-func _is_tile_walkable(tilemap: TileMapLayer, col: int, row: int) -> bool:
+func _is_tile_walkable(tilemap: TileMapLayer, col: int, row: int, era: C_TimelineEra.Era = C_TimelineEra.Era.FATHER) -> bool:
+	# Use LocationManager collision grid (from LDtk Collision layer) if available.
+	if LocationManager.is_location_loaded():
+		return LocationManager.is_walkable(era, col, row)
+
+	# Legacy fallback: read from TileSet custom data
 	var cell_coords = Vector2i(col, row)
 	var source_id = tilemap.get_cell_source_id(cell_coords)
 	if source_id == -1:
