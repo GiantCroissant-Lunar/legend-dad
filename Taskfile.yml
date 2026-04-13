@@ -150,6 +150,32 @@ tasks:
         python3 -c
         "import json, jsonschema; schema = json.load(open('project/articy/schemas/import-manifest.schema.json')); manifest = json.load(open('project/articy/import-manifest.json')); jsonschema.validate(manifest, schema); k='entities'; print(f'Valid: {len(manifest[k])} entities')"
 
+  comfyui:ping:
+    desc: Check if ComfyUI server is reachable
+    cmds:
+      - >-
+        node -e "
+        fetch(process.env.COMFYUI_BASE_URL || 'http://127.0.0.1:8188/system_stats')
+          .then(r => r.json())
+          .then(d => console.log('ComfyUI online:', d.system?.devices?.[0]?.name || 'ok'))
+          .catch(e => { console.error('ComfyUI unreachable:', e.message); process.exit(1); })
+        "
+
+  comfyui:tileset:
+    desc: Generate grayscale tileset for a biome (field, dungeon, town, or all)
+    cmds:
+      - node project/comfyui/lib/tileset-runner.mjs {{.CLI_ARGS}}
+
+  comfyui:tileset:dry-run:
+    desc: Preview tileset job without submitting to ComfyUI
+    cmds:
+      - node project/comfyui/lib/tileset-runner.mjs --dry-run {{.CLI_ARGS}}
+
+  comfyui:palettes:
+    desc: Generate palette .hex files from vault location frontmatter
+    cmds:
+      - node project/comfyui/lib/palette-generator.mjs
+
   ldtk:sync:
     desc: Sync vault entity definitions into LDtk project file
     cmds:
