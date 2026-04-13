@@ -58,7 +58,10 @@ static func import_level(project: Dictionary, level_identifier: String) -> Node2
 	var layer_defs := _build_layer_def_lookup(project)
 
 	# Process layer instances (reversed — LDtk stores top-first, Godot draws bottom-first)
-	var layer_instances: Array = level_data.get("layerInstances", [])
+	var raw_layers = level_data.get("layerInstances", null)
+	if raw_layers == null:
+		return level_node
+	var layer_instances: Array = raw_layers
 	for i in range(layer_instances.size() - 1, -1, -1):
 		var layer := layer_instances[i] as Dictionary
 		var layer_type: String = layer.get("__type", "")
@@ -120,8 +123,10 @@ static func _import_intgrid_layer(layer: Dictionary, layer_defs: Dictionary) -> 
 	var c_wid: int = layer.get("__cWid", 0)
 	var c_hei: int = layer.get("__cHei", 0)
 	var csv: Array = layer.get("intGridCsv", [])
+	var raw_auto_tiles: Array = layer.get("autoLayerTiles", [])
 
-	if csv.is_empty():
+	# Need at least CSV or auto-tiles to create a node
+	if csv.is_empty() and raw_auto_tiles.is_empty():
 		return null
 
 	# Get intgrid value definitions from layer def
@@ -136,7 +141,7 @@ static func _import_intgrid_layer(layer: Dictionary, layer_defs: Dictionary) -> 
 	node.set_meta("grid_width", c_wid)
 	node.set_meta("grid_height", c_hei)
 
-	# Store the raw grid data as metadata for game systems to consume
+	# Store raw IntGrid CSV
 	node.set_meta("intgrid_csv", csv)
 
 	# Store value lookup
@@ -144,6 +149,18 @@ static func _import_intgrid_layer(layer: Dictionary, layer_defs: Dictionary) -> 
 	for val in intgrid_values:
 		value_map[val.get("value", 0)] = val.get("identifier", "")
 	node.set_meta("intgrid_value_map", value_map)
+
+	# Parse autoLayerTiles: convert px coords to grid coords, src to atlas coords
+	var auto_tiles: Array = []
+	for tile in raw_auto_tiles:
+		var px: Array = tile.get("px", [0, 0])
+		var src: Array = tile.get("src", [0, 0])
+		auto_tiles.append({
+			"position": Vector2i(int(px[0]) / grid_size, int(px[1]) / grid_size),
+			"atlas_coords": Vector2i(int(src[0]) / grid_size, int(src[1]) / grid_size),
+			"flip": tile.get("f", 0),
+		})
+	node.set_meta("auto_layer_tiles", auto_tiles)
 
 	return node
 
