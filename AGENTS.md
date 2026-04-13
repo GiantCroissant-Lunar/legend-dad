@@ -64,6 +64,11 @@ task format         # biome format + ruff format
 task version        # Print current GitVersion SemVer
 task clean          # Remove all build artifacts
 task changelog      # Generate CHANGELOG.md via git-cliff
+task test           # Run all test suites (pytest, vitest, GUT, playwright)
+task test:python    # Python tests only
+task test:server    # Game server tests only
+task test:godot     # Godot unit tests only (headless)
+task test:e2e       # Browser E2E tests only (requires web build)
 ```
 
 ## Branching & Versioning
@@ -138,6 +143,7 @@ Always run `@context-discovery` before implementation work and `@validation-guar
 | Dialogue Manager | 3.9.1 | [nathanhoad/godot_dialogue_manager](https://github.com/nathanhoad/godot_dialogue_manager) | Yes (pure GDScript) | Dialogue system with `.dialogue` files, compiler, balloon UI |
 | GECS | 7.1.0 | [csprance/gecs](https://github.com/csprance/gecs) | Yes (pure GDScript) | ECS framework. `ECS` autoload errors in headless build (harmless) |
 | G.U.I.D.E | 0.9.1 | [godotneers/G.U.I.D.E](https://github.com/godotneers/G.U.I.D.E) | Yes (pure GDScript) | Input mapping, context-based. Minor `cleanup` error in headless export (harmless) |
+| GUT | 9.6.0 | [bitwes/Gut](https://github.com/bitwes/Gut) | Yes (pure GDScript) | Unit test framework. Headless runner via `gut_cmdln.gd` |
 
 ## Server Conventions
 
@@ -149,8 +155,17 @@ Always run `@context-discovery` before implementation work and `@validation-guar
 
 ## Testing
 
-- Playwright for browser-based game verification
-- Server on `localhost:8080` (secure context, SharedArrayBuffer works)
-- For cross-machine testing use `task serve:https`
-- Screenshots stored in `build/_artifacts/{version}/screenshots/`
+| Layer | Runner | Command | Location |
+|---|---|---|---|
+| All | Taskfile | `task test` | All suites sequentially |
+| Python | pytest | `task test:python` | `tests/` |
+| Node.js | Vitest | `task test:server` | `project/server/packages/game-server/src/__tests__/` |
+| Godot | GUT | `task test:godot` | `project/hosts/complete-app/tests/` |
+| Browser E2E | Playwright | `task test:e2e` | `project/server/packages/e2e/tests/` |
+
+- `task test:server` runs Vitest tests against the game server (MCP transport, agent integration)
+- `task test:e2e` auto-starts servers if not already running (requires web build from `task build`)
+- Agent integration tests require API keys (`ZAI_API_KEY` or `ALIBABA_API_KEY`) — skipped otherwise
+- Playwright uses Chromium only — game targets web browsers
+- Screenshots stored in `build/_artifacts/latest/screenshots/`
 - Replay data stored in `build/_artifacts/{version}/replay/`
