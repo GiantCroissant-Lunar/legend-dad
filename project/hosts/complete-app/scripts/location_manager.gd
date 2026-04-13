@@ -202,6 +202,13 @@ func is_using_fallback() -> bool:
 	return _using_fallback
 
 
+func force_fallback() -> void:
+	_tileset = TilesetFactory.create_tileset()
+	_father_palette = null
+	_son_palette = null
+	_using_fallback = true
+
+
 func get_tileset() -> TileSet:
 	return _tileset
 
