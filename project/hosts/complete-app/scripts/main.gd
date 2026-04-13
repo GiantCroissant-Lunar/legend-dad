@@ -419,16 +419,28 @@ func _load_ldtk_level(level_name: String) -> void:
 	map_width = level_node.get_meta("px_width", 320) / 16  # LDtk grid is 16px
 	map_height = level_node.get_meta("px_height", 256) / 16
 
-	# Extract layer data
+	# Extract layer data — prefer autoLayerTiles, fall back to IntGrid CSV
 	for child in level_node.get_children():
 		var layer_name: String = child.name
 		match layer_name:
 			"Terrain":
 				_base_terrain_tiles = child.get_meta("auto_layer_tiles", [])
+				if _base_terrain_tiles.is_empty():
+					var csv: Array = child.get_meta("intgrid_csv", [])
+					var gw: int = child.get_meta("grid_width", map_width)
+					_base_terrain_tiles = LdtkLevelPlacer.intgrid_to_tiles(csv, gw)
 			"Terrain_Father":
 				_father_terrain_tiles = child.get_meta("auto_layer_tiles", [])
+				if _father_terrain_tiles.is_empty():
+					var csv: Array = child.get_meta("intgrid_csv", [])
+					var gw: int = child.get_meta("grid_width", map_width)
+					_father_terrain_tiles = LdtkLevelPlacer.intgrid_to_tiles(csv, gw)
 			"Terrain_Son":
 				_son_terrain_tiles = child.get_meta("auto_layer_tiles", [])
+				if _son_terrain_tiles.is_empty():
+					var csv: Array = child.get_meta("intgrid_csv", [])
+					var gw: int = child.get_meta("grid_width", map_width)
+					_son_terrain_tiles = LdtkLevelPlacer.intgrid_to_tiles(csv, gw)
 			"Collision":
 				_collision_csv = child.get_meta("intgrid_csv", [])
 				_collision_grid_width = child.get_meta("grid_width", map_width)

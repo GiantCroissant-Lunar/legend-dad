@@ -26,6 +26,25 @@ static func place_tiles(tilemap: TileMapLayer, tiles: Array, source_id: int) -> 
 		tilemap.set_cell(pos, source_id, atlas, alt)
 
 
+## Convert IntGrid CSV to tile placement array.
+## Maps IntGrid value N to atlas coords (N % atlas_columns, N / atlas_columns).
+## Skips cells with value 0 (void/empty).
+static func intgrid_to_tiles(intgrid_csv: Array, grid_width: int, atlas_columns: int = 16) -> Array:
+	var tiles: Array = []
+	for i in intgrid_csv.size():
+		var value: int = intgrid_csv[i]
+		if value == 0:
+			continue
+		var col := i % grid_width
+		var row := i / grid_width
+		tiles.append({
+			"position": Vector2i(col, row),
+			"atlas_coords": Vector2i(value % atlas_columns, value / atlas_columns),
+			"flip": 0,
+		})
+	return tiles
+
+
 ## Build a walkability grid from Collision IntGrid CSV.
 ## Returns Dictionary[Vector2i, bool] — true = walkable, false = blocked.
 ## IntGrid value 0 (empty) = walkable; values 1 (solid), 2 (water), 3 (pit) = blocked.
