@@ -73,7 +73,8 @@ var _enemy_entities: Array[E_Enemy] = []
 var _enemy_visuals: Array[EntityVisual] = []
 
 func _ready() -> void:
-	tileset = TilesetFactory.create_tileset()
+	LocationManager.load_location("whispering-woods")
+	tileset = LocationManager.get_tileset()
 
 	# Create ECS World — entities live here as children of the World node.
 	world = World.new()
@@ -350,6 +351,7 @@ func _switch_active_era() -> void:
 		father_player.get_component(C_PlayerControlled).active = true
 		son_player.get_component(C_PlayerControlled).active = false
 	_update_layout()
+	LocationManager.swap_era(active_era)
 	# Emit state change for WS
 	GameActions.state_changed.emit("era_switched", {
 		"active_era": "FATHER" if active_era == C_TimelineEra.Era.FATHER else "SON",
