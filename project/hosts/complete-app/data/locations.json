@@ -1,0 +1,14 @@
+{
+	"whispering-woods": {
+		"biome": "field",
+		"pck": "whispering-woods.pck"
+	},
+	"thornwall-market": {
+		"biome": "town",
+		"pck": "thornwall-market.pck"
+	},
+	"iron-peaks-mine": {
+		"biome": "dungeon",
+		"pck": "iron-peaks-mine.pck"
+	}
+}
