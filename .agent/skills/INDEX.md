@@ -75,6 +75,12 @@ related_skills:                     # @skill-name cross-references
 - `tooling` — automation, browser, docs, search
 - `world` — world bible, lore generation, narrative consistency
 
+## 06-gameplay — Game Interaction
+
+| Skill | Description | Related Skills |
+|---|---|---|
+| `game-player` | Play the Legend Dad game via MCP tools — move, interact, switch eras, observe state, react to events. For AI agents operating as game players. | `@context-discovery`, `@dev-log` |
+
 ## Conventions
 
 - **Cross-references** use `@skill-name` notation (e.g., `@validation-guard`)
