@@ -89,6 +89,39 @@ tasks:
     cmds:
       - git-cliff -o CHANGELOG.md
 
+  test:
+    desc: Run all test suites (pytest, vitest, GUT, playwright)
+    cmds:
+      - task: test:python
+      - task: test:server
+      - task: test:godot
+      - task: test:e2e
+
+  test:python:
+    desc: Run Python tests (pytest)
+    cmds:
+      - python3 -m pytest tests/ -v
+
+  test:server:
+    desc: Run game-server integration tests (vitest)
+    dir: "{{.GAME_SERVER_DIR}}"
+    cmds:
+      - pnpm test
+
+  test:godot:
+    desc: Run Godot unit tests (GUT, headless)
+    cmds:
+      - >-
+        {{.GODOT_PATH}} --headless
+        --path {{.GODOT_PROJECT_DIR}}
+        -s addons/gut/gut_cmdln.gd -gexit
+
+  test:e2e:
+    desc: Run browser E2E tests (Playwright, requires web build)
+    dir: "project/server/packages/e2e"
+    cmds:
+      - pnpm exec playwright test
+
   articy:build:
     desc: Build and deploy MDK plugin to articy local plugins folder
     dir: project/articy/mdk-plugin/LegendDad.MdkPlugin
