@@ -486,12 +486,17 @@ func _build_game_view(era: C_TimelineEra.Era) -> SubViewportContainer:
 	var tilemap = LocationManager.create_tilemap_for_era(era)
 	viewport.add_child(tilemap)
 
+	# Source ID: TilesetFactory uses 0=father, 1=son; PCK tilesets use 0 for both
+	var source_id := 0
+	if LocationManager.is_using_fallback() and era == C_TimelineEra.Era.SON:
+		source_id = 1
+
 	# Place base terrain tiles
-	LdtkLevelPlacer.place_tiles(tilemap, _base_terrain_tiles, 0)
+	LdtkLevelPlacer.place_tiles(tilemap, _base_terrain_tiles, source_id)
 
 	# Overlay era-specific tiles
 	var overlay = _father_terrain_tiles if era == C_TimelineEra.Era.FATHER else _son_terrain_tiles
-	LdtkLevelPlacer.place_tiles(tilemap, overlay, 0)
+	LdtkLevelPlacer.place_tiles(tilemap, overlay, source_id)
 
 	# Store tilemap reference
 	if era == C_TimelineEra.Era.FATHER:
@@ -521,10 +526,13 @@ func _build_game_view(era: C_TimelineEra.Era) -> SubViewportContainer:
 	return container
 
 func _rerender_tilemap(tilemap: TileMapLayer, era: C_TimelineEra.Era) -> void:
+	var source_id := 0
+	if LocationManager.is_using_fallback() and era == C_TimelineEra.Era.SON:
+		source_id = 1
 	tilemap.clear()
-	LdtkLevelPlacer.place_tiles(tilemap, _base_terrain_tiles, 0)
+	LdtkLevelPlacer.place_tiles(tilemap, _base_terrain_tiles, source_id)
 	var overlay = _father_terrain_tiles if era == C_TimelineEra.Era.FATHER else _son_terrain_tiles
-	LdtkLevelPlacer.place_tiles(tilemap, overlay, 0)
+	LdtkLevelPlacer.place_tiles(tilemap, overlay, source_id)
 
 func _build_world_map() -> void:
 	var world_map_layer = CanvasLayer.new()
