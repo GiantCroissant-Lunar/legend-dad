@@ -60,10 +60,6 @@ func _ready() -> void:
 	# Fallback: if LDtk has no painted tiles, use hardcoded test layout
 	if _base_terrain_tiles.is_empty() and _father_terrain_tiles.is_empty() and _son_terrain_tiles.is_empty():
 		push_warning("main: No LDtk terrain tiles found, using fallback layout")
-		# Force TilesetFactory — the fallback layout uses atlas coords 0-3 which
-		# only exist in TilesetFactory, not in PCK grayscale atlases.
-		LocationManager.force_fallback()
-		tileset = LocationManager.get_tileset()
 		_generate_fallback_layout()
 
 	# Create ECS World — entities live here as children of the World node.
