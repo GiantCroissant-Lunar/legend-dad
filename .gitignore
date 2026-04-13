@@ -37,5 +37,17 @@ infra/.env.local
 .env.local
 .env.*.local
 
+# Articy MDK plugin build artifacts
+project/articy/mdk-plugin/**/bin/
+project/articy/mdk-plugin/**/obj/
+project/articy/mdk-plugin/**/*.csx
+project/articy/mdk-plugin/**/dump-types.csproj
+project/articy/mdk-plugin/**/ApiInspector.cs
+
+# Articy project volatile files
+project/articy/legend-dad/Assets.sqlite
+project/articy/legend-dad/Sessions/
+project/articy/legend-dad/ProjectInfo.lck
+
 # Superpowers brainstorm sessions
 .superpowers/

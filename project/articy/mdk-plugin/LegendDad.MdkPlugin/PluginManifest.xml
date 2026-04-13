@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PluginManifest Type="MacroPlugin" >
+	<Name>LegendDad.MdkPlugin</Name>
+	<Title>Legend Dad Importer</Title>
+	<Version>0.1.0</Version>
+	<MinimumArticyVersion>4.2.2</MinimumArticyVersion>
+	<Developer>Legend Dad</Developer>
+	<Description>Imports vault content into articy:draft from import-manifest.json</Description>
+	<IconFile>Resources\Icon.png</IconFile>
+	<Tags>import,vault,manifest,pipeline</Tags>
+	<ReleaseNotes><![CDATA[V0.1.0
+- Initial release: template provisioning, entity import, connection resolution, ID writeback]]></ReleaseNotes>
+	<Properties>
+		<Property Name="MultiUser" Value="false" />
+		<Property Name="SingleUser" Value="true" />
+		<Property Name="API" Value="false" />
+	</Properties>
+</PluginManifest>

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json as json_mod
 import re
 import sys
@@ -198,11 +199,66 @@ def generate_manifest(vault_world: Path) -> dict:
     }
 
 
+def _entity_content_hash(entity: dict) -> str:
+    """Hash the mutable content fields of an entity for change detection."""
+    parts = [
+        entity.get("display_name", ""),
+        json_mod.dumps(entity.get("template_properties", {}), sort_keys=True),
+        json_mod.dumps(entity.get("creative_prompts", {}), sort_keys=True),
+        json_mod.dumps(entity.get("connections", []), sort_keys=True),
+        json_mod.dumps(entity.get("dialogue_hooks", []), sort_keys=True),
+        entity.get("flow_notes", ""),
+    ]
+    return hashlib.sha256("|".join(parts).encode()).hexdigest()
+
+
+def diff_against_previous(manifest: dict, previous_path: Path) -> dict:
+    """Compare manifest against a previous version and set status + carry articy_ids.
+
+    Modifies entities in-place:
+    - New entity (not in previous): status stays "new"
+    - Changed entity: status = "updated", articy_id carried forward
+    - Unchanged entity: status = "unchanged", articy_id carried forward
+    - Entities in previous but missing from new are logged as warnings
+    """
+    if not previous_path.exists():
+        return manifest
+
+    with open(previous_path, encoding="utf-8") as f:
+        previous = json_mod.load(f)
+
+    prev_by_path: dict[str, dict] = {}
+    for entity in previous.get("entities", []):
+        prev_by_path[entity["vault_path"]] = entity
+
+    for entity in manifest["entities"]:
+        vp = entity["vault_path"]
+        prev = prev_by_path.pop(vp, None)
+        if prev is None:
+            entity["status"] = "new"
+        else:
+            prev_id = prev.get("articy_id", "")
+            entity["articy_id"] = prev_id
+            if not prev_id:
+                # No articy_id means never imported — treat as new
+                entity["status"] = "new"
+            elif _entity_content_hash(entity) == _entity_content_hash(prev):
+                entity["status"] = "unchanged"
+            else:
+                entity["status"] = "updated"
+
+    for vp in prev_by_path:
+        print(f"Warning: entity removed from vault: {vp}", file=sys.stderr)
+
+    return manifest
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Generate articy import manifest from vault/world/")
     parser.add_argument("vault_world", type=Path, help="Path to vault/world/ directory")
     parser.add_argument("output", type=Path, help="Output path for import-manifest.json")
     parser.add_argument("--schema", type=Path, help="JSON Schema file to validate against")
+    parser.add_argument("--previous", type=Path, help="Path to previous manifest for diffing")
     args = parser.parse_args(argv)
 
     if not args.vault_world.is_dir():
@@ -210,6 +266,9 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     manifest = generate_manifest(args.vault_world)
+
+    if args.previous:
+        manifest = diff_against_previous(manifest, args.previous)
 
     if args.schema:
         import jsonschema as js

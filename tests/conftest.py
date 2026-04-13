@@ -116,6 +116,6 @@ def tmp_vault(tmp_path, sample_character_md, sample_location_md):
     world = tmp_path / "vault" / "world"
     (world / "characters").mkdir(parents=True)
     (world / "locations").mkdir(parents=True)
-    (world / "characters" / "sera.md").write_text(sample_character_md)
-    (world / "locations" / "starlight-academy.md").write_text(sample_location_md)
+    (world / "characters" / "sera.md").write_text(sample_character_md, encoding="utf-8")
+    (world / "locations" / "starlight-academy.md").write_text(sample_location_md, encoding="utf-8")
     return tmp_path

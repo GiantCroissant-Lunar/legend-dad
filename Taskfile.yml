@@ -89,14 +89,31 @@ tasks:
     cmds:
       - git-cliff -o CHANGELOG.md
 
+  articy:build:
+    desc: Build and deploy MDK plugin to articy local plugins folder
+    dir: project/articy/mdk-plugin/LegendDad.MdkPlugin
+    vars:
+      PLUGIN_DIR: '{{.HOME}}/AppData/Roaming/Articy Software/articy/4.x/Plugins/Local/LegendDad.MdkPlugin/0.1.0'
+      BUILD_DIR: bin/Debug/net8.0-windows/win-x64
+    cmds:
+      - dotnet build LegendDad.MdkPlugin.csproj -c Debug
+      - mkdir -p "{{.PLUGIN_DIR}}/Resources"
+      - cp "{{.BUILD_DIR}}/LegendDad.MdkPlugin.dll" "{{.PLUGIN_DIR}}/"
+      - cp "{{.BUILD_DIR}}/LegendDad.MdkPlugin.deps.json" "{{.PLUGIN_DIR}}/"
+      - cp "{{.BUILD_DIR}}/PluginManifest.xml" "{{.PLUGIN_DIR}}/"
+      - cp "{{.BUILD_DIR}}/PluginTexts.tpk" "{{.PLUGIN_DIR}}/"
+      - cp Resources/Icon.png "{{.PLUGIN_DIR}}/Resources/"
+      - echo "Plugin deployed to {{.PLUGIN_DIR}}"
+
   articy:prep:
-    desc: Generate articy import manifest from vault/world/
+    desc: Generate articy import manifest from vault/world/ (with diffing)
     cmds:
       - >-
         python3 scripts/vault_to_manifest.py
         vault/world
         project/articy/import-manifest.json
         --schema project/articy/schemas/import-manifest.schema.json
+        --previous project/articy/import-manifest.json
 
   articy:types:
     desc: Regenerate typed code from articy JSON schemas via quicktype
@@ -118,6 +135,13 @@ tasks:
         -o project/articy/generated/csharp/ImportManifest.cs
         project/articy/schemas/import-manifest.schema.json
       - echo "Types generated in project/articy/generated/"
+
+  articy:writeback:
+    desc: Write articy IDs from manifest back to vault frontmatter
+    cmds:
+      - >-
+        python3 scripts/writeback_articy_ids.py
+        project/articy/import-manifest.json
 
   articy:validate:
     desc: Validate existing import manifest against JSON schema

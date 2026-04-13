@@ -1,0 +1,241 @@
+{
+  "version": "0.1.0",
+  "description": "Data-driven template definitions for articy:draft X. Read by the MDK import plugin to create/verify templates at runtime.",
+  "templates": {
+    "character": {
+      "articy_object_type": "Entity",
+      "display_name": "Character",
+      "technical_name": "LD_Character",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "backstory": { "type": "Text", "display_name": "Backstory" },
+            "personality_and_motivation": { "type": "Text", "display_name": "Personality & Motivation" }
+          }
+        },
+        "CreativePrompts": {
+          "display_name": "Creative Prompts",
+          "properties": {
+            "portrait": { "type": "Text", "display_name": "Portrait Prompt" },
+            "voice": { "type": "Text", "display_name": "Voice Prompt" },
+            "theme_music": { "type": "Text", "display_name": "Theme Music Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "location": {
+      "articy_object_type": "Entity",
+      "display_name": "Location",
+      "technical_name": "LD_Location",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "atmosphere_and_appearance": { "type": "Text", "display_name": "Atmosphere & Appearance" },
+            "history": { "type": "Text", "display_name": "History" },
+            "notable_features": { "type": "Text", "display_name": "Notable Features" }
+          }
+        },
+        "CreativePrompts": {
+          "display_name": "Creative Prompts",
+          "properties": {
+            "environment_art": { "type": "Text", "display_name": "Environment Art Prompt" },
+            "ambience": { "type": "Text", "display_name": "Ambience Prompt" },
+            "music": { "type": "Text", "display_name": "Music Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "faction": {
+      "articy_object_type": "Entity",
+      "display_name": "Faction",
+      "technical_name": "LD_Faction",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "purpose_and_goals": { "type": "Text", "display_name": "Purpose & Goals" },
+            "hierarchy_and_structure": { "type": "Text", "display_name": "Hierarchy & Structure" },
+            "territory_and_influence": { "type": "Text", "display_name": "Territory & Influence" }
+          }
+        },
+        "CreativePrompts": {
+          "display_name": "Creative Prompts",
+          "properties": {
+            "emblem": { "type": "Text", "display_name": "Emblem Prompt" },
+            "theme_music": { "type": "Text", "display_name": "Theme Music Prompt" },
+            "color_palette": { "type": "Text", "display_name": "Color Palette Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "quest": {
+      "articy_object_type": "Entity",
+      "display_name": "Quest",
+      "technical_name": "LD_Quest",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "narrative_arc": { "type": "Text", "display_name": "Narrative Arc" },
+            "objectives_and_stakes": { "type": "Text", "display_name": "Objectives & Stakes" },
+            "branching_points": { "type": "Text", "display_name": "Branching Points" }
+          }
+        },
+        "CreativePrompts": {
+          "display_name": "Creative Prompts",
+          "properties": {
+            "scene_art": { "type": "Text", "display_name": "Scene Art Prompt" },
+            "music": { "type": "Text", "display_name": "Music Prompt" },
+            "sound_design": { "type": "Text", "display_name": "Sound Design Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "item": {
+      "articy_object_type": "Entity",
+      "display_name": "Item",
+      "technical_name": "LD_Item",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "lore_and_origin": { "type": "Text", "display_name": "Lore & Origin" },
+            "purpose_and_usage": { "type": "Text", "display_name": "Purpose & Usage" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "event": {
+      "articy_object_type": "Entity",
+      "display_name": "Event",
+      "technical_name": "LD_Event",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "causes": { "type": "Text", "display_name": "Causes" },
+            "consequences": { "type": "Text", "display_name": "Consequences" },
+            "involved_entities": { "type": "Text", "display_name": "Involved Entities" }
+          }
+        },
+        "CreativePrompts": {
+          "display_name": "Creative Prompts",
+          "properties": {
+            "scene_art": { "type": "Text", "display_name": "Scene Art Prompt" },
+            "sound_design": { "type": "Text", "display_name": "Sound Design Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "lore": {
+      "articy_object_type": "Entity",
+      "display_name": "Lore",
+      "technical_name": "LD_Lore",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "details": { "type": "Text", "display_name": "Details" },
+            "cultural_significance": { "type": "Text", "display_name": "Cultural Significance" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "bestiary": {
+      "articy_object_type": "Entity",
+      "display_name": "Creature",
+      "technical_name": "LD_Creature",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "ecology_and_habitat": { "type": "Text", "display_name": "Ecology & Habitat" },
+            "behavior": { "type": "Text", "display_name": "Behavior" },
+            "lore_and_cultural_significance": { "type": "Text", "display_name": "Lore & Cultural Significance" }
+          }
+        },
+        "CreativePrompts": {
+          "display_name": "Creative Prompts",
+          "properties": {
+            "creature_art": { "type": "Text", "display_name": "Creature Art Prompt" },
+            "sound_design": { "type": "Text", "display_name": "Sound Design Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    }
+  }
+}

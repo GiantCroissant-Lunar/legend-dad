@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<TextPackage BaseNamespace="LegendDad.MdkPlugin" GenerateIds="true" xmlns="http://nevigo.com/TextPackage.xsd" xml:space="preserve" >
+
+  <Category Name="System" >
+    <TextDefinition Key="Plugin.DisplayName">
+      <Context></Context>
+      <Text Lang="en">Legend Dad Importer</Text>
+    </TextDefinition>
+
+    <TextDefinition Key="Plugin.ContextName">
+      <Context></Context>
+      <Text Lang="en">Legend Dad</Text>
+    </TextDefinition>
+
+  </Category>
+</TextPackage>
