@@ -118,9 +118,11 @@ class TestGenerateLdtkProject:
         entities_layer = next(l for l in project["defs"]["layers"] if l["identifier"] == "Entities")
         assert entities_layer["type"] == "Entities"
 
-    def test_empty_levels(self):
+    def test_has_default_level(self):
         project = generate_ldtk_project(_make_manifest("character"))
-        assert project["levels"] == []
+        assert len(project["levels"]) == 1
+        assert project["levels"][0]["identifier"] == "Level_0"
+        assert project["levels"][0]["worldDepth"] == 0
 
     def test_next_uid_is_correct(self):
         project = generate_ldtk_project(_make_manifest("character"))

@@ -244,6 +244,33 @@ def build_entity_field_defs(uid_alloc: UidAllocator) -> list[dict]:
     ]
 
 
+def _make_default_level(uid_alloc: UidAllocator) -> dict:
+    """Create a default empty level so LDtk has something to load."""
+    return {
+        "identifier": "Level_0",
+        "iid": _make_iid(),
+        "uid": uid_alloc.next(),
+        "worldX": 0,
+        "worldY": 0,
+        "worldDepth": 0,
+        "pxWid": 256,
+        "pxHei": 256,
+        "__bgColor": "#696A79",
+        "bgColor": None,
+        "useAutoIdentifier": True,
+        "bgRelPath": None,
+        "bgPos": None,
+        "bgPivotX": 0.5,
+        "bgPivotY": 0.5,
+        "__smartColor": "#ADADB5",
+        "__bgPos": None,
+        "externalRelPath": None,
+        "fieldInstances": [],
+        "layerInstances": None,
+        "__neighbours": [],
+    }
+
+
 def generate_ldtk_project(manifest: dict) -> dict:
     """Generate a complete LDtk project structure from an import manifest."""
     uid = UidAllocator(1)
@@ -271,6 +298,9 @@ def generate_ldtk_project(manifest: dict) -> dict:
         _make_layer_def(uid, "Terrain", "IntGrid"),
     ]
 
+    # Create a default level so LDtk has something to load
+    default_level = _make_default_level(uid)
+
     return {
         "__header__": {
             "fileType": "LDtk Project JSON",
@@ -287,15 +317,15 @@ def generate_ldtk_project(manifest: dict) -> dict:
         "nextUid": uid.next_uid,
         "identifierStyle": "Capitalize",
         "worldLayout": "Free",
-        "worldGridWidth": 256,
-        "worldGridHeight": 256,
+        "worldGridWidth": None,
+        "worldGridHeight": None,
         "defaultLevelWidth": 256,
         "defaultLevelHeight": 256,
         "defaultGridSize": GRID_SIZE,
         "defaultEntityWidth": GRID_SIZE,
         "defaultEntityHeight": GRID_SIZE,
-        "defaultPivotX": 0.0,
-        "defaultPivotY": 0.0,
+        "defaultPivotX": 0.5,
+        "defaultPivotY": 1.0,
         "defaultLevelBgColor": "#696A79",
         "bgColor": "#40465B",
         "externalLevels": False,
@@ -304,10 +334,12 @@ def generate_ldtk_project(manifest: dict) -> dict:
         "simplifiedExport": False,
         "minifyJson": False,
         "imageExportMode": "None",
+        "pngFilePattern": None,
         "levelNamePattern": "Level_%idx",
         "backupOnSave": False,
         "backupLimit": 10,
         "backupRelPath": None,
+        "tutorialDesc": None,
         "customCommands": [],
         "flags": [],
         "dummyWorldIid": _make_iid(),
@@ -321,7 +353,7 @@ def generate_ldtk_project(manifest: dict) -> dict:
             "externalEnums": [],
             "levelFields": [],
         },
-        "levels": [],
+        "levels": [default_level],
     }
 
 
