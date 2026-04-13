@@ -1,7 +1,7 @@
 ---
 date: 2026-04-13
 agent: claude-code
-version: 0.1.0-109
+version: 0.1.0-111
 session: mcp-transport-wiring
 ---
 
@@ -9,7 +9,7 @@ session: mcp-transport-wiring
 
 ## Summary
 
-Wired the existing Mastra MCPServer to a Streamable HTTP transport on `/mcp` so Claude Code (and any MCP client) can call game tools against a running game server with a live Godot connection. Added a `poll_events` tool for receiving game state events. Created a `game-player` agent skill documenting the MCP gameplay workflow.
+Wired the existing Mastra MCPServer to a Streamable HTTP transport on `/mcp` so Claude Code (and any MCP client) can call game tools against a running game server with a live Godot connection. Added a `poll_events` tool for receiving game state events. Created a `game-player` agent skill with a 7-step startup checklist. Verified full stack end-to-end: web build, both servers, MCP handshake, Godot connection, and 19/19 test suite passing.
 
 ## Commits
 
@@ -21,6 +21,9 @@ Wired the existing Mastra MCPServer to a Streamable HTTP transport on `/mcp` so 
 - `3d0729d` fix: address code review — encapsulation and dead parameter
 - `9137e87` feat: add game-player agent skill for MCP-based game operation
 - `b2b960b` fix: use eager default queue for MCP event broadcasting
+- `12cd2a6` docs: add dev-log for MCP transport session
+- `3be207d` docs: document Mastra onsessioninitialized bug and workaround
+- `dc6da79` docs: add startup checklist and verification steps to game-player skill
 
 ## Decisions
 
@@ -38,8 +41,21 @@ Wired the existing Mastra MCPServer to a Streamable HTTP transport on `/mcp` so 
 - `src/index.js` — `/mcp` route, default queue, event broadcast wiring
 - `src/test-mcp.js` — 19-test end-to-end MCP verification
 - `.claude/settings.json` — MCP server registration for Claude Code
-- `.agent/skills/06-gameplay/game-player/SKILL.md` — agent skill for game operation
+- `.agent/skills/06-gameplay/game-player/SKILL.md` — agent skill with 7-step startup checklist
 - `.agent/skills/INDEX.md` — added 06-gameplay category
+- `vault/specs/2026-04-13-mcp-transport-design.md` — spec with Known Issues section
+
+## Verification (full stack)
+
+| Step | Check | Result |
+|------|-------|--------|
+| 1 | Web build exists | `complete-app.html` present |
+| 2 | Start servers (`task dev`) | `:8080` static + `:3000` game server |
+| 3 | Health check | `mcp_enabled: true` |
+| 4 | MCP endpoint | Returns server info + tools capability |
+| 5 | Open browser | Godot game loaded, both eras visible |
+| 6 | Godot connected | `godot_connected: true` |
+| 7 | Test suite | 19/19 passed |
 
 ## Blockers
 
@@ -47,7 +63,7 @@ None.
 
 ## Next Steps
 
-- Test with real Godot build — `task build && task serve`, open in browser, verify Claude Code MCP tools drive the actual game
+- Set up testing infrastructure: GUT for Godot tests, Playwright/agent-browser for browser E2E tests, `task test` command
 - Wire .env into Taskfile/nodemon — so `task dev` auto-loads API keys
 - Godot gameplay replay spec — father's recorded actions replaying during son's adventure
 - Consider filing a Mastra issue about `onsessioninitialized` being overridden in `startHTTP`
