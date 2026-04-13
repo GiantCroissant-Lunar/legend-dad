@@ -20,6 +20,11 @@ async function main() {
 	// --- MCP event queue registry ---
 	const eventRegistry = new EventQueueRegistry();
 
+	// Create a default queue eagerly for the single-client case (Claude Code).
+	// Mastra's startHTTP onsessioninitialized callback is overridden internally,
+	// so per-session queue creation doesn't work. This is the workaround.
+	eventRegistry.create("default");
+
 	// Subscribe registry to all game events from Godot
 	connMgr.onEvent((direction, msg) => {
 		if (
@@ -68,12 +73,6 @@ async function main() {
 					httpPath: "/mcp",
 					req,
 					res,
-					options: {
-						onsessioninitialized: (sessionId) => {
-							eventRegistry.create(sessionId);
-							console.log(`[mcp] session initialized: ${sessionId}`);
-						},
-					},
 				});
 			} catch (err) {
 				console.error("[mcp] error:", err.message);
