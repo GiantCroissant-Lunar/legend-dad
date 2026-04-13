@@ -9,6 +9,7 @@ connections:
   - "[[Thornwall Elder Quarter]]"
 parent-location: "[[Thornwall]]"
 zone-type: town
+biome: town
 floor: 0
 grid-width: 20
 grid-height: 16

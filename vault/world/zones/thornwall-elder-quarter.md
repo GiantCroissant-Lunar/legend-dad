@@ -10,6 +10,7 @@ connections:
   - "[[Aric]]"
 parent-location: "[[Thornwall]]"
 zone-type: town
+biome: town
 floor: 0
 grid-width: 16
 grid-height: 14

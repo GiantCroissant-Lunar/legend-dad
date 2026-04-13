@@ -9,6 +9,7 @@ connections:
   - "[[Iron Peaks Upper Mines]]"
 parent-location: "[[Iron Peaks]]"
 zone-type: overworld
+biome: field
 floor: 0
 grid-width: 20
 grid-height: 24

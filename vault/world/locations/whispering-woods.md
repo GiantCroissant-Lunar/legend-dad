@@ -7,6 +7,10 @@ connections:
   - "[[Thornwall]]"
   - "[[Maren]]"
 era: "Both"
+biome: field
+palette: ""
+palette-source: "https://lospec.com/"
+ldtk-file: "project/ldtk/whispering-woods.ldtk"
 last-agent-pass: "2026-04-13"
 ---
 

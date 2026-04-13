@@ -7,6 +7,10 @@ connections:
   - "[[Sera]]"
   - "[[Elder Aldric]]"
 era: "Age of Starlight"
+biome: town
+palette: ""
+palette-source: "https://lospec.com/"
+ldtk-file: "project/ldtk/starlight-academy.ldtk"
 last-agent-pass: "2026-04-13"
 ---
 

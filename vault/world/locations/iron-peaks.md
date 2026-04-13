@@ -8,6 +8,10 @@ connections:
   - "[[Kaelen]]"
   - "[[Aric]]"
 era: "Both"
+biome: dungeon
+palette: ""
+palette-source: "https://lospec.com/"
+ldtk-file: "project/ldtk/iron-peaks.ldtk"
 last-agent-pass: "2026-04-13"
 ---
 

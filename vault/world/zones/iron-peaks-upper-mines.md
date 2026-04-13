@@ -9,6 +9,7 @@ connections:
   - "[[Iron Peaks Sealed Cavern]]"
 parent-location: "[[Iron Peaks]]"
 zone-type: dungeon
+biome: dungeon
 floor: 1
 grid-width: 24
 grid-height: 20

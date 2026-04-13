@@ -9,6 +9,10 @@ connections:
   - "[[Maren]]"
   - "[[Iron Peaks]]"
 era: "Both"
+biome: town
+palette: ""
+palette-source: "https://lospec.com/"
+ldtk-file: "project/ldtk/thornwall.ldtk"
 last-agent-pass: "2026-04-13"
 ---
 

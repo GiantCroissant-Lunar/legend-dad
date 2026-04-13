@@ -10,6 +10,7 @@ connections:
   - "[[Maren]]"
 parent-location: "[[Whispering Woods]]"
 zone-type: overworld
+biome: field
 floor: 0
 grid-width: 24
 grid-height: 20
