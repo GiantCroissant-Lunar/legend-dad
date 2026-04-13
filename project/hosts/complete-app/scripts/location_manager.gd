@@ -14,6 +14,7 @@ signal location_unloaded(location_name: String)
 
 const LOCATIONS_PATH := "res://data/locations.json"
 const PCK_BASE_DIR := "res://locations/"
+const LDTK_PROJECT_PATH := "res://ldtk/legend-dad.ldtk"
 
 var _current_location := ""
 var _current_biome := ""
@@ -24,6 +25,8 @@ var _father_palette: Texture2D
 var _son_palette: Texture2D
 var _tileset: TileSet
 var _using_fallback := false
+var _ldtk_project: Dictionary = {}
+var _collision_grids: Dictionary = {}  # era -> Dictionary[Vector2i, bool]
 
 
 func _ready() -> void:
@@ -60,6 +63,10 @@ func load_location(location_name: String) -> void:
 	var pck_filename: String = config.get("pck", "")
 	var biome: String = config.get("biome", "")
 	var pck_path := "res://%s" % pck_filename
+
+	# Load LDtk project (always — layout is independent of art assets)
+	if _ldtk_project.is_empty():
+		_ldtk_project = LdtkImporter.load_project(LDTK_PROJECT_PATH)
 
 	# Try loading PCK
 	var pck_loaded := false
@@ -113,6 +120,7 @@ func unload_location() -> void:
 	_current_location = ""
 	_current_biome = ""
 	_using_fallback = false
+	_collision_grids = {}
 	if not old_name.is_empty():
 		location_unloaded.emit(old_name)
 
@@ -161,3 +169,16 @@ func is_using_fallback() -> bool:
 
 func get_tileset() -> TileSet:
 	return _tileset
+
+
+func get_ldtk_project() -> Dictionary:
+	return _ldtk_project
+
+
+func set_collision_grid(era: C_TimelineEra.Era, grid: Dictionary) -> void:
+	_collision_grids[era] = grid
+
+
+func is_walkable(era: C_TimelineEra.Era, col: int, row: int) -> bool:
+	var grid: Dictionary = _collision_grids.get(era, {})
+	return grid.get(Vector2i(col, row), false)
