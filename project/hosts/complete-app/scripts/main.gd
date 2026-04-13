@@ -392,6 +392,10 @@ func _update_layout() -> void:
 		inactive_view_node.size = Vector2(inactive_w, inactive_h)
 		inactive_view_node.get_node("SubViewport").size = Vector2i(int(inactive_w), int(inactive_h))
 
+		# Update camera zoom to fit map height in each viewport
+		_update_camera_zoom(active_view_node, active_h)
+		_update_camera_zoom(inactive_view_node, inactive_h)
+
 		# Active view in front
 		move_child(active_view_node, get_child_count() - 1)
 
@@ -508,10 +512,16 @@ func _build_game_view(era: C_TimelineEra.Era) -> SubViewportContainer:
 	else:
 		son_tilemap = tilemap
 
-	# Camera centered on map
+	# Camera: zoom to fit map height with some padding, follow player later
 	var camera = Camera2D.new()
 	camera.name = "Camera2D"
 	camera.position = Vector2(map_width * TILE_SIZE / 2.0, map_height * TILE_SIZE / 2.0)
+	# Zoom so the map height fills the viewport (tiles stay readable at any resolution)
+	var map_pixel_height := float(map_height * TILE_SIZE)
+	var target_zoom := 1.0
+	if map_pixel_height > 0:
+		target_zoom = float(viewport.size.y) / map_pixel_height
+	camera.zoom = Vector2(target_zoom, target_zoom)
 	viewport.add_child(camera)
 
 	# Era label overlay
@@ -528,6 +538,17 @@ func _build_game_view(era: C_TimelineEra.Era) -> SubViewportContainer:
 	container.add_child(label)
 
 	return container
+
+func _update_camera_zoom(view: SubViewportContainer, viewport_height: float) -> void:
+	var camera = view.get_node("SubViewport/Camera2D") as Camera2D
+	if not camera:
+		return
+	var map_pixel_height := float(map_height * TILE_SIZE)
+	if map_pixel_height <= 0:
+		return
+	var target_zoom := viewport_height / map_pixel_height
+	camera.zoom = Vector2(target_zoom, target_zoom)
+
 
 func _rerender_tilemap(tilemap: TileMapLayer, era: C_TimelineEra.Era) -> void:
 	var source_id := 0
