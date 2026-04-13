@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generated": "2026-04-13T06:47:26.763435+00:00",
+  "generated": "2026-04-13T07:46:34.138161+00:00",
   "generated_by": "vault_to_manifest",
   "entities": [
     {
@@ -307,6 +307,252 @@
         "environment-art": "16-bit pixel art tileset, top-down perspective. Dense forest tiles: massive brown tree trunks (some 3-4 tiles wide for the ancient trees), green canopy overlay that partially obscures the ground layer, moss-covered ground tiles in varied greens, stream tiles (clear blue in father's era, gray-brown in son's era), wildflower accent tiles (father's era only). Path tiles: dirt trails through undergrowth, elevated wooden walkway tiles for the canopy trail. Son's era additions: dead tree tiles (gray bark, bare branches), sinkhole tiles (dark circular holes with crumbled edges), black fungus overlay on moss tiles, crystal growth tiles near sinkholes (same pale violet as Iron Peaks). The forest should feel dense \u2014 limited visibility, lots of layered tiles creating depth. Father's era palette: rich greens, warm browns, golden light. Son's era palette: muted greens, gray-browns, cool white light.",
         "ambience": "Father's era: a rich, layered forest soundscape. Wind through leaves creating the signature \"whispering\" \u2014 a constant, organic murmur. Bird calls (varied species at different distances), stream babbling, insect buzz, wood creaking, occasional animal movement in undergrowth. Footsteps on soft ground. Son's era: the whispering is still present but higher-pitched, more urgent. Fewer bird calls \u2014 long silences between them. The stream sound is thinner. Add: wood cracking and groaning (dying trees), a low subsonic rumble near sinkholes, crystal resonance chiming near fungal growth patches. The absence of the full animal chorus should feel wrong \u2014 a forest that has lost its voice.",
         "music": "Father's era: layered woodwinds \u2014 two recorders playing in thirds over a finger-picked lute in E minor. The arrangement is gentle and cyclical, like walking in circles through familiar paths. Natural forest sounds bleed into the music \u2014 the boundary between soundtrack and ambience is deliberately blurred. Son's era: solo recorder playing the same melody, but with longer pauses and slower tempo. The lute is replaced by a low, bowed psaltery that adds tension. The melody occasionally breaks into dissonance \u2014 a wrong note, quickly corrected \u2014 suggesting the forest's corruption bleeding into the music itself."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/iron-peaks-trail.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Iron Peaks Trail",
+      "template_properties": {
+        "overview": "The mountain trail ascending from the Whispering Woods tree line to the abandoned mine entrances of the Iron Peaks. A steep, winding path carved into the rock face with switchbacks and exposed ridgelines. Lookout Ridge \u2014 a flat outcrop with a panoramic view of Thornwall below \u2014 sits midway up. This zone transitions from forest to bare mountain, with increasing danger and decreasing vegetation as the player climbs.",
+        "layout_and_terrain": "Tall zone (20x24 tiles), oriented with the trail climbing from south to north. Southern quarter: tree line transition \u2014 scattered iron-bark pines on rocky ground. Middle: bare rock face with a switchback trail carved into it (2-tile wide path zigzagging up). Lookout Ridge is a flat 4x4 platform on the eastern edge at the midpoint. Northern quarter: the trail reaches a plateau with the mine entrance (a dark opening in the rock face, 2 tiles wide). Impassable: cliff edges (drop-offs), large boulders, sheer rock faces. The trail itself is narrow \u2014 limited room for combat, environmental hazards (loose rocks, narrow ledges).",
+        "entities_and_encounters": "**Father's era:**\n- Mountain goats (passive, ambient)\n- 1-2 hostile encounters (mountain bandits or rock creatures)\n- Lookout Ridge: rest point, vista dialogue (Kaelen comments on Thornwall below)\n- Mine entrance: locked/blocked, requires story progression to open\n\n**Son's era:**\n- Crystal-mutated creatures (tougher than forest encounters)\n- Lookout Ridge: Aric comments on Thornwall's deterioration (the northern farms are visible as brown patches)\n- Fissures in the rock face (new \u2014 glowing purple cracks, impassable but story-relevant)\n- Mine entrance: partially collapsed but passable",
+        "era_variants": "**Father \u2192 Son changes:**\n- Iron-bark pines at tree line: green, alive \u2192 some petrified (stone-gray)\n- Rock face: natural gray-brown \u2192 cracked with purple fissure lines\n- Trail: intact with carved steps \u2192 some sections crumbled, alternate paths needed\n- Lookout Ridge: clean stone platform \u2192 cracked, a fissure runs through the eastern edge\n- Mine entrance: solid wooden door frame \u2192 collapsed timbers, dark opening\n- Sky/background: clear mountain sky \u2192 slightly hazy, darker"
+      },
+      "connections": [
+        {
+          "target_vault_path": "Iron Peaks",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Whispering Woods Deep",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks Upper Mines",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: rocky ground (gray-brown with rust-orange mineral streaks), carved trail tiles (smoother stone, lighter than surrounding rock, with step-edge details), cliff edge tiles (sharp drop-off shown as dark shadow gradient), iron-bark pine tiles (twisted dark trunk, compact green canopy \u2014 smaller than Whispering Woods trees), boulder tiles (large round rock, 1x1 and 2x2 variants), switchback turn tiles (trail bends, carved stone railing on outer edge), Lookout Ridge platform tiles (flat polished stone, lighter color, carved railing), mine entrance tiles (dark opening framed by timber supports, rusted iron rail tracks emerging). Son's era additions: petrified pine tiles (same shape but stone-gray with no green), fissure tiles (purple-violet line cracks in rock, emitting faint glow), crumbled trail tiles (broken edge, rubble), collapsed mine frame (fallen timbers, partially blocked opening). The zone should convey verticality \u2014 lighter tiles at top (sky exposure), darker at bottom (shadow). The trail should feel like a thin line of safety through hostile terrain.",
+        "ambience": "Father's era: wind dominance \u2014 constant, gusting, changing pitch with elevation. Rocky footsteps (hard, echoing against cliff faces). Gravel sliding underfoot on switchbacks. Eagle cry (distant, above). Iron-bark pine needles rustling (sparse, not like the forest's thick canopy). Occasional rock fall (small stones bouncing down). At Lookout Ridge: wind subsides slightly, distant Thornwall sounds barely audible (a hint of the village theme). Son's era: wind is stronger, with a whistling quality through the fissures. Crystal resonance from the fissures (a sustained, eerie tone that varies with wind). Rock fall sounds are more frequent and larger. Petrified pines make no sound (they're stone \u2014 the absence of rustling is noticeable). Creature sounds from the mine entrance area. At Lookout Ridge: a low rumble from within the mountain, felt more than heard.",
+        "music": "Father's era: sparse percussion (taiko-style) and solo French horn in B minor. Slow ascending melody matching the climb. The horn sounds isolated against wind \u2014 one person against the mountain. Percussion hits on switchback turns (rhythmic accent for the climb). At Lookout Ridge: the melody opens into a brief major key phrase \u2014 a moment of beauty before the final push. Loop: 120 seconds. Son's era: same taiko but with unstable timing (hits slightly off-beat, suggesting instability). Horn replaced by bowed bass with heavy vibrato. Crystal synth pad rises with elevation. The melody descends where father's ascended \u2014 the mountain is pushing back. At Lookout Ridge: the music pauses, replaced by the mountain's rumble. Loop: 120 seconds."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/iron-peaks-upper-mines.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Iron Peaks Upper Mines",
+      "template_properties": {
+        "overview": "The first dungeon floor \u2014 abandoned mine tunnels carved into the Iron Peaks generations ago. Narrow passages, support timbers, rusted rail tracks, and collapsed sections create a maze-like environment. The player navigates through to reach the deeper levels and eventually the Sealed Cavern. In the father's era, the mines are abandoned but structurally sound. In the son's era, crystal growth has invaded the tunnels, creatures have nested, and some passages have collapsed while new ones have opened.",
+        "layout_and_terrain": "Medium-large zone (24x20 tiles). Network of interconnected tunnels radiating from a central hub (the old mineshaft elevator room, 4x4 tiles, non-functional). Four main tunnel branches: north (to Sealed Cavern entrance \u2014 blocked in father's era), east (dead end with loot), south (entrance from the Trail), west (collapsed in father's era, opened by crystal growth in son's era \u2014 alternate path). Tunnels are 2-3 tiles wide. Rail tracks run along the main passages. Support timbers at regular intervals. The hub has a higher ceiling (visually lighter). Dead-end alcoves contain old mining equipment and potential loot. Walkable: tunnel floors, rail tracks. Impassable: rock walls, collapsed rubble, intact support pillars.",
+        "entities_and_encounters": "**Father's era:**\n- Bats (passive, ambient \u2014 scatter when approached)\n- 1-2 cave spider encounters (basic dungeon enemies)\n- Mining equipment interactions (pickaxe \u2014 key item, lantern \u2014 light source)\n- Lore note on wall (miner's warning about the deep tunnels)\n\n**Son's era:**\n- Crystal-mutated creatures (cave spiders evolved, more aggressive)\n- Crystal growth nodes (interactable \u2014 can be broken for resources or examined with Starweaver Lens)\n- 1 mini-boss encounter in the west branch (new area opened by crystal growth)\n- Environmental hazard: unstable floor sections (shake visual, damage if lingered)",
+        "era_variants": "**Father \u2192 Son changes:**\n- Tunnel walls: rough stone \u2192 stone with crystal veins (violet lines in rock tiles)\n- Rail tracks: rusted but intact \u2192 some sections buckled by crystal growth pushing from below\n- Support timbers: weathered wood \u2192 some cracked/broken, crystal growing through gaps\n- Hub room: empty, dusty \u2192 crystal growth cluster at center (large, ambient light source)\n- North passage (to Sealed Cavern): solid brick wall \u2192 bricks cracked, violet light leaking through\n- West passage: fully collapsed rubble \u2192 rubble cleared by crystal growth, new passage opened\n- Air: dusty, stale \u2192 faint crystal haze, particles visible in light\n- Temperature: cool \u2192 warm (the crystal generates heat)"
+      },
+      "connections": [
+        {
+          "target_vault_path": "Iron Peaks",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks Trail",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks Sealed Cavern",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: mine tunnel floor (dark gray stone with gravel texture), mine wall tiles (rough-hewn rock, darker than floor), support timber tiles (brown vertical beams at tunnel edges), rail track tiles (two parallel rust-brown lines on floor), collapsed rubble tiles (mixed rock and timber, impassable), hub room floor (smoother stone, lighter \u2014 the worked center of the mine), mining equipment tiles (pickaxe against wall, lantern on hook, barrel, crate), minecart tile (on rails, can be pushed?), elevator shaft tile (dark square with wooden frame, non-functional). Son's era additions: crystal vein wall tiles (stone with glowing violet lines \u2014 the crystal is growing through the rock), crystal cluster tiles (larger formations, 1x1 and 2x2, emit pale violet light), crystal-cracked timber tiles (wood split by crystal growth), buckled rail tiles (bent upward by force from below), unstable floor tiles (subtle crack pattern, slightly different color \u2014 visual warning), crystal haze overlay (semi-transparent violet tint on affected areas). Lighting: father's era uses warm orange (torch/lantern), son's era mixes orange torchlight with violet crystal glow \u2014 the two light sources competing.",
+        "ambience": "Father's era: underground echo chamber acoustics. Dripping water (irregular, echoing), footsteps on stone (sharp reverb), bat wing flutters (sudden, startling), wind draft through tunnels (low moan), timber creaking under rock pressure, distant rock settling, minecart wheels on rails (if pushed), lantern flame hiss. The mine should sound hollow and abandoned \u2014 every sound echoes. Son's era: same base acoustics but warmer (crystal heat changes the air). Crystal resonance hum (constant, varies by location \u2014 louder near clusters), creature skittering (fast, in walls), unstable floor rumble (warning sound before damage), crystal breaking (sharp, glass-like when nodes are destroyed), a deep pulse from below (the Sealed Cavern, rhythmic, like a heartbeat). The crystal hum should become the new normal \u2014 silence is when it stops, and that's scarier.",
+        "music": "Father's era: minimal \u2014 mostly ambient with occasional musical stings. A low, sustained cello note as base drone. Sparse pizzicato strings when exploring (plucked notes, irregular rhythm, suggesting careful steps in the dark). Combat encounters: the drone intensifies, percussion enters. The music should feel like the mine is breathing \u2014 slow, patient, not hostile but not safe. Loop: 180 seconds with long quiet sections. Son's era: the cello drone is replaced by a synthesized crystal tone (same pitch, different timbre \u2014 organic replaced by mineral). Pizzicato strings are joined by crystal percussion (tuned chimes struck with mallets). The rhythm is slightly faster \u2014 the mine is more active, more alive. Near the Sealed Cavern entrance: all other music fades, replaced by a deep, throbbing bass note and the crystal hum at its loudest. Loop: 180 seconds."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/thornwall-elder-quarter.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Thornwall Elder Quarter",
+      "template_properties": {
+        "overview": "The quieter eastern district of Thornwall, home to the village elder's cottage, a small chapel, and a handful of residential houses. This is where Aric grew up. The Elder Quarter is where key story conversations happen \u2014 the elder's cottage contains maps, records, and Kaelen's hidden journal. In the father's era, it's a peaceful residential area. In the son's era, several houses are abandoned, but the elder's cottage remains the beating heart of the community.",
+        "layout_and_terrain": "Medium zone (16x14 tiles). Flagstone paths connect the buildings. The elder's cottage is the largest structure (4x3 tiles) at the north end, with a small garden patch beside it. A chapel (3x2 tiles) sits at the south end. Four residential cottages (2x2 each) line the east and west sides. A large oak tree (2x2, impassable) grows in the center courtyard. The south exit leads to the Market. No other exits \u2014 this is a dead-end district, reflecting its quiet nature.",
+        "entities_and_encounters": "**Father's era:**\n- Village elder (in cottage \u2014 dialogue: local history, advice for Kaelen)\n- 2 residents (ambient, short dialogue)\n- Chapel keeper (dialogue: lore about the region's founding)\n\n**Son's era:**\n- Village elder (aged, in cottage \u2014 dialogue: stories about Kaelen, concern for Aric)\n- Aric (found here at certain story points)\n- 1 remaining resident\n- Kaelen's Journal discovery event (triggered at militia barracks in Market, but the journal content references this area)",
+        "era_variants": "**Father \u2192 Son changes:**\n- Elder's cottage: well-maintained, garden flourishing \u2192 maintained but aged, garden smaller\n- Residential cottages: 4 occupied \u2192 2 occupied, 2 boarded up\n- Chapel: active, candles lit \u2192 still open but dusty, fewer candles\n- Oak tree: full green canopy \u2192 still alive but leaves are thinning, some bare branches\n- Flagstone: clean \u2192 moss-covered, some cracked\n- Overall: warm, lived-in \u2192 quiet, holding on"
+      },
+      "connections": [
+        {
+          "target_vault_path": "Thornwall",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Thornwall Market",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Elder Aldric",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Aric",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: flagstone path (gray-blue, more formal than cobblestone), elder's cottage tiles (larger stone building, thatched roof visible from top-down as brown texture, warm window glow), residential cottage tiles (smaller wood-and-stone, varied roof colors), chapel tiles (pale stone with small steeple shadow), garden tiles (brown earth with green plant rows), oak tree tiles (large trunk center with canopy overlay spreading 2x2), boarded cottage variant (dark windows, boards across door). Flagstone should feel quieter and more dignified than the Market's cobblestone. The elder's cottage should clearly be the most important building \u2014 slightly larger, warmer lighting, more detail in the roof tiles.",
+        "ambience": "Father's era: flagstone footsteps (softer than cobblestone), wind through the oak tree's leaves, a garden tool clinking, chapel bell (single tone, once per loop), distant laughter from the Market, a door opening and closing, fire crackling from the elder's cottage chimney. Gentle, residential, safe. Son's era: flagstone footsteps, wind through the oak (thinner sound, fewer leaves), elder's chimney fire (still there \u2014 the one constant), creaking from abandoned cottages, chapel bell (same tone but sounds lonelier in the quiet), no Market sounds. The elder's chimney fire sound is the emotional anchor \u2014 the one thing that hasn't changed.",
+        "music": "Father's era: gentle harp arpeggios in C major with a solo oboe melody \u2014 warm, domestic, unhurried. The oboe suggests wisdom and age (the elder's theme hint). Volume is low \u2014 this is background music for conversation scenes. Son's era: same harp pattern but slower, in C minor. The oboe is replaced by a solo clarinet playing the melody an octave lower \u2014 the same wisdom made heavier by twenty years. A faint music-box quality on the last phrase suggests childhood memories (Aric's connection to this place)."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/thornwall-market.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Thornwall Market",
+      "template_properties": {
+        "overview": "The central square of Thornwall \u2014 a cobblestone plaza surrounded by shops, the village well, and the militia notice board. This is the player's hub zone in both eras. In the father's era it bustles with traders, children, and militia guards. In the son's era the same square feels half-empty: stalls are boarded up, the well bucket is rusty, and the notice board is covered in warnings about creature sightings.",
+        "layout_and_terrain": "A roughly rectangular plaza (20x16 tiles). The well sits at the center (2x2 impassable). Cobblestone paths radiate from the well to four exits: north (to Thornwall North Gate), south (to the southern road), east (to the Elder Quarter), west (to the farmlands). Market stalls line the north and east edges \u2014 in father's era they have awnings and goods; in son's era half are boarded up. The militia barracks is a large building (4x3 tiles) on the west side. A small herb shop sits on the east side near the Elder Quarter exit. The ground is mostly walkable cobblestone with building tiles as impassable walls.",
+        "entities_and_encounters": "**Father's era:**\n- 2-3 trader NPCs at market stalls (dialogue: local rumors, item shop)\n- 1 militia guard at the north exit (dialogue: warns about mountain paths)\n- 2 children playing near the well (ambient, non-interactive)\n- Kaelen's starting position: near the militia barracks\n\n**Son's era:**\n- 1 remaining trader (limited inventory, pessimistic dialogue)\n- 1 elderly militia guard (dialogue: stories about Kaelen, warnings about tremors)\n- Maren (companion, found near the herb shop)\n- Aric's starting position: near the well",
+        "era_variants": "**Father \u2192 Son changes:**\n- Market stalls: 6 active \u2192 2 active, 4 boarded (tile swap)\n- Well: clean stone rim \u2192 rusty bucket, cracked rim (tile swap)\n- Militia barracks: full bunks, lit windows \u2192 half-empty, dim windows\n- NPC count: ~6 \u2192 ~3\n- Ground: clean cobblestone \u2192 some cracked tiles, weeds growing through gaps\n- Notice board: trade postings \u2192 creature warning posters\n- Ambient: lively crowd sounds \u2192 wind, occasional footstep"
+      },
+      "connections": [
+        {
+          "target_vault_path": "Thornwall",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Thornwall North Gate",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Thornwall Elder Quarter",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles needed: cobblestone ground (2-3 variants for visual variety), cobblestone-cracked variant (son's era), building walls (brown wood with stone base), building interiors visible through doorways (dark with warm light), market stall tiles (wooden frame with colored awning \u2014 red, blue, green), boarded-up stall variant (gray wood, no awning), well tiles (circular stone rim, dark water center), militia barracks facade (larger stone building, iron-banded door), herb shop facade (wooden with hanging dried plants), notice board (wooden frame with paper rectangles). Era-specific palette: father's era warm (golden cobblestone, warm brown wood, colored awnings), son's era cool (gray-tinted cobblestone, weathered wood, muted colors). Transition tiles needed for exits: cobblestone-to-dirt (south, west), cobblestone-to-flagstone (east to Elder Quarter), cobblestone-to-gate (north).",
+        "ambience": "Father's era: cobblestone footsteps, crowd murmur (3-5 voices at medium distance), merchant calling prices, children laughing near well, metal clinking from militia training, cart wheels on stone, birdsong. A warm, populated soundscape at moderate volume. Son's era: cobblestone footsteps (slower), wind through empty stalls, a single merchant's half-hearted call, creaking wood from boarded stalls, well bucket chain rattling, distant crow caw, occasional low rumble from the mountains. Same spatial layout as father's era but with 60% of the sound layers removed \u2014 the silence is the atmosphere.",
+        "music": "Father's era: folk melody in G major \u2014 acoustic guitar and pennywhistle at moderate tempo. Bright, communal, the sound of a village at peace. Melodic hook is simple and memorable \u2014 players will hear this often. Loop length: 90 seconds. Son's era: same melody in G minor, solo acoustic guitar, half tempo. The pennywhistle is absent. A faint low drone on the last 4 bars suggests the distant tremors. Loop length: 90 seconds. The recognition of the same tune made sad is the emotional point."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/thornwall-north-gate.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Thornwall North Gate",
+      "template_properties": {
+        "overview": "The fortified northern entrance to Thornwall, where the thornbriar wall is thickest and a wooden gate controls passage to the Whispering Woods and the road toward the Iron Peaks. A militia guardhouse flanks the gate. This zone serves as a transition between the safe town and the dangerous wilderness. In the father's era, the gate is well-maintained and guarded. In the son's era, the thornbriar has gaps, the gate hangs crooked, and the guardhouse is understaffed.",
+        "layout_and_terrain": "Narrow zone (16x12 tiles) oriented north-south. The thornbriar wall runs east-west across the middle of the zone, with the gate opening at center (2 tiles wide). The guardhouse is a small building (3x2) on the west side of the gate. A dirt path runs north-south through the gate \u2014 south leads to the Market, north leads out to the Whispering Woods Edge. The thornbriar wall tiles are impassable except at the gate. East and west edges are dense thornbriar (impassable). A small weapons rack and training dummy sit outside the guardhouse (interactable in father's era).",
+        "entities_and_encounters": "**Father's era:**\n- 2 militia guards (one at gate, one patrolling)\n- Training dummy (interactable \u2014 tutorial combat hint)\n- Weapons rack (interactable \u2014 basic equipment)\n\n**Son's era:**\n- 1 militia guard (tired, warns about forest creatures)\n- Collapsed training dummy (non-interactive flavor)\n- Empty weapons rack",
+        "era_variants": "**Father \u2192 Son changes:**\n- Thornbriar wall: dense, green, flowering \u2192 patchy, dead sections (gray tiles), gaps visible\n- Gate: solid wood, oiled hinges \u2192 warped wood, hanging slightly open\n- Guardhouse: lit windows, maintained \u2192 dim, peeling paint\n- Training area: active dummy + full rack \u2192 fallen dummy + empty rack\n- Ground: packed dirt path \u2192 same dirt but with weeds and cracks near the wall gaps"
+      },
+      "connections": [
+        {
+          "target_vault_path": "Thornwall",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Thornwall Market",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Whispering Woods Edge",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: thornbriar wall tiles (dense green hedge, 1 tile high, with flower accents for father's era), dead thornbriar variant (gray-brown, gaps showing background through), wooden gate tiles (vertical planks, iron hinges \u2014 open and closed states), guardhouse tiles (stone base, wood upper, small window), dirt path tiles (packed brown earth), training dummy tile (wooden cross-frame with straw), weapons rack tile (wooden frame with sword/shield silhouettes). The thornbriar should look impenetrable \u2014 dark green with thorns visible at pixel level. Father's era: thornbriar has tiny white flower pixels scattered on top. Son's era: same structure but desaturated with brown-gray dead patches, some tiles have visible gaps (1-tile holes showing the ground behind).",
+        "ambience": "Father's era: thornbriar rustling in wind (constant, leafy), gate creaking on hinges when opened, militia guard footsteps on dirt, training dummy being struck (wooden thwack), distant market sounds from the south, birdsong from beyond the wall. Son's era: wind through thornbriar gaps (higher pitch, whistling), gate groaning (it never fully closes), a single guard's footsteps, creature sounds from beyond the wall (distant, indistinct \u2014 could be animal, could be worse), no market sounds from the south.",
+        "music": "Shares the Thornwall theme but at lower volume, transitioning. Father's era: the Market folk melody fading as you move north, replaced by a single sustained note on a low flute \u2014 the edge of safety. Son's era: near-silence with a quiet, repeating two-note motif on plucked strings (tension, watchfulness). When facing north toward the gate exit, a faint preview of the Whispering Woods theme bleeds in."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/whispering-woods-deep.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Whispering Woods Deep",
+      "template_properties": {
+        "overview": "The deep interior of the Whispering Woods, where ancient trees block most sunlight and the canopy trail provides the only safe path above the tangled undergrowth. The Moss Clearing \u2014 a natural depression where foresters camp \u2014 sits at the center. The path north exits toward the Iron Peaks Trail. This zone has denser encounters and more exploration than the Edge. The Ancient Stones (carved markers from a forgotten civilization) are found here, hinting at the buried structures beneath the forest.",
+        "layout_and_terrain": "Large zone (24x24 tiles). Dense tree coverage \u2014 only 40% of the ground is walkable. The canopy trail (elevated wooden walkway tiles) provides a safe route through the treetops in the northern half. The Moss Clearing is a 6x6 open area at the center with soft green moss tiles and a campfire ring. The Deep Root (the oldest tree, 3x3 tiles) is in the northwest corner. Ancient Stones are scattered as 1x1 interactable tiles at 4-5 locations among the roots. Paths are narrow and winding \u2014 no straight lines. A stream from the Edge zone continues through the southeast corner. Exit south: back to Edge. Exit north: to Iron Peaks Trail.",
+        "entities_and_encounters": "**Father's era:**\n- 2-3 passive creatures (foxes, owls)\n- 1-2 hostile creatures (wolves, territorial)\n- Forester camp at Moss Clearing (rest point, campfire save)\n- Ancient Stone interactions (examine \u2192 lore text, Starweaver Lens reveals hidden inscriptions)\n\n**Son's era:**\n- 3-4 hostile corrupted creatures (stronger than Edge encounters)\n- Sinkhole at Moss Clearing center (where the campfire was)\n- Canopy trail sections collapsed (requires alternate ground routes)\n- Ancient Stones now glow faintly (the buried structures are activating)\n- The Deep Root is stressed \u2014 sap weeping, bark cracked",
+        "era_variants": "**Father \u2192 Son changes:**\n- Moss Clearing: green moss, campfire ring \u2192 sinkhole at center, moss blackened at edges\n- Canopy trail: intact wooden walkways \u2192 2-3 sections collapsed (fallen plank tiles)\n- Ancient Stones: inert, covered in moss \u2192 faint violet glow, moss burned away\n- Deep Root: massive healthy trunk \u2192 cracked bark, sap pools, still alive but visibly damaged\n- Tree density: unchanged, but many trees show stress (bark peeling, canopy thinning)\n- Stream: clear \u2192 cloudy with a faint violet tint near sinkhole\n- Ground: thick moss \u2192 patches of black fungal growth, crystal shards near sinkhole"
+      },
+      "connections": [
+        {
+          "target_vault_path": "Whispering Woods",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Whispering Woods Edge",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks Trail",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: dense forest floor (dark green moss, minimal light), massive tree trunks (3-4 tile wide ancient trees \u2014 these should feel enormous), canopy overlay (very dark green, heavy coverage, only path tiles are visible beneath), canopy trail tiles (wooden planks suspended between trees, lighter than ground level), Moss Clearing tiles (bright green moss, lighter than surrounding forest, clearly a break in the canopy), campfire ring tiles (stone circle with ash/embers), Deep Root tiles (enormous trunk with visible root system spreading 3x3, bark texture detailed at pixel level), Ancient Stone tiles (gray carved stone half-buried in roots, small \u2014 1x1 with inscribed line details). Son's era additions: collapsed walkway tiles (broken planks hanging at angles), sinkhole tiles (dark void with crystal-violet edge glow), glowing Ancient Stone variant (same stone but with violet light pixels emanating), cracked Deep Root (sap drip pixels, bark gap patterns), black fungal moss (replacing green moss near corruption sources), crystal shard ground tiles (small violet geometric shapes on dark ground). The zone should feel claustrophobic \u2014 limited visibility, heavy canopy, narrow paths between massive trunks.",
+        "ambience": "Father's era: deep forest layered soundscape. The whispering canopy at full volume \u2014 a constant, almost conversational murmur. Owl hoots (night cycle), fox barks (distant), wolf howl (rare, far away), thick undergrowth rustling, heavy branch creaking from ancient trees, stream (muffled by distance and canopy), footsteps on moss (soft, damp), footsteps on wooden walkway (hollow clonk). At Moss Clearing: campfire crackle, the canopy rustle is quieter (opening in trees). Son's era: the whisper is louder and higher-pitched \u2014 urgent, warning. Crystal resonance hum near the sinkhole and glowing stones (a sustained, slightly pulsing tone). Corrupted creature sounds (guttural, wrong-sounding versions of normal animals). Collapsed walkway: wood groaning when walked near. Deep Root: a slow, deep creak like a ship hull under pressure. Sinkhole: a low draft sound, as if air is being pulled downward.",
+        "music": "Father's era: the Whispering Woods theme fully developed \u2014 dual recorders, lute, with added low drone from a bowed psaltery. Darker and more mysterious than the Edge variant. The melody moves in a minor key with modal inflections suggesting ancient, pre-human music. The forest sounds are heavily blended into the arrangement \u2014 the boundary between music and place dissolves. Loop: 150 seconds. Son's era: the recorder is gone. The psaltery drone dominates, with crystal-chime percussion (representing the corruption) replacing the rhythmic lute. A solo low flute plays fragments of the melody \u2014 not the full tune, just broken phrases, as if the forest itself is forgetting its song. Near the sinkhole: all melodic content drops out, leaving only the drone and crystal chimes. Loop: 150 seconds."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/whispering-woods-edge.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Whispering Woods Edge",
+      "template_properties": {
+        "overview": "The first zone of the Whispering Woods, where the village farmlands give way to old-growth forest. A dirt path from Thornwall's north gate enters from the south and splits into a main trail heading north (to the Deep Woods) and a side path east (to the Forester's Cabin where Maren lives). The canopy is lighter here than deeper in \u2014 enough sunlight reaches the ground for wildflowers and undergrowth. This zone serves as the first wilderness area with light combat encounters.",
+        "layout_and_terrain": "Large zone (24x20 tiles). The southern third is transitional \u2014 scattered trees, tall grass, the edge of Thornwall's abandoned farmland (son's era: fallow fields with sinkholes). The middle is proper forest edge \u2014 medium-density trees with a clear path winding through. The northern third is denser canopy with the path narrowing. The dirt path splits at center: main path continues north, side path goes east to the Forester's Cabin (a small structure at the map's east edge). A stream crosses the zone east-west near the north end. Walkable tiles: dirt path, grass, shallow stream crossing. Impassable: tree trunks, dense undergrowth, deep stream sections.",
+        "entities_and_encounters": "**Father's era:**\n- 1-2 passive forest creatures (deer, rabbit \u2014 ambient)\n- 1 forester NPC on the path (dialogue: forest conditions, path advice)\n- Medicinal herb pickups near the stream (3-4 spots)\n\n**Son's era:**\n- 1-2 hostile corrupted creatures (first combat encounters)\n- Maren (near Forester's Cabin \u2014 companion recruitment)\n- Fewer herb spots (some replaced by fungal growth \u2014 visual cue for corruption)\n- 1 sinkhole near abandoned farmland (environmental hazard / story point)",
+        "era_variants": "**Father \u2192 Son changes:**\n- Southern farmland: golden wheat \u2192 cracked fallow earth with 1 sinkhole tile\n- Tree canopy: full green \u2192 thinned, some bare branches letting harsh light through\n- Stream: clear blue \u2192 slightly murky gray-blue\n- Wildflowers: present \u2192 mostly gone, replaced by dark fungal patches\n- Forester's Cabin: well-maintained \u2192 patched up, Maren's modifications visible\n- Path condition: clear dirt \u2192 overgrown edges, some roots breaking through\n- Creature type: passive animals \u2192 hostile corrupted creatures"
+      },
+      "connections": [
+        {
+          "target_vault_path": "Whispering Woods",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Thornwall North Gate",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Whispering Woods Deep",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Maren",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: dirt path (brown, worn, 2-3 variants), grass ground (varied greens with occasional wildflower pixel), tree trunk tiles (brown circles of varying size \u2014 small 1x1, medium 2x1), canopy overlay tiles (semi-transparent green dappled pattern, layered above ground), undergrowth tiles (dark green, impassable, shorter than trees), stream tiles (2-tile wide, animated blue with white highlight pixels for flow), stream crossing tile (shallow, walkable, slightly different color), tall grass tiles (lighter green, swaying animation frame). Forester's Cabin: small wooden structure (3x2), chimney smoke, pelts hanging outside. Son's era additions: dead tree trunk tiles (gray), thinned canopy overlay (more gaps), fungal growth tiles (dark purple-black patches on ground), sinkhole tile (dark circle with crumbled edge), cracked earth tiles (for abandoned farmland), murky stream variant. The visual transition from south (open, light) to north (dense, darker) should be gradual across the zone.",
+        "ambience": "Father's era: the signature Whispering Woods canopy rustle (constant, layered leaf sounds), birdsong (3-4 species at varying distances), stream babbling (louder near water, fading with distance), insect buzz (gentle, summer), footsteps switching from dirt to grass to shallow water. Occasional: deer movement in undergrowth, branch snap, woodpecker. A full, healthy forest soundscape. Son's era: canopy rustle still present but higher-pitched and thinner. Fewer bird species (1-2, with long silences between calls). Stream sound is present but duller. Add: wood creaking (stressed trees), a low subsonic pulse near the sinkhole, crystal-like chiming near fungal patches (faint, unsettling). Creature sounds: skittering in undergrowth, a low growl at medium distance. The forest edge should sound like a warning \u2014 enough nature sounds to be recognizably forest, enough wrong sounds to signal danger.",
+        "music": "Father's era: layered woodwinds in E minor \u2014 two recorders in thirds over finger-picked lute. Gentle, cyclical, walking pace. Natural sounds bleed into the arrangement. The melody is exploratory \u2014 ascending phrases suggesting discovery. Loop: 120 seconds. Son's era: solo recorder, same melody but with pauses where the second recorder should be. Lute replaced by bowed psaltery adding tension. Occasional dissonant note \u2014 a half-step clash that resolves quickly, suggesting the corruption is audible. Near the sinkhole: music drops to just the psaltery drone. Loop: 120 seconds."
       },
       "dialogue_hooks": [],
       "flow_notes": ""

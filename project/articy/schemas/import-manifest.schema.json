@@ -42,7 +42,7 @@
         },
         "type": {
           "type": "string",
-          "enum": ["character", "location", "faction", "quest", "item", "event", "lore", "bestiary"],
+          "enum": ["character", "location", "zone", "faction", "quest", "item", "event", "lore", "bestiary"],
           "description": "Entity type, maps to articy template"
         },
         "status": {

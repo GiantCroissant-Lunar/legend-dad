@@ -182,5 +182,5 @@ class TestEndToEnd:
             loaded = json.load(f)
 
         assert loaded["jsonVersion"] == LDTK_JSON_VERSION
-        assert len(loaded["defs"]["entities"]) == 8
+        assert len(loaded["defs"]["entities"]) == 9
         assert len(loaded["defs"]["enums"]) == 2

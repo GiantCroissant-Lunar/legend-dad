@@ -65,6 +65,38 @@
         }
       }
     },
+    "zone": {
+      "articy_object_type": "Entity",
+      "display_name": "Zone",
+      "technical_name": "LD_Zone",
+      "features": {
+        "NarrativeProps": {
+          "display_name": "Narrative Properties",
+          "properties": {
+            "overview": { "type": "Text", "display_name": "Overview" },
+            "layout_and_terrain": { "type": "Text", "display_name": "Layout & Terrain" },
+            "entities_and_encounters": { "type": "Text", "display_name": "Entities & Encounters" },
+            "era_variants": { "type": "Text", "display_name": "Era Variants" }
+          }
+        },
+        "CreativePrompts": {
+          "display_name": "Creative Prompts",
+          "properties": {
+            "tilemap_art": { "type": "Text", "display_name": "Tilemap Art Prompt" },
+            "ambience": { "type": "Text", "display_name": "Ambience Prompt" },
+            "music": { "type": "Text", "display_name": "Music Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
     "faction": {
       "articy_object_type": "Entity",
       "display_name": "Faction",

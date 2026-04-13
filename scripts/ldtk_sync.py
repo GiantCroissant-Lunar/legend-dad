@@ -35,6 +35,7 @@ ENTITY_COLORS = {
 TYPE_TO_ENTITY = {
     "character": "Character",
     "location": "Location",
+    "zone": "Zone",
     "faction": "Faction",
     "quest": "Quest",
     "item": "Item",
@@ -42,6 +43,9 @@ TYPE_TO_ENTITY = {
     "lore": "Lore",
     "bestiary": "Creature",
 }
+
+# Entity colors for Zone type
+ENTITY_COLORS["Zone"] = "#4A8B6F"
 
 # IntGrid values for collision layer
 INTGRID_COLLISION = [
@@ -244,6 +248,57 @@ def build_entity_field_defs(uid_alloc: UidAllocator) -> list[dict]:
     ]
 
 
+def _make_levels_from_zones(uid_alloc: UidAllocator, manifest: dict) -> list[dict]:
+    """Create LDtk levels from zone entities in the manifest."""
+    levels = []
+    # Space levels out horizontally in the LDtk world view
+    x_offset = 0
+    spacing = 32  # pixels between levels
+
+    for entity in manifest.get("entities", []):
+        if entity.get("type") != "zone":
+            continue
+
+        display_name = entity.get("display_name", "Zone")
+        # Convert display name to a valid LDtk identifier (PascalCase, no spaces)
+        identifier = display_name.replace(" ", "_").replace("'", "").replace("-", "_")
+
+        # Read zone dimensions from frontmatter (passed through template_properties)
+        # Default to 16x16 tiles if not specified
+        # Note: grid-width/grid-height are in the vault frontmatter but not in template_properties
+        # For now use a default; the designer adjusts in LDtk
+        px_wid = GRID_SIZE * 20
+        px_hei = GRID_SIZE * 16
+
+        level = {
+            "identifier": identifier,
+            "iid": _make_iid(),
+            "uid": uid_alloc.next(),
+            "worldX": x_offset,
+            "worldY": 0,
+            "worldDepth": 0,
+            "pxWid": px_wid,
+            "pxHei": px_hei,
+            "__bgColor": "#696A79",
+            "bgColor": None,
+            "useAutoIdentifier": False,
+            "bgRelPath": None,
+            "bgPos": None,
+            "bgPivotX": 0.5,
+            "bgPivotY": 0.5,
+            "__smartColor": "#ADADB5",
+            "__bgPos": None,
+            "externalRelPath": None,
+            "fieldInstances": [],
+            "layerInstances": None,
+            "__neighbours": [],
+        }
+        levels.append(level)
+        x_offset += px_wid + spacing
+
+    return levels
+
+
 def _make_default_level(uid_alloc: UidAllocator) -> dict:
     """Create a default empty level so LDtk has something to load."""
     return {
@@ -298,8 +353,8 @@ def generate_ldtk_project(manifest: dict) -> dict:
         _make_layer_def(uid, "Terrain", "IntGrid"),
     ]
 
-    # Create a default level so LDtk has something to load
-    default_level = _make_default_level(uid)
+    # Create levels from zone entities in the manifest
+    levels = _make_levels_from_zones(uid, manifest)
 
     return {
         "__header__": {
@@ -353,7 +408,7 @@ def generate_ldtk_project(manifest: dict) -> dict:
             "externalEnums": [],
             "levelFields": [],
         },
-        "levels": [default_level],
+        "levels": levels if levels else [_make_default_level(uid)],
     }
 
 

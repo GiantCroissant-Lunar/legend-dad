@@ -71,6 +71,9 @@ def extract_creative_prompts(creative_section: str) -> dict[str, str]:
 
 _TEMPLATE_SECTIONS = {
     "Overview": "overview",
+    "Layout & Terrain": "layout_and_terrain",
+    "Entities & Encounters": "entities_and_encounters",
+    "Era Variants": "era_variants",
     "Backstory": "backstory",
     "Personality & Motivation": "personality_and_motivation",
     "Atmosphere & Appearance": "atmosphere_and_appearance",
@@ -166,6 +169,7 @@ def build_entity(text: str, vault_path: str) -> dict:
 _TYPE_DIRS = {
     "characters": "character",
     "locations": "location",
+    "zones": "zone",
     "factions": "faction",
     "quests": "quest",
     "items": "item",

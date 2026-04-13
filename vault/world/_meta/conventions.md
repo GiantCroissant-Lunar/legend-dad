@@ -10,7 +10,7 @@ Every vault page under `vault/world/` must start with YAML frontmatter:
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `type` | string | yes | One of: character, location, faction, quest, item, event, lore, bestiary |
+| `type` | string | yes | One of: character, location, zone, faction, quest, item, event, lore, bestiary |
 | `status` | string | yes | `draft` (agent-created) or `reviewed` (human-promoted) |
 | `articy-id` | string | yes | Empty string until first articy import. MDK plugin fills this. |
 | `tags` | list | yes | Freeform tags for categorization |
@@ -33,6 +33,20 @@ Every vault page under `vault/world/` must start with YAML frontmatter:
 3. History
 4. Notable Features
 5. Creative Prompts (environment-art, ambience, music)
+
+### zone
+1. Overview (what this map area is, its role in gameplay)
+2. Layout & Terrain (walkable areas, obstacles, elevation, water)
+3. Entities & Encounters (NPCs, enemies, interactables placed here)
+4. Era Variants (how this zone differs between father/son timelines)
+5. Creative Prompts (tilemap-art, ambience, music)
+
+**Zone-specific frontmatter:**
+- `parent-location`: [[Location]] this zone belongs to
+- `zone-type`: overworld | town | dungeon | cave | interior | boss-arena
+- `floor`: integer (for multi-floor dungeons/caves, 0-indexed)
+- `grid-width`: integer (zone width in tiles)
+- `grid-height`: integer (zone height in tiles)
 
 ### faction
 1. Overview
