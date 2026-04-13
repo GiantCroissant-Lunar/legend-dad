@@ -13,20 +13,117 @@ related_skills:
 
 Operate the Legend Dad game as a player through MCP tools. This skill is for AI coding agents (Claude Code, Copilot, etc.) that connect to the running game server via the MCP Streamable HTTP transport.
 
-## Prerequisites
+## Startup Checklist
 
-Before using game tools, ensure:
+Follow these steps in order before calling any game tools. Each step depends on the previous one.
 
-1. **Server is running** — `task dev` (or `node project/server/packages/game-server/src/index.js`)
-2. **Game is open in browser** — Godot web build at `http://localhost:8080`
-3. **MCP server is registered** — `.claude/settings.json` points to `http://localhost:3000/mcp`
+### Step 1: Verify Web Build Exists
 
-### Verify Server State
+```bash
+ls build/_artifacts/latest/web/complete-app.html
+```
 
-Call the health endpoint or use `get_state()`:
+- **File exists** — proceed to step 2
+- **File missing** — run `task build` first (requires Godot export templates, see `task setup`)
 
-- `get_state()` returns `{ state: <data>, error: null }` — Godot is connected, ready to play
-- `get_state()` returns `{ state: null, error: "no game state available..." }` — server is up but Godot hasn't connected yet. Wait for the player to open the game in browser.
+### Step 2: Start Servers
+
+```bash
+task dev
+```
+
+This starts two processes in parallel:
+- **Static file server** on `:8080` — serves the Godot web build with COOP/COEP headers
+- **WebSocket game server** on `:3000` — handles Godot and agent connections, exposes `/mcp`
+
+Wait for both to be ready. Expected log output:
+
+```
+[server] listening on http://localhost:3000
+[ws] WebSocket server ready on ws://localhost:3000
+[mcp] Streamable HTTP endpoint at http://localhost:3000/mcp
+[mcp] tools: move, interact, switch_era, get_state, poll_events
+```
+
+### Step 3: Verify Game Server Health
+
+```bash
+curl -s http://localhost:3000/ | python3 -m json.tool
+```
+
+Expected:
+
+```json
+{
+    "name": "legend-dad-game-server",
+    "status": "ok",
+    "godot_connected": false,
+    "agent_count": 0,
+    "replay_enabled": true,
+    "mcp_enabled": true
+}
+```
+
+Check:
+- `mcp_enabled: true` — MCP transport is wired
+- `godot_connected: false` — expected, game not open yet
+
+### Step 4: Verify MCP Endpoint Responds
+
+```bash
+curl -s -X POST http://localhost:3000/mcp \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json, text/event-stream" \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"test","version":"0.1.0"}}}'
+```
+
+Expected: SSE response with `serverInfo.name: "Legend Dad Game Server"` and `capabilities.tools`.
+
+### Step 5: Open Game in Browser
+
+Open `http://localhost:8080` in a browser. The Godot game loads and auto-connects to the WebSocket server.
+
+Server logs should show:
+
+```
+[conn] godot registered: <session-id>
+```
+
+### Step 6: Verify Godot Connection
+
+```bash
+curl -s http://localhost:3000/ | python3 -m json.tool
+```
+
+Now `godot_connected` should be `true`.
+
+Or call `get_state()` via MCP — should return game state instead of null.
+
+### Step 7: Verify MCP Tools Work
+
+Run the MCP verification test:
+
+```bash
+cd project/server/packages/game-server && node src/test-mcp.js
+```
+
+Expected: `19 passed, 0 failed`. Tests cover initialize, tools/list, get_state, move, poll_events, and queue drain.
+
+### MCP Client Registration
+
+Claude Code auto-connects via `.claude/settings.json`:
+
+```json
+{
+  "mcpServers": {
+    "legend-dad-game": {
+      "url": "http://localhost:3000/mcp"
+    }
+  }
+}
+```
+
+**Note:** Restart Claude Code after creating/modifying this file to pick up the change.
 
 ## Available MCP Tools
 
@@ -123,7 +220,7 @@ The state snapshot includes an `entities` array. Each entity has:
 
 ## Strategy Tips
 
-- Check tile walkability before moving �� `map.father_tiles[row][col]` for Father era
+- Check tile walkability before moving — `map.father_tiles[row][col]` for Father era
 - `move()` returns `{ success: false, error: "tile X,Y not walkable" }` if blocked
 - `interact()` requires facing an interactable object — returns error otherwise
 - Father's actions affect Son's timeline — plant a tree as Father, find a grown tree as Son
@@ -133,8 +230,14 @@ The state snapshot includes an `entities` array. Each entity has:
 
 | Symptom | Cause | Fix |
 |---------|-------|-----|
-| Tools not available | MCP server not registered | Check `.claude/settings.json`, restart Claude Code |
-| Connection refused | Server not running | Run `task dev` |
+| No web build | Never built or build stale | `task build` |
+| Port 8080 in use | Prior serve process still running | Kill it: `lsof -ti:8080 \| xargs kill` |
+| Port 3000 in use | Prior game server still running | Kill it: `lsof -ti:3000 \| xargs kill` |
+| Tools not available in Claude Code | MCP server not registered | Check `.claude/settings.json`, restart Claude Code |
+| Connection refused on `:3000` | Server not running | Run `task dev` |
+| `mcp_enabled: false` in health check | Old server code | Pull latest, rebuild |
 | `state: null` from `get_state` | Godot not connected | Open game at `http://localhost:8080` |
 | `poll_events` returns empty | No events since last poll | Normal — game is idle |
 | Move returns `success: false` | Target tile not walkable | Check tile map, try different direction |
+| MCP initialize returns 406 | Missing Accept header | Include `Accept: application/json, text/event-stream` |
+| test-mcp.js fails on poll_events | Event queue not created | Verify `eventRegistry.create("default")` in `src/index.js` |
