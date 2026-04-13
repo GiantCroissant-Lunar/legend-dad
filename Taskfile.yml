@@ -149,3 +149,11 @@ tasks:
       - >-
         python3 -c
         "import json, jsonschema; schema = json.load(open('project/articy/schemas/import-manifest.schema.json')); manifest = json.load(open('project/articy/import-manifest.json')); jsonschema.validate(manifest, schema); k='entities'; print(f'Valid: {len(manifest[k])} entities')"
+
+  ldtk:sync:
+    desc: Sync vault entity definitions into LDtk project file
+    cmds:
+      - >-
+        python3 scripts/ldtk_sync.py
+        project/articy/import-manifest.json
+        project/ldtk/legend-dad.ldtk
