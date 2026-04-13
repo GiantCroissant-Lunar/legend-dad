@@ -1,0 +1,260 @@
+{
+  "Sera.DisplayName": {
+    "zh-TW": {
+      "Text": "Sera"
+    },
+    "Context": "Entities/Sera"
+  },
+  "Sera.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Elder Aldric (72057594037929305)"
+    },
+    "Context": "Entities/Sera"
+  },
+  "Elder_Aldric.DisplayName": {
+    "zh-TW": {
+      "Text": "Elder Aldric"
+    },
+    "Context": "Entities/Elder Aldric"
+  },
+  "Elder_Aldric.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Sera (72057594037929152)\r\nrelated_to: Starlight Academy (72057594037929333)\r\nrelated_to: Kaelen (72057594037929313)"
+    },
+    "Context": "Entities/Elder Aldric"
+  },
+  "Aric.DisplayName": {
+    "zh-TW": {
+      "Text": "Aric"
+    },
+    "Context": "Entities/Aric"
+  },
+  "Aric.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Maren (72057594037929317)"
+    },
+    "Context": "Entities/Aric"
+  },
+  "Kaelen.DisplayName": {
+    "zh-TW": {
+      "Text": "Kaelen"
+    },
+    "Context": "Entities/Kaelen"
+  },
+  "Kaelen.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Elder Aldric (72057594037929305)\r\nrelated_to: Iron Vanguard (72057594037929369)"
+    },
+    "Context": "Entities/Kaelen"
+  },
+  "Maren.DisplayName": {
+    "zh-TW": {
+      "Text": "Maren"
+    },
+    "Context": "Entities/Maren"
+  },
+  "Maren.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Thornwall (72057594037929345)"
+    },
+    "Context": "Entities/Maren"
+  },
+  "Iron_Peaks.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Peaks"
+    },
+    "Context": "Entities/Iron Peaks"
+  },
+  "Iron_Peaks.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)"
+    },
+    "Context": "Entities/Iron Peaks"
+  },
+  "Starlight_Academy.DisplayName": {
+    "zh-TW": {
+      "Text": "Starlight Academy"
+    },
+    "Context": "Entities/Starlight Academy"
+  },
+  "Starlight_Academy.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Sera (72057594037929152)\r\nrelated_to: Elder Aldric (72057594037929305)"
+    },
+    "Context": "Entities/Starlight Academy"
+  },
+  "Thornwall.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornwall"
+    },
+    "Context": "Entities/Thornwall"
+  },
+  "Thornwall.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Maren (72057594037929317)\r\nrelated_to: Iron Peaks (72057594037929321)"
+    },
+    "Context": "Entities/Thornwall"
+  },
+  "Whispering_Woods.DisplayName": {
+    "zh-TW": {
+      "Text": "Whispering Woods"
+    },
+    "Context": "Entities/Whispering Woods"
+  },
+  "Whispering_Woods.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Maren (72057594037929317)"
+    },
+    "Context": "Entities/Whispering Woods"
+  },
+  "Iron_Vanguard.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Vanguard"
+    },
+    "Context": "Entities/Iron Vanguard"
+  },
+  "Iron_Vanguard.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Iron Peaks (72057594037929321)"
+    },
+    "Context": "Entities/Iron Vanguard"
+  },
+  "Starlight_Scholars.DisplayName": {
+    "zh-TW": {
+      "Text": "Starlight Scholars"
+    },
+    "Context": "Entities/Starlight Scholars"
+  },
+  "Starlight_Scholars.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Starlight Academy (72057594037929333)\r\nrelated_to: Elder Aldric (72057594037929305)\r\nrelated_to: Sera (72057594037929152)"
+    },
+    "Context": "Entities/Starlight Scholars"
+  },
+  "Iron_Dawn.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Dawn"
+    },
+    "Context": "Entities/Iron Dawn"
+  },
+  "Iron_Dawn.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Iron Vanguard (72057594037929369)"
+    },
+    "Context": "Entities/Iron Dawn"
+  },
+  "Kaelens_Journal.DisplayName": {
+    "zh-TW": {
+      "Text": "Kaelen's Journal"
+    },
+    "Context": "Entities/Kaelen's Journal"
+  },
+  "Kaelens_Journal.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Thornwall (72057594037929345)"
+    },
+    "Context": "Entities/Kaelen's Journal"
+  },
+  "Starweaver_Lens.DisplayName": {
+    "zh-TW": {
+      "Text": "Starweaver Lens"
+    },
+    "Context": "Entities/Starweaver Lens"
+  },
+  "Starweaver_Lens.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Starlight Academy (72057594037929333)\r\nrelated_to: Elder Aldric (72057594037929305)\r\nrelated_to: Sera (72057594037929152)"
+    },
+    "Context": "Entities/Starweaver Lens"
+  },
+  "The_Fathers_Departure.DisplayName": {
+    "zh-TW": {
+      "Text": "The Father's Departure"
+    },
+    "Context": "Entities/The Father's Departure"
+  },
+  "The_Sealed_Observatory.DisplayName": {
+    "zh-TW": {
+      "Text": "The Sealed Observatory"
+    },
+    "Context": "Entities/The Sealed Observatory"
+  },
+  "Vanguard_Checkpoint.DisplayName": {
+    "zh-TW": {
+      "Text": "Vanguard Checkpoint"
+    },
+    "Context": "Entities/Vanguard Checkpoint"
+  },
+  "Whispers_in_the_Woods.DisplayName": {
+    "zh-TW": {
+      "Text": "Whispers in the Woods"
+    },
+    "Context": "Entities/Whispers in the Woods"
+  },
+  "Kaelens_Last_Letter.DisplayName": {
+    "zh-TW": {
+      "Text": "Kaelen's Last Letter"
+    },
+    "Context": "Entities/Kaelen's Last Letter"
+  },
+  "The_First_Tremor.DisplayName": {
+    "zh-TW": {
+      "Text": "The First Tremor"
+    },
+    "Context": "Entities/The First Tremor"
+  },
+  "The_Observatory_Disaster.DisplayName": {
+    "zh-TW": {
+      "Text": "The Observatory Disaster"
+    },
+    "Context": "Entities/The Observatory Disaster"
+  },
+  "The_Sealed_Caverns.DisplayName": {
+    "zh-TW": {
+      "Text": "The Sealed Caverns"
+    },
+    "Context": "Entities/The Sealed Caverns"
+  },
+  "The_Starweavers.DisplayName": {
+    "zh-TW": {
+      "Text": "The Starweavers"
+    },
+    "Context": "Entities/The Starweavers"
+  },
+  "The_Whispering_Enchantment.DisplayName": {
+    "zh-TW": {
+      "Text": "The Whispering Enchantment"
+    },
+    "Context": "Entities/The Whispering Enchantment"
+  },
+  "Crystal_Crawler.DisplayName": {
+    "zh-TW": {
+      "Text": "Crystal Crawler"
+    },
+    "Context": "Entities/Crystal Crawler"
+  },
+  "Iron_Borer.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Borer"
+    },
+    "Context": "Entities/Iron Borer"
+  },
+  "Moss_Lurker.DisplayName": {
+    "zh-TW": {
+      "Text": "Moss Lurker"
+    },
+    "Context": "Entities/Moss Lurker"
+  },
+  "Shade_Wisp.DisplayName": {
+    "zh-TW": {
+      "Text": "Shade Wisp"
+    },
+    "Context": "Entities/Shade Wisp"
+  },
+  "Thornbriar_Stalker.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornbriar Stalker"
+    },
+    "Context": "Entities/Thornbriar Stalker"
+  }
+}

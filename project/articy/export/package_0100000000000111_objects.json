@@ -1,0 +1,1525 @@
+{
+  "Objects": [
+    {
+      "Type": "LD_Character",
+      "Properties": {
+        "TechnicalName": "Sera",
+        "Id": "0x01000000000004C0",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Sera.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Sera.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "ZIndex": 0.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 2814345852
+      },
+      "Template": {}
+    },
+    {
+      "Type": "LD_Character",
+      "Properties": {
+        "TechnicalName": "Elder_Aldric",
+        "Id": "0x0100000000000559",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Elder_Aldric.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Elder_Aldric.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 20.0,
+          "y": 20.0
+        },
+        "ZIndex": 1.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 3485242667
+      },
+      "Template": {}
+    },
+    {
+      "Type": "LD_Character",
+      "Properties": {
+        "TechnicalName": "Aric",
+        "Id": "0x010000000000055D",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Aric.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Aric.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 40.0,
+          "y": 40.0
+        },
+        "ZIndex": 2.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 3785798500
+      },
+      "Template": {}
+    },
+    {
+      "Type": "LD_Character",
+      "Properties": {
+        "TechnicalName": "Kaelen",
+        "Id": "0x0100000000000561",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Kaelen.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Kaelen.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 60.0,
+          "y": 60.0
+        },
+        "ZIndex": 3.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 766061020
+      },
+      "Template": {}
+    },
+    {
+      "Type": "LD_Character",
+      "Properties": {
+        "TechnicalName": "Maren",
+        "Id": "0x0100000000000565",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Maren.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Maren.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 80.0,
+          "y": 80.0
+        },
+        "ZIndex": 4.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 2379995573
+      },
+      "Template": {}
+    },
+    {
+      "Type": "LD_Location",
+      "Properties": {
+        "TechnicalName": "Iron_Peaks",
+        "Id": "0x0100000000000569",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Iron_Peaks.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Iron_Peaks.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 100.0,
+          "y": 100.0
+        },
+        "ZIndex": 5.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 4225284044
+      },
+      "Template": {
+        "LD_Location_PipelineMeta": {
+          "vault_path": "vault/world/locations/iron-peaks.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Location_CreativePrompts": {
+          "environment_art": "16-bit pixel art tileset, top-down perspective. Exterior mountain tiles: gray-brown rock faces with rust-orange mineral streaks, twisted dark-green iron-bark pines on the lower slopes, gravel trails winding upward. Mine entrance tiles: dark wood framing, rusted iron rail tracks, collapsed timber supports. Interior mine tiles: rough stone walls, wooden support beams, puddles reflecting torchlight. Father's era palette: natural grays, browns, and greens with warm torchlight interiors. Son's era additions: purple-tinted fissure tiles that glow faintly, petrified tree tiles (gray stone replacing green canopy), cracked ground tiles with light bleeding through, crystal-growth tiles on cave walls (pale violet, geometric). The contrast between eras should be visible at a glance — natural browns vs. corrupted purples.",
+          "ambience": "Exterior: wind howling through rock channels (pitch varies with elevation), distant rock falls, gravel crunching underfoot, eagle cries. Father's era: wind dominates, natural mountain sounds. Son's era: add a low, rhythmic pulse from the sealed caverns (like a distant heartbeat), crystalline chiming from the fissures, and the absence of animal sounds at higher elevations. Interior mines: dripping water echoing, footsteps on stone and gravel, timber creaking under pressure. Son's era mines add: creature sounds (skittering, low growls), crystal resonance hum, and occasional deep rumbles that shake pebbles loose from the ceiling.",
+          "music": "Father's era: sparse percussion and low brass — taiko-style drums with a French horn playing a slow, ascending melody in B minor. Evokes scale and isolation, the smallness of a person against mountains. Son's era: same drums but with added distortion and uneven timing (suggesting instability), the horn melody replaced by a bowed bass played with heavy vibrato. A high, crystalline synth pad adds an alien quality. The music should feel like the mountain itself is an antagonist."
+        },
+        "LD_Location_NarrativeProps": {
+          "overview": "A jagged mountain range north of Thornwall, riddled with abandoned mine tunnels and sealed caverns. The Iron Peaks are the source of the tremors threatening the region and the destination of both Kaelen's and Aric's journeys. In Kaelen's era, the peaks are dangerous but stable — the mines are abandoned, the passes are navigable, and the sealed caverns are curiosities. In Aric's era, the mountains have fractured: new crevasses split the trails, dark energy leaks from the sealed caverns, and creatures not seen in living memory emerge from the deep.",
+          "atmosphere_and_appearance": "Raw, vertical, and exposed. The lower slopes are forested with twisted iron-bark pines. Above the treeline, bare rock faces are streaked with rust-colored mineral deposits that give the peaks their name. The air thins quickly. In Kaelen's era, the peaks feel abandoned but not hostile — old mine entrances, rusted rail tracks, collapsed headframes. In Aric's era, the same landscape feels actively threatening — the rock has cracked open, faint purple light pulses from deep fissures, and the iron-bark pines near the fissures have petrified into stone.",
+          "history": "The Iron Peaks were mined for iron and copper for centuries by a now-scattered mining guild. The deepest tunnels were sealed two generations ago when miners broke through into a natural cavern system filled with a substance they couldn't identify — a crystalline material that hummed and produced faint light. Three miners died from exposure to the crystal's emissions. The guild sealed the breach, abandoned the mines, and the miners' families founded Thornwall. The sealed caverns have been a local legend ever since. Kaelen's father was one of the last miners to work the upper tunnels before the full abandonment.",
+          "notable_features": "- The Sealed Caverns — the deepest point of the old mines, bricked up two generations ago. Whatever is inside is the source of the tremors. In father's era: sealed, inert. In son's era: the seals are cracking, light and sound leak through.\n- The Upper Mines — abandoned mine tunnels used as the first dungeon area. Relatively safe in father's era (bats, cave-ins). In son's era: infested with crystal-mutated creatures.\n- The Iron Pass — the main trail over the peaks to the northern regions. In father's era: passable with care. In son's era: partially collapsed, requiring alternate routes.\n- Lookout Ridge — a flat outcrop with a view of Thornwall below. Used by both Kaelen and Aric as a milestone marker. In son's era, the view reveals how much the northern farms have deteriorated.\n- The Petrified Grove — iron-bark pines near the fissures that have turned to stone. Only exists in Aric's era."
+        }
+      }
+    },
+    {
+      "Type": "LD_Location",
+      "Properties": {
+        "TechnicalName": "Starlight_Academy",
+        "Id": "0x0100000000000575",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Starlight_Academy.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Starlight_Academy.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 120.0,
+          "y": 120.0
+        },
+        "ZIndex": 6.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 1827714403
+      },
+      "Template": {
+        "LD_Location_PipelineMeta": {
+          "vault_path": "vault/world/locations/starlight-academy.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Location_CreativePrompts": {
+          "environment_art": "16-bit pixel art tileset, top-down perspective. Exterior: pale white-blue stone tiles, narrow tower structures with pointed roofs, covered walkway tiles connecting buildings, cliff-edge tiles with sea visible below. Interior library: dark wood bookshelves, reading desks with candles, star-chart scrolls on walls, orrery props (brass spheres on mechanical arms). Interior sealed wing: darker palette — dusty floors, cobwebbed furniture, cracked walls, chains across doorways. The courtyard uses special floor tiles with constellation patterns inlaid in gold against white stone. Night variant: all exterior tiles gain a soft blue luminescence, windows glow warm yellow. The contrast between the lived-in east wing (warm, lit, populated) and the sealed west wing (cold, dark, abandoned) should be stark even in top-down view.",
+          "ambience": "Exterior: sea wind, distant waves crashing on the cliff base, seabirds, the mechanical clicking of an orrery from an open window, faint sound of turning pages. Interior library: hushed — soft footsteps on stone, pages turning, quill on parchment, occasional whispered conversation, the low hum of astronomical instruments. Sealed wing: silence, then: wind through broken glass, stone settling, a faint resonance from above (the Sealed Observatory), rats. The sealed wing should feel like held breath — something waiting.",
+          "music": "Ethereal strings and soft choir in D major, slow tempo. A solo violin plays the main theme — elegant, ascending, suggesting aspiration and accumulated knowledge. Glass harmonica provides the characteristic Academy shimmer. The arrangement thins to solo piano when near the sealed wing, transposing to D minor. The choir disappears, the strings become a single sustained drone. Near the Sealed Observatory: the music drops out entirely, replaced by a single, pure tone — the resonance of whatever is sealed inside."
+        },
+        "LD_Location_NarrativeProps": {
+          "overview": "An ancient academy perched on a cliff overlooking the Moonlit Sea, founded by the Starweavers — scholars who could read meaning in the patterns of starlight. The Academy is a sprawling complex of white stone towers, covered walkways, and underground archives. It serves as both a center of learning and a repository for dangerous knowledge. The west wing has been sealed for thirty years since Elder Aldric's failed ritual. The Academy appears in the father's era as a place Kaelen visits for information and in the son's era as a diminished institution struggling to remain relevant.",
+          "atmosphere_and_appearance": "The Academy is built from pale limestone that glows faintly blue under starlight — a natural property of the cliff stone, not magic. During the day, it looks like weathered white marble. At night, the entire complex takes on a soft luminescence. The architecture is vertical: narrow towers with spiral staircases, observation platforms at every level, and glass-domed reading rooms. The interior is filled with star charts, orreries, and astronomical instruments. The Sealed West Wing is visible from the courtyard — its windows are dark, its doors are chained, and ivy has claimed its lower walls.",
+          "history": "Founded five hundred years ago by the Starweavers, a group of scholars who discovered that certain starlight patterns corresponded to events in the physical world. They built the Academy to study these patterns and developed a system of celestial cartography. Over centuries, the Academy's influence waned as the Starweaver bloodline thinned. Aldric's failed ritual thirty years ago was an attempt to access the Sealed Observatory at the top of the west wing, believed to contain the founders' master charts. The ritual's failure killed three scholars and collapsed the connecting bridge, effectively sealing the entire wing.",
+          "notable_features": "- The Great Library — the largest collection of star charts in the known world, spanning three underground levels. Accessible in both eras.\n- The Observatory (East) — a functioning observation dome where students study celestial patterns. Aldric teaches here.\n- The Sealed West Wing — chained doors, dark windows, ivy-covered walls. Contains the Sealed Observatory at its peak. In son's era: the chains have rusted, and faint light occasionally flickers in the upper windows.\n- The Courtyard of Charts — an open-air space with constellations inlaid in the stone floor. Used for outdoor lectures and ceremonies.\n- The Archive Vaults — deep underground chambers containing texts deemed too dangerous for the main library. Only Aldric has the key."
+        }
+      }
+    },
+    {
+      "Type": "LD_Location",
+      "Properties": {
+        "TechnicalName": "Thornwall",
+        "Id": "0x0100000000000581",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Thornwall.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Thornwall.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 140.0,
+          "y": 140.0
+        },
+        "ZIndex": 7.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 3885640073
+      },
+      "Template": {
+        "LD_Location_PipelineMeta": {
+          "vault_path": "vault/world/locations/thornwall.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Location_CreativePrompts": {
+          "environment_art": "16-bit pixel art tileset, top-down perspective. Father's era: warm earth tones (golden wheat, green thornbriar, warm brown cottages with orange hearth-glow in windows). Cobblestone paths between buildings, a central well with a stone rim. Market stalls with colored awnings. Children sprites near the well. Militia guards at the gate. The thornbriar wall is a thick, flowering green border. Mountains visible in the background tile, snow-capped and distant. Son's era: same layout but desaturated — wheat fields replaced with cracked brown earth, thornbriar wall has gray dead sections, boarded-up cottages with dark windows, fewer NPC sprites, the well has a rusty bucket. Mountains in background are darker, closer-feeling.",
+          "ambience": "Father's era: birdsong, distant hammer on anvil, children laughing, wind through wheat, occasional cow lowing, merchant calling prices. A warm, alive soundscape. Son's era: wind through gaps in the thornbriar, a single crow cawing, distant rumble from the mountains (subtle, irregular), creaking of boarded windows, dripping water. The same base sounds but thinned out — fewer layers, more silence between events. Both eras share the sound of the well's bucket chain.",
+          "music": "Father's era: folk ensemble in D major — acoustic guitar, pennywhistle, and hand drum. Upbeat tempo, communal feel, like a village gathering song. Melodic and hummable. Son's era: same melody transposed to D minor, played on solo acoustic guitar with no accompaniment. Slower tempo, more space between notes. The familiar tune made lonely. A faint, low string drone appears in the second half, suggesting the distant tremors beneath the earth."
+        },
+        "LD_Location_NarrativeProps": {
+          "overview": "A fortified farming village at the base of the Iron Peaks, named for the centuries-old thornbriar hedge that forms its outer wall. Thornwall is the starting location for both the father and son's stories. In Kaelen's era, it is a modest but thriving settlement of about two hundred people — a militia outpost, a market square, and farmland stretching south. In Aric's era twenty years later, Thornwall has contracted: the northern farms are abandoned, the thornbriar wall is patchy and dying, and the population has halved as families fled the worsening tremors.",
+          "atmosphere_and_appearance": "In the father's era, Thornwall feels safe and lived-in. The thornbriar hedge is dense and green, cottages have warm hearth-light, children play near the well, and the militia practices sword forms in the square. The Iron Peaks loom to the north, snow-capped and distant. In the son's era, the same village feels hollowed out. The hedge has gaps where the briars have rotted. Abandoned cottages are boarded up. The well water tastes of iron. The militia barracks is half-empty. The Iron Peaks seem closer — their silhouette darker, as if the mountains have leaned in.",
+          "history": "Thornwall was founded three generations ago by miners who abandoned the Iron Peaks after the deep tunnels became unstable. They settled at the mountain's base and turned to farming, using the natural thornbriar growth as a defensive perimeter. The village grew slowly, serving as a waypoint between the coastal trade routes and the mountain passes. Kaelen's militia heroics put Thornwall on the map; traders started making detours to visit \"the hero's village.\" After Kaelen left, the village's fame faded, and the returning tremors drove away those who had come for the legend.",
+          "notable_features": "- The Thornbriar Wall — a living hedge of ancient thornbriar, 10 feet tall and 4 feet thick, encircling the village. In father's era: dense, flowering. In son's era: patchy, with dead sections.\n- The Market Square — center of village life. In father's era: busy with traders. In son's era: mostly empty, used for militia drills.\n- The Militia Barracks — where Kaelen trained. Contains his old journal (found by Aric at age twelve). In son's era: half the bunks are empty.\n- The Elder's Cottage — home of the village elder who raised Aric. Contains maps and records of Thornwall's history.\n- The Northern Farms — fertile land stretching toward the Iron Peaks. In father's era: golden wheat fields. In son's era: fallow, cracked earth, and sinkholes."
+        }
+      }
+    },
+    {
+      "Type": "LD_Location",
+      "Properties": {
+        "TechnicalName": "Whispering_Woods",
+        "Id": "0x010000000000058D",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Whispering_Woods.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Whispering_Woods.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 160.0,
+          "y": 160.0
+        },
+        "ZIndex": 8.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 3494388281
+      },
+      "Template": {
+        "LD_Location_PipelineMeta": {
+          "vault_path": "vault/world/locations/whispering-woods.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Location_CreativePrompts": {
+          "environment_art": "16-bit pixel art tileset, top-down perspective. Dense forest tiles: massive brown tree trunks (some 3-4 tiles wide for the ancient trees), green canopy overlay that partially obscures the ground layer, moss-covered ground tiles in varied greens, stream tiles (clear blue in father's era, gray-brown in son's era), wildflower accent tiles (father's era only). Path tiles: dirt trails through undergrowth, elevated wooden walkway tiles for the canopy trail. Son's era additions: dead tree tiles (gray bark, bare branches), sinkhole tiles (dark circular holes with crumbled edges), black fungus overlay on moss tiles, crystal growth tiles near sinkholes (same pale violet as Iron Peaks). The forest should feel dense — limited visibility, lots of layered tiles creating depth. Father's era palette: rich greens, warm browns, golden light. Son's era palette: muted greens, gray-browns, cool white light.",
+          "ambience": "Father's era: a rich, layered forest soundscape. Wind through leaves creating the signature \"whispering\" — a constant, organic murmur. Bird calls (varied species at different distances), stream babbling, insect buzz, wood creaking, occasional animal movement in undergrowth. Footsteps on soft ground. Son's era: the whispering is still present but higher-pitched, more urgent. Fewer bird calls — long silences between them. The stream sound is thinner. Add: wood cracking and groaning (dying trees), a low subsonic rumble near sinkholes, crystal resonance chiming near fungal growth patches. The absence of the full animal chorus should feel wrong — a forest that has lost its voice.",
+          "music": "Father's era: layered woodwinds — two recorders playing in thirds over a finger-picked lute in E minor. The arrangement is gentle and cyclical, like walking in circles through familiar paths. Natural forest sounds bleed into the music — the boundary between soundtrack and ambience is deliberately blurred. Son's era: solo recorder playing the same melody, but with longer pauses and slower tempo. The lute is replaced by a low, bowed psaltery that adds tension. The melody occasionally breaks into dissonance — a wrong note, quickly corrected — suggesting the forest's corruption bleeding into the music itself."
+        },
+        "LD_Location_NarrativeProps": {
+          "overview": "A dense old-growth forest stretching between Thornwall and the coastal regions. The woods are named for the constant rustling of their canopy, which locals say sounds like murmured conversation. In Kaelen's era, the Whispering Woods are healthy and navigable — a source of timber, game, and medicinal herbs. Maren's family has patrolled these woods for generations. In Aric's era, the forest is dying from the inside out. Trees rot while standing, animal populations have collapsed, and sinkholes open without warning. The whispering has changed — it now sounds less like conversation and more like warning.",
+          "atmosphere_and_appearance": "Multi-layered canopy forest with massive trunks and filtered green light. The forest floor is soft with moss and fallen leaves. Streams thread between root systems. In the father's era: lush, vibrant greens, dappled golden sunlight, wildflowers along deer trails, bird nests visible in lower branches. In the son's era: the canopy has thinned, letting in harsh white light. Bark peels from trunks revealing gray wood underneath. Streams run slower and cloudier. The moss has patches of black fungal growth. Sinkholes are visible as dark circles in the forest floor, some ringed with crystalline growth similar to the Iron Peaks fissures.",
+          "history": "The Whispering Woods predate Thornwall by centuries. Local lore holds that the trees were planted by a civilization that existed before the current age — the roots go impossibly deep, and the oldest trunks are wider than cottages. The foresters who tend the woods have found carved stones deep in the undergrowth, suggesting ancient structures now buried beneath root systems. Maren's father discovered that the sinkholes appearing in the son's era follow the pattern of these buried structures, as if something below is pushing upward through the ancient foundations.",
+          "notable_features": "- The Canopy Trail — an elevated path through the treetops, maintained by foresters. In father's era: a safe travel route. In son's era: sections have collapsed where supporting trees died.\n- The Moss Clearing — a natural amphitheater where the forest floor dips and moss grows thick. Used by foresters as a campsite. In son's era: a sinkhole has opened at its center.\n- The Ancient Stones — carved stone markers half-buried in roots, inscribed with symbols no one can read. Found throughout the deep woods.\n- The Forester's Cabin — Maren's family home, at the forest's edge near Thornwall. In father's era: well-maintained. In son's era: Maren lives here alone, maintaining it stubbornly.\n- The Deep Root — the oldest tree in the forest, its trunk thirty feet across. Local legend says its roots reach underground water. In son's era: still alive but visibly stressed, its bark cracked and weeping sap."
+        }
+      }
+    },
+    {
+      "Type": "LD_Faction",
+      "Properties": {
+        "TechnicalName": "Iron_Vanguard",
+        "Id": "0x0100000000000599",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Iron_Vanguard.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Iron_Vanguard.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 180.0,
+          "y": 180.0
+        },
+        "ZIndex": 9.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 167026803
+      },
+      "Template": {
+        "LD_Faction_PipelineMeta": {
+          "vault_path": "vault/world/factions/iron-vanguard.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Faction_CreativePrompts": {
+          "emblem": "16-bit pixel art icon (16x16 and 32x32 variants). A stylized iron mountain peak with a horizontal sword crossing it at the midpoint. The mountain is angular and sharp — three pointed peaks. The sword is straight and functional, not ornate. Color palette: iron gray mountain on a dark red field, steel-colored sword. The design communicates strength and rigidity. Used on soldier shields, checkpoint flags, travel permits, and branded onto Vanguard-issued equipment.",
+          "theme_music": "Military march in C minor — snare drum and low brass (trombone, tuba). The rhythm is strict and regular, emphasizing discipline and uniformity. A trumpet plays a short, declarative melody — four bars, repeated. No ornamentation, no improvisation. Father's era variant: the march is played at moderate tempo with a workmanlike quality — soldiers on patrol, doing a job. Son's era variant: the same march at a slightly faster tempo with heavier percussion, an added bass drum, and the trumpet melody played by multiple horns in unison — louder, more authoritarian, the sound of an organization that has grown beyond its original purpose.",
+          "color_palette": "Primary: iron gray (#6B6E70) — armor, weapons, practical equipment. Secondary: deep crimson (#8B2E2E) — banners, officer cloaks, authority markings. Accent: dark steel (#3D3F42) — shadows, fortification walls. Highlight: forge orange (#C47A30) — torchlight, campfires, the warm color of a working garrison. In son's era, the orange shifts cooler and the crimson deepens, suggesting the Vanguard has become less warm and more imposing. The palette is heavy and grounded — no pastels, no bright colors, everything suggests metal, stone, and fire."
+        },
+        "LD_Faction_NarrativeProps": {
+          "overview": "A regional military force that patrols the territories between the coastal cities and the Iron Peaks. The Iron Vanguard was established a century ago to protect trade routes from bandits and mountain creatures. In Kaelen's era, they are a professional but overstretched garrison — competent soldiers led by pragmatic officers. In Aric's era, twenty years of escalating threats have transformed them into a hardened, suspicious force that controls movement through the region and views independent adventurers as liabilities rather than assets.",
+          "purpose_and_goals": "Father's era: maintain trade route safety, patrol the Iron Peaks foothills, and respond to threats reported by settlements like Thornwall. They are reactive — they deal with problems as they appear. Kaelen has a complicated relationship with the Vanguard: they respect his results but resent his independence. Son's era: the Vanguard has expanded its mandate. Faced with creatures emerging from the mountains and the collapse of the northern farmlands, they have established checkpoints, restricted travel, and begun forcibly relocating smaller settlements. Their goal has shifted from protection to control. They view the tremors as a military problem requiring military solutions and are deeply skeptical of anyone claiming it requires scholarship (the Academy) or exploration (Aric).",
+          "hierarchy_and_structure": "- **Commander** — a single regional commander based in a fortress south of the Iron Peaks. Father's era: Commander Reva, a veteran who respects results over protocol. Son's era: Commander Dain, her successor, who favors order over flexibility.\n- **Captains** — field officers commanding garrisons of 20-50 soldiers. Each controls a section of road or a checkpoint.\n- **Soldiers** — rank-and-file troops, mostly conscripts from coastal cities who serve three-year terms.\n- **Scouts** — light infantry who patrol the mountain foothills. The most competent branch, often recruited from local populations.\n\nTotal strength: approximately 300 in father's era, 500 in son's era (expanded through conscription).",
+          "territory_and_influence": "The Vanguard controls the main road network between the coast and the mountains. Their fortress sits at the crossroads south of the Iron Peaks. In father's era, their control is light — patrols, toll stations, and a few small garrisons. In son's era, they have established hard checkpoints that require travel permits, fortified the crossroads into a walled compound, and begun patrolling deep into the Whispering Woods (much to Maren's fury). They do not control Thornwall directly, but their nearest checkpoint is close enough that Thornwall's trade depends on Vanguard goodwill."
+        }
+      }
+    },
+    {
+      "Type": "LD_Faction",
+      "Properties": {
+        "TechnicalName": "Starlight_Scholars",
+        "Id": "0x01000000000005A5",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Starlight_Scholars.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Starlight_Scholars.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 200.0,
+          "y": 200.0
+        },
+        "ZIndex": 10.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 711174189
+      },
+      "Template": {
+        "LD_Faction_PipelineMeta": {
+          "vault_path": "vault/world/factions/starlight-academy-faction.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Faction_CreativePrompts": {
+          "emblem": "16-bit pixel art icon (16x16 and 32x32 variants). A stylized eye with a six-pointed star as the pupil, set within a circle of tiny dots representing constellations. The eye is open and upward-facing, suggesting observation of the sky. Color palette: pale blue star on white eye, silver-gray constellation dots, dark navy background circle. The design is geometric and precise — scholarly, not mystical. Used on Academy banners, scholar robes (embroidered on the collar), and official documents.",
+          "theme_music": "A chamber ensemble piece in E-flat major: harpsichord, string quartet, and glass harmonica. Formal and structured, with a waltz-like rhythm that suggests tradition and ceremony. The harpsichord carries the melody — intricate, slightly ornate, the sound of accumulated knowledge. The glass harmonica enters only in transitions, providing the signature Academy shimmer. The piece feels old — deliberately archaic in its arrangement, like music preserved in amber.",
+          "color_palette": "Primary: pale limestone white (#E8E4D8) — the Academy's stone. Secondary: celestial blue (#6B8CAE) — starlight, the lens crystal. Accent: brass gold (#B8963E) — instruments, lens frames, embroidery. Shadow: deep navy (#1A2440) — night sky, Archive Vault darkness. Highlight: silver-white (#D4DCE8) — active starlight, lens glow. The palette is cool and restrained — no warm reds or oranges. Everything suggests moonlight, old stone, and polished metal."
+        },
+        "LD_Faction_NarrativeProps": {
+          "overview": "The scholarly order that operates the Academy of Starlight. Once a powerful institution that advised kings and predicted harvests, the Starlight Scholars have dwindled to a handful of aging academics and a few young students. They are knowledge-keepers, not warriors — their power lies in information, celestial cartography, and access to the Academy's vast archives. They are politically neutral but practically isolated, clinging to relevance in a world that has largely moved on from star-reading.",
+          "purpose_and_goals": "The Scholars' stated mission is to preserve and expand the celestial knowledge left by the Starweaver founders. In practice, they are divided: Aldric's faction prioritizes safety and controlled access to knowledge, while a smaller group of younger scholars (including Sera) believes the Academy must actively use its knowledge to address the growing crisis — the tremors, the dying forests, the sealed caverns. The Scholars do not seek political power, but their archives contain information that every other faction wants.",
+          "hierarchy_and_structure": "- **Elder** — Aldric holds this title reluctantly. The Elder has sole access to the Archive Vaults and final say on what knowledge is shared externally.\n- **Starweavers** — senior scholars who can use the Starweaver Lenses. Only Aldric truly qualifies; two others claim the title based on seniority.\n- **Archivists** — scholars who maintain and catalogue the library. They handle external requests for information.\n- **Students** — apprentice scholars studying under Starweavers. Sera is the most advanced.\n\nTotal membership: approximately fifteen in father's era, eight in son's era.",
+          "territory_and_influence": "The Scholars control the Academy campus and the cliff it sits on. They have no military presence and rely on their remote location and reputation for protection. Their influence is informational: traders, military leaders, and other factions occasionally send envoys to request specific knowledge (crop predictions, navigation charts, historical records). The Scholars trade information for supplies and funding. In the son's era, these requests have dried up as the Academy's reputation has faded."
+        }
+      }
+    },
+    {
+      "Type": "LD_Item",
+      "Properties": {
+        "TechnicalName": "Iron_Dawn",
+        "Id": "0x01000000000005B1",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Iron_Dawn.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Iron_Dawn.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 220.0,
+          "y": 220.0
+        },
+        "ZIndex": 11.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 460357207
+      },
+      "Template": {
+        "LD_Item_PipelineMeta": {
+          "vault_path": "vault/world/items/iron-dawn-sword.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Item_NarrativeProps": {
+          "overview": "Kaelen's broadsword, forged from iron ore mined in the upper tunnels of the Iron Peaks. The blade is plain but well-balanced — a working weapon, not a ceremonial one. It was a gift from the Thornwall militia when Kaelen first set out on his journey. Over the years, the sword has become a symbol of Kaelen's legend. In Aric's era, Iron Dawn is missing — Kaelen took it with him. Finding the sword (or what remains of it) is a key objective in the son's storyline, as it proves Kaelen reached his destination.",
+          "lore_and_origin": "Forged by Thornwall's blacksmith, Garrett, from high-grade iron ore Kaelen's father had stockpiled from his mining days. The sword was intended as a militia-issue weapon but Garrett spent extra time on the balance and edge, sensing Kaelen would need it. The name \"Iron Dawn\" was given by village children who watched Kaelen practice at sunrise, the blade catching the first light. Kaelen kept the name, amused. The sword has no magical properties — its significance is entirely narrative and sentimental.",
+          "purpose_and_usage": "In Kaelen's era, Iron Dawn is his primary weapon — a reliable broadsword with no special abilities beyond solid craftsmanship. It serves as a visual identifier in cutscenes and character art. In Aric's era, the sword is a quest objective: finding it proves Kaelen's path. When Aric eventually discovers Iron Dawn, it is damaged — the blade is cracked and corroded from exposure to the sealed cavern's crystal energy. It can be reforged (with new materials) into a different weapon that inherits its legacy but reflects Aric's fighting style — shorter, lighter, adapted for a tracker rather than a swordsman."
+        }
+      }
+    },
+    {
+      "Type": "LD_Item",
+      "Properties": {
+        "TechnicalName": "Kaelens_Journal",
+        "Id": "0x01000000000005B9",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Kaelens_Journal.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Kaelens_Journal.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 240.0,
+          "y": 240.0
+        },
+        "ZIndex": 12.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 2428480802
+      },
+      "Template": {
+        "LD_Item_PipelineMeta": {
+          "vault_path": "vault/world/items/kaelens-journal.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Item_NarrativeProps": {
+          "overview": "A worn leather journal filled with Kaelen's handwriting — sketches of locations, notes on creatures encountered, half-formed theories about the tremors beneath the Iron Peaks, and personal reflections he never shared with anyone. Aric discovers it hidden in the militia barracks at age twelve. The journal serves as the primary link between the two timelines: its entries give Aric (and the player) clues about where Kaelen went and what he found, but the entries are incomplete, out of order, and sometimes contradicted by what Aric discovers firsthand.",
+          "lore_and_origin": "Kaelen started the journal when he first left Thornwall. He wrote in it irregularly — sometimes daily, sometimes with months-long gaps. The journal was left behind in the barracks during one of Kaelen's brief returns to Thornwall (he carried it back to leave for Aric, though he never told anyone this directly). The leather cover bears a stamped iron clasp shaped like the Thornwall militia's emblem. Several pages have been torn out — Kaelen removed entries he didn't want anyone to read.",
+          "purpose_and_usage": "The journal functions as a game mechanic and narrative device. When Aric reaches a location his father visited, the journal unlocks the corresponding entry, revealing Kaelen's observations. Some entries contain sketches that serve as map hints. Others contain warnings that are now twenty years out of date. The torn-out pages are a mystery thread — Aric can find the missing pages hidden in locations Kaelen visited, revealing the parts of the story Kaelen tried to hide. The journal also unlocks father's footprints on the world map (narratively gated — Aric sees his father's path only at locations mentioned in the journal)."
+        }
+      }
+    },
+    {
+      "Type": "LD_Item",
+      "Properties": {
+        "TechnicalName": "Starweaver_Lens",
+        "Id": "0x01000000000005C1",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Starweaver_Lens.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "Starweaver_Lens.Text",
+        "ExternalId": "",
+        "Position": {
+          "x": 260.0,
+          "y": 260.0
+        },
+        "ZIndex": 13.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 2933158741
+      },
+      "Template": {
+        "LD_Item_PipelineMeta": {
+          "vault_path": "vault/world/items/starweaver-lens.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Item_NarrativeProps": {
+          "overview": "A palm-sized disc of polished crystal set in a brass frame, used by the Academy's scholars to read celestial patterns invisible to the naked eye. The lens was standard equipment for Starweavers in the Academy's golden age; now only three remain, all held by Elder Aldric. He lends one to Sera for her studies — an act of trust that surprises the other scholars. The lens reveals hidden star-chart inscriptions on the Academy's walls and can be used to decipher the carved stones found in the Whispering Woods.",
+          "lore_and_origin": "The lenses were crafted by the Academy's founders using techniques now lost. The crystal is not glass — it's a naturally occurring mineral found only in the deep caves beneath the Academy's cliff. The founders called it \"starstone\" and believed it was condensed starlight that had seeped into the earth over millennia. Modern scholars dismiss this as myth, but the lenses genuinely reveal patterns in light that are otherwise invisible. Aldric suspects the crystal is related to the substance found in the Iron Peaks sealed caverns — a connection he has not shared with anyone.",
+          "purpose_and_usage": "The Starweaver Lens functions as a key item that unlocks hidden information throughout the game. When equipped, it reveals: hidden inscriptions on Academy walls, readable star-chart patterns in the night sky, the true nature of the carved stones in the Whispering Woods, and faint energy trails near the Iron Peaks fissures. It is essential for solving several puzzle sequences. In the son's era, Aric can obtain a cracked lens from the Academy's archives — it works intermittently, showing fragments of what the full lens reveals."
+        }
+      }
+    },
+    {
+      "Type": "LD_Quest",
+      "Properties": {
+        "TechnicalName": "The_Fathers_Departure",
+        "Id": "0x01000000000005D4",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "The_Fathers_Departure.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 280.0,
+          "y": 280.0
+        },
+        "ZIndex": 14.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 191528013
+      },
+      "Template": {
+        "LD_Quest_PipelineMeta": {
+          "vault_path": "vault/world/quests/the-fathers-departure.md",
+          "dialogue_hooks": "",
+          "flow_notes": "1. **The Militia's Gift.** When presented with Iron Dawn, Kaelen can accept it gracefully (boosting militia reputation) or reluctantly (revealing self-doubt, which Aldric notices and comments on later). This choice affects dialogue in later quests but not the plot.\n\n2. **Lira's Farewell.** The player chooses how Kaelen says goodbye — a confident promise, an honest admission of fear, or a deflection with humor. This choice is recorded and echoed back in Son-era quests when Aric learns what his father said before leaving.\n\n3. **The Vanguard Patrol.** Kaelen can share information with the Vanguard soldiers (cooperative approach, unlocking a shortcut through a military supply camp) or keep his mission private (independent approach, preserving surprise but missing supplies). If cooperative, the Vanguard captain mentions sealed tunnels and a \"resonance\" the military has been monitoring.\n\n4. **The Barricade.** At the mine entrance, Kaelen can attempt to move the barricade (strength check, loud, alerts anything inside), search for a side passage (exploration, slower but stealthy), or turn back to report to Thornwall (delays the quest, but unlocks a preparation phase with better gear). This decision carries into the next quest."
+        },
+        "LD_Quest_CreativePrompts": {
+          "scene_art": "16-bit pixel art, top-down perspective with a slight 3/4 angle. Thornwall village square at dusk during the harvest festival — wooden stalls draped with orange and gold banners, villagers gathered around a cracked stone well with water seeping through the fracture. Lanterns strung between timber-frame buildings cast warm amber pools of light on cobblestones. In the foreground, Kaelen stands with Iron Dawn strapped across his back, facing the northeast road that leads into dark forested hills. A column of dust rises from the distant Iron Peaks silhouetted against a bruised purple-and-red sunset sky. The mood is bittersweet departure.",
+          "music": "Slow orchestral piece in D minor, led by a solo cello playing a descending melodic line that evokes reluctant forward motion. Strings swell gently underneath, building warmth without urgency. A single hand drum provides a quiet, steady heartbeat rhythm. At the midpoint, a solo flute enters with a counter-melody in the relative major, suggesting hope and duty intertwined. The piece ends on an unresolved suspended chord — the journey has begun but the destination is unknown. Tempo is walking pace, approximately 72 BPM.",
+          "sound_design": "Ambient layer of a village at dusk — distant conversations, the clinking of festival mugs, a dog barking twice, children laughing then going quiet as the tremor hits. The tremor itself is a deep, subsonic rumble that builds over four seconds, rattling wooden shutters and causing ceramic pots to slide off tables with sharp ceramic-on-wood scraping. Stone cracking sound: a wet, grinding snap like a tree trunk splitting but lower in pitch. After the tremor stops, a beat of total silence before the well water begins gurgling through the new fracture — a thin, persistent sound that continues under all subsequent dialogue in the scene."
+        },
+        "LD_Quest_NarrativeProps": {
+          "overview": "The first main quest of Kaelen's era. Strange tremors have been shaking the Iron Peaks for weeks, collapsing mineshafts and splitting well-stones in Thornwall. The village militia, stretched thin by raider activity on the trade roads, cannot spare a squad to investigate. They turn to Kaelen — the only fighter in Thornwall with experience beyond the village walls. The militia captain presents him with Iron Dawn, a broadsword forged from ore pulled out of the deepest Iron Peaks mine, and asks him to find the source of the tremors before the village's foundations crack. Kaelen accepts, knowing the journey will take him away from his infant son Aric and his wife Lira. He tells himself it will be a short trip. It will not be.",
+          "narrative_arc": "**Act 1 — The Tremor.** A tremor strikes during Thornwall's harvest festival, splitting the central well and injuring two children. The village council convenes an emergency meeting. Elder Aldric warns that the tremors match patterns he read about in old star-charts — cycles of geological instability tied to deep-earth resonance. The militia captain asks Kaelen to investigate the Iron Peaks mining tunnels where the tremors seem strongest.\n\n**Act 2 — Preparation and Farewell.** Kaelen gathers supplies, consults Aldric's fragmentary notes, and receives Iron Dawn from the militia armory. The sword is ceremonial — forged decades ago from deep-vein ore and never used in combat. Kaelen visits Lira and infant Aric one last time. Lira does not ask him to stay; she knows he would resent it. She asks him to come back. He promises he will.\n\n**Act 3 — The Road to the Peaks.** Kaelen travels northeast through farmland and into the rocky foothills. Along the way he encounters displaced miners, cracked roads, and an Iron Vanguard patrol that warns him the lower tunnels have been sealed by military order. The Vanguard soldiers are professional but evasive — they know more than they are sharing. Kaelen reaches the Iron Peaks mine entrance to find it barricaded. The quest ends with Kaelen deciding whether to respect the barricade or find another way in.",
+          "objectives_and_stakes": "- **Primary objective:** Reach the Iron Peaks mine entrance and assess the source of the tremors.\n- **Secondary objective:** Gather information from displaced miners and Vanguard patrols about what is happening underground.\n- **Optional objective:** Find Aldric's old survey markers in the foothills, placed during his research expedition thirty years ago.\n- **Stakes:** Thornwall's water supply depends on the aquifer beneath the Iron Peaks. If the tremors worsen, the village loses its wells. On a personal level, every day Kaelen spends on the road is a day away from Aric — and the player should feel that weight accumulating.",
+          "branching_points": "1. **The Militia's Gift.** When presented with Iron Dawn, Kaelen can accept it gracefully (boosting militia reputation) or reluctantly (revealing self-doubt, which Aldric notices and comments on later). This choice affects dialogue in later quests but not the plot.\n\n2. **Lira's Farewell.** The player chooses how Kaelen says goodbye — a confident promise, an honest admission of fear, or a deflection with humor. This choice is recorded and echoed back in Son-era quests when Aric learns what his father said before leaving.\n\n3. **The Vanguard Patrol.** Kaelen can share information with the Vanguard soldiers (cooperative approach, unlocking a shortcut through a military supply camp) or keep his mission private (independent approach, preserving surprise but missing supplies). If cooperative, the Vanguard captain mentions sealed tunnels and a \"resonance\" the military has been monitoring.\n\n4. **The Barricade.** At the mine entrance, Kaelen can attempt to move the barricade (strength check, loud, alerts anything inside), search for a side passage (exploration, slower but stealthy), or turn back to report to Thornwall (delays the quest, but unlocks a preparation phase with better gear). This decision carries into the next quest."
+        }
+      }
+    },
+    {
+      "Type": "LD_Quest",
+      "Properties": {
+        "TechnicalName": "The_Sealed_Observatory",
+        "Id": "0x01000000000005E1",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "The_Sealed_Observatory.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 300.0,
+          "y": 300.0
+        },
+        "ZIndex": 15.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 317039005
+      },
+      "Template": {
+        "LD_Quest_PipelineMeta": {
+          "vault_path": "vault/world/quests/the-sealed-observatory.md",
+          "dialogue_hooks": "",
+          "flow_notes": "1. **Kaelen's Curiosity (Father era).** When Kaelen discovers the sealed door, he can investigate thoroughly (spending extra time at the Academy, learning more about Aldric's past as head scholar) or note it and move on (preserving quest momentum). Thorough investigation unlocks a hint that makes the Son-era puzzle easier.\n\n2. **Sera's Approach (Son era).** Sera can attempt the seal puzzle methodically (scholarly approach — dialogue-heavy, lore-rich, slower) or Aric can attempt to force elements of the mechanism (practical approach — faster but risks damaging the Lens, and Sera objects). A mixed approach where Aric handles physical components while Sera handles theoretical ones yields the best result.\n\n3. **Aldric's Journals (Son era).** After reading the journals, Aric can confront Aldric with the truth (creates a dramatic confrontation scene where Aldric defends his decision), share the journals only with Sera (maintains Aldric's dignity but limits information flow), or keep the information private (Aric alone carries the burden of knowing, mirroring his father's tendency to shoulder things alone).\n\n4. **The Starweaver Lens (Son era).** The Lens can be given to Sera for her research (best long-term outcome, unlocks tracking capability), kept by Aric (personal use in the field, less effective but immediately available), or returned to Aldric (conciliatory gesture that earns Aldric's trust and unlocks his cooperation in later quests, but delays Sera's work)."
+        },
+        "LD_Quest_CreativePrompts": {
+          "scene_art": "16-bit pixel art, interior view of the Sealed Observatory after being opened for the first time in thirty years. A circular stone chamber with a domed ceiling open to the night sky through a retractable iris mechanism half-jammed with rust and crystal growth. The Starweaver Lens dominates the center — a large brass-and-glass instrument mounted on a rotating stone pedestal, its crystalline optics refracting starlight into prismatic beams that paint the dusty floor with scattered color. Bookshelves line the curved walls, filled with leather-bound journals covered in a fine layer of gray dust. Sera (young woman, dark curly hair, scholar's blue robe, round spectacles) stands at the Lens adjusting its calibration wheels with careful hands. Aric stands behind her, holding a lantern that casts warm orange light competing with the cool silver starlight from above. Motes of dust float in both light sources.",
+          "music": "Chamber ensemble piece in E-flat major that shifts between eras. Father-era motif: a solo viola playing a searching, ascending phrase — curious and slightly hesitant, reflecting Kaelen feeling out of his depth among scholars. Son-era motif: the same phrase played by viola and harpsichord together, fuller and more confident, with Sera's intellectual energy added. When the observatory opens, both motifs combine in a moment of harmonic convergence — strings, harpsichord, and a glass harmonica playing sustained tones that evoke the Starweaver Lens refracting light. The glass harmonica carries the emotional weight: ethereal, slightly otherworldly, suggesting knowledge that exists at the boundary of understanding. Tempo is contemplative, approximately 60 BPM, with rubato passages during puzzle-solving sequences.",
+          "sound_design": "The sealed corridor has a dead acoustic — no reverb, no ambient sound, as if the air itself has been still for decades. Footsteps on stone echo flatly. When Aric and Sera activate the puzzle mechanism, each crystalline prism produces a distinct resonant tone when correctly aligned — clear, bell-like pitches that form an ascending scale as the puzzle progresses. Incorrect alignments produce dissonant buzzing. The observatory door opening is a heavy stone-grinding sound layered with the hiss of pressurized air releasing — the sealed atmosphere escaping after thirty years. Inside the observatory, wind enters through the broken iris and whistles through the Lens's brass fittings, producing faint harmonic overtones. Pages of Aldric's journals flutter when disturbed, their old paper crackling like dry leaves."
+        },
+        "LD_Quest_NarrativeProps": {
+          "overview": "A dual-era side quest set at Starlight Academy, the mountain-top institution where the Starlight Scholars study celestial mechanics, geological resonance, and the old star-charts that map the region's deep-earth cycles. In the Father's era, Kaelen visits the Academy seeking information about the tremors — Elder Aldric directed him here, saying the star-charts would reveal whether the current tremors match a historical pattern. In the Son's era, twenty years later, Sera — a young scholar and researcher — asks Aric for help accessing the Sealed Observatory, a restricted wing that Aldric personally locked thirty years ago after a research incident. The quest connects both eras through a shared location and reveals that Aldric has been hiding critical information about the underground threat.",
+          "narrative_arc": "### Father's Era\n\n**Act 1 — The Scholar's Welcome.** Kaelen arrives at Starlight Academy, travel-worn and out of place among robed academics. The scholars are polite but dismissive — they study stars, not swords. Kaelen presents Aldric's letter of introduction, which grants him access to the archives. A junior scholar guides him to the star-chart collection, where Kaelen must interpret astronomical records he barely understands.\n\n**Act 2 — The Locked Door.** While searching the archives, Kaelen notices a sealed door at the end of a corridor — heavy iron, no keyhole, marked with Aldric's personal seal. The scholars tell him it leads to the old observatory, sealed by Aldric when he was head scholar thirty years ago after an unspecified incident. No one has been inside since. Kaelen finds a partial star-chart that references observations made from inside the observatory — observations that describe deep-earth resonance patterns matching the current tremors exactly.\n\n**Act 3 — The Partial Answer.** Kaelen copies what he can from the partial chart and leaves the Academy knowing two things: the tremors follow a predictable cycle, and Aldric sealed the observatory for a reason he has not shared with anyone. Kaelen does not confront Aldric about this — he files it away and continues toward the Iron Peaks. The player retains this knowledge for the Son's era.\n\n### Son's Era\n\n**Act 1 — Sera's Request.** Aric encounters Sera at Starlight Academy (or she seeks him out, depending on quest order). Sera has been researching the crystal corruption and believes the observatory contains the Starweaver Lens — an optical instrument Aldric used to map subterranean resonance patterns from the surface. Sera needs the Lens to track the corruption's spread, but the observatory remains sealed. She asks Aric to help her break the seal, since Aldric — now elderly and protective of his secrets — refuses to discuss it.\n\n**Act 2 — Breaking the Seal.** The observatory seal is not a simple lock — it is a puzzle mechanism that Aldric designed using principles from his resonance research. Aric and Sera must solve a series of environmental puzzles involving light refraction, sound frequency, and the alignment of crystalline prisms mounted in the corridor walls. The puzzles teach the player about resonance mechanics that will be relevant in later quests. As they work, Sera shares her theory: Aldric sealed the observatory because his research revealed something about the deep-earth threat that terrified him into silence.\n\n**Act 3 — What Aldric Hid.** Inside the observatory, Aric and Sera find the Starweaver Lens intact, along with Aldric's personal research journals. The journals reveal that Aldric discovered the resonance cycle thirty years ago and predicted both the current crisis and the one Kaelen investigated. He sealed the observatory and destroyed his own findings because he believed the knowledge itself was dangerous — that attempting to stop the cycle would accelerate it. Sera disagrees with Aldric's conclusion. Aric must decide what to do with the information.",
+          "objectives_and_stakes": "- **Father's era — Primary objective:** Access the Starlight Academy archives and find star-chart data relevant to the Iron Peaks tremors.\n- **Father's era — Optional objective:** Investigate the sealed door and learn about the observatory's history from the scholars.\n- **Son's era — Primary objective:** Break the observatory seal and retrieve the Starweaver Lens for Sera.\n- **Son's era — Secondary objective:** Read Aldric's research journals and learn the truth about the resonance cycle.\n- **Stakes:** The Starweaver Lens is the only instrument capable of tracking the crystal corruption from the surface, which would allow targeted intervention instead of blind exploration. On a narrative level, Aldric's hidden knowledge reframes everything the player has learned — the elder who sent both father and son on their journeys has been withholding the most important piece of the puzzle.",
+          "branching_points": "1. **Kaelen's Curiosity (Father era).** When Kaelen discovers the sealed door, he can investigate thoroughly (spending extra time at the Academy, learning more about Aldric's past as head scholar) or note it and move on (preserving quest momentum). Thorough investigation unlocks a hint that makes the Son-era puzzle easier.\n\n2. **Sera's Approach (Son era).** Sera can attempt the seal puzzle methodically (scholarly approach — dialogue-heavy, lore-rich, slower) or Aric can attempt to force elements of the mechanism (practical approach — faster but risks damaging the Lens, and Sera objects). A mixed approach where Aric handles physical components while Sera handles theoretical ones yields the best result.\n\n3. **Aldric's Journals (Son era).** After reading the journals, Aric can confront Aldric with the truth (creates a dramatic confrontation scene where Aldric defends his decision), share the journals only with Sera (maintains Aldric's dignity but limits information flow), or keep the information private (Aric alone carries the burden of knowing, mirroring his father's tendency to shoulder things alone).\n\n4. **The Starweaver Lens (Son era).** The Lens can be given to Sera for her research (best long-term outcome, unlocks tracking capability), kept by Aric (personal use in the field, less effective but immediately available), or returned to Aldric (conciliatory gesture that earns Aldric's trust and unlocks his cooperation in later quests, but delays Sera's work)."
+        }
+      }
+    },
+    {
+      "Type": "LD_Quest",
+      "Properties": {
+        "TechnicalName": "Vanguard_Checkpoint",
+        "Id": "0x01000000000005EE",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Vanguard_Checkpoint.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 320.0,
+          "y": 320.0
+        },
+        "ZIndex": 16.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 1258412069
+      },
+      "Template": {
+        "LD_Quest_PipelineMeta": {
+          "vault_path": "vault/world/quests/vanguard-checkpoint.md",
+          "dialogue_hooks": "",
+          "flow_notes": "1. **Kaelen's Name.** If Aric invokes his father's reputation during diplomacy, Captain Voss reacts with complicated respect — she served under a commander who knew Kaelen personally. This opens a dialogue branch where Voss reveals that the Vanguard found Kaelen's abandoned camp in the deep tunnels years ago, along with Iron Dawn driven into a stone wall as if marking a boundary. This information is exclusive to the diplomacy path.\n\n2. **Maren's Risk.** On the stealth path, the crumbling cliff section forces a choice: Maren can lead (she is the better climber, but if she falls, Aric loses his only companion and guide) or Aric can lead (slower, riskier for him, but protects Maren). If Maren leads and the climb succeeds, their trust deepens. If Aric leads, Maren recognizes his protectiveness and warns him not to become his father — always shielding others from danger they can handle themselves.\n\n3. **The Refugees.** Helping the refugee miners is optional but shapes the quest's moral texture. Aric can distribute supplies from his own pack (generous but leaves him under-equipped), promise to advocate for their return once the Peaks are safe (political, commits him to a future obligation), or recruit willing refugees as guides (practical, but puts civilians in danger). Ignoring the refugees entirely is possible but Maren comments on it critically.\n\n4. **Captain Voss's Offer.** If diplomacy succeeds, Voss offers Aric a Vanguard communication token — a way to signal the checkpoint if he discovers anything underground. Accepting it means the Vanguard can track his position. Refusing it preserves operational secrecy but closes off potential Vanguard reinforcement in a later quest. Voss makes no threat either way; she simply presents it as a professional courtesy between people who want the same thing."
+        },
+        "LD_Quest_CreativePrompts": {
+          "scene_art": "16-bit pixel art, wide establishing shot of the canyon checkpoint. A narrow rocky pass between red-brown cliff walls, the road paved with worn flagstones leading to a heavy timber gatehouse with iron-reinforced doors. Two stone watchtowers flank the gate, each flying the Iron Vanguard banner — a black anvil on a steel-gray field. Soldiers in dark iron half-plate stand at the gate and walk the walls. In the foreground, the refugee camp sprawls across the roadside: patched canvas tents, a communal cook-fire with thin smoke rising, miners sitting on crates with the exhausted posture of people who have been waiting for weeks. Aric and Maren stand at the edge of the camp, studying the checkpoint from a distance. The canyon walls rise steeply on both sides, streaked with mineral deposits that catch the late afternoon sun in bands of rust and gold. The mood is tense standoff.",
+          "music": "Military march deconstructed and made uneasy. Opens with a snare drum cadence in strict 4/4 time — crisp, authoritative, the sound of an institution that believes in its own order. Over the march, a solo trumpet plays a minor-key melody that is technically precise but emotionally cold, representing the Vanguard's shift from protectors to occupiers. When the refugee camp comes into view, the march fades and is replaced by a solo acoustic guitar playing a tired, circular folk pattern — the same three chords repeating without resolution, evoking stagnation and waiting. During the stealth path, all melodic instruments drop out, leaving only ambient wind and a quiet sustained bass note that tightens with proximity to the patrol. During the diplomacy path, trumpet and guitar play simultaneously in different keys, creating controlled tension that resolves only if negotiation succeeds.",
+          "sound_design": "Canyon acoustics with natural reverb — sounds bounce between the cliff walls with a half-second delay, making distant voices unintelligible but present. The checkpoint gate has a mechanical quality: chains clinking against stone, the creak of a heavy crossbar, boots on wooden platforms overhead. Vanguard soldiers speak in clipped, professional cadences — not hostile but not welcoming, the vocal register of people following procedures. The refugee camp is a contrast: low murmured conversations, a child coughing, the scrape of a ladle against the bottom of a nearly empty pot, canvas flapping in the canyon draft. On the stealth path, the goat trail is defined by loose gravel crunching underfoot, wind gusting unpredictably, and the distant echo of patrol boots on stone below. The crumbling cliff section adds the sound of small rocks breaking loose and falling — each one a sharp crack followed by a long, rattling descent that makes the height viscerally real."
+        },
+        "LD_Quest_NarrativeProps": {
+          "overview": "A Son-era main quest that forces Aric to confront the Iron Vanguard directly. The military faction has established a fortified checkpoint on the only maintained road between the lowlands and the Iron Peaks, blocking all civilian access to the mining region. Twenty years ago, the Vanguard was a professional but cooperative force — Kaelen dealt with them as respectful equals. In the intervening decades, the Vanguard has militarized aggressively, seizing control of the Iron Peaks mines under the justification of \"geological security\" and cutting off the communities that once depended on the mining trade. Aric must get past the checkpoint to reach the Iron Peaks tunnel system. How he does it reveals what kind of hero he will become — and whether he can avoid repeating his father's mistakes.",
+          "narrative_arc": "**Act 1 — The Blockade.** Aric and Maren approach the checkpoint after leaving the Whispering Woods. The road narrows into a canyon pass where the Vanguard has built a timber-and-stone gatehouse flanked by watchtowers. Soldiers in iron-banded armor patrol the walls. A posted decree declares the Iron Peaks a restricted military zone — no civilians permitted without a command seal. Refugees and displaced miners camp in a makeshift settlement outside the checkpoint, unable to return to their homes or livelihoods. Aric learns from the refugees that the Vanguard seized the mines three years ago after a \"resonance incident\" killed a patrol squad underground.\n\n**Act 2 — Three Paths.** Aric must choose his approach to the checkpoint. Each path is a self-contained sequence with its own challenges and consequences.\n\n- **Diplomacy:** Aric requests an audience with the checkpoint commander, Captain Voss. He can invoke his father's name (Kaelen was known and respected by the old Vanguard), present evidence of the crystal corruption as a shared threat, or offer to serve as a civilian scout in exchange for passage. Voss is pragmatic but bound by orders from Vanguard high command — she can be convinced, but only if Aric offers something the Vanguard needs.\n\n- **Stealth:** Maren knows the canyon terrain and identifies a goat trail that climbs above the checkpoint and reconnects with the road on the far side. The trail is narrow, exposed, and monitored by a roving Vanguard patrol. Aric and Maren must time their crossing, avoid detection, and navigate a crumbling cliff section. Success means bypassing the Vanguard entirely — but also missing information that Voss could have provided.\n\n- **Force:** Aric can challenge the checkpoint guard to a formal duel for passage (a tradition the old Vanguard honored but the current command has largely abandoned) or create a distraction using the refugee camp's grievances to draw soldiers away from the gate. Direct assault against a fortified position is suicidal — the quest design makes this clear through environmental storytelling (arrow slits, murder holes, superior numbers).\n\n**Act 3 — The Other Side.** Regardless of approach, Aric reaches the far side of the checkpoint and gets his first clear view of the Iron Peaks — a jagged mountain range with visible scarring from decades of mining, now threaded with the same violet crystal growths he saw in the Whispering Woods. The corruption is worse here: entire cliff faces shimmer with crystalline deposits. The road ahead leads to the mine entrance that Kaelen found barricaded twenty years ago. The barricade is gone now — replaced by a dark, open maw in the mountainside. Something has broken out.",
+          "objectives_and_stakes": "- **Primary objective:** Get past the Iron Vanguard checkpoint and reach the Iron Peaks road.\n- **Secondary objective:** Learn what the Vanguard knows about the \"resonance incident\" that killed their patrol squad three years ago.\n- **Optional objective:** Help the refugee miners with supplies or information (builds reputation, unlocks a refugee guide who knows the old mine tunnels for a later quest).\n- **Stakes:** The checkpoint is the only practical route to the Iron Peaks. Without passage, Aric cannot reach the source of the crystal corruption. The broader stakes are political: the Vanguard's lockdown is strangling lowland communities that depend on Iron Peaks trade, and Aric's approach to the checkpoint sets the tone for his relationship with the most powerful military faction in the region. A cooperative Aric gains intelligence but owes the Vanguard a debt. A defiant Aric preserves independence but makes an enemy.",
+          "branching_points": "1. **Kaelen's Name.** If Aric invokes his father's reputation during diplomacy, Captain Voss reacts with complicated respect — she served under a commander who knew Kaelen personally. This opens a dialogue branch where Voss reveals that the Vanguard found Kaelen's abandoned camp in the deep tunnels years ago, along with Iron Dawn driven into a stone wall as if marking a boundary. This information is exclusive to the diplomacy path.\n\n2. **Maren's Risk.** On the stealth path, the crumbling cliff section forces a choice: Maren can lead (she is the better climber, but if she falls, Aric loses his only companion and guide) or Aric can lead (slower, riskier for him, but protects Maren). If Maren leads and the climb succeeds, their trust deepens. If Aric leads, Maren recognizes his protectiveness and warns him not to become his father — always shielding others from danger they can handle themselves.\n\n3. **The Refugees.** Helping the refugee miners is optional but shapes the quest's moral texture. Aric can distribute supplies from his own pack (generous but leaves him under-equipped), promise to advocate for their return once the Peaks are safe (political, commits him to a future obligation), or recruit willing refugees as guides (practical, but puts civilians in danger). Ignoring the refugees entirely is possible but Maren comments on it critically.\n\n4. **Captain Voss's Offer.** If diplomacy succeeds, Voss offers Aric a Vanguard communication token — a way to signal the checkpoint if he discovers anything underground. Accepting it means the Vanguard can track his position. Refusing it preserves operational secrecy but closes off potential Vanguard reinforcement in a later quest. Voss makes no threat either way; she simply presents it as a professional courtesy between people who want the same thing."
+        }
+      }
+    },
+    {
+      "Type": "LD_Quest",
+      "Properties": {
+        "TechnicalName": "Whispers_in_the_Woods",
+        "Id": "0x01000000000005FB",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Whispers_in_the_Woods.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 340.0,
+          "y": 340.0
+        },
+        "ZIndex": 17.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 3709897771
+      },
+      "Template": {
+        "LD_Quest_PipelineMeta": {
+          "vault_path": "vault/world/quests/whispers-in-the-woods.md",
+          "dialogue_hooks": "",
+          "flow_notes": "1. **Aldric's Warning.** Before departure, Aldric can be pressed for more information about Kaelen's original mission. If Aric pushes hard, Aldric reveals that Kaelen sent one letter from the Iron Peaks — contents unknown, because Aldric burned it at Kaelen's request. This revelation shifts Aric's motivation from curiosity to suspicion. If Aric does not push, the information surfaces later at a less convenient moment.\n\n2. **Maren's Expertise.** At the first sinkhole, Maren can lead the investigation (tracker approach — slower, methodical, reveals more environmental detail) or Aric can take point (combat approach — faster, but misses clues about the crystal growth cycle). The choice affects how much information the player has going into the Iron Peaks questline.\n\n3. **The Corrupted Wolf.** When encountering the crystallized wolf carcass, Aric can examine it closely (gaining knowledge about the corruption's effect on living tissue, disturbing but useful) or destroy it out of mercy/revulsion (Maren disapproves of the lost research opportunity but respects the impulse). Examining it unlocks a bestiary entry that helps in later combat encounters.\n\n4. **The Descent Decision.** At the cavern collapse, Aric can descend immediately (brave but reckless — Maren follows reluctantly, and the pair enters the Iron Peaks questline under-prepared) or return to Thornwall (cautious — unlocks a preparation phase and recruits additional help, but the corruption advances one stage while they are gone, making the forest section of the return trip harder)."
+        },
+        "LD_Quest_CreativePrompts": {
+          "scene_art": "16-bit pixel art, side-scrolling parallax forest scene. The Whispering Woods in a state of decay — foreground trees with bare, silver-gray branches reaching like skeletal fingers, their bark peeling in long strips. Mid-ground shows a jagged sinkhole ringed with pale violet crystals that emit a faint luminous glow, casting unnatural purple light upward onto the undersides of remaining leaves. Aric (young man, brown hair, leather traveling gear, short sword at hip) and Maren (wiry woman, green hooded cloak, longbow across her back) stand at the sinkhole's edge, looking down. The forest floor is carpeted with fallen leaves in wrong-season orange. Mist rises from the sinkhole. Background trees fade into gray fog. The overall palette is muted greens and grays punctuated by the violet crystal light.",
+          "music": "Ambient woodland piece in A minor with deliberate dissonance. Opens with a solo wooden flute playing a folk melody that gradually becomes uncertain — notes bending slightly sharp, rhythm faltering as if the player is losing confidence. Layered underneath: a reversed string pad that swells and recedes like breathing, creating unease. Crystalline synthesizer tones enter at irregular intervals, high-pitched and glassy, representing the corruption. A low bowed bass provides a ground drone that pulses with a 3-second cycle, mimicking the resonance hum from the sinkholes. No percussion — the absence of rhythm makes the forest feel like time has stopped. The piece never resolves to a tonic chord.",
+          "sound_design": "Forest ambience that is conspicuously wrong — birdsong is absent, replaced by wind moving through bare branches with a dry, papery rattle. Footsteps on the forest floor alternate between normal leaf-crunch and a brittle, glassy cracking when stepping near crystal-contaminated soil. The sinkhole resonance is a constant low hum at approximately 40 Hz, felt more than heard, with occasional harmonic overtones that spike into the audible range like distant singing. Crystal growth sound: a slow, creaking expansion like ice forming on a lake, mixed with a faint chiming ring. When the corrupted wolf carcass is discovered, a single low string note sustains underneath the scene, providing dread without melodrama."
+        },
+        "LD_Quest_NarrativeProps": {
+          "overview": "The first major quest of Aric's era. Twenty years after Kaelen's departure, the Whispering Woods — a vast old-growth forest between Thornwall and the Iron Peaks — are dying. Trees shed their leaves in midsummer, streams run cloudy with mineral sediment, and the forest's wildlife has fled or turned aggressive. Thornwall's hunters report sinkholes opening along familiar trails, and a strange crystalline growth spreading from the sinkholes' edges. Aric, now twenty-two and restless in a village that still whispers his father's name, volunteers to investigate with Maren, a tracker who knows the woods better than anyone alive. What they discover will pull Aric into the same underground crisis his father faced two decades earlier.",
+          "narrative_arc": "**Act 1 — The Dying Forest.** Thornwall's hunters return with reports of collapsed trails and dead game. Elder Aldric, now elderly and frail, recognizes the symptoms from Kaelen's era — the tremors have returned, worse than before. He gives Aric a page from Kaelen's Journal describing the early warning signs Kaelen observed twenty years ago. Aric and Maren set out into the Whispering Woods along the old hunter's road.\n\n**Act 2 — Crystal Corruption.** Deep in the woods, Aric and Maren discover that the sinkholes are not natural erosion — they are vents. A pale violet crystal grows from the exposed subterranean rock, and the ground around each sinkhole hums with a low resonance that makes teeth ache. The crystals are spreading root-like tendrils into the surrounding soil, poisoning the trees from below. Maren identifies tracks around the largest sinkhole: something has been coming up from underground. They find a dead forest wolf with crystalline growths erupting from its ribcage.\n\n**Act 3 — The Path Below.** Following the sinkhole network deeper into the woods, Aric and Maren reach a massive collapse where the forest floor has given way entirely, revealing a cavern system that connects to the Iron Peaks mining tunnels. Kaelen's Journal describes this exact location — he marked it on a hand-drawn map twenty years ago but never explored it. Aric must decide whether to descend immediately or return to Thornwall for reinforcements. Either way, the quest establishes that the Iron Peaks are the source of the corruption, and whatever Kaelen went to fight is still active.",
+          "objectives_and_stakes": "- **Primary objective:** Traverse the Whispering Woods to the source of the crystal corruption and identify the connection to the Iron Peaks tunnel system.\n- **Secondary objective:** Collect crystal samples for Elder Aldric to analyze (three samples from different sinkholes, each showing a different stage of growth).\n- **Optional objective:** Find Kaelen's old campsite in the woods, marked in his journal. Contains a cache of supplies he left behind, including a letter he never sent to Lira.\n- **Stakes:** The Whispering Woods provide Thornwall's timber, game, and medicinal herbs. If the corruption spreads unchecked, the village loses its primary resources within a season. For Aric personally, this quest is the first concrete evidence that his father's disappearance was connected to something real — not just wanderlust or cowardice, as some villagers whisper.",
+          "branching_points": "1. **Aldric's Warning.** Before departure, Aldric can be pressed for more information about Kaelen's original mission. If Aric pushes hard, Aldric reveals that Kaelen sent one letter from the Iron Peaks — contents unknown, because Aldric burned it at Kaelen's request. This revelation shifts Aric's motivation from curiosity to suspicion. If Aric does not push, the information surfaces later at a less convenient moment.\n\n2. **Maren's Expertise.** At the first sinkhole, Maren can lead the investigation (tracker approach — slower, methodical, reveals more environmental detail) or Aric can take point (combat approach — faster, but misses clues about the crystal growth cycle). The choice affects how much information the player has going into the Iron Peaks questline.\n\n3. **The Corrupted Wolf.** When encountering the crystallized wolf carcass, Aric can examine it closely (gaining knowledge about the corruption's effect on living tissue, disturbing but useful) or destroy it out of mercy/revulsion (Maren disapproves of the lost research opportunity but respects the impulse). Examining it unlocks a bestiary entry that helps in later combat encounters.\n\n4. **The Descent Decision.** At the cavern collapse, Aric can descend immediately (brave but reckless — Maren follows reluctantly, and the pair enters the Iron Peaks questline under-prepared) or return to Thornwall (cautious — unlocks a preparation phase and recruits additional help, but the corruption advances one stage while they are gone, making the forest section of the return trip harder)."
+        }
+      }
+    },
+    {
+      "Type": "LD_Event",
+      "Properties": {
+        "TechnicalName": "Kaelens_Last_Letter",
+        "Id": "0x0100000000000608",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Kaelens_Last_Letter.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 360.0,
+          "y": 360.0
+        },
+        "ZIndex": 18.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 2874995576
+      },
+      "Template": {
+        "LD_Event_PipelineMeta": {
+          "vault_path": "vault/world/events/kaelens-last-letter.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Event_CreativePrompts": {
+          "scene_art": "16-bit pixel art depicting Aric reading the letter by firelight inside the Thornwall elder's house. Aric sits at a rough wooden table, the damaged letter spread before him, its edges torn and water-stained. His expression is controlled but his posture betrays tension — shoulders drawn inward, one hand gripping the table edge. A single candle provides warm amber light that catches the letter's remaining ink. In the background, barely visible in shadow, the messenger's weathered leather satchel sits on a shelf, its strap broken and its surface cracked with age. Through a small window behind Aric, the distant silhouette of the Iron Peaks is visible against a twilight sky. The scene is intimate and still — a private moment of reckoning.",
+          "sound_design": "Near-silence anchors the scene. A single candle flame flickers — a soft, inconsistent crackling. Aric's breathing is audible: steady but shallow, the controlled breath of someone working to maintain composure. The letter's damaged parchment crinkles as he handles it — a dry, fragile sound distinct from fresh paper. Outside the window, wind passes distantly and a dog barks once, far away, grounding the scene in Thornwall's evening atmosphere. When Aric reaches the letter's most significant passage, all ambient sound drops to near-zero for two seconds, then returns with a slight increase in the wind — a subtle emotional punctuation rather than a literal silence. No music. The scene earns its weight through restraint."
+        },
+        "LD_Event_NarrativeProps": {
+          "overview": "The last known communication from [[Kaelen]] is a letter written on the [[Iron Peaks]] trail, addressed to his son [[Aric]] and entrusted to a messenger heading south toward [[Thornwall]]. The letter was never delivered. The messenger died — cause unknown — on a remote stretch of road between the peaks and the village. Twenty years later, Aric discovers the letter in the messenger's weathered satchel, found half-buried in a roadside ditch by a traveling merchant who brought it to Thornwall's market. The letter's contents are fragmentary, damaged by weather and time, but what remains fundamentally changes Aric's understanding of his father's departure.",
+          "causes": "Kaelen wrote the letter approximately two years after leaving Thornwall, when Aric would have been four years old. By this point, Kaelen had traveled north through the Whispering Woods and reached the upper trails of the Iron Peaks. His investigation of the sealed caverns had confirmed his worst suspicions: the seal was degrading, crystal energy was leaking into the surrounding rock, and the tremors he had felt in Thornwall were not isolated events but symptoms of a larger, accelerating process. The letter was written at a camp on the Iron Peaks trail, likely at or near Lookout Ridge, based on Kaelen's description of being able to see Thornwall's lights to the south.\n\nKaelen chose to write rather than return because he believed he was close to finding a way into the deeper cavern network — an alternate entrance below the sealed breach that miners' maps hinted at but never confirmed. He did not want to return empty-handed. The letter was intended as reassurance and explanation: he was alive, he was making progress, and he would come home when the work was done.\n\nThe messenger's death remains unexplained. The satchel showed no signs of violence — no blood, no weapon marks. The merchant who found it reported that the remains were skeletal, suggesting the messenger had been dead for many years, and that the satchel had been partially protected from the elements by an overhang of rock.",
+          "consequences": "For Aric, the letter is a seismic event. He has spent twenty years constructing a narrative around his father's absence — one in which Kaelen left because he was restless, irresponsible, or simply didn't care enough to stay. The letter demolishes this narrative. It reveals a Kaelen who was afraid, who missed his son, and who believed he was sacrificing his own happiness to protect Thornwall from a genuine threat. The letter's damaged sections leave critical gaps: Kaelen describes something he found in the caverns but the passage is illegible. He mentions seeking help from someone whose name is water-damaged beyond recognition. He promises to return by a date that cannot be read.\n\nThe letter forces Aric to reconsider everything he thought he knew about his father. It does not make him forgive Kaelen — the anger of twenty years does not dissolve in a single reading — but it transforms the anger from resentment into something more complicated: grief for a relationship that might have existed, and urgency to understand what Kaelen found in the mountains that was important enough to die for. Because the letter's existence, combined with the messenger's death and Kaelen's silence in the years since, leads Aric to a conclusion he has avoided until now: his father is almost certainly dead.\n\nThe letter also provides practical information. Kaelen's descriptions of the Iron Peaks trail, the location of the alternate cavern entrance, and his observations about the crystal energy's behavior serve as a partial map for Aric's own journey north. The father's unfinished work becomes the son's starting point.",
+          "involved_entities": "- [[Kaelen]] — author of the letter, writing from the Iron Peaks trail\n- [[Aric]] — the intended recipient, who receives it twenty years late\n- [[Thornwall]] — the destination the letter never reached\n- [[Iron Peaks]] — where the letter was written and the messenger died\n- The unnamed messenger — a minor figure whose death created a twenty-year silence"
+        }
+      }
+    },
+    {
+      "Type": "LD_Event",
+      "Properties": {
+        "TechnicalName": "The_First_Tremor",
+        "Id": "0x0100000000000613",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "The_First_Tremor.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 380.0,
+          "y": 380.0
+        },
+        "ZIndex": 19.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 721586572
+      },
+      "Template": {
+        "LD_Event_PipelineMeta": {
+          "vault_path": "vault/world/events/the-first-tremor.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Event_CreativePrompts": {
+          "scene_art": "16-bit pixel art depicting Thornwall's market square at the moment the first tremor strikes. The scene is mid-day, warm sunlight on cobblestones. Market stalls line both sides of the frame — wooden structures with canvas awnings, displaying produce, tools, and textiles. The tremor is conveyed through motion: goods tumbling from a stall shelf, a clay pot mid-fall trailing fragments, dust rising from between cobblestones, a wooden sign swinging on its bracket. Villagers react with mild surprise rather than panic — a woman steadies a child, a merchant grabs his wares, two men look up from conversation. In the background, the Iron Peaks are visible above Thornwall's rooftops, silent and unchanging, giving no visible sign of the force originating beneath them. Kaelen stands at the market's edge, apart from the crowd, looking not at the falling goods but north toward the mountains. His expression is the only one in the scene that shows recognition rather than surprise.",
+          "sound_design": "The tremor begins below the threshold of hearing — a subsonic vibration that builds over three seconds, felt in the chest before it registers as sound. Then: a deep, grinding rumble from beneath the ground, like stone surfaces sliding against each other at enormous scale. On the surface, the sound layer is domestic and jarring in contrast — clay shattering on cobblestones, wooden stalls creaking, a dog barking in alarm, voices shifting from casual conversation to startled exclamation. The rumble peaks at five seconds with a single, distinct crack — the sound of rock fracturing deep underground, transmitted as a sharp percussive thud through the earth. Then the rumble subsides over two seconds, and surface sounds fill the gap: nervous laughter, someone sweeping up broken pottery, a child crying briefly then stopping. Within thirty seconds, normal market ambience resumes. The tremor's brevity is the point — it was easy to dismiss, easy to forget, easy to survive without learning anything from it."
+        },
+        "LD_Event_NarrativeProps": {
+          "overview": "The first earthquake to originate from the sealed caverns beneath the [[Iron Peaks]] occurred during Kaelen's era, approximately three years before he left [[Thornwall]]. The tremor was minor by any objective measure — it lasted seven seconds, cracked a few walls in Thornwall's older buildings, and knocked goods off shelves in the market. No one was injured. Most residents dismissed it as an ordinary geological event and repaired their walls without further thought. But [[Kaelen]], who had been reading his father's old mining journals and knew about the sealed caverns, recognized the tremor for what it was: the first audible signal that the seal was failing. This recognition set him on the path that would eventually take him away from his family and into the mountains.",
+          "causes": "The tremor was caused by a fracture event deep within the sealed caverns. The crystalline substance behind the seal had been growing slowly for decades, exerting increasing pressure on the surrounding rock. When the pressure exceeded the stone's tolerance, a section of cavern wall cracked, releasing stored energy as a seismic pulse. The pulse traveled upward through the mountain's geology and was felt on the surface as a brief earthquake.\n\nThe sealed caverns had been inert — or appeared inert — for roughly forty years prior to this event. The mining guild's seal had held, and the crystal energy behind it had been imperceptible at the surface. What changed is unclear. One possibility is that the crystal growth simply reached a critical mass after decades of accumulation. Another, suggested by fragmentary notes in [[Kaelen]]'s journal, is that an external trigger — a shift in deep geological pressure, or a change in the underground water table — destabilized the cavern system and accelerated the crystal growth. A third possibility, which Kaelen considered but could not confirm, is that the crystal energy is not a static substance but something with its own cycle of dormancy and activity, and that the first tremor marked the beginning of an active phase.",
+          "consequences": "The immediate consequences were negligible. Thornwall's buildings sustained minor cosmetic damage. The village well's water level dropped slightly and returned to normal within a week. A section of the old mine road above Thornwall shed loose rock, blocking the path for several days before militia volunteers cleared it. Life returned to normal.\n\nThe significant consequences were personal and delayed. Kaelen, who had inherited his father's mining journals and had always been curious about the sealed caverns, began investigating. He visited the upper mines — abandoned but still accessible — and found that the tremor had opened new hairline fractures in tunnel walls. In one deep tunnel, he discovered a crack through which faint violet light was visible. He could hear, at the edge of perception, a low hum. These observations convinced him that the sealed caverns were not a closed chapter but an ongoing situation.\n\nOver the next three years, Kaelen tracked two more minor tremors. Each was slightly stronger than the last, and each produced new fractures in the upper mines. He consulted [[Elder Aldric]] at the [[Starlight Academy]], who confirmed that the tremor pattern was consistent with increasing subsurface pressure but could offer no specific explanation. Kaelen's growing conviction that the caverns posed an existential threat to Thornwall — combined with his inability to convince anyone else of the danger — became the primary driver of his decision to leave his family and investigate the Iron Peaks directly.\n\nThe first tremor also marked the beginning of subtle changes in the [[Whispering Woods]]. Foresters noted that several ancient trees near the forest's southern edge dropped their leaves prematurely in the season following the tremor. The whispering canopy, normally consistent in tone, produced occasional low-frequency sounds that veteran foresters had never heard before. These changes were too subtle to alarm anyone at the time but are now understood — in Aric's era — as the earliest signs of the enchantment's degradation.",
+          "involved_entities": "- [[Iron Peaks]] — the source of the tremor, where the sealed caverns are fracturing\n- [[Thornwall]] — the village that felt the tremor and dismissed it\n- [[Kaelen]] — the only person who understood the tremor's significance\n- [[Whispering Woods]] — where the tremor's secondary effects first appeared\n- [[Elder Aldric]] — consulted by Kaelen, unable to provide a definitive answer"
+        }
+      }
+    },
+    {
+      "Type": "LD_Event",
+      "Properties": {
+        "TechnicalName": "The_Observatory_Disaster",
+        "Id": "0x010000000000061E",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "The_Observatory_Disaster.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 400.0,
+          "y": 400.0
+        },
+        "ZIndex": 20.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 628977910
+      },
+      "Template": {
+        "LD_Event_PipelineMeta": {
+          "vault_path": "vault/world/events/the-observatory-disaster.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Event_CreativePrompts": {
+          "scene_art": "16-bit pixel art depicting the moment of the Observatory disaster from the Academy courtyard perspective. The west wing's upper tower is visible against a night sky filled with unnaturally bright stars. A beam of concentrated white-blue light erupts from the Observatory dome, cracking outward in geometric patterns. The connecting bridge between the west wing and the main building is mid-collapse, stone blocks tumbling into darkness. In the courtyard below, two small figures shield their eyes from the light. The Academy's pale limestone walls reflect the burst, casting sharp blue-white shadows. Dust and debris billow outward from the collapsing bridge. The color palette contrasts the warm amber of courtyard torchlight with the cold, alien blue of the stellar energy.",
+          "sound_design": "The disaster unfolds in three phases. Phase one: a sustained, rising crystalline tone — the sound of the seal opening — building in pitch and volume over ten seconds until it crosses the threshold of comfort. Phase two: a massive concussive impact — not an explosion but a pressure release, like a vacuum seal breaking on a continental scale. The stone bridge collapse follows immediately: grinding, cracking, and tumbling stone layered over a deep structural groan. Phase three: silence. Complete, unnatural silence lasting three full seconds before ambient sound returns — wind, distant waves, settling dust. The silence is the most unsettling element. It should feel as though the world stopped and restarted."
+        },
+        "LD_Event_NarrativeProps": {
+          "overview": "Thirty years before the events of Aric's era, a young [[Elder Aldric]] — then the most promising Starweaver of his generation — attempted a ritual to unseal the Observatory at the top of the [[Starlight Academy]]'s west wing. The Observatory had been sealed by the order's founders centuries earlier, after they determined that the master charts inside were too dangerous to use. Aldric believed he could access the charts safely, reading them without activating their interventionist properties. He was wrong. The ritual killed three fellow scholars, collapsed the connecting bridge to the west wing, and left Aldric physically unharmed but permanently changed. He sealed the entire west wing afterward and has refused to discuss what he saw inside.",
+          "causes": "Aldric's motivation was not reckless ambition but desperate pragmatism. The Starweaver bloodline was thinning — fewer students each decade could perceive starlight patterns, and the order's accumulated knowledge was becoming inaccessible. Aldric feared that within a generation, no one would remain who could read the stars at all. The master charts in the Sealed Observatory represented the founders' complete body of work: techniques, calibrations, and pattern-maps that could potentially train new readers even without innate ability. Aldric spent eight years preparing the ritual, consulting every surviving text on the Observatory's construction and sealing mechanism. He believed he had accounted for every variable. What he had not accounted for was that the Observatory's seal was not merely a lock — it was a containment system, designed to keep the charts' resonance from leaking outward. Opening the seal, even partially, released a burst of focused stellar energy that the founders had deliberately imprisoned.",
+          "consequences": "Three scholars — Aldric's closest colleagues, who had assisted with the ritual — died instantly when the energy burst collapsed the connecting bridge. Their bodies were never recovered from the rubble. Aldric, who was standing at the threshold of the Observatory door, was thrown backward but survived. He has never explained why he alone was spared. The west wing was structurally compromised by the bridge collapse and was declared unsafe. Aldric ordered it sealed with chains and prohibitions, making the Sealed Observatory doubly inaccessible — sealed by the founders' mechanism and now also sealed by physical destruction.\n\nThe Academy's already-declining reputation suffered further. Several faculty members departed, and student enrollment dropped. The Academy shifted from active celestial research to archival work and general education. Aldric assumed leadership by default — no one else wanted the position — and redirected the institution toward preservation rather than discovery.\n\nThe deeper consequence was psychological. Aldric's guilt transformed him from an ambitious researcher into a cautious custodian. He began restricting access to texts he deemed dangerous, locking away materials in the Archive Vaults, and steering gifted students away from advanced star-reading. When [[Sera]] emerged as the most naturally talented student in decades, Aldric's protective instincts intensified to the point of suppressing her development — a pattern he recognizes as harmful but cannot stop.",
+          "involved_entities": "- [[Elder Aldric]] — the ritual's architect and sole survivor\n- [[Starlight Academy]] — the institution that was physically and reputationally damaged\n- [[Sera]] — born after the disaster, now affected by its consequences through Aldric's overprotection\n- The three unnamed scholars — Aldric's colleagues, whose deaths remain his defining trauma"
+        }
+      }
+    },
+    {
+      "Type": "LD_Lore",
+      "Properties": {
+        "TechnicalName": "The_Sealed_Caverns",
+        "Id": "0x0100000000000629",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "The_Sealed_Caverns.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 420.0,
+          "y": 420.0
+        },
+        "ZIndex": 21.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 1801351687
+      },
+      "Template": {
+        "LD_Lore_PipelineMeta": {
+          "vault_path": "vault/world/lore/the-sealed-caverns.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Lore_NarrativeProps": {
+          "overview": "Deep beneath the [[Iron Peaks]], a network of natural caverns extends far below the reach of the old mines. Two generations ago, miners broke through the lowest tunnel wall and discovered a vast underground chamber filled with a crystalline substance that hummed audibly, emitted faint violet light, and killed three workers within days of exposure. The mining guild sealed the breach with stone and mortar, abandoned the mines entirely, and the surviving miners' families relocated south to found [[Thornwall]]. What lies sealed in those caverns has been leaking through the cracks ever since — slowly, imperceptibly at first, but with increasing force. The tremors that drove [[Kaelen]] north and that now threaten Aric's world originate here.",
+          "details": "The crystalline substance found in the caverns does not match any known mineral. Miners who survived initial contact described it as warm to the touch, geometrically perfect in its growth patterns, and responsive to sound — striking a crystal with a pick caused the entire chamber to resonate, producing a tone felt in the chest rather than heard with the ears. The three miners who died showed similar symptoms: progressive disorientation, vivid nightmares of places they had never visited, and a final stage in which they spoke in languages no one recognized before falling silent permanently.\n\nThe mining guild's chief engineer, a woman named Thessaly, documented the breach in a sealed report before the mines were abandoned. Her account describes the cavern as \"alive in a way stone should not be\" and notes that the crystals appeared to be growing — the breach wall was partially covered in new crystal growth within the two days between discovery and sealing. Thessaly recommended the breach be filled with rubble and mortared shut, which was done. She also recommended that no one dig below the five-hundred-foot level of the Iron Peaks again. This recommendation was followed until the mining guild dissolved entirely.\n\nThe seal held for approximately forty years without incident. The first sign of degradation came during Kaelen's era — faint vibrations in the upper mine tunnels, occasional reports of a humming sound near the sealed level, and a subtle change in the water table that dried several wells in Thornwall. Kaelen investigated the upper mines and found hairline cracks in the seal mortar, through which faint purple light was visible. This discovery, combined with the first tremor, convinced him that the caverns were not merely a geological curiosity but an active and growing threat.\n\nIn Aric's era, the degradation has accelerated dramatically. The seal has fractured in multiple places. Crystal growth has pushed through the cracks and now extends into the lower mine tunnels. The tremors have increased in frequency and intensity. Creatures not seen on the surface — eyeless, crystalline-armored things adapted to total darkness — have begun emerging from the deep tunnels. The energy leaking from the caverns is visibly affecting the surrounding landscape: the [[Whispering Woods]] are dying, sinkholes follow ancient underground channels, and the iron-bark pines nearest the peaks have petrified.\n\nThe nature of the sealed energy remains unknown. Whether it is a natural geological phenomenon, a remnant of an ancient civilization, or something deliberately imprisoned is one of the central mysteries of the game. The Starweavers' master charts may contain the answer — if anyone can reach them.",
+          "cultural_significance": "In Thornwall, the sealed caverns occupy a space between local history and folk legend. The founding families remember the truth: their grandparents sealed something dangerous and built a town far enough away to feel safe. But over two generations, the story has softened. Children are told the mines were abandoned because the ore ran out. The caverns are mentioned as a curiosity, not a threat. Only the village elders and a few old families still take the sealed caverns seriously.\n\nKaelen's departure — which he justified by citing the caverns as a growing danger — was met with skepticism by most of Thornwall. The tremors were too faint for ordinary people to notice, and Kaelen's warnings sounded like excuses for wanderlust. This skepticism became the dominant narrative: the hero left because he couldn't sit still, not because the mountains were waking up. Aric grew up hearing this version.\n\nThe returning tremors in Aric's era have forced Thornwall to reconsider. The elders who dismissed Kaelen's warnings now face the reality he tried to describe. The sealed caverns have gone from a forgotten footnote to an existential threat within a single generation — a reminder that buried dangers do not stay buried, and that the decisions of one generation become the crises of the next."
+        }
+      }
+    },
+    {
+      "Type": "LD_Lore",
+      "Properties": {
+        "TechnicalName": "The_Starweavers",
+        "Id": "0x0100000000000631",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "The_Starweavers.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 440.0,
+          "y": 440.0
+        },
+        "ZIndex": 22.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 1213465763
+      },
+      "Template": {
+        "LD_Lore_PipelineMeta": {
+          "vault_path": "vault/world/lore/the-starweavers.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Lore_NarrativeProps": {
+          "overview": "The Starweavers were an order of scholars who discovered that starlight carries information — not metaphorically, but literally. Certain patterns of stellar light, observed through specific crystalline lenses, correspond to events in the physical world: earthquakes, harvests, plagues, the movements of armies. The Starweavers did not predict the future so much as read the present state of the world from a vantage point no one else could access. They founded the [[Starlight Academy]] five hundred years ago to study and preserve this knowledge. The order's bloodline has since thinned to near-extinction; [[Elder Aldric]] is believed to be the last living person who can read starlight with the naked eye.",
+          "details": "The Starweavers' abilities were partially innate and partially learned. The innate component — the ability to perceive patterns in starlight invisible to ordinary observers — appeared to be hereditary, though it sometimes skipped generations or appeared in unrelated families. The learned component involved decades of study: celestial cartography, lens-grinding, pattern recognition, and a meditative discipline the Starweavers called \"stillness,\" which allowed them to observe for hours without blinking or shifting focus.\n\nAt their peak, the order numbered roughly forty active practitioners and maintained a network of observation posts across the region. Their master charts — comprehensive maps of stellar patterns and their terrestrial correspondences — were housed in the Sealed Observatory at the top of the Academy's west wing. These charts represented centuries of accumulated observation and were considered the order's most valuable and most dangerous possession. Dangerous because the charts did not merely record passive observations: the founders discovered that certain patterns, when replicated using focused light through specific lenses, could influence the events they described. This discovery split the order. One faction advocated for using the charts to prevent disasters. The other argued that intervening in celestial patterns risked cascading consequences no one could predict. The interventionist faction won the debate but lost the argument — their first attempt to divert a famine triggered flooding in three coastal villages. After this, the master charts were sealed in the Observatory, and the order adopted a strict observational doctrine: read the stars, never write to them.\n\nThe order's decline was gradual. As the bloodline thinned, fewer practitioners could read starlight directly. The Academy shifted from active research to archival preservation. By Aldric's generation, the Starweavers had become librarians of their own legacy — curators of knowledge they could barely use. Aldric's attempt to access the Sealed Observatory thirty years ago was, in part, a desperate effort to recover techniques that might restore the order's capabilities. Its catastrophic failure ended that hope.",
+          "cultural_significance": "In the regions surrounding the Academy, the Starweavers are remembered as wise but remote figures — scholars who could tell you a storm was coming three days before the clouds appeared, but who rarely left their cliff to share the warning. Common folk respected them without trusting them entirely. The phrase \"Starweaver's answer\" has entered local dialect, meaning a response that is technically truthful but deliberately unhelpful.\n\nAmong the educated, the Starweavers represent a cautionary tale about the boundary between knowledge and power. Their decision to seal the master charts is cited in academic debates about whether dangerous knowledge should be preserved or destroyed. The fact that Aldric — the last Starweaver — chose to seal rather than destroy suggests the order believed future generations might need what they themselves could not safely use.\n\nFor Aric's generation, the Starweavers are near-mythical. Most young people in Thornwall have never met a scholar from the Academy and consider star-reading a superstition. The irony is that the tremors shaking the land may be precisely the kind of event the Starweavers' master charts were designed to explain — and the knowledge to interpret them is locked behind a sealed door, guarded by a man too haunted by his past to open it."
+        }
+      }
+    },
+    {
+      "Type": "LD_Lore",
+      "Properties": {
+        "TechnicalName": "The_Whispering_Enchantment",
+        "Id": "0x0100000000000639",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "The_Whispering_Enchantment.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 460.0,
+          "y": 460.0
+        },
+        "ZIndex": 23.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 3575297784
+      },
+      "Template": {
+        "LD_Lore_PipelineMeta": {
+          "vault_path": "vault/world/lore/the-whispering-enchantment.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Lore_NarrativeProps": {
+          "overview": "The canopy of the [[Whispering Woods]] does not merely rustle — it speaks. A constant, layered murmur passes through the leaves regardless of wind conditions, producing sounds that shift between the barely-audible and the almost-comprehensible. This is not a natural phenomenon. The forest was enchanted through an ancient pact between the civilization that planted it and something that lived beneath the roots. The enchantment serves as a ward: the whispers are warnings, calibrated to alert those who listen to approaching danger. When the forest dies, the enchantment dies with it — and whatever the ward was designed to contain will no longer be contained.",
+          "details": "The enchantment predates all recorded history in the region. The carved stones found throughout the deep woods — half-buried markers inscribed with untranslatable symbols — are believed to be anchor points for the ward. [[Maren]]'s father, a senior forester, mapped over sixty of these stones during his lifetime and discovered they form a geometric pattern: concentric circles radiating outward from a central point deep in the forest where no stone has been found, only a patch of earth where nothing grows.\n\nThe whispers themselves change in character depending on proximity to danger. Under normal conditions, they sound like distant, overlapping conversation in no identifiable language — soothing, ambient, easy to ignore. When something dangerous enters the forest, the whispers shift: they become higher in pitch, more rhythmic, and directional, seeming to emanate from the direction of the threat. Foresters who have patrolled the woods for generations learned to read these shifts instinctively. A sudden rise in pitch means predator. A sustained, low drone means ground instability. Complete silence — the cessation of all whispering — has been recorded only twice in living memory, both times preceding a major tremor.\n\nThe nature of the pact that created the enchantment is unknown. The carved stones suggest a formal agreement between two parties, but only one side of the contract remains visible. Whatever entity or force the ancient civilization bargained with has left no other trace. Some scholars at the [[Starlight Academy]] have theorized that the enchantment draws its power from the root network of the ancient trees themselves — that the trees are not merely the medium for the whispers but the source of the energy sustaining the ward. This theory explains why the enchantment is weakening in Aric's era: as the trees die from the crystal energy seeping through underground channels from the [[Iron Peaks]], the root network degrades, and the ward loses coherence.\n\nIn Kaelen's era, the enchantment is fully operational. The whispers are constant, healthy, and reliable. Foresters trust them implicitly. In Aric's era, the enchantment is fragmenting. The whispers are intermittent in areas where trees have died, distorted near sinkholes, and occasionally produce sounds that foresters cannot interpret — tones and rhythms that fit no known warning pattern. Maren describes these new sounds as \"the forest trying to warn us about something it wasn't designed to warn us about.\"\n\nThe central question the enchantment raises is one of purpose: was the ward designed to warn people away from the forest's dangers, or was it designed to keep something inside the forest from getting out? The answer may lie at the center of the stone pattern, in the barren patch where nothing grows — and where, in Aric's era, a new sinkhole has begun to open.",
+          "cultural_significance": "The whispering is so constant and familiar that most people who live near the forest stop hearing it consciously. Children raised in Thornwall grow up with the whisper as ambient noise, the way coastal children grow up with the sound of waves. Visitors find it unsettling; locals find its absence more unsettling. The common saying in Thornwall — \"the woods are talking\" — is used to describe a general feeling that something is wrong, even outside the context of the forest.\n\nForesters like Maren's family treat the whispers with professional respect. They maintain an oral tradition of whisper-reading: how to distinguish a predator warning from a weather warning, how to navigate by the directional quality of the sound, how to recognize the rare and ominous silence. This knowledge is not written down and is passed only from forester to forester. With the forest dying and forester numbers dwindling, this interpretive tradition is at risk of being lost just as the whispers become hardest to understand.\n\nFor the broader population, the enchantment is taken for granted — a quirk of local geography, like the iron-colored rock of the peaks or the cliff-glow of the Academy. The idea that the whispers are an artificial ward, created by a pact and sustained by living trees, is known only to scholars and the most experienced foresters. The prospect of the enchantment failing entirely — of the forest falling silent — carries implications that most people in Thornwall have not yet considered."
+        }
+      }
+    },
+    {
+      "Type": "LD_Creature",
+      "Properties": {
+        "TechnicalName": "Crystal_Crawler",
+        "Id": "0x0100000000000641",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Crystal_Crawler.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 480.0,
+          "y": 480.0
+        },
+        "ZIndex": 24.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 1092600360
+      },
+      "Template": {
+        "LD_Creature_PipelineMeta": {
+          "vault_path": "vault/world/bestiary/crystal-crawler.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Creature_CreativePrompts": {
+          "creature_art": "",
+          "sound_design": ""
+        },
+        "LD_Creature_NarrativeProps": {
+          "overview": "The Crystal Crawler is an insectoid creature roughly the size of a large dog, with a segmented carapace studded with translucent crystal formations that glow faintly from within. It has six articulated legs ending in sharp crystalline points that allow it to cling to cave walls and ceilings with equal ease. Its mandibles are reinforced with the same mineral growths, capable of shearing through stone to reach the crystal veins it feeds on.\n\nThese creatures were completely unknown during Kaelen's era because they inhabited sealed cavern systems deep beneath the Iron Peaks -- chambers that no mine shaft had ever reached. When the land began to fracture in the years before Aric's story, cracks opened between these deep caverns and the existing mine network, releasing the crawlers into tunnels that humans had worked for generations. The first sightings were dismissed as miner's hallucinations until a surveying team was driven from a lower gallery by a swarm of glowing, clicking things that poured from a fissure in the wall.\n\nCrystal Crawlers are drawn to concentrations of crystal energy, and the Iron Peaks' richest veins act as beacons that pull them upward through the fracture network. Their presence has made several of the deepest mine levels impassable, and the crystals they carry in their bodies interfere with the enchantments that kept the old mine supports stable.",
+          "ecology_and_habitat": "Crystal Crawlers are native to the lightless deep caverns beneath the Iron Peaks, ecosystems sustained by geothermal heat and mineral-rich water. In their native environment, they are part of a complex subterranean food chain, feeding on crystal growths and being preyed upon by larger deep-cave organisms that have not yet emerged through the fractures. Their crystal-studded carapaces are not armour but sensory organs -- each formation vibrates at frequencies that allow the crawler to navigate in total darkness and detect crystal deposits through solid rock.\n\nSince reaching the mine tunnels, crawlers have established hive-like colonies near major crystal veins, constructing lattice structures from crystalline secretions. These hive walls resonate with a low harmonic hum that miners report hearing from several tunnels away. The colonies grow rapidly, and crawlers have been observed carrying crystal fragments back to the hive in a behaviour resembling resource stockpiling, though what they are building toward remains unknown.",
+          "behavior": "In JRPG encounters, Crystal Crawlers appear in groups of three to six, often emerging from walls or ceilings to surround the party. They are fast and evasive, favouring hit-and-run tactics. Their basic attack, **Crystal Slash**, deals physical damage with a chance to inflict Crystallize -- a status that slowly reduces the target's speed as mineral growths spread across their armour.\n\nTheir signature group ability is **Resonance Pulse**: when three or more crawlers are present, they synchronize their crystal growths to emit a burst of disorienting energy that deals magical damage to the entire party and can cause Confusion. Individually fragile, their danger lies in numbers and coordination. A rare elite variant, the **Prism Crawler**, has fully developed crystal formations that refract magical attacks, granting it partial spell reflection.",
+          "lore_and_cultural_significance": "The miners of Iron Peaks had old superstitions about \"the deep glow\" -- a faint light sometimes seen at the bottom of the deepest shafts, always just beyond the reach of lantern-light. Elders warned that the glow was the earth's own fire and that digging toward it would wake things better left sleeping. These warnings were largely dismissed as the talk of men who had spent too long underground, but the emergence of the Crystal Crawlers has given the old stories a grim validation.\n\nThe crystals embedded in the crawlers' bodies have unusual properties -- they hold and release energy in patterns that some scholars believe resemble a primitive form of memory. A theory has emerged among Aric's contemporaries that the sealed caverns were not naturally formed but were deliberately closed off in an age before recorded history, and that the Crystal Crawlers are not wild animals but something closer to sentinels whose containment has finally failed. What they were meant to guard -- or guard against -- is a question with no comfortable answers."
+        }
+      }
+    },
+    {
+      "Type": "LD_Creature",
+      "Properties": {
+        "TechnicalName": "Iron_Borer",
+        "Id": "0x010000000000064A",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Iron_Borer.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 500.0,
+          "y": 500.0
+        },
+        "ZIndex": 25.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 848111007
+      },
+      "Template": {
+        "LD_Creature_PipelineMeta": {
+          "vault_path": "vault/world/bestiary/iron-borer.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Creature_CreativePrompts": {
+          "creature_art": "",
+          "sound_design": ""
+        },
+        "LD_Creature_NarrativeProps": {
+          "overview": "The Iron Borer is a segmented, worm-like creature native to the rock strata of the Iron Peaks. In Kaelen's era, a typical adult measured roughly an arm's length and was as thick as a man's wrist -- an unpleasant but manageable pest that miners dealt with as a routine hazard of underground work. Its body is covered in overlapping plates of mineral-hardened chitin that give it a metallic sheen, and its head is a ring of rotating, serrated mandibles capable of grinding through solid stone at a steady pace.\n\nBorers feed on iron-rich minerals in the rock, processing ore through their digestive systems and excreting compacted mineral waste behind them as they tunnel. Miners have long cursed them for weakening support pillars and intersecting drainage channels, but they also grudgingly acknowledged that borer tunnels sometimes revealed new ore deposits. A miner who found a fresh borer channel knew there was good iron nearby.\n\nIn Aric's era, the Iron Borers have grown dramatically. Adults now reach the length of a horse and the girth of a barrel, their mandibles capable of collapsing entire tunnel sections. The cause is unclear -- some blame the increased mineral energy released by the land's fracturing, others suggest the borers are feeding on the same crystal veins that draw the Crystal Crawlers, supercharging their growth. Whatever the reason, what was once a nuisance has become a genuine threat to anyone entering the deeper mines.",
+          "ecology_and_habitat": "Iron Borers are found throughout the mine network of the Iron Peaks, from the shallowest galleries to the deepest shafts. They prefer rock with high iron content, and their tunnels follow ore veins with an instinctive accuracy that human prospectors have historically envied. They are solitary creatures for most of their lives, only congregating during brief mating periods when their grinding mandibles produce a low resonant vibration that travels through the rock and attracts partners.\n\nTheir life cycle is tied to the mineral composition of the rock they consume. In iron-poor areas, borers remain small and sluggish. In iron-rich zones, they grow quickly and bore with greater speed. The mineral waste they leave behind -- called \"borer slag\" by miners -- is actually a useful material: dense, fire-resistant, and easily shaped when wet. Miners' children traditionally collected it to make crude figurines and game pieces. In the Son's era, the slag from enlarged borers has unusual crystalline inclusions that glow faintly, suggesting the creatures are now processing minerals that were previously beyond their reach.",
+          "behavior": "In JRPG encounters, Iron Borers in the Father's era appear as low-level nuisance enemies, encountered singly. They use **Grind Bite**, a basic physical attack, and **Burrow**, which lets them disappear underground for a turn before re-emerging for a guaranteed hit. They have high physical defence but low speed and are weak to water and ice attacks that cool and crack their mineral plating.\n\nIn the Son's era, enlarged borers are mid-tier threats. Their **Tunnel Collapse** ability deals earth-elemental damage to the entire party by destabilizing the ceiling above. **Iron Hide** passively reduces physical damage by a significant percentage. The most dangerous variant is the **Deep Borer**, a massive creature encountered as a mini-boss in the lowest mine levels. It uses **Seismic Bore**, an ability that shakes the entire battlefield, dealing heavy damage and potentially stunning party members. Deep Borers are also armoured enough that only magical attacks or weapons enhanced with mineral-piercing properties deal full damage.",
+          "lore_and_cultural_significance": "Iron Borers are so deeply embedded in the culture of Iron Peaks mining communities that they appear on the miners' guild crest -- a coiled borer circling a pickaxe, symbolizing that the earth's creatures and human industry share the same stone. New miners are traditionally given a preserved borer mandible as a good-luck charm, the reasoning being that the borer always finds the richest vein, and its tooth will guide the miner's pick.\n\nThere is an old miners' ballad called \"The Borer's Road\" that tells of a prospector who followed a borer's tunnel deep beneath the mountain and found a chamber filled with iron so pure it sang when struck. The ballad ends ambiguously -- the prospector either became rich beyond measure or was never seen again, depending on who is singing. In Aric's time, the song has taken on a darker resonance. The enlarged borers are tunnelling deeper than any human has gone, carving paths toward something in the mountain's core. Miners who press their ears to the rock in the deepest active galleries report hearing not just the grinding of borer mandibles but a rhythmic pulsing beneath it, as though the borers are digging in time with a heartbeat that is not their own."
+        }
+      }
+    },
+    {
+      "Type": "LD_Creature",
+      "Properties": {
+        "TechnicalName": "Moss_Lurker",
+        "Id": "0x0100000000000653",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Moss_Lurker.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 520.0,
+          "y": 520.0
+        },
+        "ZIndex": 26.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 1403424218
+      },
+      "Template": {
+        "LD_Creature_PipelineMeta": {
+          "vault_path": "vault/world/bestiary/moss-lurker.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Creature_CreativePrompts": {
+          "creature_art": "",
+          "sound_design": ""
+        },
+        "LD_Creature_NarrativeProps": {
+          "overview": "The Moss Lurker is a broad, flat-bodied ambush predator that inhabits the damp forest floor of the Whispering Woods. At rest, it is virtually indistinguishable from a mossy fallen log -- its segmented back is covered in a thick layer of living moss, lichen, and small ferns that grow directly from its hide. Only the faint rhythmic rise and fall of its breathing might betray its presence to a sharp-eyed traveller.\n\nBeneath the camouflage lies a powerful creature roughly two metres long, with six squat legs ending in root-like claws that anchor it to the forest floor. Its head is little more than a wide, hinged jaw lined with rows of flat crushing teeth, designed to seize and hold rather than tear. When prey -- typically deer, boar, or an unwary human -- steps within striking distance, the Moss Lurker erupts from the ground with shocking speed, clamping down and dragging its victim to the earth.\n\nThe creature exists in both eras, though woodcutters and hunters have always known to watch for them. In Kaelen's time, experienced foresters could identify a lurker by the unnatural regularity of its shape and the absence of insects on its surface. By Aric's era, the Whispering Woods have grown denser and darker, and Moss Lurkers have spread into areas closer to the forest edge where they were never seen before.",
+          "ecology_and_habitat": "Moss Lurkers thrive in areas of the Whispering Woods where the canopy is thick enough to maintain constant dampness -- the moisture is essential for the symbiotic moss growth that provides their camouflage. They prefer positions along game trails and near streams where prey animals are likely to pass. A lurker will occupy the same ambush site for weeks at a time, only relocating when prey becomes scarce or the seasons shift.\n\nThey reproduce by budding: a mature lurker will shed a section of its back moss containing larval offspring, which take root in the soil and grow over several months into juvenile lurkers no larger than a boot. These juveniles are voracious, feeding on insects and small rodents until they reach sufficient size to tackle larger prey. The Whispering Woods' increasingly unstable ecosystem in the Son's era has accelerated their breeding cycle, leading to a noticeable population boom.",
+          "behavior": "In JRPG encounters, Moss Lurkers always open combat with a **Surprise Ambush** -- unless the party has a detection ability or item active, the lurker gets a guaranteed first strike dealing heavy physical damage to a single target. Its primary attack, **Root Clamp**, deals moderate damage and has a chance to inflict the Immobilized status, preventing the target from fleeing or repositioning.\n\nMoss Lurkers have high physical defence thanks to their dense hide and moss covering, but are weak to fire. Their ability **Moss Shroud** can raise their evasion for several turns as they partially re-camouflage during combat. When defeated, they sometimes drop Lurker Moss, an alchemy ingredient used in camouflage potions and healing poultices.",
+          "lore_and_cultural_significance": "The people of the Whispering Woods region have a saying: \"Trust no log that has no rot.\" It is one of the first lessons taught to children who live near the forest. Woodcutters traditionally carry a long iron-tipped prod called a lurker-stick, used to poke any suspicious ground cover before stepping near it. The practice is so ingrained that \"prodding for lurkers\" has become a local idiom meaning to check for hidden problems before committing to a course of action.\n\nIn older folklore, Moss Lurkers are said to be fragments of a great forest spirit that shattered long ago when the first mines were dug in the Iron Peaks. Each lurker carries a sliver of the spirit's patience and hunger. Whether this has any connection to the land's current fracturing is a question that haunts the scholars who still study the old stories. Some believe the lurkers' spread toward settled areas is not mere ecological pressure but a slow, instinctive migration toward something they are trying to reassemble."
+        }
+      }
+    },
+    {
+      "Type": "LD_Creature",
+      "Properties": {
+        "TechnicalName": "Shade_Wisp",
+        "Id": "0x010000000000065C",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Shade_Wisp.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 540.0,
+          "y": 540.0
+        },
+        "ZIndex": 27.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 1749210321
+      },
+      "Template": {
+        "LD_Creature_PipelineMeta": {
+          "vault_path": "vault/world/bestiary/shade-wisp.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Creature_CreativePrompts": {
+          "creature_art": "",
+          "sound_design": ""
+        },
+        "LD_Creature_NarrativeProps": {
+          "overview": "The Shade Wisp is a small, ghostly entity that manifests as a flickering sphere of pale light surrounded by wisps of shadow that trail behind it like dark smoke. No larger than a clenched fist, it drifts silently through dark spaces -- shadowed forest clearings, unlit mine tunnels, and the dim alleys of Thornwall after nightfall. Its light shifts between cold blue-white and a sickly amber depending on its state, and it moves with a drifting, moth-like unpredictability.\n\nIn Kaelen's era, Shade Wisps were a familiar and largely harmless phenomenon. Travellers knew them as corpse-candles, fool's lanterns, or simply \"the little lights.\" They appeared most often near places where the boundary between the living world and something older felt thin -- old graveyards, ruined shrines, the deepest parts of the Whispering Woods. Following one was considered foolish, as they tended to lead the unwary into bogs or off trail edges, but they posed no direct physical threat.\n\nBy Aric's time, the wisps have changed. They appear in far greater numbers, their light burns hotter and more erratic, and they have developed an aggressive territoriality. A single wisp remains little more than a nuisance, but clusters of them can drain the vitality of living creatures, leaving victims cold and exhausted. The transformation is one of the most visible signs that something fundamental has shifted in the land's spiritual fabric.",
+          "ecology_and_habitat": "Shade Wisps are not biological creatures in any conventional sense. They appear to be manifestations of residual spiritual energy -- echoes left behind by the dead, by old magic, or by the land itself. They are most commonly found in locations with strong connections to the past: battlefields, abandoned settlements, the roots of ancient trees, and the deepest galleries of the Iron Peaks where the oldest rock is exposed.\n\nThey are drawn to darkness and repelled by strong natural light, which is why they are rarely seen during full daylight hours. Artificial light affects them differently -- a lantern or torch does not drive them away but instead seems to agitate them, causing their movements to become more rapid and erratic. In the Son's era, wisps have been observed congregating around the fracture points where the land is splitting, forming dense clouds of flickering light that miners and travellers have learned to avoid.",
+          "behavior": "In JRPG encounters during the Father's era, Shade Wisps typically do not initiate combat. They may appear as environmental elements during exploration, adding atmosphere. If provoked or cornered, a single wisp uses **Flicker Touch**, a weak cold-elemental attack that deals minor damage and may cause the Chill status.\n\nIn the Son's era, wisps are hostile and appear in swarms of four to eight. Their primary threat is **Vitality Drain**, a magical attack that saps HP and transfers a portion to other wisps in the group, making them difficult to wear down individually. Their most dangerous ability is **Shade Convergence**: when enough wisps are present, they merge temporarily into a **Shade Wraith**, a larger spectral form with significantly higher stats and the ability to use **Soul Chill**, a party-wide cold and dark elemental attack that can inflict the Dread status, reducing the party's attack power. Defeating the wraith causes it to split back into weakened individual wisps.",
+          "lore_and_cultural_significance": "Every region has its own relationship with the Shade Wisps. In Thornwall, they are called \"the watch-fires of the dead\" and are believed to be the spirits of those who died defending the town in ages past, still walking their old patrols. It is considered respectful to bow when one passes and deeply unlucky to swat at them. In the Whispering Woods, foresters know them as \"path-takers\" and believe they are the forest's way of testing whether a traveller belongs -- those who follow a wisp and find their way back are said to have the forest's blessing.\n\nThe miners of Iron Peaks have the most practical view: they call them \"gas-ghosts\" and originally assumed they were a luminous effect caused by underground vapours. This theory was never satisfying, given that the wisps move with apparent intent, but it was preferable to the alternative. The wisps' transformation into aggressive entities in Aric's era has forced a reckoning with the spiritual explanations that the rational-minded miners long dismissed. Whatever the wisps truly are, their agitation seems to mirror the land's own distress, as though the energy that once rested quietly in dark places has been stirred awake and cannot find peace."
+        }
+      }
+    },
+    {
+      "Type": "LD_Creature",
+      "Properties": {
+        "TechnicalName": "Thornbriar_Stalker",
+        "Id": "0x0100000000000665",
+        "Parent": "0x03000000AC61A2B3",
+        "Attachments": [],
+        "DisplayName": "Thornbriar_Stalker.DisplayName",
+        "Color": {
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Text": "",
+        "ExternalId": "",
+        "Position": {
+          "x": 560.0,
+          "y": 560.0
+        },
+        "ZIndex": 28.0,
+        "Size": {
+          "w": 256.0,
+          "h": 196.0
+        },
+        "PreviewImage": {
+          "ViewBox": {
+            "x": 0.0,
+            "y": 0.0,
+            "w": 0.0,
+            "h": 0.0
+          },
+          "Mode": "FromAsset",
+          "Asset": "0x0000000000000000"
+        },
+        "ShortId": 4013431657
+      },
+      "Template": {
+        "LD_Creature_PipelineMeta": {
+          "vault_path": "vault/world/bestiary/thornbriar-stalker.md",
+          "dialogue_hooks": "",
+          "flow_notes": ""
+        },
+        "LD_Creature_CreativePrompts": {
+          "creature_art": "",
+          "sound_design": ""
+        },
+        "LD_Creature_NarrativeProps": {
+          "overview": "The Thornbriar Stalker is a lean, wolf-like predator distinguished by the bony thorn-shaped growths that sprout along its spine and shoulders. Its coarse fur shifts between grey-green and dark brown depending on the season, providing natural camouflage within the dense thornbriar hedge that encircles Thornwall. Adults stand roughly hip-height to a grown man, with elongated limbs built for bursts of speed through tangled undergrowth.\n\nIn Kaelen's era, Thornbriar Stalkers were a rare but known hazard. Solitary hunters or mated pairs would occasionally drag off livestock that strayed too close to the hedge, and the town guard kept their numbers in check with seasonal culls. They were respected as dangerous but manageable -- a natural part of the thornbriar ecosystem that kept smaller vermin in balance.\n\nBy Aric's time, everything has changed. The hedge itself is weakening, its ancient root network destabilized by the fracturing of the land. Stalker packs have swelled to eight or ten members, emboldened by the thinning barrier between wild and settled land. They now hunt in coordinated groups, flanking prey with unsettling intelligence, and have begun venturing into the outer streets of Thornwall at dusk.",
+          "ecology_and_habitat": "Thornbriar Stalkers make their dens in hollowed-out sections of the thornbriar hedge itself, weaving shed thorns and undergrowth into nest-like structures. The thorn growths on their bodies are not merely decorative -- they allow the stalkers to push through the dense hedge without injury, a trait no other predator in the region shares. Their primary prey consists of hedge-rabbits, ground birds, and the occasional feral goat, though they are opportunistic and will scavenge from refuse pits near Thornwall's outer wall.\n\nThey are most active at dawn and dusk when the light filtering through the hedge creates deep shadows that favour their mottled colouring. In the Son's era, as the hedge grows patchier, stalkers have been spotted hunting in the open fields between Thornwall and the Whispering Woods -- territory they never ventured into before.",
+          "behavior": "In JRPG encounters, Thornbriar Stalkers appear in groups of two to four. They favour a flanking strategy: one stalker will hold the party's attention with snarling feints while others circle to strike from behind. Their signature ability, **Thorn Lunge**, deals physical damage and applies a bleed effect from the barbed growths along their forelegs.\n\nAt low health, a stalker may use **Hedge Call**, a howl that has a chance to summon one additional stalker to the fight. In the Son's era, an alpha variant called the **Thornbriar Packmother** can appear as a mini-boss, commanding a full pack and using **Briar Cage** to restrict party movement by calling thorned roots from the ground.",
+          "lore_and_cultural_significance": "Thornwall's founders planted the great hedge as a living wall against the dangers of the wild lands, and the stalkers evolved alongside it over centuries. Local folklore holds that the stalkers are the hedge's own guardians -- that they keep the barrier healthy by pruning dead growth and driving out burrowing pests. The town's oldest families leave cuts of meat at the hedge-line during the winter solstice, a tradition called the Thornkeeper's Tithe.\n\nThis belief has made the stalkers' aggression in Aric's era deeply unsettling to the people of Thornwall. If the hedge's own guardians are turning hostile, many take it as a sign that the land's ancient compact with civilization is breaking down. Some desperate voices in the town council have proposed burning sections of the hedge to deny the stalkers cover, a suggestion that horrifies traditionalists who believe the hedge is all that stands between Thornwall and worse things in the wild."
+        }
+      }
+    },
+    {
+      "Type": "UserFolder",
+      "Properties": {
+        "TechnicalName": "Ufo_6C68CC09",
+        "Id": "0x0100000000000114",
+        "Parent": "0x030000004C3DAF54",
+        "DisplayName": "Images",
+        "ExternalId": "",
+        "ShortId": 1818807305
+      }
+    },
+    {
+      "Type": "UserFolder",
+      "Properties": {
+        "TechnicalName": "Ufo_40FA2F9A",
+        "Id": "0x0100000000000116",
+        "Parent": "0x030000004C3DAF54",
+        "DisplayName": "Videos",
+        "ExternalId": "",
+        "ShortId": 1090138010
+      }
+    },
+    {
+      "Type": "UserFolder",
+      "Properties": {
+        "TechnicalName": "Ufo_FF50676D",
+        "Id": "0x0100000000000118",
+        "Parent": "0x030000004C3DAF54",
+        "DisplayName": "Audio",
+        "ExternalId": "",
+        "ShortId": 4283459437
+      }
+    },
+    {
+      "Type": "UserFolder",
+      "Properties": {
+        "TechnicalName": "Ufo_B01AA5EC",
+        "Id": "0x010000000000011A",
+        "Parent": "0x030000004C3DAF54",
+        "DisplayName": "Documents",
+        "ExternalId": "",
+        "ShortId": 2954536428
+      }
+    },
+    {
+      "Type": "UserFolder",
+      "Properties": {
+        "TechnicalName": "Ufo_CE030796",
+        "Id": "0x010000000000011C",
+        "Parent": "0x030000004C3DAF54",
+        "DisplayName": "Miscellaneous",
+        "ExternalId": "",
+        "ShortId": 3456305046
+      }
+    }
+  ]
+}
