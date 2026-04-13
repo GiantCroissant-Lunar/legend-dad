@@ -52,6 +52,7 @@ Every vault page under `vault/world/` must start with YAML frontmatter:
 1. Overview
 2. Lore & Origin
 3. Purpose & Usage
+4. Creative Prompts (item-art, sound-effect)
 
 ### event
 1. Overview
