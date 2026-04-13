@@ -55,6 +55,55 @@ INTGRID_COLLISION = [
     {"value": 3, "identifier": "pit", "color": "#332222", "tile": None, "groupUid": 0},
 ]
 
+# IntGrid values for terrain layers (universal + all biomes)
+# Colors chosen for visual distinction in LDtk editor
+INTGRID_TERRAIN = [
+    # Universal (0-9)
+    {"value": 0, "identifier": "void", "color": "#000000", "tile": None, "groupUid": 0},
+    {"value": 1, "identifier": "ground", "color": "#8B7355", "tile": None, "groupUid": 0},
+    {"value": 2, "identifier": "wall", "color": "#555555", "tile": None, "groupUid": 0},
+    {"value": 3, "identifier": "water_shallow", "color": "#6699CC", "tile": None, "groupUid": 0},
+    {"value": 4, "identifier": "water_deep", "color": "#334466", "tile": None, "groupUid": 0},
+    {"value": 5, "identifier": "pit", "color": "#332222", "tile": None, "groupUid": 0},
+    {"value": 6, "identifier": "door", "color": "#AA7744", "tile": None, "groupUid": 0},
+    {"value": 7, "identifier": "stairs_up", "color": "#CCAA66", "tile": None, "groupUid": 0},
+    {"value": 8, "identifier": "stairs_down", "color": "#997744", "tile": None, "groupUid": 0},
+    {"value": 9, "identifier": "bridge", "color": "#AA8855", "tile": None, "groupUid": 0},
+    # Field biome (10-19)
+    {"value": 10, "identifier": "tall_grass", "color": "#55AA44", "tile": None, "groupUid": 0},
+    {"value": 11, "identifier": "bush", "color": "#337722", "tile": None, "groupUid": 0},
+    {"value": 12, "identifier": "tree_trunk", "color": "#553311", "tile": None, "groupUid": 0},
+    {"value": 13, "identifier": "fallen_log", "color": "#664422", "tile": None, "groupUid": 0},
+    {"value": 14, "identifier": "cliff_edge", "color": "#887766", "tile": None, "groupUid": 0},
+    {"value": 15, "identifier": "path_dirt", "color": "#AA8844", "tile": None, "groupUid": 0},
+    {"value": 16, "identifier": "path_stone", "color": "#999988", "tile": None, "groupUid": 0},
+    {"value": 17, "identifier": "stream_crossing", "color": "#77AACC", "tile": None, "groupUid": 0},
+    {"value": 18, "identifier": "undergrowth", "color": "#448833", "tile": None, "groupUid": 0},
+    {"value": 19, "identifier": "hollow", "color": "#2A3A1A", "tile": None, "groupUid": 0},
+    # Dungeon biome (20-29)
+    {"value": 20, "identifier": "cave_floor", "color": "#666655", "tile": None, "groupUid": 0},
+    {"value": 21, "identifier": "cave_wall", "color": "#444433", "tile": None, "groupUid": 0},
+    {"value": 22, "identifier": "lava", "color": "#CC4411", "tile": None, "groupUid": 0},
+    {"value": 23, "identifier": "mine_track", "color": "#886644", "tile": None, "groupUid": 0},
+    {"value": 24, "identifier": "cracked_floor", "color": "#777766", "tile": None, "groupUid": 0},
+    {"value": 25, "identifier": "ore_vein", "color": "#99AA77", "tile": None, "groupUid": 0},
+    {"value": 26, "identifier": "rubble", "color": "#555544", "tile": None, "groupUid": 0},
+    {"value": 27, "identifier": "crystal", "color": "#88CCDD", "tile": None, "groupUid": 0},
+    {"value": 28, "identifier": "ice_floor", "color": "#BBDDEE", "tile": None, "groupUid": 0},
+    {"value": 29, "identifier": "dark_zone", "color": "#222222", "tile": None, "groupUid": 0},
+    # Town biome (30-39)
+    {"value": 30, "identifier": "cobblestone", "color": "#998877", "tile": None, "groupUid": 0},
+    {"value": 31, "identifier": "fence", "color": "#775533", "tile": None, "groupUid": 0},
+    {"value": 32, "identifier": "garden", "color": "#66AA55", "tile": None, "groupUid": 0},
+    {"value": 33, "identifier": "market_stall", "color": "#CC9944", "tile": None, "groupUid": 0},
+    {"value": 34, "identifier": "well_fountain", "color": "#5588AA", "tile": None, "groupUid": 0},
+    {"value": 35, "identifier": "building_wall", "color": "#887766", "tile": None, "groupUid": 0},
+    {"value": 36, "identifier": "interior_floor", "color": "#AA9977", "tile": None, "groupUid": 0},
+    {"value": 37, "identifier": "counter", "color": "#776644", "tile": None, "groupUid": 0},
+    {"value": 38, "identifier": "furniture", "color": "#665544", "tile": None, "groupUid": 0},
+    {"value": 39, "identifier": "signpost_lamp", "color": "#CCBB44", "tile": None, "groupUid": 0},
+]
+
 
 class UidAllocator:
     """Tracks and allocates unique integer IDs for LDtk objects."""
@@ -215,18 +264,23 @@ def _make_layer_def(uid_alloc: UidAllocator, identifier: str, layer_type: str, *
 
 
 def _make_enum_def(
-    uid_alloc: UidAllocator, identifier: str, values: list[str], colors: list[str] | None = None,
+    uid_alloc: UidAllocator,
+    identifier: str,
+    values: list[str],
+    colors: list[str] | None = None,
 ) -> dict:
     """Create a minimal valid LDtk EnumDef."""
     if colors is None:
         colors = [0] * len(values)
     enum_values = []
     for i, val in enumerate(values):
-        enum_values.append({
-            "id": val,
-            "tileRect": None,
-            "color": colors[i] if i < len(colors) else 0,
-        })
+        enum_values.append(
+            {
+                "id": val,
+                "tileRect": None,
+                "color": colors[i] if i < len(colors) else 0,
+            }
+        )
     return {
         "uid": uid_alloc.next(),
         "identifier": identifier,
@@ -299,6 +353,126 @@ def _make_levels_from_zones(uid_alloc: UidAllocator, manifest: dict) -> list[dic
     return levels
 
 
+def _make_layer_instance(
+    layer_def: dict,
+    level: dict,
+    intgrid_csv: list[int] | None = None,
+) -> dict:
+    """Create a layer instance for a level from its layer definition."""
+    c_wid = level["pxWid"] // layer_def["gridSize"]
+    c_hei = level["pxHei"] // layer_def["gridSize"]
+    total_cells = c_wid * c_hei
+
+    layer_type = layer_def["type"]
+
+    if intgrid_csv is None and layer_type == "IntGrid":
+        intgrid_csv = [0] * total_cells
+
+    return {
+        "__identifier": layer_def["identifier"],
+        "__type": layer_type,
+        "__gridSize": layer_def["gridSize"],
+        "__cWid": c_wid,
+        "__cHei": c_hei,
+        "__opacity": 1.0,
+        "__pxTotalOffsetX": 0,
+        "__pxTotalOffsetY": 0,
+        "__tilesetDefUid": layer_def.get("tilesetDefUid"),
+        "__tilesetRelPath": None,
+        "iid": _make_iid(),
+        "layerDefUid": layer_def["uid"],
+        "levelId": level["uid"],
+        "visible": True,
+        "intGridCsv": intgrid_csv if intgrid_csv else [],
+        "autoLayerTiles": [],
+        "entityInstances": [],
+        "gridTiles": [],
+        "pxOffsetX": 0,
+        "pxOffsetY": 0,
+        "overrideTilesetUid": None,
+        "optionalRules": [],
+        "seed": level["uid"] * 1000 + layer_def["uid"],
+    }
+
+
+def _populate_layer_instances(levels: list[dict], layer_defs: list[dict], level_layouts: dict) -> None:
+    """Populate layerInstances on levels that have None."""
+    # Layer order in instances matches layer_defs order (top-first)
+    for level in levels:
+        if level.get("layerInstances") is not None:
+            continue
+        # Skip stub levels that lack required dimensions
+        if "pxWid" not in level or "pxHei" not in level:
+            continue
+
+        identifier = level["identifier"]
+        layouts = level_layouts.get(identifier, {})
+
+        instances = []
+        for layer_def in layer_defs:
+            layer_name = layer_def["identifier"]
+            csv = layouts.get(layer_name)
+            instances.append(_make_layer_instance(layer_def, level, csv))
+
+        level["layerInstances"] = instances
+
+
+# ── Hand-designed level layouts ──────────────────────────────────────────────
+# Each layout is a dict of layer_name -> intGridCsv (flat, row-major, 20 cols x 16 rows = 320 cells)
+# Only layers with non-default data need entries; missing layers get all-zeros.
+
+# fmt: off
+# Whispering Woods Edge: 20x16 field biome
+# Collision: 0=empty(walkable), 1=solid, 2=water, 3=pit
+_WWE_COLLISION = [
+    1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,1,
+    1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,1,
+    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+    1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+    1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
+    1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
+    1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,
+]
+
+# Terrain: uses field IntGrid values
+# 0=void, 1=ground, 10=tall_grass, 11=bush, 12=tree_trunk, 15=path_dirt, 3=water_shallow, 18=undergrowth
+_WWE_TERRAIN = [
+    12,12,12,12,1,1,10,10,10,1,1,10,10,10,1,1,12,12,12,12,
+    12,1,10,10,10,1,1,10,10,10,1,1,10,1,1,10,10,10,1,12,
+    11,1,1,10,10,10,1,1,10,10,10,1,1,10,10,10,1,1,10,11,
+    12,10,1,1,15,15,15,15,15,15,15,15,15,15,1,1,10,1,3,12,
+    11,10,10,1,15,1,1,1,1,1,1,1,1,15,10,10,1,1,3,12,
+    1,1,10,10,15,1,1,1,1,1,1,1,1,15,10,10,10,1,3,11,
+    1,1,10,10,15,1,1,1,1,1,1,1,1,15,10,10,10,1,3,11,
+    1,1,10,10,15,15,15,15,15,15,15,15,15,15,10,10,10,1,1,12,
+    12,1,1,10,10,18,18,1,1,1,1,18,18,10,10,10,1,1,10,12,
+    12,10,1,1,18,18,12,12,18,18,18,18,12,12,18,18,1,1,10,11,
+    11,10,10,1,18,18,12,12,18,18,18,18,12,12,18,18,1,1,10,12,
+    12,10,10,1,1,18,18,18,18,1,1,18,18,18,18,1,1,10,10,12,
+    12,12,1,1,10,10,18,18,1,1,1,1,18,18,10,10,1,1,12,12,
+    12,12,12,1,1,10,10,10,10,1,1,10,10,10,10,1,1,12,12,12,
+    12,12,12,12,1,1,10,10,10,1,1,10,10,10,1,1,12,12,12,12,
+    12,12,12,12,12,12,12,12,1,1,1,1,12,12,12,12,12,12,12,12,
+]
+# fmt: on
+
+LEVEL_LAYOUTS = {
+    "Whispering_Woods_Edge": {
+        "Collision": _WWE_COLLISION,
+        "Terrain": _WWE_TERRAIN,
+    },
+}
+
+
 def _make_default_level(uid_alloc: UidAllocator) -> dict:
     """Create a default empty level so LDtk has something to load."""
     return {
@@ -349,14 +523,16 @@ def generate_ldtk_project(manifest: dict) -> dict:
     # Layer definitions (order matters — first in list = top in editor)
     layers = [
         _make_layer_def(uid, "Entities", "Entities"),
+        _make_layer_def(uid, "Terrain_Son", "IntGrid", intGridValues=INTGRID_TERRAIN),
+        _make_layer_def(uid, "Terrain_Father", "IntGrid", intGridValues=INTGRID_TERRAIN),
+        _make_layer_def(uid, "Terrain", "IntGrid", intGridValues=INTGRID_TERRAIN),
         _make_layer_def(uid, "Collision", "IntGrid", intGridValues=INTGRID_COLLISION),
-        _make_layer_def(uid, "Terrain", "IntGrid"),
     ]
 
     # Create levels from zone entities in the manifest
     levels = _make_levels_from_zones(uid, manifest)
 
-    return {
+    project = {
         "__header__": {
             "fileType": "LDtk Project JSON",
             "app": "LDtk",
@@ -411,6 +587,11 @@ def generate_ldtk_project(manifest: dict) -> dict:
         "levels": levels if levels else [_make_default_level(uid)],
     }
 
+    # Populate layer instances on freshly created levels
+    _populate_layer_instances(project["levels"], layers, LEVEL_LAYOUTS)
+
+    return project
+
 
 def merge_ldtk_project(existing: dict, new_defs: dict) -> dict:
     """Merge new definitions into an existing LDtk project, preserving levels."""
@@ -418,7 +599,14 @@ def merge_ldtk_project(existing: dict, new_defs: dict) -> dict:
     existing["defs"]["entities"] = new_defs["defs"]["entities"]
     existing["defs"]["layers"] = new_defs["defs"]["layers"]
     existing["nextUid"] = new_defs["nextUid"]
-    # levels, worlds, toc are preserved from existing
+
+    # Populate layerInstances on levels that have None
+    _populate_layer_instances(
+        existing.get("levels", []),
+        existing["defs"]["layers"],
+        LEVEL_LAYOUTS,
+    )
+
     return existing
 
 
