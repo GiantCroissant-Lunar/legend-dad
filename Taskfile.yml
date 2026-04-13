@@ -1,6 +1,7 @@
 version: "3"
 
 vars:
+  PYTHON_BIN: '{{.PYTHON_BIN | default "/Users/apprenticegc/.pyenv/versions/3.13.4/bin/python3"}}'
   GODOT_PATH: '{{.GODOT_PATH | default "/Users/apprenticegc/Work/lunar-horse/tools/Godot.app/Contents/MacOS/Godot"}}'
   SERVER_DIR: "project/server"
   GAME_SERVER_DIR: "project/server/packages/game-server"
@@ -11,7 +12,8 @@ tasks:
   setup:
     desc: Install all dependencies and download Godot export templates
     cmds:
-      - python3 scripts/download_templates.py
+      - '{{.PYTHON_BIN}} -m pip install --user jsonschema'
+      - '{{.PYTHON_BIN}} scripts/download_templates.py'
       - cd {{.SERVER_DIR}} && pnpm install
       - pre-commit install
 
@@ -30,6 +32,7 @@ tasks:
       - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/screenshots
       - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/replay
       - >-
+        {{.PYTHON_BIN}} scripts/run_godot_checked.py
         {{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}}
         --export-release "Web"
         {{.ROOT_DIR}}/{{.ARTIFACTS_DIR}}/{{.VERSION}}/web/complete-app.html
@@ -70,13 +73,13 @@ tasks:
     desc: Run all linters
     cmds:
       - cd {{.SERVER_DIR}} && pnpm run lint
-      - ruff check scripts/
+      - '{{.PYTHON_BIN}} -m ruff check scripts/'
 
   format:
     desc: Run all formatters
     cmds:
       - cd {{.SERVER_DIR}} && pnpm run format
-      - ruff format scripts/
+      - '{{.PYTHON_BIN}} -m ruff format scripts/'
 
   clean:
     desc: Remove all build artifacts
@@ -100,7 +103,7 @@ tasks:
   test:python:
     desc: Run Python tests (pytest)
     cmds:
-      - python3 -m pytest tests/ -v
+      - '{{.PYTHON_BIN}} -m pytest tests/ -v'
 
   test:server:
     desc: Run game-server integration tests (vitest)
@@ -112,6 +115,7 @@ tasks:
     desc: Run Godot unit tests (GUT, headless)
     cmds:
       - >-
+        {{.PYTHON_BIN}} scripts/run_godot_checked.py
         {{.GODOT_PATH}} --headless
         --path {{.GODOT_PROJECT_DIR}}
         -s addons/gut/gut_cmdln.gd -gexit
@@ -121,6 +125,28 @@ tasks:
     dir: "project/server/packages/e2e"
     cmds:
       - pnpm exec playwright test
+
+  tileset:preprocess:
+    desc: Slice and reassemble clean 32x32 tile atlas from ComfyUI output
+    cmds:
+      - "{{.PYTHON_BIN}} scripts/tileset_preprocess.py --biome={{.CLI_ARGS}} --tile-size=32"
+
+  pck:manifest:
+    desc: Generate PCK manifest from LDtk data
+    cmds:
+      - "{{.PYTHON_BIN}} scripts/pck_manifest.py --location={{.CLI_ARGS}}"
+
+  pck:build:
+    desc: Build location PCK (manifest + Godot headless pack)
+    cmds:
+      - task: pck:manifest
+        vars: { CLI_ARGS: "{{.CLI_ARGS}}" }
+      - >-
+        {{.PYTHON_BIN}} scripts/run_godot_checked.py
+        {{.GODOT_PATH}} --headless
+        --path {{.GODOT_PROJECT_DIR}}
+        --script scripts/pck_builder.gd
+        -- --location={{.CLI_ARGS}}
 
   articy:build:
     desc: Build and deploy MDK plugin to articy local plugins folder

@@ -69,6 +69,9 @@ task test:python    # Python tests only
 task test:server    # Game server tests only
 task test:godot     # Godot unit tests only (headless)
 task test:e2e       # Browser E2E tests only (requires web build)
+task tileset:preprocess -- {biome}  # Slice ComfyUI output into clean atlas
+task pck:manifest -- {location}     # Generate PCK manifest from LDtk data
+task pck:build -- {location}        # Full PCK build (manifest + Godot pack)
 ```
 
 ## Branching & Versioning
