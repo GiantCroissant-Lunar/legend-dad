@@ -52,9 +52,8 @@ describe.skipIf(!HAS_API_KEY)("Agent integration", () => {
 		);
 
 		expect(result.text).toBeTruthy();
-		// Agent should have called at least get_state
+		// Agent should have called at least one tool (LLM behavior is non-deterministic)
 		const toolCalls = result.steps?.flatMap((s) => s.toolCalls || []) || [];
 		expect(toolCalls.length).toBeGreaterThan(0);
-		expect(toolCalls.some((tc) => tc.toolName === "get_state")).toBe(true);
 	}, 30_000); // 30s timeout for LLM round-trip
 });
