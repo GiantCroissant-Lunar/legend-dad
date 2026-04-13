@@ -1,40 +1,11 @@
 # scripts/main.gd
 extends Control
 
-const MAP_WIDTH := 10
-const MAP_HEIGHT := 8
 const TILE_SIZE := 32
 
-# Father's map: small town with paths, buildings, water
-# 0=grass, 1=path, 2=building, 3=water (references atlas coords)
-const FATHER_MAP := [
-	[0,0,0,2,2,0,0,0,3,3],
-	[0,0,1,1,1,1,0,0,3,3],
-	[0,1,1,0,0,1,1,0,0,3],
-	[2,1,0,0,0,0,1,0,0,0],
-	[2,1,0,0,0,0,1,1,1,0],
-	[0,1,1,0,2,0,0,0,1,0],
-	[0,0,1,1,1,1,1,1,1,0],
-	[0,0,0,0,0,0,0,0,0,0],
-]
-
-# Son's map: same layout but ruined
-# 0=dead_grass, 1=path, 2=ruin, 3=blocked
-const SON_MAP := [
-	[0,0,0,2,2,0,0,0,3,3],
-	[0,0,1,1,1,1,0,0,3,3],
-	[0,1,1,0,0,1,1,0,0,3],
-	[2,1,0,0,0,0,1,0,0,0],
-	[2,1,0,0,0,0,1,1,1,0],
-	[0,1,1,0,2,0,0,0,1,0],
-	[0,0,1,1,1,1,1,1,1,0],
-	[0,0,0,0,0,0,0,0,0,0],
-]
-
-const BOULDER_COL := 5
-const BOULDER_ROW := 3
-const BLOCKED_COL := 5
-const BLOCKED_ROW := 3
+# Level dimensions from LDtk (set at runtime)
+var map_width := 0
+var map_height := 0
 
 var world: World
 var tileset: TileSet
@@ -50,6 +21,13 @@ var blocked_entity: E_Interactable
 
 var active_era: C_TimelineEra.Era = C_TimelineEra.Era.FATHER
 var map_is_open := false
+
+# LDtk parsed layer data
+var _base_terrain_tiles: Array = []
+var _father_terrain_tiles: Array = []
+var _son_terrain_tiles: Array = []
+var _collision_csv: Array = []
+var _collision_grid_width: int = 0
 
 const ACTIVE_VIEW_SCALE := 0.50
 const INACTIVE_VIEW_SCALE := 0.40
@@ -76,6 +54,9 @@ func _ready() -> void:
 	LocationManager.load_location("whispering-woods")
 	tileset = LocationManager.get_tileset()
 
+	# Load level layout from LDtk
+	_load_ldtk_level("Whispering_Woods_Edge")
+
 	# Create ECS World — entities live here as children of the World node.
 	world = World.new()
 	world.name = "World"
@@ -84,8 +65,8 @@ func _ready() -> void:
 
 	_build_world_map()
 
-	father_view = _build_game_view(C_TimelineEra.Era.FATHER, FATHER_MAP, 0)
-	son_view = _build_game_view(C_TimelineEra.Era.SON, SON_MAP, 1)
+	father_view = _build_game_view(C_TimelineEra.Era.FATHER)
+	son_view = _build_game_view(C_TimelineEra.Era.SON)
 	add_child(father_view)
 	add_child(son_view)
 
@@ -110,8 +91,8 @@ func _ready() -> void:
 
 	boulder_entity = E_Interactable.new()
 	boulder_entity.era = C_TimelineEra.Era.FATHER
-	boulder_entity.start_col = BOULDER_COL
-	boulder_entity.start_row = BOULDER_ROW
+	boulder_entity.start_col = 5
+	boulder_entity.start_row = 3
 	boulder_entity.interact_type = C_Interactable.InteractType.BOULDER
 	boulder_entity.id = "boulder_father"
 	boulder_entity.linked_id = "blocked_son"
@@ -120,8 +101,8 @@ func _ready() -> void:
 
 	blocked_entity = E_Interactable.new()
 	blocked_entity.era = C_TimelineEra.Era.SON
-	blocked_entity.start_col = BLOCKED_COL
-	blocked_entity.start_row = BLOCKED_ROW
+	blocked_entity.start_col = 5
+	blocked_entity.start_row = 3
 	blocked_entity.interact_type = C_Interactable.InteractType.BOULDER
 	blocked_entity.id = "blocked_son"
 	blocked_entity.linked_id = "boulder_father"
@@ -352,6 +333,9 @@ func _switch_active_era() -> void:
 		son_player.get_component(C_PlayerControlled).active = false
 	_update_layout()
 	LocationManager.swap_era(active_era)
+	# Re-render tilemaps with correct era overlay
+	_rerender_tilemap(father_tilemap, C_TimelineEra.Era.FATHER)
+	_rerender_tilemap(son_tilemap, C_TimelineEra.Era.SON)
 	# Emit state change for WS
 	GameActions.state_changed.emit("era_switched", {
 		"active_era": "FATHER" if active_era == C_TimelineEra.Era.FATHER else "SON",
@@ -411,7 +395,44 @@ func _update_layout() -> void:
 		active_view_node.modulate.a = 1.0
 		inactive_view_node.modulate.a = 0.75
 
-func _build_game_view(era: C_TimelineEra.Era, map_data: Array, source_id: int) -> SubViewportContainer:
+func _load_ldtk_level(level_name: String) -> void:
+	var project = LocationManager.get_ldtk_project()
+	if project.is_empty():
+		push_warning("main: No LDtk project loaded, using empty level")
+		return
+
+	var level_node = LdtkImporter.import_level(project, level_name)
+	if not level_node:
+		push_warning("main: Level '%s' not found in LDtk project" % level_name)
+		return
+
+	# Read level dimensions
+	map_width = level_node.get_meta("px_width", 320) / 16  # LDtk grid is 16px
+	map_height = level_node.get_meta("px_height", 256) / 16
+
+	# Extract layer data
+	for child in level_node.get_children():
+		var layer_name: String = child.name
+		match layer_name:
+			"Terrain":
+				_base_terrain_tiles = child.get_meta("auto_layer_tiles", [])
+			"Terrain_Father":
+				_father_terrain_tiles = child.get_meta("auto_layer_tiles", [])
+			"Terrain_Son":
+				_son_terrain_tiles = child.get_meta("auto_layer_tiles", [])
+			"Collision":
+				_collision_csv = child.get_meta("intgrid_csv", [])
+				_collision_grid_width = child.get_meta("grid_width", map_width)
+
+	# Build collision grids (same collision for both eras by default)
+	if not _collision_csv.is_empty():
+		var collision_grid = LdtkLevelPlacer.build_collision_grid(_collision_csv, _collision_grid_width)
+		LocationManager.set_collision_grid(C_TimelineEra.Era.FATHER, collision_grid)
+		LocationManager.set_collision_grid(C_TimelineEra.Era.SON, collision_grid)
+
+	level_node.queue_free()
+
+func _build_game_view(era: C_TimelineEra.Era) -> SubViewportContainer:
 	var container = SubViewportContainer.new()
 	container.stretch = true
 	container.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -423,16 +444,15 @@ func _build_game_view(era: C_TimelineEra.Era, map_data: Array, source_id: int) -
 	container.add_child(viewport)
 
 	# TileMapLayer
-	var tilemap = TileMapLayer.new()
-	tilemap.name = "TileMapLayer"
-	tilemap.tile_set = tileset
+	var tilemap = LocationManager.create_tilemap_for_era(era)
 	viewport.add_child(tilemap)
 
-	# Populate tiles
-	for row in range(MAP_HEIGHT):
-		for col in range(MAP_WIDTH):
-			var atlas_coord = Vector2i(map_data[row][col], 0)
-			tilemap.set_cell(Vector2i(col, row), source_id, atlas_coord)
+	# Place base terrain tiles
+	LdtkLevelPlacer.place_tiles(tilemap, _base_terrain_tiles, 0)
+
+	# Overlay era-specific tiles
+	var overlay = _father_terrain_tiles if era == C_TimelineEra.Era.FATHER else _son_terrain_tiles
+	LdtkLevelPlacer.place_tiles(tilemap, overlay, 0)
 
 	# Store tilemap reference
 	if era == C_TimelineEra.Era.FATHER:
@@ -443,7 +463,7 @@ func _build_game_view(era: C_TimelineEra.Era, map_data: Array, source_id: int) -
 	# Camera centered on map
 	var camera = Camera2D.new()
 	camera.name = "Camera2D"
-	camera.position = Vector2(MAP_WIDTH * TILE_SIZE / 2.0, MAP_HEIGHT * TILE_SIZE / 2.0)
+	camera.position = Vector2(map_width * TILE_SIZE / 2.0, map_height * TILE_SIZE / 2.0)
 	viewport.add_child(camera)
 
 	# Era label overlay
@@ -460,6 +480,12 @@ func _build_game_view(era: C_TimelineEra.Era, map_data: Array, source_id: int) -
 	container.add_child(label)
 
 	return container
+
+func _rerender_tilemap(tilemap: TileMapLayer, era: C_TimelineEra.Era) -> void:
+	tilemap.clear()
+	LdtkLevelPlacer.place_tiles(tilemap, _base_terrain_tiles, 0)
+	var overlay = _father_terrain_tiles if era == C_TimelineEra.Era.FATHER else _son_terrain_tiles
+	LdtkLevelPlacer.place_tiles(tilemap, overlay, 0)
 
 func _build_world_map() -> void:
 	var world_map_layer = CanvasLayer.new()
