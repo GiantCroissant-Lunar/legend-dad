@@ -174,6 +174,7 @@ _TYPE_DIRS = {
     "quests": "quest",
     "items": "item",
     "history": "event",
+    "events": "event",
     "lore": "lore",
     "bestiary": "bestiary",
 }
