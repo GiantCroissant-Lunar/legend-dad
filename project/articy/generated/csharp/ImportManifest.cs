@@ -129,7 +129,7 @@ namespace LegendDad.Articy
     /// <summary>
     /// Entity type, maps to articy template
     /// </summary>
-    public enum TypeEnum { Bestiary, Character, Event, Faction, Item, Location, Lore, Quest };
+    public enum TypeEnum { Bestiary, Character, Event, Faction, Item, Location, Lore, Quest, Zone };
 
     public partial class ImportManifest
     {
@@ -256,6 +256,8 @@ namespace LegendDad.Articy
                     return TypeEnum.Lore;
                 case "quest":
                     return TypeEnum.Quest;
+                case "zone":
+                    return TypeEnum.Zone;
             }
             throw new Exception("Cannot unmarshal type TypeEnum");
         }
@@ -293,6 +295,9 @@ namespace LegendDad.Articy
                     return;
                 case TypeEnum.Quest:
                     serializer.Serialize(writer, "quest");
+                    return;
+                case TypeEnum.Zone:
+                    serializer.Serialize(writer, "zone");
                     return;
             }
             throw new Exception("Cannot marshal type TypeEnum");

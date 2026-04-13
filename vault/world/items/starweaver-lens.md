@@ -1,7 +1,7 @@
 ---
 type: item
 status: draft
-articy-id: ""
+articy-id: "72057594037929409"
 tags: [key-item, tool, academy]
 connections:
   - "[[Starlight Academy]]"

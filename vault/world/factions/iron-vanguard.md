@@ -1,7 +1,7 @@
 ---
 type: faction
 status: draft
-articy-id: ""
+articy-id: "72057594037929369"
 tags: [military, authority, both-eras]
 connections:
   - "[[Kaelen]]"

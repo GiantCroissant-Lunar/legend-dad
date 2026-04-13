@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037929309"
 tags: [protagonist, son, heir]
 connections:
   - "[[Kaelen]]"

@@ -1,13 +1,13 @@
 {
   "version": "0.1.0",
-  "generated": "2026-04-13T07:46:34.138161+00:00",
+  "generated": "2026-04-13T08:06:10.632061+00:00",
   "generated_by": "vault_to_manifest",
   "entities": [
     {
       "vault_path": "vault/world/characters/aldric.md",
-      "articy_id": "",
+      "articy_id": "72057594037929305",
       "type": "character",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Elder Aldric",
       "template_properties": {
         "overview": "The last Starweaver of the Academy of Starlight, Aldric is a stooped, white-haired scholar who has spent sixty years deciphering the celestial charts left by the Academy's founders. He serves as Sera's mentor and the Academy's reluctant leader. Behind his gentle demeanor lies a man haunted by a catastrophic mistake made in his youth \u2014 one that sealed an entire wing of the Academy and cost the lives of three fellow scholars.",
@@ -42,9 +42,9 @@
     },
     {
       "vault_path": "vault/world/characters/aric.md",
-      "articy_id": "",
+      "articy_id": "72057594037929309",
       "type": "character",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Aric",
       "template_properties": {
         "overview": "The Son. Twenty years after his father Kaelen left Thornwall, Aric is a sharp-eyed young man raised by the village elder and trained in tracking and herbalism by his mother's old apprentice. He has grown up in the long shadow of a legend \u2014 everyone in Thornwall has a story about Kaelen, and none of them match. Aric is skeptical, resourceful, and quietly angry. He does not want to be a hero. He wants answers: why his father left, whether the legends are true, and what is happening to the land that seems to be slowly unraveling.",
@@ -79,9 +79,9 @@
     },
     {
       "vault_path": "vault/world/characters/kaelen.md",
-      "articy_id": "",
+      "articy_id": "72057594037929313",
       "type": "character",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Kaelen",
       "template_properties": {
         "overview": "The Father. A wandering swordsman who became a legendary hero through a combination of genuine courage and lucky timing. Kaelen travels the land resolving crises \u2014 clearing monster nests, mediating faction disputes, protecting trade routes. The world remembers him as a paragon. The truth is more complicated: Kaelen is impulsive, self-doubting, and terrified of the growing darkness he cannot name. He left his infant son Aric in the care of Thornwall's elder to pursue what he believes is a threat too dangerous to face with a family at his back.",
@@ -121,9 +121,9 @@
     },
     {
       "vault_path": "vault/world/characters/maren.md",
-      "articy_id": "",
+      "articy_id": "72057594037929317",
       "type": "character",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Maren",
       "template_properties": {
         "overview": "Aric's childhood friend and Thornwall's best tracker. Maren is a wiry, freckled young woman who can read animal trails the way Aldric reads star charts. She is practical, blunt, and fiercely protective of the people she cares about. Unlike Aric, she has no interest in Kaelen's legacy \u2014 she cares about the here and now, and the here and now is that the forest is dying and the village needs help. She joins Aric not because of destiny or duty but because someone has to keep him from getting killed.",
@@ -181,9 +181,9 @@
     },
     {
       "vault_path": "vault/world/locations/iron-peaks.md",
-      "articy_id": "",
+      "articy_id": "72057594037929321",
       "type": "location",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Iron Peaks",
       "template_properties": {
         "overview": "A jagged mountain range north of Thornwall, riddled with abandoned mine tunnels and sealed caverns. The Iron Peaks are the source of the tremors threatening the region and the destination of both Kaelen's and Aric's journeys. In Kaelen's era, the peaks are dangerous but stable \u2014 the mines are abandoned, the passes are navigable, and the sealed caverns are curiosities. In Aric's era, the mountains have fractured: new crevasses split the trails, dark energy leaks from the sealed caverns, and creatures not seen in living memory emerge from the deep.",
@@ -215,9 +215,9 @@
     },
     {
       "vault_path": "vault/world/locations/starlight-academy.md",
-      "articy_id": "",
+      "articy_id": "72057594037929333",
       "type": "location",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Starlight Academy",
       "template_properties": {
         "overview": "An ancient academy perched on a cliff overlooking the Moonlit Sea, founded by the Starweavers \u2014 scholars who could read meaning in the patterns of starlight. The Academy is a sprawling complex of white stone towers, covered walkways, and underground archives. It serves as both a center of learning and a repository for dangerous knowledge. The west wing has been sealed for thirty years since Elder Aldric's failed ritual. The Academy appears in the father's era as a place Kaelen visits for information and in the son's era as a diminished institution struggling to remain relevant.",
@@ -245,9 +245,9 @@
     },
     {
       "vault_path": "vault/world/locations/thornwall.md",
-      "articy_id": "",
+      "articy_id": "72057594037929345",
       "type": "location",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Thornwall",
       "template_properties": {
         "overview": "A fortified farming village at the base of the Iron Peaks, named for the centuries-old thornbriar hedge that forms its outer wall. Thornwall is the starting location for both the father and son's stories. In Kaelen's era, it is a modest but thriving settlement of about two hundred people \u2014 a militia outpost, a market square, and farmland stretching south. In Aric's era twenty years later, Thornwall has contracted: the northern farms are abandoned, the thornbriar wall is patchy and dying, and the population has halved as families fled the worsening tremors.",
@@ -283,9 +283,9 @@
     },
     {
       "vault_path": "vault/world/locations/whispering-woods.md",
-      "articy_id": "",
+      "articy_id": "72057594037929357",
       "type": "location",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Whispering Woods",
       "template_properties": {
         "overview": "A dense old-growth forest stretching between Thornwall and the coastal regions. The woods are named for the constant rustling of their canopy, which locals say sounds like murmured conversation. In Kaelen's era, the Whispering Woods are healthy and navigable \u2014 a source of timber, game, and medicinal herbs. Maren's family has patrolled these woods for generations. In Aric's era, the forest is dying from the inside out. Trees rot while standing, animal populations have collapsed, and sinkholes open without warning. The whispering has changed \u2014 it now sounds less like conversation and more like warning.",
@@ -559,9 +559,9 @@
     },
     {
       "vault_path": "vault/world/factions/iron-vanguard.md",
-      "articy_id": "",
+      "articy_id": "72057594037929369",
       "type": "faction",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Iron Vanguard",
       "template_properties": {
         "overview": "A regional military force that patrols the territories between the coastal cities and the Iron Peaks. The Iron Vanguard was established a century ago to protect trade routes from bandits and mountain creatures. In Kaelen's era, they are a professional but overstretched garrison \u2014 competent soldiers led by pragmatic officers. In Aric's era, twenty years of escalating threats have transformed them into a hardened, suspicious force that controls movement through the region and views independent adventurers as liabilities rather than assets.",
@@ -593,9 +593,9 @@
     },
     {
       "vault_path": "vault/world/factions/starlight-academy-faction.md",
-      "articy_id": "",
+      "articy_id": "72057594037929381",
       "type": "faction",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Starlight Scholars",
       "template_properties": {
         "overview": "The scholarly order that operates the Academy of Starlight. Once a powerful institution that advised kings and predicted harvests, the Starlight Scholars have dwindled to a handful of aging academics and a few young students. They are knowledge-keepers, not warriors \u2014 their power lies in information, celestial cartography, and access to the Academy's vast archives. They are politically neutral but practically isolated, clinging to relevance in a world that has largely moved on from star-reading.",
@@ -627,9 +627,9 @@
     },
     {
       "vault_path": "vault/world/items/iron-dawn-sword.md",
-      "articy_id": "",
+      "articy_id": "72057594037929393",
       "type": "item",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Iron Dawn",
       "template_properties": {
         "overview": "Kaelen's broadsword, forged from iron ore mined in the upper tunnels of the Iron Peaks. The blade is plain but well-balanced \u2014 a working weapon, not a ceremonial one. It was a gift from the Thornwall militia when Kaelen first set out on his journey. Over the years, the sword has become a symbol of Kaelen's legend. In Aric's era, Iron Dawn is missing \u2014 Kaelen took it with him. Finding the sword (or what remains of it) is a key objective in the son's storyline, as it proves Kaelen reached his destination.",
@@ -659,9 +659,9 @@
     },
     {
       "vault_path": "vault/world/items/kaelens-journal.md",
-      "articy_id": "",
+      "articy_id": "72057594037929401",
       "type": "item",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Kaelen's Journal",
       "template_properties": {
         "overview": "A worn leather journal filled with Kaelen's handwriting \u2014 sketches of locations, notes on creatures encountered, half-formed theories about the tremors beneath the Iron Peaks, and personal reflections he never shared with anyone. Aric discovers it hidden in the militia barracks at age twelve. The journal serves as the primary link between the two timelines: its entries give Aric (and the player) clues about where Kaelen went and what he found, but the entries are incomplete, out of order, and sometimes contradicted by what Aric discovers firsthand.",
@@ -691,9 +691,9 @@
     },
     {
       "vault_path": "vault/world/items/starweaver-lens.md",
-      "articy_id": "",
+      "articy_id": "72057594037929409",
       "type": "item",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Starweaver Lens",
       "template_properties": {
         "overview": "A palm-sized disc of polished crystal set in a brass frame, used by the Academy's scholars to read celestial patterns invisible to the naked eye. The lens was standard equipment for Starweavers in the Academy's golden age; now only three remain, all held by Elder Aldric. He lends one to Sera for her studies \u2014 an act of trust that surprises the other scholars. The lens reveals hidden star-chart inscriptions on the Academy's walls and can be used to decipher the carved stones found in the Whispering Woods.",

@@ -1,7 +1,7 @@
 ---
 type: item
 status: draft
-articy-id: ""
+articy-id: "72057594037929401"
 tags: [key-item, lore, son-era]
 connections:
   - "[[Kaelen]]"

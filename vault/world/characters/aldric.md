@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037929305"
 tags: [mentor, elder, academy]
 connections:
   - "[[Sera]]"
