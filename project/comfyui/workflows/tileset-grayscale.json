@@ -42,7 +42,7 @@
       ],
       "title": "LoRA (Pixel Art)",
       "properties": { "Node name for S&R": "LoraLoader" },
-      "widgets_values": ["pixel-art-xl-v1.1.safetensors", 0.85, 0.85],
+      "widgets_values": ["pixel-art-xl.safetensors", 0.85, 0.85],
       "color": "#233",
       "bgcolor": "#355"
     },

@@ -45,7 +45,7 @@ def preprocess_atlas(
         raise FileNotFoundError(f"No grayscale_tileset_*.png found in {biome_dir}")
 
     source_path = candidates[-1]  # Use the latest
-    source = Image.open(source_path)
+    source = Image.open(source_path).convert("L")  # Force true grayscale
     width, height = source.size
     cols = width // tile_size
     rows = height // tile_size

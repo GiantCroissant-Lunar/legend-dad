@@ -10,7 +10,7 @@
  * Env vars:
  *   COMFYUI_BASE_URL     (default: http://127.0.0.1:8188)
  *   COMFYUI_CHECKPOINT   (default: sd_xl_base_1.0.safetensors)
- *   COMFYUI_LORA         (default: pixel-art-xl-v1.1.safetensors)
+ *   COMFYUI_LORA         (default: pixel-art-xl.safetensors)
  *   COMFYUI_LORA_STRENGTH (default: 0.85)
  *   COMFYUI_STEPS        (default: 25)
  *   COMFYUI_CFG          (default: 7)
@@ -92,7 +92,7 @@ function buildOverrides(biome, seed) {
   }
 
   const checkpoint = process.env.COMFYUI_CHECKPOINT || 'sd_xl_base_1.0.safetensors';
-  const lora = process.env.COMFYUI_LORA || 'pixel-art-xl-v1.1.safetensors';
+  const lora = process.env.COMFYUI_LORA || 'pixel-art-xl.safetensors';
   const loraStrength = Number(process.env.COMFYUI_LORA_STRENGTH) || 0.85;
   const steps = Number(process.env.COMFYUI_STEPS) || 25;
   const cfg = Number(process.env.COMFYUI_CFG) || 7;
