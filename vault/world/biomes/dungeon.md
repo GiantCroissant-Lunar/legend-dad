@@ -4,8 +4,8 @@ status: draft
 tags: [cave, mine, underground]
 intgrid-range: [20, 29]
 tile-count-target: 64-128
-palette: ""
-palette-source: "https://lospec.com/"
+palette: "damage-dice-10-6"
+palette-url: "https://lospec.com/palette-list/damage-dice-10-6"
 locations:
   - "[[Iron Peaks]]"
 last-agent-pass: "2026-04-13"
@@ -45,9 +45,11 @@ Target: 64-128 tiles at 16x16, 16-bit JRPG style, top-down 3/4 view.
 
 ## Palette
 
-> **TODO**: Select a palette from https://lospec.com/ for underground/cave.
-> Candidates should support: dark stone grays, warm torch/lava oranges, cool crystal blues, iron metallics.
-> Consider depth progression: upper mines = warmer (torch light); deep caverns = cooler (crystal light, darkness).
+**Damage Dice 10 & 6** by Richmond Riddle — https://lospec.com/palette-list/damage-dice-10-6
+
+10-color cool ramp from near-black (#00000d) through slate blues/teals (#3e4e59, #468c8b) to cool highlights — stone walls, iron veins, crystal glints. 6-color warm complement (#5e3d17 through #eddf48) for torch/lantern orange, rust/iron brown, gold ore deposits.
+
+Depth progression: upper mines favor the warm 6-color set (torchlit); deep caverns use the cool 10-color set (crystal light, darkness).
 
 ## ComfyUI Prompt Template
 

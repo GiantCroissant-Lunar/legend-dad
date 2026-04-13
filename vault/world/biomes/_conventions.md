@@ -42,6 +42,25 @@ Shared across all biomes. Every .ldtk file uses these.
 
 Town biome covers both outdoor areas and building interiors on the same map. Buildings are open-top (no roof) — the player sees rooms directly. Walls (35) define building boundaries, interior_floor (36) marks indoor space.
 
+## Universal Palette
+
+**DawnBringer 16** — https://lospec.com/palette-list/dawnbringer-16
+
+Used for characters, items, UI, and cross-biome assets that appear in all locations.
+
+`#140c1c` `#442434` `#30346d` `#4e4a4e` `#854c30` `#346524` `#d04648` `#757161` `#597dce` `#d27d2c` `#8595a1` `#6daa2c` `#d2aa99` `#6dc2ca` `#dad45e` `#deeed6`
+
+## Location Palettes
+
+| Location | Palette | URL |
+|---|---|---|
+| Thornwall | Fantasy RPG (16) | lospec.com/palette-list/fantasy-rpg |
+| Whispering Woods | Deep Forest 16 | lospec.com/palette-list/deep-forest-16 |
+| Iron Peaks | Damage Dice 10 & 6 (16) | lospec.com/palette-list/damage-dice-10-6 |
+| Starlight Academy | Fantasy RPG (16) | lospec.com/palette-list/fantasy-rpg |
+
+Full hex values are in each location's vault frontmatter (`palette-hex` field).
+
 ## Tile Specifications
 
 - **Size**: 16x16 pixels

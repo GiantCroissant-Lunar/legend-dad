@@ -4,8 +4,8 @@ status: draft
 tags: [town, village, settlement, interior]
 intgrid-range: [30, 39]
 tile-count-target: 96-128
-palette: ""
-palette-source: "https://lospec.com/"
+palette: "fantasy-rpg"
+palette-url: "https://lospec.com/palette-list/fantasy-rpg"
 locations:
   - "[[Thornwall]]"
 last-agent-pass: "2026-04-13"
@@ -86,9 +86,11 @@ Target: 96-128 tiles at 16x16, 16-bit JRPG style, top-down 3/4 view.
 
 ## Palette
 
-> **TODO**: Select a palette from https://lospec.com/ for medieval village.
-> Candidates should support: warm stone/wood browns, cool slate wall tones, green vegetation accents, warm lantern/fireplace light for interiors.
-> Consider era difference: father's era = warm, busy, colorful; son's era = muted, boarded-up, dim.
+**Fantasy RPG** by Paleto — https://lospec.com/palette-list/fantasy-rpg (CC0 licensed)
+
+5-shade warm brown ramp (#1c1508 → #f0e0b0) for stone walls, timber, thatch roofs. Gold/parchment tones (#c8952a, #d4b880) for lantern warmth and interior firelight. Two greens (#7dd87a, #3a9e50) for vegetation, blue pair (#5b8fd4, #2a5090) for slate/sky, accent red (#d44040) and purple (#8840c0) for signs, cloaks, decorative elements.
+
+Era difference: father's era uses full warm palette; son's era shifts toward the darker browns with muted greens and grayed-out accents.
 
 ## ComfyUI Prompt Template
 

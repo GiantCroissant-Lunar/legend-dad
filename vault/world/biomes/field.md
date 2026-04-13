@@ -4,8 +4,8 @@ status: draft
 tags: [overworld, forest, wilderness]
 intgrid-range: [10, 19]
 tile-count-target: 64-128
-palette: ""
-palette-source: "https://lospec.com/"
+palette: "deep-forest-16"
+palette-url: "https://lospec.com/palette-list/deep-forest-16"
 locations:
   - "[[Whispering Woods]]"
 last-agent-pass: "2026-04-13"
@@ -44,9 +44,11 @@ Target: 64-128 tiles at 16x16, 16-bit JRPG style, top-down 3/4 view.
 
 ## Palette
 
-> **TODO**: Select a palette from https://lospec.com/ that fits old-growth forest with seasonal variation.
-> Candidates should support: rich greens, earth browns, cool shadow blues, warm highlight yellows.
-> Consider era difference: father's era = vibrant greens; son's era = desaturated, dying tones (palette swap).
+**Deep Forest 16** by ShinyTseul — https://lospec.com/palette-list/deep-forest-16
+
+5+ dark values for layered canopy shadows, two forest greens (#2e7350, #2a4d44), earth browns (#664338, #994326), warm dappled sunlight highlights (#d9c68d, #bf864d), magic purple (#5f318c) for mystical accents, cool blue (#4167d9) for water/shadow.
+
+Era difference: father's era uses full palette; son's era shifts toward the darker/grayer values with desaturated greens.
 
 ## ComfyUI Prompt Template
 
