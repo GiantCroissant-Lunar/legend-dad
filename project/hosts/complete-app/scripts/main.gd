@@ -51,7 +51,7 @@ var _enemy_entities: Array[E_Enemy] = []
 var _enemy_visuals: Array[EntityVisual] = []
 
 func _ready() -> void:
-	LocationManager.load_location("whispering-woods")
+	await LocationManager.load_location("whispering-woods")
 	tileset = LocationManager.get_tileset()
 
 	# Load level layout from LDtk

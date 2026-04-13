@@ -1,6 +1,13 @@
+import { createReadStream, statSync } from "node:fs";
 // project/server/packages/game-server/src/index.js
 import { createServer } from "node:http";
+import { basename, dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { WebSocketServer } from "ws";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const PROJECT_ROOT = resolve(__dirname, "../../../../..");
+const PCK_DIR = resolve(PROJECT_ROOT, "build/_artifacts/pck");
 import { createMastraServer } from "./mastra/index.js";
 import { EventQueueRegistry } from "./mcp/event-queue.js";
 import { ContextBuilder } from "./replay/context-builder.js";
@@ -80,6 +87,30 @@ async function main() {
 					res.writeHead(500, { "Content-Type": "application/json" });
 					res.end(JSON.stringify({ error: "MCP error" }));
 				}
+			}
+			return;
+		}
+
+		// Serve PCK files from build artifacts
+		if (url.pathname.startsWith("/pck/")) {
+			const filename = basename(url.pathname);
+			if (!filename.endsWith(".pck")) {
+				res.writeHead(400, { "Content-Type": "text/plain" });
+				res.end("Bad request: only .pck files");
+				return;
+			}
+			const pckPath = resolve(PCK_DIR, filename);
+			try {
+				const stat = statSync(pckPath);
+				res.writeHead(200, {
+					"Content-Type": "application/octet-stream",
+					"Content-Length": stat.size,
+					"Access-Control-Allow-Origin": "*",
+				});
+				createReadStream(pckPath).pipe(res);
+			} catch {
+				res.writeHead(404, { "Content-Type": "text/plain" });
+				res.end(`PCK not found: ${filename}`);
 			}
 			return;
 		}

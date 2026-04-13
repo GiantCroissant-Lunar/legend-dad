@@ -15,6 +15,7 @@ signal location_unloaded(location_name: String)
 const LOCATIONS_PATH := "res://data/locations.json"
 const PCK_BASE_DIR := "res://locations/"
 const LDTK_PROJECT_PATH := "res://ldtk/legend-dad.ldtk"
+const PCK_SERVER_URL := "http://localhost:3000/pck/"
 
 var _current_location := ""
 var _current_biome := ""
@@ -68,16 +69,49 @@ func load_location(location_name: String) -> void:
 	if _ldtk_project.is_empty():
 		_ldtk_project = LdtkImporter.load_project(LDTK_PROJECT_PATH)
 
-	# Try loading PCK
+	# Try loading PCK — native path first, then HTTP fetch for web builds
 	var pck_loaded := false
 	if FileAccess.file_exists(pck_path):
 		pck_loaded = ProjectSettings.load_resource_pack(pck_path)
+
+	if not pck_loaded and OS.has_feature("web"):
+		# Web builds: fetch PCK from game server, save to user://, then load
+		pck_loaded = await _fetch_pck_web(pck_filename)
 
 	if pck_loaded:
 		_load_from_pck(location_name, biome)
 	else:
 		push_warning("LocationManager: PCK not available for '%s', using fallback" % location_name)
 		_load_fallback(location_name)
+
+
+func _fetch_pck_web(pck_filename: String) -> bool:
+	var url := PCK_SERVER_URL + pck_filename
+	var http := HTTPRequest.new()
+	add_child(http)
+	http.request(url)
+	var result: Array = await http.request_completed
+	http.queue_free()
+
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	if response_code != 200 or body.is_empty():
+		push_warning("LocationManager: HTTP fetch failed for '%s' (code %d)" % [pck_filename, response_code])
+		return false
+
+	# Save to user:// so load_resource_pack can find it
+	var local_path := "user://" + pck_filename
+	var file := FileAccess.open(local_path, FileAccess.WRITE)
+	if not file:
+		push_error("LocationManager: cannot write PCK to %s" % local_path)
+		return false
+	file.store_buffer(body)
+	file.close()
+
+	var loaded := ProjectSettings.load_resource_pack(local_path)
+	if loaded:
+		print("LocationManager: PCK loaded from server: %s" % pck_filename)
+	return loaded
 
 
 func _load_from_pck(location_name: String, biome: String) -> void:
