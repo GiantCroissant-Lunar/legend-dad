@@ -131,6 +131,11 @@ tasks:
     cmds:
       - "{{.PYTHON_BIN}} scripts/tileset_preprocess.py --biome={{.CLI_ARGS}} --tile-size=32"
 
+  tileset:classify:
+    desc: Classify and rearrange tileset atlas into semantic IntGrid order
+    cmds:
+      - "{{.PYTHON_BIN}} scripts/tile_classifier.py --biome={{.CLI_ARGS}}"
+
   pck:manifest:
     desc: Generate PCK manifest from LDtk data
     cmds:
