@@ -80,7 +80,10 @@ static func import_level(project: Dictionary, level_identifier: String) -> Node2
 				if tiles_node:
 					level_node.add_child(tiles_node)
 			"AutoLayer":
-				pass  # Auto layers are visual only — handled by LDtk export
+				# Standalone AutoLayer type — not used in this project.
+				# Our terrain layers are IntGrid type with auto-layer rules,
+				# which are parsed via _import_intgrid_layer (autoLayerTiles field).
+				pass
 
 	return level_node
 
