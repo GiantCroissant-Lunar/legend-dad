@@ -162,6 +162,38 @@ No auth required (localhost only).
 - **Event queue overflow**: Oldest events dropped when buffer exceeds 200 (configurable)
 - **Stale MCP session**: Queue garbage-collected after 5 min inactivity
 
+## Known Issues
+
+### Mastra `onsessioninitialized` callback silently overridden (`@mastra/mcp` v1.4.2)
+
+**Problem:** The `startHTTP()` method accepts `options.onsessioninitialized` in its API, but the implementation overwrites it. In `dist/index.js` (line ~3632), Mastra spreads user options into the transport config then hardcodes its own `onsessioninitialized` after the spread:
+
+```js
+transport = new StreamableHTTPServerTransport({
+  ...mergedOptions,                    // includes our callback
+  onsessioninitialized: (id) => {      // overwrites it — last key wins
+    this.streamableHTTPTransports.set(id, transport);
+  }
+});
+```
+
+In JavaScript object literals, duplicate keys resolve to the last one. Our callback is lost.
+
+**Impact:** Per-MCP-session event queues cannot be created via the documented callback. The spec's Session Lifecycle design (create queue on session init, clean up on session end) does not work.
+
+**Workaround:** Create a single "default" event queue eagerly at server startup (`eventRegistry.create("default")`). This is sufficient for the single-client case (one Claude Code session at a time). The `poll_events` tool uses `registry.getFirstQueue()` which returns this default queue.
+
+**Fix on Mastra's side:** Compose both callbacks instead of overwriting:
+
+```js
+onsessioninitialized: (id) => {
+  this.streamableHTTPTransports.set(id, transport);
+  mergedOptions.onsessioninitialized?.(id);  // call user's callback too
+}
+```
+
+**Action:** Consider filing a GitHub issue on [mastra-inc/mastra](https://github.com/mastra-inc/mastra). If fixed upstream, switch back to per-session queues for proper multi-client support.
+
 ## Testing
 
 - Extend `test-agent.js` pattern: start server, connect mock Godot, then use `@modelcontextprotocol/sdk` client to connect via HTTP and call tools
