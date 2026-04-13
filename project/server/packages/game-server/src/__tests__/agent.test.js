@@ -4,13 +4,16 @@ import { createMastraServer } from "../mastra/index.js";
 import { connectMockGodot } from "./helpers/mock-godot.js";
 import { startTestServer } from "./helpers/test-server.js";
 
-const HAS_API_KEY = !!(process.env.ZAI_API_KEY || process.env.ALIBABA_API_KEY);
+// Opt-in: set RUN_AGENT_TESTS=1 to run (requires API keys + live LLM, slow/flaky)
+const RUN_AGENT_TESTS =
+	process.env.RUN_AGENT_TESTS === "1" &&
+	!!(process.env.ZAI_API_KEY || process.env.ALIBABA_API_KEY);
 
 let server;
 let mockGodot;
 
 beforeAll(async () => {
-	if (!HAS_API_KEY) return;
+	if (!RUN_AGENT_TESTS) return;
 	server = await startTestServer();
 	mockGodot = await connectMockGodot(server.port);
 	// Wait for handshake + initial state
@@ -22,7 +25,7 @@ afterAll(async () => {
 	await server?.cleanup();
 });
 
-describe.skipIf(!HAS_API_KEY)("Agent integration", () => {
+describe.skipIf(!RUN_AGENT_TESTS)("Agent integration", () => {
 	it("calls tools and receives game state", async () => {
 		const providers = [
 			{
@@ -55,5 +58,5 @@ describe.skipIf(!HAS_API_KEY)("Agent integration", () => {
 		// Agent should have called at least one tool (LLM behavior is non-deterministic)
 		const toolCalls = result.steps?.flatMap((s) => s.toolCalls || []) || [];
 		expect(toolCalls.length).toBeGreaterThan(0);
-	}, 30_000); // 30s timeout for LLM round-trip
+	}, 60_000); // 60s timeout for LLM round-trip
 });
