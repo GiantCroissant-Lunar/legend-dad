@@ -40,7 +40,12 @@ def preprocess_atlas(
         FileNotFoundError: If no source image is found.
     """
     biome_dir = input_dir / biome if (input_dir / biome).is_dir() else input_dir
-    candidates = sorted(biome_dir.glob("grayscale_tileset_*.png"))
+    # Prefer pixelated stage (182+ gray levels) over grayscale stage (only 3 levels).
+    # The PixelArt-Detector's palette converter crushes tonal range; we do our own
+    # 16-level quantization below.
+    candidates = sorted(biome_dir.glob("pixelated_tileset_*.png"))
+    if not candidates:
+        candidates = sorted(biome_dir.glob("grayscale_tileset_*.png"))
     if not candidates:
         raise FileNotFoundError(f"No grayscale_tileset_*.png found in {biome_dir}")
 
@@ -49,6 +54,19 @@ def preprocess_atlas(
     width, height = source.size
     cols = width // tile_size
     rows = height // tile_size
+
+    # Requantize to exactly 16 evenly-spaced gray levels.
+    # ComfyUI's PixelArt-Detector often collapses to 2-4 levels; we need 16
+    # so each gray value maps to a distinct palette shader entry.
+    import numpy as np
+
+    arr = np.array(source, dtype=np.float32)
+    lo, hi = float(arr.min()), float(arr.max())
+    if hi > lo:
+        arr = (arr - lo) / (hi - lo)  # Normalize to 0-1
+    arr = np.floor(arr * 15.0).clip(0, 15) / 15.0  # Quantize to 16 levels
+    arr = (arr * 255.0).astype(np.uint8)
+    source = Image.fromarray(arr)
 
     # Create clean output image
     output = Image.new(source.mode, (cols * tile_size, rows * tile_size), 0)

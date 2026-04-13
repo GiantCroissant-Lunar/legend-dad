@@ -9,7 +9,8 @@ from PIL import Image
 @pytest.fixture
 def sample_512(tmp_path: Path) -> Path:
     """Create a 512x512 test image with a 16x16 grid of 32px cells.
-    Each cell has a unique gray value so we can verify slicing."""
+    Each cell has a unique gray value so we can verify slicing.
+    Uses pixelated_tileset filename (preferred input stage)."""
     img = Image.new("L", (512, 512), 0)
     for row in range(16):
         for col in range(16):
@@ -17,7 +18,7 @@ def sample_512(tmp_path: Path) -> Path:
             for y in range(row * 32, (row + 1) * 32):
                 for x in range(col * 32, (col + 1) * 32):
                     img.putpixel((x, y), gray)
-    path = tmp_path / "grayscale_tileset_00001_.png"
+    path = tmp_path / "pixelated_tileset_00001_.png"
     img.save(path)
     return tmp_path
 
@@ -36,7 +37,7 @@ def test_preprocess_creates_atlas(sample_512: Path):
     assert img.size == (512, 512)
 
 
-def test_preprocess_preserves_cell_values(sample_512: Path):
+def test_preprocess_requantizes_to_16_levels(sample_512: Path):
     from scripts.tileset_preprocess import preprocess_atlas
 
     output = preprocess_atlas(
@@ -45,12 +46,17 @@ def test_preprocess_preserves_cell_values(sample_512: Path):
         tile_size=32,
     )
     img = Image.open(output)
-    # Check cell (0,0) center pixel
-    assert img.getpixel((16, 16)) == 0
-    # Check cell (1,0) center pixel — should be gray=1
-    assert img.getpixel((32 + 16, 16)) == 1
-    # Check cell (0,1) center pixel — should be gray=16
-    assert img.getpixel((16, 32 + 16)) == 16
+    import numpy as np
+
+    arr = np.array(img)
+    unique = np.unique(arr)
+    # Should have exactly 16 evenly-spaced gray levels
+    assert len(unique) == 16
+    assert unique[0] == 0
+    assert unique[-1] == 255
+    # Check spacing is even (17 apart: 0,17,34,...,255)
+    diffs = np.diff(unique)
+    assert all(d == 17 for d in diffs)
 
 
 def test_preprocess_rejects_missing_input(tmp_path: Path):
