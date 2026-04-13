@@ -57,6 +57,11 @@ func _ready() -> void:
 	# Load level layout from LDtk
 	_load_ldtk_level("Whispering_Woods_Edge")
 
+	# Fallback: if LDtk has no painted tiles, use hardcoded test layout
+	if _base_terrain_tiles.is_empty() and _father_terrain_tiles.is_empty() and _son_terrain_tiles.is_empty():
+		push_warning("main: No LDtk terrain tiles found, using fallback layout")
+		_generate_fallback_layout()
+
 	# Create ECS World — entities live here as children of the World node.
 	world = World.new()
 	world.name = "World"
@@ -431,6 +436,38 @@ func _load_ldtk_level(level_name: String) -> void:
 		LocationManager.set_collision_grid(C_TimelineEra.Era.SON, collision_grid)
 
 	level_node.queue_free()
+
+func _generate_fallback_layout() -> void:
+	# Simple 10x8 test layout using atlas coords from TilesetFactory
+	# 0=grass/walkable, 1=path/walkable, 2=building/blocked, 3=water/blocked
+	var layout = [
+		[0,0,0,2,2,0,0,0,3,3],
+		[0,0,1,1,1,1,0,0,3,3],
+		[0,1,1,0,0,1,1,0,0,3],
+		[2,1,0,0,0,0,1,0,0,0],
+		[2,1,0,0,0,0,1,1,1,0],
+		[0,1,1,0,2,0,0,0,1,0],
+		[0,0,1,1,1,1,1,1,1,0],
+		[0,0,0,0,0,0,0,0,0,0],
+	]
+	map_width = 10
+	map_height = 8
+	for row in range(map_height):
+		for col in range(map_width):
+			_base_terrain_tiles.append({
+				"position": Vector2i(col, row),
+				"atlas_coords": Vector2i(layout[row][col], 0),
+				"flip": 0,
+			})
+
+	# Build collision: tiles 2 and 3 are not walkable
+	var collision_grid := {}
+	for row in range(map_height):
+		for col in range(map_width):
+			var value = layout[row][col]
+			collision_grid[Vector2i(col, row)] = value < 2  # 0,1 = walkable
+	LocationManager.set_collision_grid(C_TimelineEra.Era.FATHER, collision_grid)
+	LocationManager.set_collision_grid(C_TimelineEra.Era.SON, collision_grid)
 
 func _build_game_view(era: C_TimelineEra.Era) -> SubViewportContainer:
 	var container = SubViewportContainer.new()
