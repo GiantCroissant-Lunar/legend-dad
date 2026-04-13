@@ -438,7 +438,9 @@ func _load_ldtk_level(level_name: String) -> void:
 	level_node.queue_free()
 
 func _generate_fallback_layout() -> void:
-	# Simple 10x8 test layout using atlas coords from TilesetFactory
+	# Simple 10x8 test layout using atlas coords from TilesetFactory.
+	# NOTE: these values are atlas column indices (not IntGrid values),
+	# so collision is computed manually here — do not use build_collision_grid.
 	# 0=grass/walkable, 1=path/walkable, 2=building/blocked, 3=water/blocked
 	var layout = [
 		[0,0,0,2,2,0,0,0,3,3],

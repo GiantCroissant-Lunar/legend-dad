@@ -121,6 +121,7 @@ func unload_location() -> void:
 	_current_biome = ""
 	_using_fallback = false
 	_collision_grids = {}
+	# _ldtk_project intentionally kept: single project file is shared across all locations
 	if not old_name.is_empty():
 		location_unloaded.emit(old_name)
 
