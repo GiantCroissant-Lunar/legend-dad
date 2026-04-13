@@ -103,8 +103,8 @@ function buildOverrides(biome, seed) {
     '2.lora_name': lora,
     '2.strength_model': loraStrength,
     '2.strength_clip': loraStrength,
-    '3.text': prompts.positive,        // Positive prompt primitive (widget value)
-    '4.text': prompts.negative,        // Negative prompt primitive (widget value)
+    '5.text': prompts.positive,        // Positive CLIPTextEncode
+    '6.text': prompts.negative,        // Negative CLIPTextEncode
     '8.seed': seed ?? Math.floor(Math.random() * 2 ** 32),
     '8.steps': steps,
     '8.cfg': cfg,
@@ -129,7 +129,7 @@ async function runBiome(biome, args) {
     const jobPath = join(biomeOutputDir, 'dry-run-job.json');
     writeFileSync(jobPath, JSON.stringify(prompt, null, 2));
     console.log(`[dry-run] Workflow written to ${jobPath}`);
-    console.log(`[dry-run] Positive prompt: ${overrides['3.text'].slice(0, 80)}...`);
+    console.log(`[dry-run] Positive prompt: ${overrides['5.text'].slice(0, 80)}...`);
     console.log(`[dry-run] Seed: ${overrides['8.seed']}`);
     return;
   }

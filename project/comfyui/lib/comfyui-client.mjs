@@ -65,7 +65,11 @@ export async function downloadOutputImages({ baseUrl = DEFAULT_BASE_URL, promptH
       }
 
       const arrayBuffer = await response.arrayBuffer();
-      const outputPath = join(targetDir, image.filename);
+      // Prefix filename with subfolder's last segment to avoid collisions
+      // e.g. "legend-dad/raw/tileset_00001_.png" → "raw_tileset_00001_.png"
+      const subParts = (image.subfolder || '').split('/').filter(Boolean);
+      const prefix = subParts.length > 0 ? `${subParts[subParts.length - 1]}_` : '';
+      const outputPath = join(targetDir, `${prefix}${image.filename}`);
       writeFileSync(outputPath, Buffer.from(arrayBuffer));
       savedPaths.push(outputPath);
     }
