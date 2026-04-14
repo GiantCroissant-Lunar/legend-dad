@@ -1,8 +1,6 @@
 # scripts/main.gd
 extends Control
 
-const TILE_SIZE := 32
-
 # Level dimensions from LDtk (set at runtime)
 var map_width := 0
 var map_height := 0
@@ -320,11 +318,12 @@ func _update_cameras() -> void:
 	# Follow players via component data (entities don't have position).
 	var active_gp = active_player.get_component(C_GridPosition) as C_GridPosition
 	var inactive_gp = inactive_player.get_component(C_GridPosition) as C_GridPosition
+	var cs := GameConfig.cell_size
 	if active_gp:
-		var target = Vector2(active_gp.visual_x + TILE_SIZE / 2.0, active_gp.visual_y + TILE_SIZE / 2.0)
+		var target = Vector2(active_gp.visual_x + cs / 2.0, active_gp.visual_y + cs / 2.0)
 		active_cam.position = active_cam.position.lerp(target, 0.1)
 	if inactive_gp:
-		var target = Vector2(inactive_gp.visual_x + TILE_SIZE / 2.0, inactive_gp.visual_y + TILE_SIZE / 2.0)
+		var target = Vector2(inactive_gp.visual_x + cs / 2.0, inactive_gp.visual_y + cs / 2.0)
 		inactive_cam.position = inactive_cam.position.lerp(target, 0.1)
 
 func _switch_active_era() -> void:
@@ -416,8 +415,10 @@ func _load_ldtk_level(level_name: String) -> void:
 		return
 
 	# Read level dimensions
-	map_width = level_node.get_meta("px_width", 320) / 16  # LDtk grid is 16px
-	map_height = level_node.get_meta("px_height", 256) / 16
+	map_width = level_node.get_meta("px_width", 320) / GameConfig.cell_size
+	map_height = level_node.get_meta("px_height", 256) / GameConfig.cell_size
+	GameConfig.map_width = map_width
+	GameConfig.map_height = map_height
 
 	# Extract layer data — prefer autoLayerTiles, fall back to IntGrid CSV
 	for child in level_node.get_children():
@@ -470,6 +471,8 @@ func _generate_fallback_layout() -> void:
 	]
 	map_width = 10
 	map_height = 8
+	GameConfig.map_width = map_width
+	GameConfig.map_height = map_height
 	for row in range(map_height):
 		for col in range(map_width):
 			_base_terrain_tiles.append({
@@ -523,9 +526,10 @@ func _build_game_view(era: C_TimelineEra.Era) -> SubViewportContainer:
 	# Camera: zoom to fit map height with some padding, follow player later
 	var camera = Camera2D.new()
 	camera.name = "Camera2D"
-	camera.position = Vector2(map_width * TILE_SIZE / 2.0, map_height * TILE_SIZE / 2.0)
+	var cs := GameConfig.cell_size
+	camera.position = Vector2(map_width * cs / 2.0, map_height * cs / 2.0)
 	# Zoom so the map height fills the viewport (tiles stay readable at any resolution)
-	var map_pixel_height := float(map_height * TILE_SIZE)
+	var map_pixel_height := float(map_height * cs)
 	var target_zoom := 1.0
 	if map_pixel_height > 0:
 		target_zoom = float(viewport.size.y) / map_pixel_height
@@ -551,7 +555,7 @@ func _update_camera_zoom(view: SubViewportContainer, viewport_height: float) -> 
 	var camera = view.get_node("SubViewport/Camera2D") as Camera2D
 	if not camera:
 		return
-	var map_pixel_height := float(map_height * TILE_SIZE)
+	var map_pixel_height := float(map_height * GameConfig.cell_size)
 	if map_pixel_height <= 0:
 		return
 	var target_zoom := viewport_height / map_pixel_height

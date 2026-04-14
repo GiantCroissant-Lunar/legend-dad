@@ -69,6 +69,10 @@ func load_location(location_name: String) -> void:
 	if _ldtk_project.is_empty():
 		_ldtk_project = LdtkImporter.load_project(LDTK_PROJECT_PATH)
 
+	# Set cell size from LDtk project metadata
+	if _ldtk_project.has("defaultGridSize"):
+		GameConfig.cell_size = int(_ldtk_project["defaultGridSize"])
+
 	# Try loading PCK — native path first, then HTTP fetch for web builds
 	var pck_loaded := false
 	if FileAccess.file_exists(pck_path):
