@@ -13,11 +13,9 @@ class_name TilesetFactory
 ##     Atlas coord (2,0) = ruin (dark brown)       - not walkable
 ##     Atlas coord (3,0) = blocked (gray)          - not walkable
 
-const TILE_SIZE := 32
-
 static func create_tileset() -> TileSet:
 	var tileset = TileSet.new()
-	tileset.tile_size = Vector2i(TILE_SIZE, TILE_SIZE)
+	tileset.tile_size = Vector2i(GameConfig.cell_size, GameConfig.cell_size)
 
 	# Add custom data layer for walkability
 	tileset.add_custom_data_layer()
@@ -48,14 +46,15 @@ static func _add_colored_source(
 	colors: Array,
 	walkable_flags: Array
 ) -> void:
-	var atlas_width = colors.size() * TILE_SIZE
-	var image = Image.create(atlas_width, TILE_SIZE, false, Image.FORMAT_RGBA8)
+	var cs := GameConfig.cell_size
+	var atlas_width = colors.size() * cs
+	var image = Image.create(atlas_width, cs, false, Image.FORMAT_RGBA8)
 
 	for i in colors.size():
 		var color: Color = colors[i]
-		for x in range(i * TILE_SIZE, (i + 1) * TILE_SIZE):
-			for y in range(TILE_SIZE):
-				if x == i * TILE_SIZE or x == (i + 1) * TILE_SIZE - 1 or y == 0 or y == TILE_SIZE - 1:
+		for x in range(i * cs, (i + 1) * cs):
+			for y in range(cs):
+				if x == i * cs or x == (i + 1) * cs - 1 or y == 0 or y == cs - 1:
 					image.set_pixel(x, y, color.darkened(0.3))
 				else:
 					image.set_pixel(x, y, color)
@@ -63,7 +62,7 @@ static func _add_colored_source(
 	var texture = ImageTexture.create_from_image(image)
 	var atlas_source = TileSetAtlasSource.new()
 	atlas_source.texture = texture
-	atlas_source.texture_region_size = Vector2i(TILE_SIZE, TILE_SIZE)
+	atlas_source.texture_region_size = Vector2i(cs, cs)
 	tileset.add_source(atlas_source, source_id)
 
 	for i in colors.size():

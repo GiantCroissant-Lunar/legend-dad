@@ -4,8 +4,6 @@ extends System
 ## Processes semantic actions from the GameActions bus.
 ## Handles movement (with cooldown) and interactions.
 
-const TILE_SIZE := 32
-var move_cooldown := 0.15
 var _cooldown_timer := 0.0
 var _pending_move := Vector2i.ZERO
 var _pending_interact := false
@@ -52,7 +50,7 @@ func _process_move(entities: Array[Entity], direction: Vector2i) -> void:
 			if not _is_tile_occupied(new_col, new_row, era_comp.era, entity):
 				grid_pos.col = new_col
 				grid_pos.row = new_row
-				_cooldown_timer = move_cooldown
+				_cooldown_timer = GameConfig.move_cooldown
 				# Emit state change for WS
 				var era_str = "FATHER" if era_comp.era == C_TimelineEra.Era.FATHER else "SON"
 				GameActions.state_changed.emit("entity_updated", {

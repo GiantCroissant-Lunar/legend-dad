@@ -3,8 +3,6 @@
 class_name EntityVisual
 extends Node2D
 
-const TILE_SIZE := 32
-
 enum VisualType { PLAYER_FATHER, PLAYER_SON, BOULDER, BLOCKED, ENEMY }
 
 var visual_type: VisualType = VisualType.PLAYER_FATHER
@@ -14,21 +12,22 @@ var entity: Entity = null
 var enemy_color: Color = Color(0.2, 0.8, 0.3)
 
 func _draw() -> void:
+	var cs := GameConfig.cell_size
 	match visual_type:
 		VisualType.PLAYER_FATHER:
-			draw_rect(Rect2(4, 4, TILE_SIZE - 8, TILE_SIZE - 8), Color(1.0, 0.8, 0.0))
+			draw_rect(Rect2(4, 4, cs - 8, cs - 8), Color(1.0, 0.8, 0.0))
 			_draw_facing_arrow()
 		VisualType.PLAYER_SON:
-			draw_rect(Rect2(4, 4, TILE_SIZE - 8, TILE_SIZE - 8), Color(0.6, 0.8, 1.0))
+			draw_rect(Rect2(4, 4, cs - 8, cs - 8), Color(0.6, 0.8, 1.0))
 			_draw_facing_arrow()
 		VisualType.BOULDER:
-			draw_circle(Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0), TILE_SIZE / 3.0, Color(0.5, 0.5, 0.5))
+			draw_circle(Vector2(cs / 2.0, cs / 2.0), cs / 3.0, Color(0.5, 0.5, 0.5))
 		VisualType.BLOCKED:
-			draw_circle(Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0), TILE_SIZE / 3.0, Color(0.4, 0.2, 0.2))
+			draw_circle(Vector2(cs / 2.0, cs / 2.0), cs / 3.0, Color(0.4, 0.2, 0.2))
 		VisualType.ENEMY:
 			# Draw enemy as a diamond shape
-			var center = Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0)
-			var half = TILE_SIZE / 3.0
+			var center = Vector2(cs / 2.0, cs / 2.0)
+			var half = cs / 3.0
 			var points = PackedVector2Array([
 				center + Vector2(0, -half),
 				center + Vector2(half, 0),
@@ -42,7 +41,8 @@ func _draw_facing_arrow() -> void:
 		return
 	var grid_pos = entity.get_component(C_GridPosition) as C_GridPosition
 	if grid_pos:
-		var center = Vector2(TILE_SIZE / 2.0, TILE_SIZE / 2.0)
+		var cs := GameConfig.cell_size
+		var center = Vector2(cs / 2.0, cs / 2.0)
 		var arrow_end = center + Vector2(grid_pos.facing) * 10.0
 		draw_line(center, arrow_end, Color.WHITE, 2.0)
 

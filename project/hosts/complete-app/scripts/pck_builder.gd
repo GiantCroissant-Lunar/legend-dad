@@ -7,9 +7,6 @@ extends SceneTree
 ##     $GODOT_PATH --headless --path project/hosts/complete-app \
 ##     --script scripts/pck_builder.gd -- --location=whispering-woods
 
-const TILE_SIZE := 32
-
-
 func _init() -> void:
 	var location := _get_arg("--location")
 	if location.is_empty():
@@ -40,7 +37,7 @@ func _build_pck(manifest_path: String, location: String, project_root: String) -
 		return false
 
 	var manifest: Dictionary = json.data
-	var tile_size: int = manifest.get("tile_size", TILE_SIZE)
+	var tile_size: int = manifest.get("tile_size", 16)
 	var grid_cols: int = manifest.get("grid_columns", 16)
 	var grid_rows: int = manifest.get("grid_rows", 16)
 	var tiles: Array = manifest.get("tiles", [])

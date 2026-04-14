@@ -11,5 +11,5 @@ extends Component
 func _init(p_col: int = 0, p_row: int = 0):
 	col = p_col
 	row = p_row
-	visual_x = float(p_col * 32)
-	visual_y = float(p_row * 32)
+	visual_x = float(p_col * GameConfig.cell_size)
+	visual_y = float(p_row * GameConfig.cell_size)
