@@ -17,6 +17,7 @@ var _reconnect_timer := 0.0
 var _reconnect_delay := 2.0
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	_connect_to_server()
 
 func _connect_to_server() -> void:
@@ -104,6 +105,23 @@ func _handle_command(msg: Dictionary) -> void:
 
 		"get_state":
 			_send_state_snapshot()
+			_send_command_ack(cmd_id, true)
+
+		"time_set_speed":
+			var speed: float = payload.get("speed", 1.0)
+			TimeService.set_speed(speed)
+			_send_command_ack(cmd_id, true)
+
+		"time_pause":
+			TimeService.pause()
+			_send_command_ack(cmd_id, true)
+
+		"time_resume":
+			TimeService.resume()
+			_send_command_ack(cmd_id, true)
+
+		"time_step":
+			TimeService.step_frame()
 			_send_command_ack(cmd_id, true)
 
 		_:
