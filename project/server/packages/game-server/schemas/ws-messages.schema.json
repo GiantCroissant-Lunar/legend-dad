@@ -19,7 +19,17 @@
 				"id": { "type": "string" },
 				"action": {
 					"type": "string",
-					"enum": ["move", "interact", "switch_era", "get_state"]
+					"enum": [
+						"move",
+						"interact",
+						"switch_era",
+						"get_state",
+						"time_set_speed",
+						"time_pause",
+						"time_resume",
+						"time_step",
+						"screenshot"
+					]
 				},
 				"payload": { "type": "object" }
 			}
@@ -31,7 +41,19 @@
 				"type": { "const": "command_ack" },
 				"id": { "type": "string" },
 				"success": { "type": "boolean" },
-				"error": { "type": ["string", "null"] }
+				"error": { "type": ["string", "null"] },
+				"screenshot": {
+					"type": "string",
+					"description": "Base64-encoded screenshot (single viewport)"
+				},
+				"father_screenshot": {
+					"type": "string",
+					"description": "Base64-encoded father viewport screenshot"
+				},
+				"son_screenshot": {
+					"type": "string",
+					"description": "Base64-encoded son viewport screenshot"
+				}
 			}
 		},
 		"StateEvent": {
