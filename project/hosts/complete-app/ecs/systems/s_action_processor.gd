@@ -2,11 +2,20 @@ class_name S_ActionProcessor
 extends System
 
 ## Processes semantic actions from the GameActions bus.
-## Handles movement (with cooldown) and interactions.
+## Uses debounced movement: first press fires instantly, repeats only
+## start after a hold threshold (move_repeat_delay). Prevents stale
+## queued moves from firing after key release.
 
 var _cooldown_timer := 0.0
 var _pending_move := Vector2i.ZERO
 var _pending_interact := false
+
+## Tracks how long the current direction has been held continuously.
+var _hold_timer := 0.0
+## The direction being held (ZERO = nothing held).
+var _held_direction := Vector2i.ZERO
+## Whether the initial (instant) move has fired for this hold.
+var _initial_move_fired := false
 
 func _init() -> void:
 	GameActions.action_move.connect(_on_move)
@@ -24,9 +33,32 @@ func query() -> QueryBuilder:
 func process(entities: Array[Entity], _components: Array, delta: float) -> void:
 	_cooldown_timer -= delta
 
-	if _pending_move != Vector2i.ZERO and _cooldown_timer <= 0.0:
-		_process_move(entities, _pending_move)
-		_pending_move = Vector2i.ZERO
+	var current_input := _pending_move
+	# Always consume pending — S_PlayerInput will re-set it next frame if key still held.
+	_pending_move = Vector2i.ZERO
+
+	if current_input != Vector2i.ZERO:
+		if current_input == _held_direction:
+			# Same direction still held — accumulate hold time.
+			_hold_timer += delta
+		else:
+			# New direction — reset hold tracking.
+			_held_direction = current_input
+			_hold_timer = 0.0
+			_initial_move_fired = false
+
+		if not _initial_move_fired and _cooldown_timer <= 0.0:
+			# First press: fire immediately.
+			_process_move(entities, current_input)
+			_initial_move_fired = true
+		elif _initial_move_fired and _hold_timer >= GameConfig.move_repeat_delay and _cooldown_timer <= 0.0:
+			# Held past debounce threshold: allow repeat moves at cooldown rate.
+			_process_move(entities, current_input)
+	else:
+		# No input this frame — reset hold state.
+		_held_direction = Vector2i.ZERO
+		_hold_timer = 0.0
+		_initial_move_fired = false
 
 	if _pending_interact:
 		_process_interact(entities)

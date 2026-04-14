@@ -15,3 +15,5 @@ var map_height: int = 0
 ## Movement tuning.
 var move_speed: float = 8.0
 var move_cooldown: float = 0.15
+## How long a direction must be held before repeat moves start (debounce).
+var move_repeat_delay: float = 0.20
