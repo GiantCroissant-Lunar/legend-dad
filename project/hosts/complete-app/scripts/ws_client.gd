@@ -124,6 +124,9 @@ func _handle_command(msg: Dictionary) -> void:
 			TimeService.step_frame()
 			_send_command_ack(cmd_id, true)
 
+		"screenshot":
+			_handle_screenshot(cmd_id, payload)
+
 		_:
 			_send_command_ack(cmd_id, false, "unknown action: %s" % action)
 
@@ -215,6 +218,58 @@ func send_state_event(event_name: String, data: Dictionary) -> void:
 func _send_json(data: Dictionary) -> void:
 	if _connected:
 		_socket.send_text(JSON.stringify(data))
+
+func _handle_screenshot(cmd_id: String, payload: Dictionary) -> void:
+	var viewport_target: String = payload.get("viewport", "active")
+	var format: String = payload.get("format", "jpeg")
+	var quality: int = payload.get("quality", 80)
+	var max_width: int = payload.get("max_width", 0)
+
+	var main_node = get_tree().root.get_node_or_null("Main")
+	if not main_node:
+		_send_command_ack(cmd_id, false, "Main node not found")
+		return
+
+	var ack := { "type": "command_ack", "id": cmd_id, "success": true, "error": null }
+
+	if viewport_target == "both":
+		ack["father_screenshot"] = _capture_viewport(main_node.father_view, format, quality, max_width)
+		ack["son_screenshot"] = _capture_viewport(main_node.son_view, format, quality, max_width)
+	else:
+		var view: SubViewportContainer
+		if viewport_target == "father":
+			view = main_node.father_view
+		elif viewport_target == "son":
+			view = main_node.son_view
+		else:
+			# "active" — use current era
+			if main_node.active_era == C_TimelineEra.Era.FATHER:
+				view = main_node.father_view
+			else:
+				view = main_node.son_view
+		ack["screenshot"] = _capture_viewport(view, format, quality, max_width)
+
+	_send_json(ack)
+
+func _capture_viewport(view: SubViewportContainer, format: String, quality: int, max_width: int) -> String:
+	var viewport = view.get_node("SubViewport") as SubViewport
+	var image := viewport.get_texture().get_image()
+
+	if max_width > 0 and image.get_width() > max_width:
+		var ratio := float(max_width) / float(image.get_width())
+		var new_height := int(float(image.get_height()) * ratio)
+		image.resize(max_width, new_height)
+
+	var buffer: PackedByteArray
+	var mime: String
+	if format == "png":
+		buffer = image.save_png_to_buffer()
+		mime = "image/png"
+	else:
+		buffer = image.save_jpg_to_buffer(clamp(quality, 1, 100) / 100.0)
+		mime = "image/jpeg"
+
+	return "data:%s;base64,%s" % [mime, Marshalls.raw_to_base64(buffer)]
 
 func _vec2i_to_string(v: Vector2i) -> String:
 	if v == Vector2i.UP: return "up"
