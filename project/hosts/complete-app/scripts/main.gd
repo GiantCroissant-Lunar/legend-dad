@@ -284,6 +284,27 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey and event.pressed and event.keycode == KEY_M:
 		get_viewport().set_input_as_handled()
 		_toggle_map()
+	# P toggles pause
+	if event is InputEventKey and event.pressed and event.keycode == KEY_P:
+		get_viewport().set_input_as_handled()
+		if TimeService.get_state()["paused"]:
+			TimeService.resume()
+		else:
+			TimeService.pause()
+	# N steps one frame (while paused)
+	if event is InputEventKey and event.pressed and event.keycode == KEY_N:
+		get_viewport().set_input_as_handled()
+		TimeService.step_frame()
+	# [ decreases speed
+	if event is InputEventKey and event.pressed and event.keycode == KEY_BRACKETLEFT:
+		get_viewport().set_input_as_handled()
+		var state = TimeService.get_state()
+		TimeService.set_speed(state["speed"] - 0.25)
+	# ] increases speed
+	if event is InputEventKey and event.pressed and event.keycode == KEY_BRACKETRIGHT:
+		get_viewport().set_input_as_handled()
+		var state = TimeService.get_state()
+		TimeService.set_speed(state["speed"] + 0.25)
 
 func _process(delta: float) -> void:
 	if in_battle:
@@ -635,12 +656,19 @@ func _update_debug_hud() -> void:
 
 	var entity_count = ECS.world.query.with_all([C_GridPosition]).execute().size()
 
+	var time_state = TimeService.get_state()
+	var time_text := ""
+	if time_state["paused"]:
+		time_text = "Time: PAUSED"
+	else:
+		time_text = "Time: %.2fx" % time_state["speed"]
+
 	_debug_label.text = (
 		"Era: %s | Pos: (%d,%d) | Facing: %s\n" % [era_name, gp.col if gp else 0, gp.row if gp else 0, facing_name]
 		+ "Looking at: (%d,%d) = %s\n" % [target_col, target_row, facing_content]
 		+ "Boulder: %s | Blocked: %s\n" % [
 			"DEFAULT" if boulder_state.state == C_Interactable.InteractState.DEFAULT else "ACTIVATED",
 			"DEFAULT" if blocked_state.state == C_Interactable.InteractState.DEFAULT else "ACTIVATED"]
-		+ "Entities in world: %d\n" % entity_count
-		+ "Controls: Arrows=move | Tab=switch era | M=map | E=interact"
+		+ "Entities in world: %d | %s\n" % [entity_count, time_text]
+		+ "Controls: Arrows=move | Tab=era | M=map | E=interact | P=pause | N=step | []=speed"
 	)
