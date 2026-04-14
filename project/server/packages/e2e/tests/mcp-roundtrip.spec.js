@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const MCP_URL = "http://localhost:3000/mcp";
+const MCP_URL = "http://localhost:7600/mcp";
 const MCP_HEADERS = {
 	"Content-Type": "application/json",
 	Accept: "application/json, text/event-stream",

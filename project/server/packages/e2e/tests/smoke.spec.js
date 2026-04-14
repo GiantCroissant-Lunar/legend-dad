@@ -23,7 +23,7 @@ test.describe("Godot web build smoke test", () => {
 		await page.goto("/");
 
 		const ws = await wsPromise;
-		expect(ws.url()).toContain("localhost:3000");
+		expect(ws.url()).toContain("localhost:7600");
 
 		// Wait for handshake to complete
 		const framePromise = ws.waitForEvent("framesent", {

@@ -17,7 +17,7 @@ import { Recorder } from "./replay/recorder.js";
 import { GameStateStore } from "./state/store.js";
 import { ConnectionManager } from "./ws/connection.js";
 
-const PORT = Number.parseInt(process.env.PORT || "3000", 10);
+const PORT = Number.parseInt(process.env.PORT || "7600", 10);
 
 async function main() {
 	// --- State & connections ---
@@ -72,6 +72,18 @@ async function main() {
 	const server = createServer(async (req, res) => {
 		const url = new URL(req.url || "", `http://localhost:${PORT}`);
 
+		// CORS preflight for cross-origin requests (web build on different port)
+		if (req.method === "OPTIONS") {
+			res.writeHead(204, {
+				"Access-Control-Allow-Origin": "*",
+				"Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+				"Access-Control-Allow-Headers": "Content-Type",
+				"Access-Control-Max-Age": "86400",
+			});
+			res.end();
+			return;
+		}
+
 		// MCP Streamable HTTP endpoint
 		if (url.pathname === "/mcp") {
 			try {
@@ -106,6 +118,7 @@ async function main() {
 					"Content-Type": "application/octet-stream",
 					"Content-Length": stat.size,
 					"Access-Control-Allow-Origin": "*",
+					"Cross-Origin-Resource-Policy": "cross-origin",
 				});
 				createReadStream(pckPath).pipe(res);
 			} catch {

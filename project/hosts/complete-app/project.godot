@@ -25,6 +25,7 @@ GameActions="*res://scripts/game_actions.gd"
 LocationManager="*res://scripts/location_manager.gd"
 GameConfig="*res://scripts/game_config.gd"
 TimeService="*res://scripts/time_service.gd"
+ActivityLog="*res://scripts/ui/activity_log.gd"
 
 [editor_plugins]
 

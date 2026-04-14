@@ -39,10 +39,15 @@ var _debug_label: Label
 # Battle state
 var in_battle := false
 var _battle_manager: BattleManager = null
-var _battle_ui: BattleUI = null
+var _battle_overlay: BattleOverlay = null
 var _battle_enemy_entity: E_Enemy = null
 var _battle_enemy_visual: EntityVisual = null
 var _ws_client: Node = null
+
+# HUD layer (z=50) — hosts activity log, mini-map, battle overlay
+var _hud_layer: CanvasLayer = null
+var _activity_log_panel: ActivityLogPanel = null
+var _mini_map_panel: MiniMapPanel = null
 
 # Enemy entities
 var _enemy_entities: Array[E_Enemy] = []
@@ -141,6 +146,22 @@ func _ready() -> void:
 	add_child(hud_layer)
 	hud_layer.add_child(_debug_label)
 
+	# --- HUD Layer (z=50): activity log, mini-map, battle overlay ---
+	_hud_layer = CanvasLayer.new()
+	_hud_layer.name = "HUDLayer"
+	_hud_layer.layer = 50
+	add_child(_hud_layer)
+
+	_activity_log_panel = ActivityLogPanel.new()
+	_activity_log_panel.name = "ActivityLogPanel"
+	_hud_layer.add_child(_activity_log_panel)
+
+	_mini_map_panel = MiniMapPanel.new()
+	_mini_map_panel.name = "MiniMapPanel"
+	_hud_layer.add_child(_mini_map_panel)
+
+	ActivityLog.log_msg("Entered Whispering Woods")
+
 	# --- Spawn overworld enemies ---
 	_spawn_enemy(C_TimelineEra.Era.FATHER, 4, 4, "slime")
 	_spawn_enemy(C_TimelineEra.Era.FATHER, 7, 6, "slime")
@@ -153,12 +174,14 @@ func _ready() -> void:
 	_ws_client = ws_client
 
 	GameActions.action_switch_era.connect(_switch_active_era)
+	GameActions.action_interact.connect(_try_enemy_encounter)
 	GameActions.state_changed.connect(func(event_name: String, data: Dictionary):
 		_ws_client.send_state_event(event_name, data)
 	)
 
 	_update_layout()
 	get_viewport().size_changed.connect(_update_layout)
+	_ready_complete = true
 
 func _create_visual(view: SubViewportContainer, entity: Entity, type: EntityVisual.VisualType) -> void:
 	var visual = EntityVisual.new()
@@ -193,7 +216,9 @@ func _spawn_enemy(era: C_TimelineEra.Era, col: int, row: int, enemy_type: String
 	_visuals.append(visual)
 	_enemy_visuals.append(visual)
 
-func _check_enemy_encounter() -> void:
+func _try_enemy_encounter() -> void:
+	if in_battle or not _ready_complete:
+		return
 	var active_player = father_player if active_era == C_TimelineEra.Era.FATHER else son_player
 	var player_gp = active_player.get_component(C_GridPosition) as C_GridPosition
 	var player_era = active_player.get_component(C_TimelineEra) as C_TimelineEra
@@ -210,23 +235,25 @@ func _check_enemy_encounter() -> void:
 			continue
 		var e_gp = enemy.get_component(C_GridPosition) as C_GridPosition
 		if e_gp.col == face_col and e_gp.row == face_row:
-			if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
-				_start_battle(enemy, _enemy_visuals[i])
-				return
+			_start_battle(enemy, _enemy_visuals[i])
+			return
 
 func _start_battle(enemy_entity: E_Enemy, enemy_visual: EntityVisual) -> void:
 	in_battle = true
 	_battle_enemy_entity = enemy_entity
 	_battle_enemy_visual = enemy_visual
 
-	var active_view = father_view if active_era == C_TimelineEra.Era.FATHER else son_view
-	var viewport = active_view.get_node("SubViewport")
+	# Create battle overlay on the HUD layer
+	_battle_overlay = BattleOverlay.new()
+	_battle_overlay.name = "BattleOverlay"
+	_hud_layer.add_child(_battle_overlay)
 
-	_battle_ui = BattleUI.new()
-	_battle_ui.name = "BattleUI"
-	_battle_ui.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	_battle_ui.z_index = 100
-	viewport.add_child(_battle_ui)
+	# Dim the active view
+	var active_view = father_view if active_era == C_TimelineEra.Era.FATHER else son_view
+	active_view.modulate.a = 0.5
+
+	# Position the overlay
+	_update_hud_layout(get_viewport_rect().size)
 
 	_battle_manager = BattleManager.new()
 	_battle_manager.name = "BattleManager"
@@ -246,18 +273,25 @@ func _start_battle(enemy_entity: E_Enemy, enemy_visual: EntityVisual) -> void:
 	var enemy_combatants: Array[Combatant] = []
 	enemy_combatants.append(Combatant.from_dict(enemy_data, true))
 
-	_battle_manager.start_battle(party_combatants, enemy_combatants, _battle_ui)
+	ActivityLog.log_battle_start()
+	_battle_manager.start_battle(party_combatants, enemy_combatants, _battle_overlay)
 
 func _on_battle_ended(result: Dictionary) -> void:
 	in_battle = false
 
-	if _battle_ui:
-		_battle_ui.queue_free()
-		_battle_ui = null
+	ActivityLog.log_battle_end()
+
+	if _battle_overlay:
+		_battle_overlay.queue_free()
+		_battle_overlay = null
 	if _battle_manager:
 		_battle_manager.battle_ended.disconnect(_on_battle_ended)
 		_battle_manager.queue_free()
 		_battle_manager = null
+
+	# Restore active view brightness
+	var active_view = father_view if active_era == C_TimelineEra.Era.FATHER else son_view
+	active_view.modulate.a = 1.0
 
 	if result.get("won", false) or result.get("fled", false):
 		if _battle_enemy_visual:
@@ -270,7 +304,13 @@ func _on_battle_ended(result: Dictionary) -> void:
 		_battle_enemy_entity = null
 		_battle_enemy_visual = null
 
+		if result.get("won", false):
+			ActivityLog.log_msg("Victory! Gained %d EXP, %d gold." % [result.get("exp", 0), result.get("gold", 0)])
+		else:
+			ActivityLog.log_msg("Escaped from battle.")
+
 	if not result.get("won", false) and not result.get("fled", false):
+		ActivityLog.log_msg("The party was defeated...")
 		get_tree().reload_current_scene()
 
 func _input(event: InputEvent) -> void:
@@ -306,14 +346,17 @@ func _input(event: InputEvent) -> void:
 		var state = TimeService.get_state()
 		TimeService.set_speed(state["speed"] + 0.25)
 
+var _ready_complete := false
+
 func _process(delta: float) -> void:
+	if not _ready_complete:
+		return  # _ready() still awaiting (PCK fetch, etc.)
 	if in_battle:
 		return  # BattleManager drives its own _process
 	ECS.process(delta)
 	_sync_visuals()
 	_update_cameras()
 	_update_debug_hud()
-	_check_enemy_encounter()
 
 func _sync_visuals() -> void:
 	for visual in _visuals:
@@ -357,6 +400,7 @@ func _switch_active_era() -> void:
 		father_player.get_component(C_PlayerControlled).active = true
 		son_player.get_component(C_PlayerControlled).active = false
 	_update_layout()
+	ActivityLog.log_msg("Switched to %s ERA" % ("FATHER" if active_era == C_TimelineEra.Era.FATHER else "SON"))
 	LocationManager.swap_era(active_era)
 	# Re-render tilemaps with correct era overlay
 	_rerender_tilemap(father_tilemap, C_TimelineEra.Era.FATHER)
@@ -421,8 +465,11 @@ func _update_layout() -> void:
 		tween.tween_property(inactive_view_node, "position", inactive_pos, 0.3) \
 			.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 
-		active_view_node.modulate.a = 1.0
+		active_view_node.modulate.a = 1.0 if not in_battle else 0.5
 		inactive_view_node.modulate.a = 0.75
+
+	# Position HUD panels
+	_update_hud_layout(viewport_size)
 
 func _load_ldtk_level(level_name: String) -> void:
 	var project = LocationManager.get_ldtk_project()
@@ -582,6 +629,29 @@ func _update_camera_zoom(view: SubViewportContainer, viewport_height: float) -> 
 	var target_zoom := viewport_height / map_pixel_height
 	camera.zoom = Vector2(target_zoom, target_zoom)
 
+
+func _update_hud_layout(viewport_size: Vector2) -> void:
+	if _activity_log_panel:
+		var log_w := viewport_size.x * 0.35
+		var log_h := viewport_size.y * 0.35
+		_activity_log_panel.position = Vector2(20, viewport_size.y - log_h - 20)
+		_activity_log_panel.size = Vector2(log_w, log_h)
+
+	if _mini_map_panel:
+		var map_w := viewport_size.x * 0.15
+		var map_h := viewport_size.y * 0.15
+		# Ensure minimum usable size
+		map_w = maxf(map_w, 100)
+		map_h = maxf(map_h, 100)
+		_mini_map_panel.position = Vector2(viewport_size.x - map_w - 20, 20)
+		_mini_map_panel.size = Vector2(map_w, map_h)
+
+	if _battle_overlay:
+		# Same size and position as active view
+		var active_w := viewport_size.x * ACTIVE_VIEW_SCALE
+		var active_h := viewport_size.y * ACTIVE_VIEW_SCALE
+		_battle_overlay.position = Vector2(20, 20)
+		_battle_overlay.size = Vector2(active_w, active_h)
 
 func _rerender_tilemap(tilemap: TileMapLayer, era: C_TimelineEra.Era) -> void:
 	var source_id := 0

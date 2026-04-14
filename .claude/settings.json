@@ -1,7 +1,7 @@
 {
 	"mcpServers": {
 		"legend-dad-game": {
-			"url": "http://localhost:3000/mcp"
+			"url": "http://localhost:7600/mcp"
 		}
 	}
 }

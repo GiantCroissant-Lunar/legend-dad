@@ -8,7 +8,7 @@ enum State { INTRO, COMMAND, TARGET_SELECT, RESOLVE, VICTORY, DEFEAT, FLEE }
 var state: State = State.INTRO
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
-var ui: BattleUI = null
+var ui: BattleOverlay = null
 
 var _current_member_idx: int = 0
 var _turn_commands: Array[Dictionary] = []
@@ -20,7 +20,7 @@ const MESSAGE_DELAY := 0.6
 var _input_cooldown: float = 0.0
 const INPUT_COOLDOWN := 0.15
 
-func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: BattleUI) -> void:
+func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: BattleOverlay) -> void:
 	party = p_party
 	enemies = p_enemies
 	ui = p_ui
@@ -30,7 +30,6 @@ func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: 
 
 	ui.enemies = enemies
 	ui.party = party
-	ui.message_lines.clear()
 	ui.show_menu = false
 	ui.show_target_select = false
 
@@ -285,6 +284,6 @@ func _process_flee(delta: float) -> void:
 			battle_ended.emit({"won": false, "exp": 0, "gold": 0, "fled": true})
 
 func _add_message(text: String) -> void:
-	ui.message_lines.append(text)
-	if ui.message_lines.size() > 20:
-		ui.message_lines.pop_front()
+	ActivityLog.log_msg(text)
+	if ui:
+		ui.show_flash(text)

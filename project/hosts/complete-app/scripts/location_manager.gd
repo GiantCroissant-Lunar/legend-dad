@@ -15,7 +15,7 @@ signal location_unloaded(location_name: String)
 const LOCATIONS_PATH := "res://data/locations.json"
 const PCK_BASE_DIR := "res://locations/"
 const LDTK_PROJECT_PATH := "res://ldtk/legend-dad.ldtk"
-const PCK_SERVER_URL := "http://localhost:3000/pck/"
+const PCK_SERVER_URL := "http://localhost:7600/pck/"
 
 var _current_location := ""
 var _current_biome := ""
@@ -223,6 +223,10 @@ func get_ldtk_project() -> Dictionary:
 
 func set_collision_grid(era: C_TimelineEra.Era, grid: Dictionary) -> void:
 	_collision_grids[era] = grid
+
+
+func get_collision_grid(era: C_TimelineEra.Era) -> Dictionary:
+	return _collision_grids.get(era, {})
 
 
 func is_walkable(era: C_TimelineEra.Era, col: int, row: int) -> bool:

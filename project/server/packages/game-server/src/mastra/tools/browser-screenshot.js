@@ -18,7 +18,7 @@ export function createBrowserScreenshotTool() {
 				),
 			game_url: z
 				.string()
-				.default("http://localhost:8080")
+				.default("http://localhost:7601")
 				.describe("URL of the running game"),
 		}),
 		outputSchema: z.object({
@@ -45,7 +45,7 @@ export function createBrowserScreenshotTool() {
 
 				browser = await chromium.launch({ headless: true });
 				const page = await browser.newPage();
-				await page.goto(input.game_url || "http://localhost:8080", {
+				await page.goto(input.game_url || "http://localhost:7601", {
 					waitUntil: "networkidle",
 					timeout: 10000,
 				});

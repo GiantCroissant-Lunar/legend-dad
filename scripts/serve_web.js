@@ -6,7 +6,7 @@
  *
  * Supports HTTPS mode for cross-machine testing (Godot requires secure context).
  * Usage:
- *   node serve_web.js [root_dir]           # HTTP on :8080
+ *   node serve_web.js [root_dir]           # HTTP on :7601
  *   SERVE_HTTPS=1 node serve_web.js        # HTTPS on :8443 with self-signed cert
  */
 
@@ -19,7 +19,7 @@ import { extname, join, resolve } from "node:path";
 import { networkInterfaces } from "node:os";
 
 const USE_HTTPS = process.env.SERVE_HTTPS === "1";
-const PORT = Number.parseInt(process.env.SERVE_PORT || (USE_HTTPS ? "8443" : "8080"), 10);
+const PORT = Number.parseInt(process.env.SERVE_PORT || (USE_HTTPS ? "8443" : "7601"), 10);
 const ROOT = resolve(process.argv[2] || "build/_artifacts/latest/web");
 const CERT_DIR = resolve("build/_certs");
 

@@ -5,7 +5,7 @@ export default defineConfig({
 	timeout: 60_000,
 	retries: 0,
 	use: {
-		baseURL: "http://localhost:8080",
+		baseURL: "http://localhost:7601",
 		screenshot: "only-on-failure",
 		trace: "retain-on-failure",
 	},
@@ -20,14 +20,14 @@ export default defineConfig({
 		{
 			command: "node src/index.js",
 			cwd: "../game-server",
-			port: 3000,
+			port: 7600,
 			reuseExistingServer: true,
 			timeout: 10_000,
 		},
 		{
 			command:
 				"node ../../../../scripts/serve_web.js ../../../../build/_artifacts/latest/web",
-			port: 8080,
+			port: 7601,
 			reuseExistingServer: true,
 			timeout: 10_000,
 		},

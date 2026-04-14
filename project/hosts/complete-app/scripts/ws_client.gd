@@ -9,7 +9,7 @@ const DIRECTION_MAP := {
 	"right": Vector2i.RIGHT,
 }
 
-@export var server_url := "ws://localhost:3000"
+@export var server_url := "ws://localhost:7600"
 
 var _socket := WebSocketPeer.new()
 var _connected := false
