@@ -88,10 +88,11 @@ task pck:build -- {location}        # Full PCK build (manifest + Godot pack)
 2. **Pre-commit must pass** — never skip hooks (`--no-verify` is forbidden)
 3. **biome + ruff must pass** before committing
 4. **No hardcoded ports or secrets** in source — use env vars
-5. **Build artifacts never committed** — `build/_artifacts/` is gitignored
-6. **GDScript follows Godot style guide** — tabs, snake_case
-7. **JS uses `const`/`let`** — never `var`
-8. **All documentation in `vault/`** — no `docs/` directory
+5. **No hardcoded adjustable values** — tile sizes, grid dimensions, speeds, cooldowns, zoom levels, and any gameplay-tunable constant must be read from data (LDtk project, config files, scene metadata) or defined in a single shared config source. Never scatter magic numbers across files. If a value could reasonably change, it must have exactly one source of truth.
+6. **Build artifacts never committed** — `build/_artifacts/` is gitignored
+7. **GDScript follows Godot style guide** — tabs, snake_case
+8. **JS uses `const`/`let`** — never `var`
+9. **All documentation in `vault/`** — no `docs/` directory
 
 ## Ports
 
