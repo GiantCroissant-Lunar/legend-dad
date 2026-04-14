@@ -79,12 +79,13 @@ describe("MCP Initialize", () => {
 });
 
 describe("MCP tools/list", () => {
-	it("returns all 10 tools", async () => {
+	it("returns all 11 tools", async () => {
 		const tools = await mcpRequest("tools/list", {}, 2);
 
 		expect(tools.status).toBe(200);
 		const toolNames = tools.body.result.tools.map((t) => t.name).sort();
 		expect(toolNames).toEqual([
+			"browser_screenshot",
 			"get_state",
 			"interact",
 			"move",

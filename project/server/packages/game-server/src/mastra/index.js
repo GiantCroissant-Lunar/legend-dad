@@ -1,5 +1,6 @@
 // project/server/packages/game-server/src/mastra/index.js
 import { MCPServer } from "@mastra/mcp";
+import { createBrowserScreenshotTool } from "./tools/browser-screenshot.js";
 import { createGetStateTool } from "./tools/get-state.js";
 import { createInteractTool } from "./tools/interact.js";
 import { createMoveTool } from "./tools/move.js";
@@ -30,6 +31,7 @@ export function createMastraServer(connMgr, stateStore, eventRegistry) {
 	const resumeTimeTool = createResumeTimeTool(connMgr);
 	const stepFrameTool = createStepFrameTool(connMgr);
 	const screenshotTool = createScreenshotTool(connMgr);
+	const browserScreenshotTool = createBrowserScreenshotTool();
 
 	const tools = {
 		move: moveTool,
@@ -41,6 +43,7 @@ export function createMastraServer(connMgr, stateStore, eventRegistry) {
 		resume_time: resumeTimeTool,
 		step_frame: stepFrameTool,
 		screenshot: screenshotTool,
+		browser_screenshot: browserScreenshotTool,
 	};
 
 	// Add poll_events only when an event registry is provided (MCP mode)
