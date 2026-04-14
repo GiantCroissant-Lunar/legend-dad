@@ -22,9 +22,9 @@ const GROUND_TOP = Color(0.12, 0.25, 0.1)
 const GROUND_BOTTOM = Color(0.08, 0.15, 0.06)
 
 # --- Zone proportions ---
-const MONSTER_ZONE = 0.55
-const COMMAND_ZONE = 0.20
-const STATUS_ZONE = 0.25
+const MONSTER_ZONE = 0.70
+const COMMAND_ZONE = 0.15
+const STATUS_ZONE = 0.15
 
 # --- State (set by BattleManager) ---
 var enemies: Array[Combatant] = []
@@ -109,32 +109,36 @@ func _draw_monsters(sz: Vector2, area_h: float) -> void:
 		return
 
 	var spacing: float = sz.x / (enemies.size() + 1)
-	var ground_y: float = area_h * 0.65
 
 	for i in enemies.size():
 		var enemy: Combatant = enemies[i]
 		var cx: float = spacing * (i + 1)
-		var cy: float = ground_y + (area_h - ground_y) * 0.4
+		# Scale monster size with available monster zone height; clamp to keep
+		# reasonable size on tiny/huge screens.
+		var sil_h: float = clampf(area_h * 0.55, 120.0, 280.0)
+		var sil_w: float = sil_h * 0.85
+		# Place center so feet + labels (name + HP) fit above the zone bottom.
+		var cy: float = area_h - sil_h * 0.5 - 60.0
 
 		if enemy.is_alive:
-			var sil_w: float = 40.0
-			var sil_h: float = 50.0
 			var sil_color: Color = Color(0.1, 0.1, 0.12).lerp(enemy.color, 0.3)
 
 			_draw_silhouette(Vector2(cx, cy), sil_w, sil_h, sil_color)
 
-			draw_string(ThemeDB.fallback_font, Vector2(cx - 25, cy + sil_h / 2 + 14),
-				enemy.combatant_name, HORIZONTAL_ALIGNMENT_LEFT, -1, 11, TEXT_COLOR)
+			var name_font: int = 22
+			var hp_font: int = 18
+			draw_string(ThemeDB.fallback_font, Vector2(cx - sil_w * 0.5, cy + sil_h / 2 + name_font + 4),
+				enemy.combatant_name, HORIZONTAL_ALIGNMENT_LEFT, -1, name_font, TEXT_COLOR)
 
 			var hp_text: String = "%d/%d" % [enemy.hp, enemy.max_hp]
-			draw_string(ThemeDB.fallback_font, Vector2(cx - 18, cy + sil_h / 2 + 26),
-				hp_text, HORIZONTAL_ALIGNMENT_LEFT, -1, 9, Color(0.6, 0.6, 0.6))
+			draw_string(ThemeDB.fallback_font, Vector2(cx - sil_w * 0.35, cy + sil_h / 2 + name_font + hp_font + 10),
+				hp_text, HORIZONTAL_ALIGNMENT_LEFT, -1, hp_font, Color(0.7, 0.7, 0.7))
 		else:
-			_draw_silhouette(Vector2(cx, cy + 10), 25, 20, Color(0.15, 0.15, 0.15, 0.4))
+			_draw_silhouette(Vector2(cx, cy + 10), sil_w * 0.55, sil_h * 0.4, Color(0.15, 0.15, 0.15, 0.4))
 
 		if show_target_select and i == target_cursor and enemy.is_alive:
-			draw_string(ThemeDB.fallback_font, Vector2(cx - 6, cy - 35), "▼",
-				HORIZONTAL_ALIGNMENT_LEFT, -1, 18, MENU_HIGHLIGHT)
+			draw_string(ThemeDB.fallback_font, Vector2(cx - 12, cy - sil_h * 0.5 - 8), "▼",
+				HORIZONTAL_ALIGNMENT_LEFT, -1, 32, MENU_HIGHLIGHT)
 
 func _draw_silhouette(center: Vector2, w: float, h: float, color: Color) -> void:
 	var points = PackedVector2Array()
@@ -151,8 +155,10 @@ func _draw_silhouette(center: Vector2, w: float, h: float, color: Color) -> void
 
 	var eye_y: float = center.y - half_h * 0.2
 	var eye_spacing: float = half_w * 0.4
-	draw_circle(Vector2(center.x - eye_spacing, eye_y), 3.0, Color(0.9, 0.2, 0.2, 0.8))
-	draw_circle(Vector2(center.x + eye_spacing, eye_y), 3.0, Color(0.9, 0.2, 0.2, 0.8))
+	# Scale eye radius with silhouette size so they stay visually proportional.
+	var eye_radius: float = maxf(3.0, half_h * 0.10)
+	draw_circle(Vector2(center.x - eye_spacing, eye_y), eye_radius, Color(0.9, 0.2, 0.2, 0.9))
+	draw_circle(Vector2(center.x + eye_spacing, eye_y), eye_radius, Color(0.9, 0.2, 0.2, 0.9))
 
 func _draw_flash_message(sz: Vector2, area_h: float) -> void:
 	if flash_message.is_empty():
