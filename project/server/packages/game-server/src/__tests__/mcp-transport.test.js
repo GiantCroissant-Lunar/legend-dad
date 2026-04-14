@@ -79,7 +79,7 @@ describe("MCP Initialize", () => {
 });
 
 describe("MCP tools/list", () => {
-	it("returns all 5 tools", async () => {
+	it("returns all 10 tools", async () => {
 		const tools = await mcpRequest("tools/list", {}, 2);
 
 		expect(tools.status).toBe(200);
@@ -88,7 +88,12 @@ describe("MCP tools/list", () => {
 			"get_state",
 			"interact",
 			"move",
+			"pause_time",
 			"poll_events",
+			"resume_time",
+			"screenshot",
+			"set_time_speed",
+			"step_frame",
 			"switch_era",
 		]);
 	});
