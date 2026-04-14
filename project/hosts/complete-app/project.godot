@@ -23,6 +23,7 @@ ECS="*uid://dfqwl5njvdnmq"
 GUIDE="*res://addons/guide/guide.gd"
 GameActions="*res://scripts/game_actions.gd"
 LocationManager="*res://scripts/location_manager.gd"
+GameConfig="*res://scripts/game_config.gd"
 
 [editor_plugins]
 
