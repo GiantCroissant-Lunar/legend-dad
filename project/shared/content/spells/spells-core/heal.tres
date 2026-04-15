@@ -14,3 +14,4 @@ power_min = 25
 power_max = 30
 element = ""
 status_effect = ""
+learn_level = 3

@@ -5,6 +5,6 @@
   "deps": [],
   "include": ["*.tres"],
   "provides": {
-    "spells": ["heal", "healmore", "hurt", "sleep"]
+    "spells": ["heal", "healmore", "hurt", "sleep", "stopspell"]
   }
 }

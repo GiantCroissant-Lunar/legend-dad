@@ -7,7 +7,7 @@ const FATHER_STATS := {
 	"atk": 15,
 	"def": 10,
 	"spd": 8,
-	"level": 3,
+	"level": 4,
 	"spells": ["hurt"],
 }
 
@@ -18,11 +18,13 @@ const SON_STATS := {
 	"atk": 12,
 	"def": 8,
 	"spd": 10,
-	"level": 2,
-	# DQ1 level gates: Heal L3, Hurt L4, Sleep L7, Healmore L15.
-	# Gating by level is pre-MVP — Son knows the full caster kit so we
-	# can iterate on spell behavior without a progression system.
-	"spells": ["heal", "healmore", "hurt", "sleep"],
+	# Son starts at Lv 7: DQ1 level gates filter his known_spells list
+	# so he has Heal (L3), Hurt (L4), Sleep (L7) available at battle
+	# start, but Stopspell (L10) and Healmore (L15) stay gated until a
+	# level-up system is wired. The full kit is listed so a future
+	# set_level(N) path reveals them as Son levels up, no schema churn.
+	"level": 7,
+	"spells": ["heal", "healmore", "hurt", "sleep", "stopspell"],
 }
 
 const ALLY1_STATS := {

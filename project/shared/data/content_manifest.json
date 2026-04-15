@@ -40,7 +40,8 @@
           "wolf",
           "skeleton",
           "dracky",
-          "metal_scorpion"
+          "metal_scorpion",
+          "magician"
         ]
       },
       "content_hash": "463b56"
@@ -55,7 +56,8 @@
           "heal",
           "healmore",
           "hurt",
-          "sleep"
+          "sleep",
+          "stopspell"
         ]
       },
       "content_hash": "d99fd9"

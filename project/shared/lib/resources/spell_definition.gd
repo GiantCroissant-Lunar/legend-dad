@@ -41,3 +41,10 @@ class_name SpellDefinition
 # migration.
 @export var element: String = ""       # "fire", "ice" — visual tint only for now
 @export var status_effect: String = "" # "sleep", "poison" — unused pre-status-system
+
+# Minimum caster level required to use this spell. DQ1 canon gates spells
+# by hero level (Heal L3, Hurt L4, Sleep L7, Stopspell L10, Healmore L15).
+# The battle menu filters out spells where `learn_level > caster.level` —
+# so a caster's `known_spells` list is the upper bound of their kit, and
+# this field enforces the rollout schedule. Default 1 = always learnable.
+@export var learn_level: int = 1

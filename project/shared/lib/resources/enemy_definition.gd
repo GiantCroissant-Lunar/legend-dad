@@ -33,6 +33,11 @@ class_name EnemyDefinition
 # Optional behavior tree (Beehave). Not used yet; kept for forward-compat.
 @export var behavior_tree: PackedScene
 
+# Spell ids this enemy can cast (resolved via ContentManager.get_spell_definition
+# at battle time). Enemies with max_mp > 0 AND at least one viable spell here
+# get a chance to queue a cast each turn — see BattleManager._maybe_queue_enemy_cast.
+@export var spells: PackedStringArray = PackedStringArray()
+
 # Returns a Dictionary in the shape Combatant.from_dict expects, so callers
 # don't need to know about the field-name difference between this Resource
 # (`attack`/`defense`/`xp_reward`/...) and the dict shape the battle code
@@ -49,4 +54,5 @@ func to_combat_dict() -> Dictionary:
 		"color": tint_color,
 		"exp": xp_reward,
 		"gold": gold_reward,
+		"spells": Array(spells),
 	}

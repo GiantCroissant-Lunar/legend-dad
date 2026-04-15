@@ -233,6 +233,220 @@ func test_tick_status_effects_no_status_returns_can_act() -> void:
 	assert_true(_bm._tick_status_effects(_enemy), "no status = actor acts freely")
 
 
+func test_poison_ticks_damage_and_decrements_counter() -> void:
+	_enemy.status_effects["poison"] = 3
+	var hp_before := _enemy.hp
+	var can_act := _bm._tick_status_effects(_enemy)
+	assert_true(can_act, "poison doesn't prevent the actor from acting")
+	assert_lt(_enemy.hp, hp_before, "poison must chip HP")
+	assert_eq(int(_enemy.status_effects["poison"]), 2, "counter decrements by 1 each tick")
+
+
+func test_poison_clears_when_counter_expires() -> void:
+	_enemy.status_effects["poison"] = 1
+	_bm._tick_status_effects(_enemy)
+	assert_false(_enemy.status_effects.has("poison"), "counter=1 -> erased on next tick")
+
+
+func test_paralysis_skips_turn_until_counter_expires() -> void:
+	_enemy.status_effects["paralysis"] = 2
+	assert_false(_bm._tick_status_effects(_enemy), "tick 1: still paralyzed, no act")
+	assert_eq(int(_enemy.status_effects["paralysis"]), 1, "counter decremented")
+	assert_true(_bm._tick_status_effects(_enemy), "tick 2: counter hit 0, released, can act")
+	assert_false(_enemy.status_effects.has("paralysis"), "status cleared")
+
+
+func test_stopspell_ticks_without_blocking_action() -> void:
+	_enemy.status_effects["stopspell"] = 2
+	var can_act := _bm._tick_status_effects(_enemy)
+	assert_true(can_act, "stopspell doesn't prevent action")
+	assert_eq(int(_enemy.status_effects["stopspell"]), 1, "counter decremented")
+
+
+func test_stopspell_clears_on_counter_expiry() -> void:
+	_enemy.status_effects["stopspell"] = 1
+	_bm._tick_status_effects(_enemy)
+	assert_false(_enemy.status_effects.has("stopspell"))
+
+
+func test_apply_status_effect_poison_always_lands_with_duration() -> void:
+	var poison := _make_spell({
+		"id": "poison",
+		"effect_kind": "status",
+		"status_effect": "poison",
+	})
+	_enemy.status_effects.clear()
+	assert_true(_bm._apply_status_effect(_enemy, poison), "poison has no resist roll")
+	assert_true(_enemy.status_effects.has("poison"))
+	var turns := int(_enemy.status_effects["poison"])
+	assert_true(turns >= 4 and turns <= 8, "poison 4-8 ticks, got %d" % turns)
+
+
+func test_apply_status_effect_stopspell_lands_at_least_once() -> void:
+	var stop := _make_spell({
+		"id": "stopspell",
+		"effect_kind": "status",
+		"status_effect": "stopspell",
+	})
+	var any_landed := false
+	for i in 20:
+		_enemy.status_effects.clear()
+		if _bm._apply_status_effect(_enemy, stop):
+			any_landed = true
+			var turns := int(_enemy.status_effects["stopspell"])
+			assert_true(turns >= 3 and turns <= 5, "stopspell 3-5 ticks, got %d" % turns)
+			break
+	assert_true(any_landed, "stopspell at 50%% should land at least once in 20 tries")
+
+
+func test_hit_wakes_sleeper_eventually_wakes_a_sleeping_target() -> void:
+	# 50% per-hit wake; over 20 trials, failure probability is 2^-20 ~ 1e-6.
+	var woke_at_least_once := false
+	for i in 20:
+		_enemy.status_effects["sleep"] = 3
+		_bm._check_hit_wakes_sleeper(_enemy)
+		if not _enemy.status_effects.has("sleep"):
+			woke_at_least_once = true
+			break
+	assert_true(woke_at_least_once, "50%% wake roll should land at least once in 20 hits")
+
+
+func test_hit_wakes_sleeper_no_op_on_non_sleeping_target() -> void:
+	_enemy.status_effects.clear()
+	assert_false(_bm._check_hit_wakes_sleeper(_enemy), "no-op when target isn't sleeping")
+	# Also confirms it doesn't spuriously add a status.
+	assert_false(_enemy.status_effects.has("sleep"))
+
+
+func test_gate_by_level_filters_above_caster_level() -> void:
+	var heal := _make_spell({"id": "heal", "learn_level": 3})
+	var hurt := _make_spell({"id": "hurt", "learn_level": 4})
+	var sleep_s := _make_spell({"id": "sleep", "learn_level": 7})
+	var stopspell := _make_spell({"id": "stopspell", "learn_level": 10})
+	var healmore := _make_spell({"id": "healmore", "learn_level": 15})
+	var all: Array[SpellDefinition] = [heal, hurt, sleep_s, stopspell, healmore]
+
+	var lvl7 := BattleManagerScript._gate_by_level(all, 7)
+	var ids_lvl7 := []
+	for d in lvl7: ids_lvl7.append(d.id)
+	assert_eq(ids_lvl7, ["heal", "hurt", "sleep"], "L7 caster sees Heal/Hurt/Sleep, not Stopspell/Healmore")
+
+	var lvl2 := BattleManagerScript._gate_by_level(all, 2)
+	assert_eq(lvl2.size(), 0, "L2 caster sees none — all spells gated above")
+
+	var lvl15 := BattleManagerScript._gate_by_level(all, 15)
+	assert_eq(lvl15.size(), 5, "L15 caster sees every spell")
+
+
+func test_gate_by_level_preserves_input_order() -> void:
+	# Order matters for the spell-select menu.
+	var a := _make_spell({"id": "a", "learn_level": 1})
+	var c := _make_spell({"id": "c", "learn_level": 1})
+	var b := _make_spell({"id": "b", "learn_level": 1})
+	var gated := BattleManagerScript._gate_by_level([a, c, b] as Array[SpellDefinition], 5)
+	var ids := []
+	for d in gated: ids.append(d.id)
+	assert_eq(ids, ["a", "c", "b"], "gate must preserve original order")
+
+
+func test_gate_by_level_defaults_to_always_learnable() -> void:
+	# A spell with no explicit learn_level (defaults to 1) should pass
+	# for any level >= 1.
+	var spell := _make_spell({"id": "default"})
+	var gated := BattleManagerScript._gate_by_level([spell] as Array[SpellDefinition], 1)
+	assert_eq(gated.size(), 1, "learn_level defaults to 1 → always learnable")
+
+
+func test_maybe_queue_enemy_cast_skips_stopspelled_enemy() -> void:
+	var caster_enemy := Combatant.from_dict({
+		"name": "Magician",
+		"max_hp": 22,
+		"max_mp": 8,
+		"atk": 11,
+		"def": 12,
+		"spells": ["hurt"],
+	}, true)
+	caster_enemy.status_effects["stopspell"] = 3
+	_bm.enemies = [caster_enemy]
+	assert_true(_bm._maybe_queue_enemy_cast(caster_enemy).is_empty(),
+		"stopspelled enemy must never queue a cast")
+
+
+func test_maybe_queue_enemy_cast_skips_enemy_with_no_mp() -> void:
+	var drained := Combatant.from_dict({
+		"name": "Magician",
+		"max_hp": 22,
+		"max_mp": 8,
+		"atk": 11,
+		"def": 12,
+		"spells": ["hurt"],
+	}, true)
+	drained.mp = 0
+	_bm.enemies = [drained]
+	assert_true(_bm._maybe_queue_enemy_cast(drained).is_empty(),
+		"0-MP enemy must fall through to attack")
+
+
+func test_maybe_queue_enemy_cast_skips_enemy_with_no_known_spells() -> void:
+	var brute := Combatant.from_dict({
+		"name": "Slime",
+		"max_hp": 10,
+		"spells": [],
+	}, true)
+	_bm.enemies = [brute]
+	assert_true(_bm._maybe_queue_enemy_cast(brute).is_empty(),
+		"no known_spells -> no cast even if max_mp > 0")
+
+
+func test_pick_enemy_cast_command_targets_party_for_enemy_kind() -> void:
+	var caster := Combatant.from_dict({
+		"name": "Magician",
+		"max_hp": 22,
+		"max_mp": 8,
+		"spells": ["hurt"],
+	}, true)
+	var hurt := _make_spell({
+		"id": "hurt",
+		"mp_cost": 2,
+		"target_kind": "enemy",
+		"effect_kind": "damage",
+		"power_min": 8,
+		"power_max": 8,
+	})
+	var cmd: Dictionary = _bm._pick_enemy_cast_command(caster, [hurt])
+	assert_false(cmd.is_empty(), "viable cast must produce a command")
+	assert_eq(cmd["action"], "cast")
+	assert_eq((cmd["spell"] as SpellDefinition).id, "hurt")
+	# target must be a party member (is_enemy == false).
+	assert_false((cmd["target"] as Combatant).is_enemy,
+		"enemy cast with target_kind=enemy must target a party member")
+
+
+func test_pick_enemy_cast_command_self_target() -> void:
+	var caster := Combatant.from_dict({
+		"name": "Priest",
+		"max_hp": 20,
+		"max_mp": 10,
+		"spells": ["heal"],
+	}, true)
+	var heal := _make_spell({
+		"id": "heal",
+		"mp_cost": 4,
+		"target_kind": "self",
+		"effect_kind": "heal",
+		"power_min": 10,
+		"power_max": 10,
+	})
+	var cmd: Dictionary = _bm._pick_enemy_cast_command(caster, [heal])
+	assert_eq(cmd["target"], caster, "self-target cast must have caster as target")
+
+
+func test_pick_enemy_cast_command_empty_viable_returns_empty() -> void:
+	var caster := Combatant.from_dict({"name": "X", "max_mp": 5}, true)
+	var empty: Array[SpellDefinition] = []
+	assert_true(_bm._pick_enemy_cast_command(caster, empty).is_empty())
+
+
 func test_damage_spell_redirects_when_target_already_dead() -> void:
 	# Simulate: original target died earlier in the turn. Add a second
 	# enemy so the redirect has something to hit.

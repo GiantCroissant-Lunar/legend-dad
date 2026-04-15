@@ -113,7 +113,13 @@ func _show_menu_for_current_member() -> void:
 
 	var member = party[_current_member_idx]
 	var items: Array = ["Attack"]
-	if not member.known_spells.is_empty():
+	# Stopspell suppresses the SPELL menu option for its duration. Source
+	# of truth: combatant.status_effects — already ticked down in
+	# _tick_status_effects. Checked here so the player sees the menu change
+	# immediately on the command phase that follows their hex.
+	# Level gate: if all of a member's known_spells are above their
+	# current level, don't show "Spell" at all — avoids an empty submenu.
+	if not member.status_effects.has("stopspell") and not _learnable_spells_for(member).is_empty():
 		items.append("Spell")
 	items.append_array(["Defend", "Flee"])
 	if ui:
@@ -168,11 +174,7 @@ func _start_spell_select() -> void:
 	var member = party[_current_member_idx]
 	_spell_menu.clear()
 	var labels: Array[String] = []
-	for spell_id in member.known_spells:
-		var def := ContentManager.get_spell_definition(spell_id) as SpellDefinition
-		if def == null:
-			push_warning("BattleManager: unknown spell id '%s'" % spell_id)
-			continue
+	for def in _learnable_spells_for(member):
 		_spell_menu.append(def)
 		labels.append("%s (MP %d)" % [def.display_name, def.mp_cost])
 	if _spell_menu.is_empty():
@@ -338,12 +340,16 @@ func _resolve_turn() -> void:
 			var alive_party = party.filter(func(m): return m.is_alive)
 			if alive_party.is_empty():
 				break
-			var target = alive_party[randi() % alive_party.size()]
-			_turn_commands.append({
-				"actor": enemy,
-				"action": "attack",
-				"target": target,
-			})
+			var cast_cmd := _maybe_queue_enemy_cast(enemy)
+			if not cast_cmd.is_empty():
+				_turn_commands.append(cast_cmd)
+			else:
+				var target = alive_party[randi() % alive_party.size()]
+				_turn_commands.append({
+					"actor": enemy,
+					"action": "attack",
+					"target": target,
+				})
 
 	_turn_commands.sort_custom(func(a, b): return a["actor"].spd > b["actor"].spd)
 
@@ -374,6 +380,8 @@ func _resolve_turn() -> void:
 				_add_message("%s attacks %s! %d damage." % [actor.combatant_name, target.combatant_name, damage])
 				if not target.is_alive:
 					_add_message("%s is defeated!" % target.combatant_name)
+				else:
+					_check_hit_wakes_sleeper(target)
 			"cast":
 				var spell: SpellDefinition = cmd.get("spell") as SpellDefinition
 				_apply_cast(actor, target, spell)
@@ -385,6 +393,94 @@ func _resolve_turn() -> void:
 
 	await get_tree().create_timer(_message_timer).timeout
 	_check_battle_end()
+
+# Resolves a combatant's `known_spells` list into a filtered, level-gated
+# Array[SpellDefinition] in the order they're declared. Skips ids that
+# ContentManager can't resolve (warns) and drops entries whose
+# `learn_level` exceeds the combatant's current level.
+#
+# Used by _show_menu_for_current_member (to decide whether to offer
+# "Spell") and _start_spell_select (to build the menu).
+func _learnable_spells_for(c: Combatant) -> Array[SpellDefinition]:
+	var resolved: Array[SpellDefinition] = []
+	for spell_id in c.known_spells:
+		var def := ContentManager.get_spell_definition(spell_id) as SpellDefinition
+		if def == null:
+			push_warning("BattleManager: unknown spell id '%s'" % spell_id)
+			continue
+		resolved.append(def)
+	return _gate_by_level(resolved, c.level)
+
+
+# Pure: drops spells whose `learn_level` exceeds `level`, preserving the
+# input order. Extracted from _learnable_spells_for so GUT can test the
+# gate math without relying on the ContentManager autoload being seeded
+# with bundles (which only happens at runtime via bundle load).
+static func _gate_by_level(defs: Array[SpellDefinition], level: int) -> Array[SpellDefinition]:
+	var out: Array[SpellDefinition] = []
+	for def in defs:
+		if def.learn_level <= level:
+			out.append(def)
+	return out
+
+
+# Coin-flip enemy AI: if the enemy has MP + a viable spell and isn't
+# stopspelled, return a cast command with ~35% probability. Otherwise
+# return an empty Dictionary and the caller queues a normal attack.
+#
+# "Viable" = affordable by current MP and either self-target (heal on
+# self) or enemy-target (damage/status on a party member).
+#
+# Called at queue time (not resolve time) — matches DQ1: action choice
+# is locked in at turn start. Status effects applied mid-turn by a
+# faster party member only affect the NEXT enemy turn.
+const ENEMY_CAST_CHANCE := 0.35
+
+func _maybe_queue_enemy_cast(enemy: Combatant) -> Dictionary:
+	if enemy.status_effects.has("stopspell"):
+		return {}
+	if enemy.known_spells.is_empty() or enemy.mp <= 0:
+		return {}
+	if randf() >= ENEMY_CAST_CHANCE:
+		return {}
+
+	# Gated by enemy.level too — keeps tres data the single source for the
+	# rollout schedule. If a magician at L3 lists a L10 spell, it's ignored.
+	var viable: Array[SpellDefinition] = []
+	for def in _learnable_spells_for(enemy):
+		if def.mp_cost > enemy.mp:
+			continue
+		viable.append(def)
+	return _pick_enemy_cast_command(enemy, viable)
+
+
+# Picks one of `viable` at random and builds a cast-command dict. Returns
+# {} when there's no viable spell or no alive party target for a
+# target_kind="enemy" spell. Extracted from _maybe_queue_enemy_cast so
+# GUT can exercise the decision + targeting math without going through
+# the ContentManager autoload.
+func _pick_enemy_cast_command(enemy: Combatant, viable: Array[SpellDefinition]) -> Dictionary:
+	if viable.is_empty():
+		return {}
+	var spell: SpellDefinition = viable[randi() % viable.size()]
+	var target: Combatant
+	match spell.target_kind:
+		"self":
+			target = enemy
+		"enemy":
+			var alive_party = party.filter(func(m): return m.is_alive)
+			if alive_party.is_empty():
+				return {}
+			target = alive_party[randi() % alive_party.size()]
+		_:
+			return {}
+	return {
+		"actor": enemy,
+		"action": "cast",
+		"target": target,
+		"spell": spell,
+	}
+
 
 func _check_battle_end() -> void:
 	var all_enemies_dead = enemies.all(func(e): return not e.is_alive)
@@ -478,12 +574,11 @@ func _apply_cast(actor: Combatant, target: Combatant, spell: SpellDefinition) ->
 
 
 # Applies a queued status-effect spell to `target`. Dispatches on
-# `spell.status_effect` (e.g. "sleep"). Returns true if the status
-# landed, false if the target resisted. DQ1 semantics: status spells
-# are chancy — Sleep notoriously fails ~30% of the time on mid-tier
-# enemies. Tunable via spell.power_min/max (treated as % success
-# threshold when non-zero) — but for now we hardcode a DQ1-accurate
-# base rate per effect type.
+# `spell.status_effect` (e.g. "sleep", "stopspell"). Returns true if the
+# status landed, false if the target resisted. DQ1 semantics: status
+# spells are chancy — Sleep / Stopspell both fail roughly 30-40% of the
+# time on mid-tier enemies. Landing rates + durations are tuned per
+# status below.
 func _apply_status_effect(target: Combatant, spell: SpellDefinition) -> bool:
 	match spell.status_effect:
 		"sleep":
@@ -491,6 +586,30 @@ func _apply_status_effect(target: Combatant, spell: SpellDefinition) -> bool:
 			if randf() < 0.65:
 				target.status_effects["sleep"] = randi_range(2, 4)
 				_add_message("%s falls asleep!" % target.combatant_name)
+				return true
+			_add_message("But %s resisted!" % target.combatant_name)
+			return false
+		"stopspell":
+			# ~50% landing rate. If it lands, target can't cast for 3-5 turns.
+			if randf() < 0.5:
+				target.status_effects["stopspell"] = randi_range(3, 5)
+				_add_message("%s's spells are sealed!" % target.combatant_name)
+				return true
+			_add_message("But %s resisted!" % target.combatant_name)
+			return false
+		"poison":
+			# Poison has no landing roll — usually only applied by enemy
+			# attacks / environmental hazards. Always sticks for 4-8 ticks.
+			target.status_effects["poison"] = randi_range(4, 8)
+			_add_message("%s is poisoned!" % target.combatant_name)
+			return true
+		"paralysis":
+			# ~45% land; skips target's turn for 1-2 ticks. Primarily an
+			# enemy-side status (DQ3+ canon). Kept here so enemy moves can
+			# apply it via the same _apply_status_effect dispatch.
+			if randf() < 0.45:
+				target.status_effects["paralysis"] = randi_range(1, 2)
+				_add_message("%s is paralyzed!" % target.combatant_name)
 				return true
 			_add_message("But %s resisted!" % target.combatant_name)
 			return false
@@ -504,32 +623,89 @@ func _apply_status_effect(target: Combatant, spell: SpellDefinition) -> bool:
 			return false
 
 
+# DQ1: taking a hit while asleep has ~50% chance to wake the sleeper.
+# Called from the attack resolution after damage lands and the target
+# is confirmed still alive. Extracted so GUT can assert the coin-flip
+# behavior without driving the turn queue.
+func _check_hit_wakes_sleeper(target: Combatant) -> bool:
+	if not target.status_effects.has("sleep"):
+		return false
+	if randf() < 0.5:
+		target.status_effects.erase("sleep")
+		_add_message("%s wakes up!" % target.combatant_name)
+		return true
+	return false
+
+
 # Ticks an actor's status effects at the start of their turn. Returns
 # true if the actor can act this turn; false if a status prevented them
-# (e.g. still asleep). Side-effects: decrements counters, emits wake
-# messages.
+# (e.g. still asleep, paralyzed).
 #
-# Sleep wake model (DQ1): each turn the sleeper is asleep, ~33% chance
-# to wake. If they don't wake and the counter hits 0, force wake on the
-# next turn. Extracted so GUT can test without driving the whole
-# resolve path.
+# Status semantics:
+#   sleep     — ~33% random wake per tick, or forced wake when counter
+#               hits 0. Skips the turn while asleep.
+#   paralysis — no random recovery; counter ticks down each turn.
+#               Skips the turn while paralyzed. Forced release on 0.
+#   poison    — ticks 1-4 chip damage at the START of the actor's
+#               turn, then the actor still acts. Wears off on counter 0.
+#   stopspell — doesn't block actions (handled in _start_spell_select
+#               instead). Just ticks down duration. Actor still acts.
+#
+# Extracted so GUT can test without driving the whole resolve path.
 func _tick_status_effects(actor: Combatant) -> bool:
+	var can_act := true
+	# Sleep — random wake + forced wake.
 	if actor.status_effects.has("sleep"):
 		if randi() % 3 == 0:
-			# Natural wake.
 			actor.status_effects.erase("sleep")
 			_add_message("%s wakes up!" % actor.combatant_name)
-			return true
-		# Still asleep; decrement. Forced wake when counter expires.
-		var remaining: int = int(actor.status_effects["sleep"]) - 1
+		else:
+			var remaining: int = int(actor.status_effects["sleep"]) - 1
+			if remaining <= 0:
+				actor.status_effects.erase("sleep")
+				_add_message("%s wakes up!" % actor.combatant_name)
+			else:
+				actor.status_effects["sleep"] = remaining
+				_add_message("%s is still asleep." % actor.combatant_name)
+				can_act = false
+
+	# Paralysis — fixed-duration skip, no random recovery.
+	if can_act and actor.status_effects.has("paralysis"):
+		var remaining: int = int(actor.status_effects["paralysis"]) - 1
 		if remaining <= 0:
-			actor.status_effects.erase("sleep")
-			_add_message("%s wakes up!" % actor.combatant_name)
-			return true
-		actor.status_effects["sleep"] = remaining
-		_add_message("%s is still asleep." % actor.combatant_name)
-		return false
-	return true
+			actor.status_effects.erase("paralysis")
+			_add_message("%s can move again." % actor.combatant_name)
+		else:
+			actor.status_effects["paralysis"] = remaining
+			_add_message("%s is paralyzed." % actor.combatant_name)
+			can_act = false
+
+	# Poison — chip damage; actor still acts. Wears off on 0.
+	if actor.status_effects.has("poison"):
+		var damage := randi_range(1, 4)
+		actor.hp = maxi(0, actor.hp - damage)
+		_add_message("%s takes %d poison damage." % [actor.combatant_name, damage])
+		var remaining: int = int(actor.status_effects["poison"]) - 1
+		if remaining <= 0:
+			actor.status_effects.erase("poison")
+			_add_message("%s shakes off the poison." % actor.combatant_name)
+		else:
+			actor.status_effects["poison"] = remaining
+		if not actor.is_alive:
+			_add_message("%s succumbs to poison!" % actor.combatant_name)
+			return false
+
+	# Stopspell — duration tick only; doesn't block turn actions. The
+	# SPELL menu path checks this status separately.
+	if actor.status_effects.has("stopspell"):
+		var remaining: int = int(actor.status_effects["stopspell"]) - 1
+		if remaining <= 0:
+			actor.status_effects.erase("stopspell")
+			_add_message("%s's magic returns." % actor.combatant_name)
+		else:
+			actor.status_effects["stopspell"] = remaining
+
+	return can_act
 
 
 func _add_message(text: String) -> void:

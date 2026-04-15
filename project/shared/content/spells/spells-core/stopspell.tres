@@ -4,14 +4,14 @@
 
 [resource]
 script = ExtResource("1_def")
-id = "sleep"
-display_name = "Sleep"
-description = "Puts a single enemy to sleep for several turns."
+id = "stopspell"
+display_name = "Stopspell"
+description = "Seals a single enemy's spells for several turns."
 mp_cost = 2
 target_kind = "enemy"
 effect_kind = "status"
 power_min = 0
 power_max = 0
 element = ""
-status_effect = "sleep"
-learn_level = 7
+status_effect = "stopspell"
+learn_level = 10

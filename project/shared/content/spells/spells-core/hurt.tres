@@ -14,3 +14,4 @@ power_min = 8
 power_max = 12
 element = "fire"
 status_effect = ""
+learn_level = 4

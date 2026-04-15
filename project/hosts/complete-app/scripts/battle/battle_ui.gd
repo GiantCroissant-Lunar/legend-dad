@@ -53,12 +53,43 @@ func _draw_enemies(sz: Vector2, area_h: float) -> void:
 			var hp_text = "%d/%d" % [enemy.hp, enemy.max_hp]
 			draw_string(ThemeDB.fallback_font, Vector2(cx - 20, cy + ry + 30), hp_text,
 				HORIZONTAL_ALIGNMENT_LEFT, -1, 10, Color(0.6, 0.6, 0.6))
+			_draw_status_badges(enemy, Vector2(cx + rx * 0.6, cy - ry * 0.5))
 		else:
 			_draw_ellipse(Vector2(cx, cy), 20, 15, Color(0.3, 0.3, 0.3, 0.3))
 
 		if show_target_select and i == target_cursor and enemy.is_alive:
 			draw_string(ThemeDB.fallback_font, Vector2(cx - 5, cy - 35), "▼",
 				HORIZONTAL_ALIGNMENT_LEFT, -1, 16, MENU_HIGHLIGHT)
+
+# Renders per-combatant status icons (e.g. "Zz" for sleep) near a given
+# anchor point. Kept generic so other statuses (poison, stopspell, etc.)
+# slot in without touching _draw_enemies.
+const STATUS_BADGE_COLOR := Color(0.8, 0.85, 1.0, 0.95)
+
+func _draw_status_badges(c: Combatant, anchor: Vector2) -> void:
+	if c.status_effects.is_empty():
+		return
+	var offset := Vector2.ZERO
+	for status_id in c.status_effects.keys():
+		var glyph := _status_glyph(status_id)
+		if glyph == "":
+			continue
+		draw_string(ThemeDB.fallback_font, anchor + offset, glyph,
+			HORIZONTAL_ALIGNMENT_LEFT, -1, 14, STATUS_BADGE_COLOR)
+		offset.x += 18.0
+
+func _status_glyph(status_id: String) -> String:
+	match status_id:
+		"sleep":
+			return "Zz"
+		"poison":
+			return "☠"
+		"paralysis":
+			return "§"
+		"stopspell":
+			return "✕"
+		_:
+			return ""
 
 func _draw_ellipse(center: Vector2, rx: float, ry: float, color: Color) -> void:
 	var points = PackedVector2Array()
