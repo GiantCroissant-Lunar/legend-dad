@@ -27,7 +27,11 @@ Live progress log for the [2026-04-15 content/runtime split spec][spec] and [imp
 | 8 — Preview harness in content-app | ✅ done | `0711bfc`, `463334d`, `4d54d56`, `4191b5d` |
 | 9 — hud-core bundle migration end-to-end | ✅ done | `019bd95`, `6fea290`, `f241f0c`, `b4a1a6a` |
 | 10 — Web build serves PCKs over HTTP | ✅ done | `a4dab23`, `3f3a4b0` |
-| 11 — AGENTS.md + dev-log update | in progress | `c8bc5ab` |
+| 11 — AGENTS.md + dev-log update | ✅ done | `c8bc5ab`, `43702e1` |
+| Post — pnpm-lock for playwright dep | ✅ done | `0a9ad53` |
+| Post — hud-battle bundle migration | ✅ done | `8783cae`, `9fd9307`, `6b163d6` |
+| Post — threaded web export switch | ✅ done | `6fedbb8` |
+| Post — F10 spike (browser hot-load) | 🚧 incomplete | `c6944f3` (async refactor + web stub) |
 
 ## Findings Not in the Plan
 
@@ -112,19 +116,57 @@ The plan's `bundle.json` example used `"include": ["**/*.tres", "**/*.tscn", "**
 
 **Plan amendment needed:** Task 9.2 must clarify that `HudWidgetDefinition.tres` filenames are keyed by the widget's `id`, not the underlying script name.
 
-### F10 — Single-threaded Godot 4.6 web build cannot HTTP-load PCKs at runtime (Phase 10, NOT yet addressed)
+### F10 — Runtime PCK loading on web requires custom JS bridge (Phase 10, partially addressed; spike incomplete)
 
-`task build` produces a single-threaded web export (default Godot 4.6 web template). At runtime, `ProjectSettings.load_resource_pack("res://pck/foo.pck")` does NOT trigger an HTTP fetch the browser can intercept. Boot prints `[boot] Loading hud-core…` followed immediately by `[boot] Failed to load hud-core` — the load attempt happens, but the file never reaches the WASM filesystem.
+#### Initial diagnosis
 
-This breaks the central goal of the migration: memory-efficient hot-reload of content via PCKs in the web build. Currently the only PCK that ships is whatever Godot baked into `complete-app.pck` at export time.
+`task build` originally produced a single-threaded web export. At runtime, `ProjectSettings.load_resource_pack("res://pck/foo.pck")` did NOT trigger an HTTP fetch the browser could intercept. Boot printed `[boot] Loading hud-core…` followed by `[boot] Failed to load hud-core`.
 
-**Workarounds in scope of this finding:**
-- The Phase 10 Playwright smoke test was extended to fall back to a `request.head()` reachability check so it doesn't require the runtime fetch path. The PCKs ARE served correctly over HTTP (HTTP 200) — Godot just can't consume them in single-threaded mode.
+Hypothesized cause: single-threaded export. Switched to threaded export (`variant/thread_support=true` in `export_presets.cfg`, commit `6fedbb8`). Build now reports `multi-threaded`, `SharedArrayBuffer` is available (COOP/COEP headers already set in `scripts/serve_web.js`).
 
-**Plan amendment / follow-up needed:**
-- Switch the Godot web export to the **threaded** template. The static server (`scripts/serve_web.js`) already sets the COOP/COEP headers required for `SharedArrayBuffer`, so this should be a one-line export-preset change plus rebuild.
-- File a follow-up: "Switch web export to threaded template; verify runtime PCK loading via HTTP fetch."
-- Until then, the migration's runtime behavior on web is functionally equivalent to the pre-split state — gameplay works (everything ships in the main wasm bundle) but the hot-reload promise is not yet realized.
+#### Threaded export alone did NOT fix it
+
+Direct browser verification with the Claude_in_Chrome MCP tool — boot still printed `[boot] Failed to load hud-core` after the threaded build. Network tab showed only `complete-app.pck` was fetched; the bundle PCK was never requested. Confirmed: threading enables `SharedArrayBuffer` for game memory, but `load_resource_pack` still reads from Emscripten MEMFS, not the browser network.
+
+#### Spike: HTTPRequest-based loader (Godot's built-in)
+
+Implemented `_load_pck_web()` using `HTTPRequest` to fetch the PCK and write to `user://pck_cache/`. Result:
+- `HTTPRequest.request()` returned `OK` (0)
+- BUT no network request fired; `request_completed` signal never emitted
+- `HTTPRequest.request()` with a relative URL returned error 31 (`ERR_INVALID_PARAMETER`); absolute URL via `JavaScriptBridge.eval("window.location.origin")` got past that error but the request still silently dropped
+
+Hypothesis: Godot's HTTPClient on multi-threaded web has a known issue where requests don't fire from inside the main GDScript context.
+
+#### Spike: JavaScriptBridge + native fetch()
+
+Replaced HTTPRequest with `fetch()` via `JavaScriptBridge.eval()`. JS side stashed bytes on `window.__pckFetch[slot] = { status: 'ok', bytes: [...] }`. GDScript side polled the status string via `await get_tree().process_frame` between reads. Result:
+- Browser fetch() DID fire (200 OK on `/pck/hud-core@*.pck` — visible in DevTools Network)
+- JS-side state visibly populated: `window.__pckFetch['pck/hud-core@...pck'].status === "ok"` with 7188 bytes
+- BUT GDScript polling never observed `"ok"` — the await loop appeared to hang inside the autoload context, never seeing JS-side updates
+- Multiple page reloads showed boot stuck at `[boot] Loading hud-core…` indefinitely
+
+Hypothesis: `await get_tree().process_frame` inside an autoload while invoked from another `_ready`'s await chain doesn't yield control properly on multi-threaded web. Could also be a JavaScriptBridge cache issue where the bridge sees stale globals.
+
+#### Current state (commit `c6944f3`)
+
+`_load_pck_web` is a stub that returns `false` with a clear `push_error`. The async refactor of `load_bundle` is preserved (boot.gd awaits, GUT tests await) so a correct implementation can drop in without further signature changes. Web platform check (`OS.has_feature("web")`) routes to the stub.
+
+#### What a real fix likely needs
+
+1. Use `JavaScriptBridge.create_callback(callable)` instead of polling — register a Godot callback that JS calls when the fetch completes. This is the canonical Godot 4 web pattern for JS↔GDScript async coordination.
+2. Marshal bytes via `Marshalls.base64_to_raw()` round-trip if direct array marshalling continues to be unreliable.
+3. Verify the flow runs end-to-end inside an autoload-invoked-from-_ready context, not just from a top-level scene script.
+4. Add a Playwright test that REQUIRES the intercepted-fetch path (currently the test is fallback-tolerant per the original Phase 10 implementation).
+
+Estimated spike: 1–3 hours of focused Godot 4 web work.
+
+#### Impact on the migration's value proposition
+
+- ✅ All other migration goals delivered: two-project structure, PCK pipeline, ContentManager API, preview harness, hud-core + hud-battle bundles
+- ✅ Native (editor / headless / desktop) builds correctly load PCKs from `res://pck/`
+- ❌ Web build does not yet hot-load PCKs — bundles ship inside the main `complete-app.pck` (baked at export). Web behavior is functionally equivalent to pre-migration; the hot-reload memory benefit is unrealized in the target deployment.
+
+The branch should NOT merge to main until F10 is resolved, per the user's stated requirement.
 
 ### F6 — `.godot/uid_cache.bin` must exist before headless commands work (Phase 2, addressed in `7bf49a2`)
 
