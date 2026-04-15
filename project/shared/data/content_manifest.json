@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "bundles": {
+    "hud-core": {
+      "kind": "hud",
+      "policy": "eager",
+      "pck": "hud-core@6747a4.pck",
+      "deps": [],
+      "provides": {
+        "widgets": [
+          "activity_log_panel",
+          "minimap"
+        ]
+      },
+      "content_hash": "6747a4"
+    }
+  }
+}

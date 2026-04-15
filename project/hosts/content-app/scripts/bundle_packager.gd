@@ -53,7 +53,7 @@ func _build(bundle_id: String) -> int:
 	var hash_hex := hash_bytes.hex_encode().substr(0, 6)
 
 	# Pack into build/_artifacts/pck/{id}@{hash}.pck
-	var out_dir := ProjectSettings.globalize_path("res://").path_join("../../build/_artifacts/pck")
+	var out_dir := ProjectSettings.globalize_path("res://").path_join("../../../build/_artifacts/pck")
 	DirAccess.make_dir_recursive_absolute(out_dir)
 	var out_path := "%s/%s@%s.pck" % [out_dir, bundle_id, hash_hex]
 
