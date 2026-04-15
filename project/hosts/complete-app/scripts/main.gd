@@ -245,6 +245,17 @@ func _start_battle(enemy_entity: E_Enemy, enemy_visual: EntityVisual) -> void:
 	_battle_enemy_entity = enemy_entity
 	_battle_enemy_visual = enemy_visual
 
+	# Lazy-load the hud-battle bundle on combat entry. Cheap/no-op if already
+	# loaded; on web this fetches the PCK over HTTP the first time. await is
+	# required — the overlay scene below lives inside this PCK.
+	var loaded: bool = await ContentManager.load_bundle("hud-battle")
+	if not loaded:
+		push_error("main: failed to load hud-battle bundle — aborting battle entry")
+		in_battle = false
+		_battle_enemy_entity = null
+		_battle_enemy_visual = null
+		return
+
 	# Create battle overlay on the HUD layer (loaded from hud-battle bundle)
 	_battle_overlay = _instantiate_widget("battle_overlay")
 	if _battle_overlay:
@@ -291,6 +302,11 @@ func _on_battle_ended(result: Dictionary) -> void:
 		_battle_manager.battle_ended.disconnect(_on_battle_ended)
 		_battle_manager.queue_free()
 		_battle_manager = null
+
+	# Mirror the lazy-load on entry: drop the bundle from the loaded set so
+	# memory can be reclaimed once references release. Note Godot 4 has no
+	# public API to unload a PCK; this just clears ContentManager bookkeeping.
+	ContentManager.unload_bundle("hud-battle")
 
 	# Restore active view brightness
 	var active_view = father_view if active_era == C_TimelineEra.Era.FATHER else son_view
