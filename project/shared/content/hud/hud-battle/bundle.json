@@ -1,0 +1,10 @@
+{
+  "id": "hud-battle",
+  "kind": "hud",
+  "policy": "lazy",
+  "deps": ["hud-core"],
+  "include": ["**/*.tres", "**/*.tscn", "**/*.gd", "*.tres", "*.tscn", "*.gd"],
+  "provides": {
+    "widgets": ["battle_overlay"]
+  }
+}
