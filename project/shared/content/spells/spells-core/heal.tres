@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SpellDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/spell_definition.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = "heal"
+display_name = "Heal"
+description = "Restores HP to the caster."
+mp_cost = 4
+target_kind = "self"
+effect_kind = "heal"
+power_min = 25
+power_max = 30
+element = ""
+status_effect = ""

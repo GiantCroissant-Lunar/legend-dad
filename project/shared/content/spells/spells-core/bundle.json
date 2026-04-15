@@ -1,0 +1,10 @@
+{
+  "id": "spells-core",
+  "kind": "spells",
+  "policy": "eager",
+  "deps": [],
+  "include": ["*.tres"],
+  "provides": {
+    "spells": ["heal", "hurt"]
+  }
+}

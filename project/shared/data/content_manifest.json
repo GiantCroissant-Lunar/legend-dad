@@ -44,6 +44,19 @@
         ]
       },
       "content_hash": "463b56"
+    },
+    "spells-core": {
+      "kind": "spells",
+      "policy": "eager",
+      "pck": "spells-core@af354d.pck",
+      "deps": [],
+      "provides": {
+        "spells": [
+          "heal",
+          "hurt"
+        ]
+      },
+      "content_hash": "af354d"
     }
   }
 }

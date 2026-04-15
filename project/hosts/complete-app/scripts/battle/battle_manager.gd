@@ -3,7 +3,7 @@ extends Node
 
 signal battle_ended(result: Dictionary)
 
-enum State { INTRO, COMMAND, TARGET_SELECT, RESOLVE, VICTORY, DEFEAT, FLEE }
+enum State { INTRO, COMMAND, SPELL_SELECT, TARGET_SELECT, RESOLVE, VICTORY, DEFEAT, FLEE }
 
 var state: State = State.INTRO
 var party: Array[Combatant] = []
@@ -19,6 +19,13 @@ const MESSAGE_DELAY := 0.6
 
 var _input_cooldown: float = 0.0
 const INPUT_COOLDOWN := 0.15
+
+# SPELL_SELECT state: the menu shows the caster's known spells as resolved
+# SpellDefinition resources. _pending_cast stores the spell currently being
+# targeted (non-self spells transition to TARGET_SELECT after the caster
+# picks a spell).
+var _spell_menu: Array[Resource] = []
+var _pending_cast: Resource = null
 
 func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: Control) -> void:
 	party = p_party
@@ -48,6 +55,8 @@ func _process(delta: float) -> void:
 			_process_intro(delta)
 		State.COMMAND:
 			_process_command(delta)
+		State.SPELL_SELECT:
+			_process_spell_select(delta)
 		State.TARGET_SELECT:
 			_process_target_select(delta)
 		State.RESOLVE:
@@ -81,12 +90,20 @@ func _show_menu_for_current_member() -> void:
 		return
 
 	var member = party[_current_member_idx]
+	var items: Array = ["Attack"]
+	if not member.known_spells.is_empty():
+		items.append("Spell")
+	items.append_array(["Defend", "Flee"])
 	if ui:
 		ui.set("show_menu", true)
 		ui.set("show_target_select", false)
-		ui.set("menu_items", ["Attack", "Defend", "Flee"])
+		ui.set("menu_items", items)
 		ui.set("menu_cursor", 0)
 		ui.set("current_member_name", member.combatant_name)
+	# Tagged print — lets e2e tests assert that a caster's menu includes
+	# "Spell" without driving the menu with keyboard input (see note in
+	# tests/cast-spell.spec.js on why keyboard navigation is unreliable).
+	print("[battle-menu] %s options=%s" % [member.combatant_name, items])
 	_input_cooldown = INPUT_COOLDOWN
 
 func _process_command(_delta: float) -> void:
@@ -110,7 +127,10 @@ func _process_command(_delta: float) -> void:
 		_input_cooldown = INPUT_COOLDOWN
 		match selected:
 			"Attack":
+				_pending_cast = null
 				_start_target_select()
+			"Spell":
+				_start_spell_select()
 			"Defend":
 				var member = party[_current_member_idx]
 				member.is_defending = true
@@ -123,6 +143,79 @@ func _process_command(_delta: float) -> void:
 				_show_menu_for_current_member()
 			"Flee":
 				_attempt_flee()
+
+func _start_spell_select() -> void:
+	state = State.SPELL_SELECT
+	var member = party[_current_member_idx]
+	_spell_menu.clear()
+	var labels: Array[String] = []
+	for spell_id in member.known_spells:
+		var def := ContentManager.get_spell_definition(spell_id) as SpellDefinition
+		if def == null:
+			push_warning("BattleManager: unknown spell id '%s'" % spell_id)
+			continue
+		_spell_menu.append(def)
+		labels.append("%s (MP %d)" % [def.display_name, def.mp_cost])
+	if _spell_menu.is_empty():
+		# Shouldn't happen — _show_menu_for_current_member only offered
+		# "Spell" when the caster had known_spells. Fail soft.
+		_add_message("%s has no spells." % member.combatant_name)
+		state = State.COMMAND
+		_show_menu_for_current_member()
+		return
+	if ui:
+		ui.set("show_menu", true)
+		ui.set("show_target_select", false)
+		ui.set("menu_items", labels)
+		ui.set("menu_cursor", 0)
+	_input_cooldown = INPUT_COOLDOWN
+
+
+func _process_spell_select(_delta: float) -> void:
+	if _input_cooldown > 0.0:
+		return
+	if Input.is_action_just_pressed("ui_down"):
+		if ui:
+			ui.set("menu_cursor", (ui.get("menu_cursor") + 1) % _spell_menu.size())
+		_input_cooldown = INPUT_COOLDOWN
+	elif Input.is_action_just_pressed("ui_up"):
+		if ui:
+			ui.set("menu_cursor", (ui.get("menu_cursor") - 1 + _spell_menu.size()) % _spell_menu.size())
+		_input_cooldown = INPUT_COOLDOWN
+	elif Input.is_action_just_pressed("ui_cancel") or Input.is_key_pressed(KEY_BACKSPACE):
+		state = State.COMMAND
+		_show_menu_for_current_member()
+		_input_cooldown = INPUT_COOLDOWN
+	elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
+		var cursor: int = ui.get("menu_cursor") if ui else 0
+		var spell: SpellDefinition = _spell_menu[cursor] as SpellDefinition
+		var member = party[_current_member_idx]
+		if member.mp < spell.mp_cost:
+			# Not enough MP — flash + stay on the spell menu.
+			_add_message("Not enough MP for %s." % spell.display_name)
+			_input_cooldown = INPUT_COOLDOWN
+			return
+		_pending_cast = spell
+		_input_cooldown = INPUT_COOLDOWN
+		match spell.target_kind:
+			"self":
+				_turn_commands.append({
+					"actor": member,
+					"action": "cast",
+					"target": member,
+					"spell": spell,
+				})
+				_pending_cast = null
+				_current_member_idx += 1
+				state = State.COMMAND
+				_show_menu_for_current_member()
+			"enemy":
+				_start_target_select()
+			_:
+				push_warning("BattleManager: unhandled target_kind '%s' for spell '%s'" % [spell.target_kind, spell.id])
+				state = State.COMMAND
+				_show_menu_for_current_member()
+
 
 func _start_target_select() -> void:
 	state = State.TARGET_SELECT
@@ -149,11 +242,21 @@ func _process_target_select(_delta: float) -> void:
 		_input_cooldown = INPUT_COOLDOWN
 	elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
 		var member = party[_current_member_idx]
-		_turn_commands.append({
-			"actor": member,
-			"action": "attack",
-			"target": enemies[ui.get("target_cursor") if ui else 0],
-		})
+		var target_enemy: Combatant = enemies[ui.get("target_cursor") if ui else 0]
+		if _pending_cast != null:
+			_turn_commands.append({
+				"actor": member,
+				"action": "cast",
+				"target": target_enemy,
+				"spell": _pending_cast,
+			})
+			_pending_cast = null
+		else:
+			_turn_commands.append({
+				"actor": member,
+				"action": "attack",
+				"target": target_enemy,
+			})
 		if ui:
 			ui.set("show_target_select", false)
 		_current_member_idx += 1
@@ -163,8 +266,14 @@ func _process_target_select(_delta: float) -> void:
 	elif Input.is_action_just_pressed("ui_cancel") or Input.is_key_pressed(KEY_BACKSPACE):
 		if ui:
 			ui.set("show_target_select", false)
-		state = State.COMMAND
-		_show_menu_for_current_member()
+		# If cancel'd during a cast targeting step, go back to the spell
+		# menu rather than the top-level command menu — matches DQ UX.
+		if _pending_cast != null:
+			_pending_cast = null
+			_start_spell_select()
+		else:
+			state = State.COMMAND
+			_show_menu_for_current_member()
 		_input_cooldown = INPUT_COOLDOWN
 
 func _move_target_cursor(dir: int) -> void:
@@ -249,6 +358,9 @@ func _resolve_turn() -> void:
 				_add_message("%s attacks %s! %d damage." % [actor.combatant_name, target.combatant_name, damage])
 				if not target.is_alive:
 					_add_message("%s is defeated!" % target.combatant_name)
+			"cast":
+				var spell: SpellDefinition = cmd.get("spell") as SpellDefinition
+				_apply_cast(actor, target, spell)
 			"defend":
 				_add_message("%s defends." % actor.combatant_name)
 
@@ -300,6 +412,51 @@ func _process_flee(delta: float) -> void:
 	if _message_timer <= 0.0:
 		if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
 			battle_ended.emit({"won": false, "exp": 0, "gold": 0, "fled": true})
+
+# Applies a queued "cast" command: pays MP, rolls power, and applies the
+# effect to `target`. Extracted from the turn-resolution switch so GUT can
+# test the math directly without driving the state machine + input layer
+# through Playwright (see tests/test_battle_manager_cast.gd).
+#
+# Preconditions enforced here rather than at the caller so tests exercise
+# the real guard paths:
+#   - spell == null -> log fumble, return
+#   - mp shortfall -> log shortfall, return (no MP spent)
+#   - damage target dead -> redirect to an alive counterpart, or skip
+#
+# Returns true iff the cast resolved (MP spent + effect applied or redirected).
+func _apply_cast(actor: Combatant, target: Combatant, spell: SpellDefinition) -> bool:
+	if spell == null:
+		_add_message("%s fumbles a spell!" % actor.combatant_name)
+		return false
+	if actor.mp < spell.mp_cost:
+		_add_message("%s lacks MP for %s." % [actor.combatant_name, spell.display_name])
+		return false
+	actor.mp -= spell.mp_cost
+	_add_message("%s casts %s!" % [actor.combatant_name, spell.display_name])
+	var amount := randi_range(spell.power_min, spell.power_max)
+	match spell.effect_kind:
+		"damage":
+			# DQ1-style: spell damage bypasses defense.
+			if not target.is_alive:
+				var alive_pool: Array = (party if actor.is_enemy else enemies).filter(
+					func(c): return c.is_alive
+				)
+				if alive_pool.is_empty():
+					return true
+				target = alive_pool[randi() % alive_pool.size()]
+			target.hp = maxi(0, target.hp - amount)
+			_add_message("%s takes %d damage." % [target.combatant_name, amount])
+			if not target.is_alive:
+				_add_message("%s is defeated!" % target.combatant_name)
+		"heal":
+			var restored := mini(amount, target.max_hp - target.hp)
+			target.hp += restored
+			_add_message("%s recovers %d HP." % [target.combatant_name, restored])
+		_:
+			_add_message("(spell had no effect)")
+	return true
+
 
 func _add_message(text: String) -> void:
 	ActivityLog.log_msg(text)

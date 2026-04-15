@@ -273,6 +273,9 @@ func get_hud_widget(id: String) -> Resource:
 func get_item_definition(id: String) -> Resource:
 	return _load_resource_by_kind("items", id, ".tres")
 
+func get_spell_definition(id: String) -> Resource:
+	return _load_resource_by_kind("spells", id, ".tres")
+
 
 func _load_resource_by_kind(kind: String, id: String, ext: String) -> Resource:
 	# Try every loaded bundle of this kind for a matching resource.

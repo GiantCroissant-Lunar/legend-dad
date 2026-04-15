@@ -8,6 +8,7 @@ const FATHER_STATS := {
 	"def": 10,
 	"spd": 8,
 	"level": 3,
+	"spells": ["hurt"],
 }
 
 const SON_STATS := {
@@ -18,6 +19,7 @@ const SON_STATS := {
 	"def": 8,
 	"spd": 10,
 	"level": 2,
+	"spells": ["heal", "hurt"],
 }
 
 const ALLY1_STATS := {
@@ -28,6 +30,7 @@ const ALLY1_STATS := {
 	"def": 7,
 	"spd": 9,
 	"level": 2,
+	"spells": [],
 }
 
 const ALLY2_STATS := {
@@ -38,6 +41,7 @@ const ALLY2_STATS := {
 	"def": 12,
 	"spd": 6,
 	"level": 2,
+	"spells": [],
 }
 
 # Enemy stats moved to res://content/enemies/enemies-core/*.tres and

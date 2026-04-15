@@ -21,5 +21,6 @@
 #   get_npc_definition(id: String) -> NpcDefinition
 #   get_hud_widget(id: String) -> HudWidgetDefinition
 #   get_item_definition(id: String) -> ItemDefinition
+#   get_spell_definition(id: String) -> SpellDefinition
 class_name ContentManagerApi
 extends RefCounted
