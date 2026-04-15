@@ -49,6 +49,8 @@ tasks:
         {{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}}
         --export-release "Web"
         {{.ROOT_DIR}}/{{.ARTIFACTS_DIR}}/{{.VERSION}}/web/complete-app.html
+      - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/pck
+      - cp {{.ARTIFACTS_DIR}}/pck/*.pck {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/pck/ 2>/dev/null || true
       - rm -f {{.ARTIFACTS_DIR}}/latest
       - ln -s {{.VERSION}} {{.ARTIFACTS_DIR}}/latest
       - echo "Built version {{.VERSION}} -> {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/"
