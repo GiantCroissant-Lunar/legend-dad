@@ -166,6 +166,27 @@ tasks:
         --script scripts/pck_builder.gd
         -- --location={{.CLI_ARGS}}
 
+  content:build:
+    desc: Build a single content bundle into a PCK (use -- {bundle-id})
+    cmds:
+      - >-
+        {{.PYTHON_BIN}} scripts/run_godot_checked.py
+        {{.GODOT_PATH}} --headless
+        --path project/hosts/content-app
+        --script scripts/bundle_packager.gd
+        -- --bundle={{.CLI_ARGS}}
+      - task: content:manifest
+
+  content:manifest:
+    desc: Regenerate project/shared/data/content_manifest.json
+    cmds:
+      - '{{.PYTHON_BIN}} scripts/content_manifest.py'
+
+  content:build:all:
+    desc: Build every bundle declared under project/shared/content/**/bundle.json
+    cmds:
+      - '{{.PYTHON_BIN}} scripts/build_all_bundles.py'
+
   articy:build:
     desc: Build and deploy MDK plugin to articy local plugins folder
     dir: project/articy/mdk-plugin/LegendDad.MdkPlugin
