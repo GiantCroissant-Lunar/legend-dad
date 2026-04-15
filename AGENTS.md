@@ -123,9 +123,11 @@ task content:manifest                 # Regenerate shared/data/content_manifest.
 
 Agent skills live in `.agent/skills/` organized by numbered categories:
 - `00-meta` — governance (context-discovery, validation-guard, autoloop, etc.)
+- `01-godot` — engine reference (godot-api — Godot 4.6.2 class docs in a forked context)
 - `03-presentation` — UI/UX design
 - `04-tooling` — browser automation, doc search, repomix
 - `05-world` — world bible, lore generation
+- `06-gameplay` — game-player (MCP-driven AI gameplay)
 
 Always run `@context-discovery` before implementation work and `@validation-guard` after.
 

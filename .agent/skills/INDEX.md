@@ -15,6 +15,12 @@ Numbered categories create an implicit dependency hierarchy — lower numbers ar
 | `rfc-review` | Structured RFC review with quantitative scoring across 6 dimensions. | `@rfc-orchestrator`, `@context-discovery` |
 | `dev-log` | **Mandatory end-of-session**: write a structured log entry to `vault/dev-log/` recording what was done, decisions made, and next steps. All agents must use this. | `@context-discovery`, `@validation-guard`, `@autoloop` |
 
+## 01-godot — Engine Reference
+
+| Skill | Description | Related Skills |
+|---|---|---|
+| `godot-api` | Godot 4.6.2 class API lookup (forked context). Per-class markdown docs generated from the Godot source repo, plus a GDScript syntax reference. Invoke for method signatures, signal lookups, or "which class does X". | `@context-discovery` |
+
 ## 03-presentation — UI & Design
 
 | Skill | Description | Related Skills |
@@ -71,6 +77,7 @@ related_skills:                     # @skill-name cross-references
 
 **Layers** (implicit dependency: lower consumes higher):
 - `governance` — meta-skills that orchestrate other skills
+- `engine` — engine-specific reference (Godot API, quirks)
 - `presentation` — UI/UX design
 - `tooling` — automation, browser, docs, search
 - `world` — world bible, lore generation, narrative consistency
