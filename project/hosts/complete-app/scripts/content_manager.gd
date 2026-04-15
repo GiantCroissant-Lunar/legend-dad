@@ -283,12 +283,16 @@ func _load_resource_by_kind(kind: String, id: String, ext: String) -> Resource:
 		var path := "res://content/%s/%s/%s%s" % [kind, bundle_id, id, ext]
 		if not ResourceLoader.exists(path):
 			continue
-		# After hot-reload, bypass Godot's resource cache once so the consumer
-		# sees the freshly-packed bytes (CACHE_MODE_REPLACE_DEEP also re-loads
-		# subresources like the PackedScene referenced from a HudWidgetDefinition).
-		# After this call, drop the dirty flag — next read uses the normal cache.
+		# After hot-reload, bypass Godot's resource cache so consumers see
+		# the freshly-packed bytes. CACHE_MODE_REPLACE_DEEP also re-loads
+		# subresources (the PackedScene referenced from a HudWidgetDefinition).
+		# The flag MUST stay set across multiple lookups in the same reload
+		# cycle — each widget in the bundle is its own resource path with
+		# its own cache entry, so each needs its own REPLACE_DEEP. The flag
+		# is naturally re-set on the next reload_bundle call; stale reads
+		# after a reload would return old HudWidgetDefinitions pointing at
+		# PackedScenes that no longer match the PCK state (widget vanish).
 		if _just_reloaded.has(bundle_id):
-			_just_reloaded.erase(bundle_id)
 			return ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_REPLACE_DEEP)
 		return load(path)
 	return null

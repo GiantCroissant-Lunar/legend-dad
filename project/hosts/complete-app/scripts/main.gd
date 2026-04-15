@@ -799,6 +799,11 @@ func _on_bundle_reloaded(bundle_id: String) -> void:
 	# before this scene instantiates. So this branch only runs on hot reload.
 	if bundle_id == "hud-core":
 		_install_hud_core_widgets()
+		# Sanity print picked up by hot-reload.spec.js — "ok" means both
+		# widgets got re-instantiated, "MISSING" flags a regression of the
+		# visual-qa-caught widget-vanish bug.
+		var ok := _activity_log_panel != null and _mini_map_panel != null
+		print("[main] hud-core widgets after reload: %s" % ("ok" if ok else "MISSING"))
 	elif bundle_id == "hud-battle":
 		# Re-create battle overlay only if combat is currently active.
 		if in_battle and _battle_overlay == null:

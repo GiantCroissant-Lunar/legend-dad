@@ -142,6 +142,25 @@ test("F9 hot-reloads hud-core after `task content:build`", async ({ page }) => {
 		);
 		console.log("[test] reload-related console:", reloadHits);
 		expect(reloadHits.length).toBeGreaterThan(0);
+
+		// Widget-present assertion — catches the visual-qa "widgets vanish"
+		// regression. main.gd._on_bundle_reloaded prints this line after
+		// re-instantiating; "MISSING" means _activity_log_panel or
+		// _mini_map_panel came back null.
+		const widgetsOk = consoleHits.some((l) =>
+			l.includes("hud-core widgets after reload: ok"),
+		);
+		const widgetsMissing = consoleHits.some((l) =>
+			l.includes("hud-core widgets after reload: MISSING"),
+		);
+		expect(
+			widgetsMissing,
+			"main.gd flagged hud-core widgets as MISSING after reload",
+		).toBe(false);
+		expect(
+			widgetsOk,
+			"expected 'hud-core widgets after reload: ok' in console",
+		).toBe(true);
 	} finally {
 		// 7. Always restore the source so the working tree stays clean.
 		writeFileSync(TWEAKED_FILE, original);
