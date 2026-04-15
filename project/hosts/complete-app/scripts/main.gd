@@ -161,15 +161,14 @@ func _ready() -> void:
 	_hud_layer.layer = 50
 	add_child(_hud_layer)
 
-	_activity_log_panel = _instantiate_widget("activity_log_panel")
-	if _activity_log_panel:
-		_activity_log_panel.name = "ActivityLogPanel"
-		_hud_layer.add_child(_activity_log_panel)
+	_install_hud_core_widgets()
 
-	_mini_map_panel = _instantiate_widget("minimap")
-	if _mini_map_panel:
-		_mini_map_panel.name = "MiniMapPanel"
-		_hud_layer.add_child(_mini_map_panel)
+	# Hot-reload hooks: when ContentManager swaps in a new PCK at runtime,
+	# tear down the widgets coming from that bundle and re-instantiate from
+	# the freshly-loaded resources. The will/did pair is fired by
+	# ContentManager.reload_bundle().
+	ContentManager.bundle_will_reload.connect(_on_bundle_will_reload)
+	ContentManager.bundle_loaded.connect(_on_bundle_reloaded)
 
 	ActivityLog.log_msg("Entered Whispering Woods")
 
@@ -373,6 +372,23 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		var state = TimeService.get_state()
 		TimeService.set_speed(state["speed"] + 0.25)
+	# F9 hot-reloads any changed content bundles (re-fetches manifest, swaps
+	# any PCK whose hash differs). Useful for iterating on widget visuals
+	# without page reload. echo guards against held-key spam.
+	if event is InputEventKey and event.pressed and not event.echo and event.keycode == KEY_F9:
+		get_viewport().set_input_as_handled()
+		_hot_reload_content()
+
+
+func _hot_reload_content() -> void:
+	print("[main] hot reload triggered (F9)")
+	var t0 := Time.get_ticks_msec()
+	var reloaded: Array[String] = await ContentManager.reload_all_loaded()
+	var elapsed := Time.get_ticks_msec() - t0
+	if reloaded.is_empty():
+		ActivityLog.log_msg("Hot reload: no bundles changed (%dms)" % elapsed)
+	else:
+		ActivityLog.log_msg("Hot reload: %s (%dms)" % [", ".join(reloaded), elapsed])
 
 var _ready_complete := false
 
@@ -730,6 +746,71 @@ func _instantiate_widget(widget_id: String) -> Control:
 		push_warning("main: HUD widget '%s' has no scene" % widget_id)
 		return null
 	return scene.instantiate()
+
+
+# Instantiates the activity log + minimap from the hud-core bundle and parents
+# them under _hud_layer. Idempotent — if widgets already exist, frees them
+# first. Used by initial setup AND by hot-reload re-instantiation.
+func _install_hud_core_widgets() -> void:
+	if _activity_log_panel:
+		_activity_log_panel.queue_free()
+		_activity_log_panel = null
+	if _mini_map_panel:
+		_mini_map_panel.queue_free()
+		_mini_map_panel = null
+
+	_activity_log_panel = _instantiate_widget("activity_log_panel")
+	if _activity_log_panel:
+		_activity_log_panel.name = "ActivityLogPanel"
+		_hud_layer.add_child(_activity_log_panel)
+
+	_mini_map_panel = _instantiate_widget("minimap")
+	if _mini_map_panel:
+		_mini_map_panel.name = "MiniMapPanel"
+		_hud_layer.add_child(_mini_map_panel)
+
+	# Re-apply layout so the freshly-spawned widgets are sized + positioned.
+	if _ready_complete:
+		_update_hud_layout(get_viewport_rect().size)
+
+
+func _on_bundle_will_reload(bundle_id: String) -> void:
+	# Free anything coming from this bundle so the old PCK's resources can
+	# release. Each consumer-side reload handler is paired with a re-install
+	# in _on_bundle_reloaded.
+	if bundle_id == "hud-core":
+		if _activity_log_panel:
+			_activity_log_panel.queue_free()
+			_activity_log_panel = null
+		if _mini_map_panel:
+			_mini_map_panel.queue_free()
+			_mini_map_panel = null
+	elif bundle_id == "hud-battle":
+		# Mid-combat hot reload of the battle overlay is supported, but the
+		# BattleManager state is preserved (not torn down).
+		if _battle_overlay:
+			_battle_overlay.queue_free()
+			_battle_overlay = null
+
+
+func _on_bundle_reloaded(bundle_id: String) -> void:
+	# Only fires AFTER initial boot — main.gd's _ready connects this signal,
+	# and the boot.gd → ContentManager.load_bundle("hud-core") emit happens
+	# before this scene instantiates. So this branch only runs on hot reload.
+	if bundle_id == "hud-core":
+		_install_hud_core_widgets()
+	elif bundle_id == "hud-battle":
+		# Re-create battle overlay only if combat is currently active.
+		if in_battle and _battle_overlay == null:
+			_battle_overlay = _instantiate_widget("battle_overlay")
+			if _battle_overlay:
+				_battle_overlay.name = "BattleOverlay"
+				_hud_layer.add_child(_battle_overlay)
+				_update_hud_layout(get_viewport_rect().size)
+				if _battle_manager:
+					_battle_manager.ui = _battle_overlay
+					_battle_overlay.set("enemies", _battle_manager.enemies)
+					_battle_overlay.set("party", _battle_manager.party)
 
 func _update_debug_hud() -> void:
 	if not _debug_label:
