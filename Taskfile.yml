@@ -10,12 +10,18 @@ vars:
 
 tasks:
   setup:
-    desc: Install all dependencies and download Godot export templates
+    desc: Install all dependencies, link shared/, and download Godot export templates
     cmds:
       - '{{.PYTHON_BIN}} -m pip install --user jsonschema'
       - '{{.PYTHON_BIN}} scripts/download_templates.py'
       - cd {{.SERVER_DIR}} && pnpm install
       - pre-commit install
+      - task: share:link
+
+  share:link:
+    desc: Create cross-platform links from host projects to project/shared/
+    cmds:
+      - '{{.PYTHON_BIN}} scripts/setup_shared_links.py'
 
   version:
     desc: Print the current GitVersion SemVer

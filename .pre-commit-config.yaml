@@ -10,7 +10,7 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ["--maxkb=1000"]
-        exclude: ^project/hosts/complete-app/addons/
+        exclude: ^project/shared/addons/
 
   - repo: https://github.com/biomejs/pre-commit
     rev: v0.6.1
@@ -33,5 +33,10 @@ repos:
       - id: no-godot-cache
         name: Prevent .godot/ from being committed
         entry: "bash -c 'for f in \"$@\"; do case \"$f\" in */.godot/*) echo \"Blocked: $f\"; exit 1;; esac; done' --"
+        language: system
+        pass_filenames: true
+      - id: shared-link-guard
+        name: Reject writes inside paths linked from project/shared
+        entry: python3 scripts/precommit_shared_guard.py
         language: system
         pass_filenames: true
