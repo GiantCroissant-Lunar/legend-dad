@@ -1,117 +1,131 @@
 # Dragon Quest 1 Combat Mechanics & Balance
 
-*Research conducted: 2025-04-15*
-*Topic: DQ1 combat system, difficulty curve, and battle balance*
+*Research Date: 2025-04-15*
+*Topic: Combat Mechanics, Battle System, Difficulty Curve*
 
-## Combat System Overview
-
-Dragon Quest 1 features a turn-based combat system where the Hero faces enemies one-on-one. The combat is streamlined and focused on resource management rather than complex tactics.
-
-### Core Combat Mechanics
-
-**Command Set:**
-- **FIGHT** - Basic attack using equipped weapon
-- **SPELL** - Cast learned spells (Heal, Hurt, Sleep, Stopspell, Radiant, Return, Repel, Outside)
-- **ITEM** - Use consumables (Herbs, Keys, Wing, etc.)
-- **RUN** - Attempt to flee (success based on agility/speed)
-
-### Battle Flow
-
-1. Hero selects command
-2. Enemy AI determines action (usually attack)
-3. Speed determines action order
-4. Damage calculated and applied
-5. Repeat until HP reaches 0 on either side
-
-## Damage Formula
-
-DQ1 uses a relatively simple damage calculation:
-
-```
-Base Damage = (Attack Power / 2) - (Defense / 4)
-```
-
-With variance applied: Damage × (0.9 to 1.1 random factor)
-
-**Critical Hit:** 1/64 chance to deal (Attack Power - Defense/2) damage, bypassing normal variance
-
-### Spell Damage
-
-- **HURT:** Base 10-17 damage (MP cost: 2)
-- **HURTMORE:** Not in DQ1 (introduced in DQ2)
-
-## Enemy Design & Stats
-
-DQ1 enemies follow simple stat progressions:
-
-| Enemy | HP | Attack | Defense | EXP | Gold |
-|-------|-----|--------|---------|-----|------|
-| Slime | 3 | 5 | 3 | 1 | 2 |
-| Red Slime | 4 | 7 | 5 | 2 | 4 |
-| Dracky | 6-10 | 11-15 | 13 | 4-6 | 6-10 |
-| Skeleton | 10-15 | 18-22 | 16 | 11 | 15 |
-| Metal Slime | 4 | 10 | 255 | 775 | 5 |
-
-### Notable Enemy Mechanics
-
-**Metal Slime:**
-- Extremely high defense (255) makes physical attacks deal 0-1 damage
-- Low HP (4) means spells can kill it
-- Flee rate: 50% per turn
-- Reward: 775 EXP (significant early-game boost)
-
-**Boss: Dragonlord (Form 1)**
-- HP: 100-120
-- Attack: 86-100
-- Defense: 50-55
-- Uses Sleep spell
-
-**Boss: Dragonlord (True Form)**
-- HP: 130-150
-- Attack: 110-140
-- Defense: 80-90
-- Can attack twice per turn
-- Uses Healmore and Stopspell
-
-## Difficulty Curve
-
-DQ1's difficulty follows an intentional "wall" design:
-
-1. **Tantagel Area (Levels 1-3):** Tutorial zone, low risk
-2. **Kol/Garinham (Levels 4-7):** First real challenge, need equipment upgrades
-3. **Rimuldar/Cantlin (Levels 8-12):** Dungeon exploration, magic essential
-4. **Dragonlord's Castle (Level 13-16+):** Endgame, requires grinding or optimal play
-
-### Grinding Requirements
-
-- **Minimum to beat Dragonlord:** Level 16-18
-- **Comfortable:** Level 20+
-- **Speedrun/Often:** Level 12-14 with strategic items (Fairy Water, Herbs)
-
-## Balance Philosophy
-
-DQ1's combat balance is built on several principles:
-
-1. **Resource Scarcity:** MP doesn't regenerate at inns. Every spell use matters.
-2. **Binary Outcomes:** Most battles are either easy (full HP) or deadly (low HP)
-3. **Equipment Gates:** New weapons/armor provide step-function power jumps
-4. **Risk/Reward Grinding:** Metal Slimes provide "jackpot" moments
-
-## Lessons for Legend Dad
-
-1. **Simple Commands, Deep Consequences:** Limit action choices but make each meaningful
-2. **Equipment as Progression:** Clear power spikes from gear upgrades
-3. **Scarce Resources:** Non-regenerating MP creates tension
-4. "Sweet Spot" Enemies: Include rare high-reward enemies for dedicated players
-5. **Wall Bosses:** Difficulty spikes that require player adaptation
-
-## Sources
-
-- Dragon Quest (NES) gameplay analysis
-- Speedrun documentation (speedrun.com/dq1)
-- "The Making of Dragon Quest" interviews (Famitsu, 1986)
-- "Dragon Quest Encyclopeda" (Japanese strategy guides)
-- Personal gameplay testing and reverse-engineered formulas
 ---
 
-*File: vault/references/dq1-notes/2025-04-15-combat-mechanics.md*
+## Core Combat System Overview
+
+DQ1 pioneered the foundational RPG battle system that would define the genre:
+
+- **Turn-based combat** - Simple command input (FIGHT, SPELL, RUN)
+- **First-person perspective** - Player sees enemies but not hero sprite
+- **Single hero** - No party system (revolutionary for 1986)
+- **Random encounters** - Fixed encounter rate across terrain
+
+### Command Structure
+| Command | Function |
+|---------|----------|
+| FIGHT | Physical attack |
+| SPELL | Cast magic (if learned) |
+| RUN | Attempt escape (not always possible) |
+
+---
+
+## Spell System Progression
+
+DQ1's magic is **progressive and tightly controlled**:
+
+| Level | Spell | MP | Effect |
+|-------|-------|-----|--------|
+| 4 | Heal | 4 | Restore ~30 HP |
+| 7 | Hurt | 4 | Deal ~20 damage |
+| 10 | Sleep | 2 | Inflict sleep status |
+| 12 | Healmore | 10 | Restore ~60 HP |
+| 14 | Hurtmore | 10 | Deal ~60 damage |
+| 17 | Stopspell | 2 | Prevent enemy magic |
+
+**Key Design Insight:** Spells are earned through level progression, not purchased or found. This creates clear power milestones.
+
+---
+
+## Enemy Design Philosophy
+
+DQ1's enemy roster is **small but strategically diverse** (~20 enemy types):
+
+### Enemy Archetypes
+| Type | Examples | Role |
+|------|----------|------|
+| Fodder | Slime, Drakee | Low XP/Gold, safe to fight |
+| Standard | Drackos, Ghost | Moderate threat |
+| Dangerous | Warlock, Evil Tree | High threat, debuffs |
+| Deadly | Green Dragon, Golem | Boss-tier, gate progression |
+
+### Notable Enemy Mechanics
+- **Status effects**: Poison (Druin), Sleep (Droll), Magic seal (Warlock)
+- **Elemental resistance**: Some enemies immune/resistant to Hurt spells
+- **One-hit kill risk**: Some enemies can kill in 2-3 hits early game
+
+---
+
+## Difficulty Curve & Grinding
+
+DQ1 is **notoriously grind-heavy** by modern standards:
+
+### Level Progression Reality
+| Level | Approximate Time | Key Milestones |
+|-------|------------------|----------------|
+| 1-5 | 15-30 min | Initial exploration, first equipment |
+| 6-10 | 1-2 hours | Heal spell, stronger armor |
+| 11-15 | 2-4 hours | Hurtmore, quality equipment |
+| 16-20 | 4-6 hours | Healmore, endgame prep |
+| 21-30 | 5-10 hours | Final boss preparation |
+
+**Total playtime: 15-30 hours** depending on grinding tolerance
+
+### Grinding Mechanics
+- **Gold is tight**: Equipment is expensive, forces grinding
+- **MP is precious**: Forces strategic rest/healing decisions
+- **No save anywhere**: Must reach Tantegel Castle to save
+- **Death penalty**: Lose half gold, return to castle
+
+---
+
+## Combat Balance Insights
+
+### What Makes DQ1 Combat Work
+1. **Simplicity is depth**: Few options, but meaningful choices (fight vs. heal vs. run)
+2. **Resource management**: HP and MP are precious resources
+3. **Risk/reward**: Exploring further vs. returning to heal/save
+4. **Progression clarity**: Each level feels meaningful
+
+### Potential Issues for Modern Players
+- Encounter rate feels high (random every ~5-10 steps)
+- Grinding is mandatory, not optional
+- No enemy variety in early game
+- Death is punishing (half gold lost)
+
+---
+
+## Design Patterns Applicable to Legend Dad
+
+| DQ1 Pattern | Legend Dad Application |
+|-------------|------------------------|
+| Single hero → Single dad protagonist |
+| Level-based spell progression → Skill trees or ability milestones |
+| Tight resource management → Budget/life resource management |
+| Town → Safe zones → Home base mechanics |
+| Equipment progression → Gear/upgrade systems |
+| Status effects → Debuffs/life complications |
+| Boss encounters → Major life challenges |
+
+---
+
+## References & Sources
+
+- https://dragonquest.fandom.com/wiki/Dragon_Quest_I
+- https://strategywiki.org/wiki/Dragon_Quest/Combat
+- https://www.rpgsite.net/feature/12999-dragon-quest-i-retrospective.html
+- https://www.dqshrine.com/dq/dq1/
+- https://dragonquest.fandom.com/wiki/Category:Dragon_Quest_I_spells
+
+---
+
+## Notes for Legend Dad Design
+
+1. **Resource scarcity creates tension** - Consider tight budget/resources
+2. **Clear progression milestones** - Unlock abilities/areas at specific points
+3. **Meaningful risk/reward** - Should we push forward or retreat?
+4. **Simple but deep combat** - Few options, strategic choices
+5. **Status effects matter** - Debuffs create variety in encounters
