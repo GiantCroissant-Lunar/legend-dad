@@ -9,6 +9,8 @@ project/hosts/complete-app/.godot/
 build/_artifacts/*
 !build/_artifacts/.gitkeep
 build/_certs/
+build/tilesets/
+project/build/
 
 # Generated build metadata (regenerated each `task build` from gitversion)
 project/shared/data/build_version.txt
