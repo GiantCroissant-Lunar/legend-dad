@@ -49,3 +49,17 @@ def test_allows_other_paths_inside_host_projects():
     for path in cases:
         result = run([path])
         assert result.returncode == 0, f"should allow {path}: {result.stderr}"
+
+
+def test_allows_no_args():
+    # When pre-commit fires the hook with no matching files, argv is empty.
+    result = run([])
+    assert result.returncode == 0
+
+
+def test_normalises_windows_backslashes_and_dot_prefix():
+    # CI scripts / direct callers may produce these shapes; pre-commit itself never does.
+    result = run(["./project/hosts/complete-app/addons/foo.gd"])
+    assert result.returncode != 0
+    result = run(["project\\hosts\\complete-app\\addons\\foo.gd"])
+    assert result.returncode != 0

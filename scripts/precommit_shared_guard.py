@@ -17,7 +17,12 @@ BLOCKED = {
 
 
 def is_blocked(path: str) -> bool:
-    parts = path.split("/")
+    # git / pre-commit normalise paths to forward slashes and never include
+    # leading "./" — but normalise defensively so direct callers (CI scripts,
+    # ad-hoc invocations) get the same answer.
+    normalized = path.replace("\\", "/").lstrip("./")
+    parts = normalized.split("/")
+    # Need at least: project / hosts / {host} / {linked-sub} / {filename}
     if len(parts) < 5:
         return False
     if parts[0] != "project" or parts[1] != "hosts":
