@@ -35,6 +35,10 @@ var _visuals: Array[EntityVisual] = []
 
 # Debug HUD
 var _debug_label: Label
+# Build version stamped at `task build` time (gitversion SemVer). Read once
+# from res://data/build_version.txt at startup; "dev" if file is missing
+# (e.g. running the editor directly without going through `task build`).
+var _build_version: String = "dev"
 
 # Battle state
 var in_battle := false
@@ -128,6 +132,11 @@ func _ready() -> void:
 	var movement_system = S_GridMovement.new()
 	var action_processor = S_ActionProcessor.new()
 	world.add_systems([input_system, movement_system, action_processor])
+
+	# Read the build version stamp. Written by `task build` from gitversion;
+	# absent in editor runs (treated as "dev").
+	if FileAccess.file_exists("res://data/build_version.txt"):
+		_build_version = FileAccess.get_file_as_string("res://data/build_version.txt").strip_edges()
 
 	# Debug HUD (top-right corner, above everything)
 	_debug_label = Label.new()
@@ -764,7 +773,7 @@ func _update_debug_hud() -> void:
 		time_text = "Time: %.2fx" % time_state["speed"]
 
 	_debug_label.text = (
-		"Era: %s | Pos: (%d,%d) | Facing: %s\n" % [era_name, gp.col if gp else 0, gp.row if gp else 0, facing_name]
+		"v%s | Era: %s | Pos: (%d,%d) | Facing: %s\n" % [_build_version, era_name, gp.col if gp else 0, gp.row if gp else 0, facing_name]
 		+ "Looking at: (%d,%d) = %s\n" % [target_col, target_row, facing_content]
 		+ "Boulder: %s | Blocked: %s\n" % [
 			"DEFAULT" if boulder_state.state == C_Interactable.InteractState.DEFAULT else "ACTIVATED",

@@ -10,6 +10,9 @@ build/_artifacts/*
 !build/_artifacts/.gitkeep
 build/_certs/
 
+# Generated build metadata (regenerated each `task build` from gitversion)
+project/shared/data/build_version.txt
+
 # Node
 node_modules/
 *.tgz

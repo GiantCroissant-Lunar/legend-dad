@@ -44,6 +44,10 @@ tasks:
       - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/web
       - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/screenshots
       - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/replay
+      # Stamp the build version into shared/data so main.gd can read it at
+      # runtime via res://data/build_version.txt. Gitignored — regenerated
+      # on each build, never committed.
+      - echo "{{.VERSION}}" > project/shared/data/build_version.txt
       - >-
         {{.PYTHON_BIN}} scripts/run_godot_checked.py
         {{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}}
