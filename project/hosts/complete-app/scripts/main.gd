@@ -46,8 +46,8 @@ var _ws_client: Node = null
 
 # HUD layer (z=50) — hosts activity log, mini-map, battle overlay
 var _hud_layer: CanvasLayer = null
-var _activity_log_panel: ActivityLogPanel = null
-var _mini_map_panel: MiniMapPanel = null
+var _activity_log_panel: Control = null
+var _mini_map_panel: Control = null
 
 # Enemy entities
 var _enemy_entities: Array[E_Enemy] = []
@@ -152,13 +152,15 @@ func _ready() -> void:
 	_hud_layer.layer = 50
 	add_child(_hud_layer)
 
-	_activity_log_panel = ActivityLogPanel.new()
-	_activity_log_panel.name = "ActivityLogPanel"
-	_hud_layer.add_child(_activity_log_panel)
+	_activity_log_panel = _instantiate_widget("activity_log_panel")
+	if _activity_log_panel:
+		_activity_log_panel.name = "ActivityLogPanel"
+		_hud_layer.add_child(_activity_log_panel)
 
-	_mini_map_panel = MiniMapPanel.new()
-	_mini_map_panel.name = "MiniMapPanel"
-	_hud_layer.add_child(_mini_map_panel)
+	_mini_map_panel = _instantiate_widget("minimap")
+	if _mini_map_panel:
+		_mini_map_panel.name = "MiniMapPanel"
+		_hud_layer.add_child(_mini_map_panel)
 
 	ActivityLog.log_msg("Entered Whispering Woods")
 
@@ -691,6 +693,17 @@ func _build_world_map() -> void:
 		label.name = "Loc_" + loc_name.replace(" ", "")
 		label.position = locations[loc_name] * Vector2(1024, 600)
 		world_map_layer.add_child(label)
+
+func _instantiate_widget(widget_id: String) -> Control:
+	var def: Resource = ContentManager.get_hud_widget(widget_id)
+	if def == null:
+		push_warning("main: HUD widget '%s' not available — bundle not loaded?" % widget_id)
+		return null
+	var scene: PackedScene = def.get("scene")
+	if scene == null:
+		push_warning("main: HUD widget '%s' has no scene" % widget_id)
+		return null
+	return scene.instantiate()
 
 func _update_debug_hud() -> void:
 	if not _debug_label:
