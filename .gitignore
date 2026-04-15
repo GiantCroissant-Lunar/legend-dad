@@ -54,3 +54,18 @@ project/articy/legend-dad/ProjectInfo.lck
 
 # Git worktrees for parallel feature work
 .worktrees/
+
+# Cross-platform links to project/shared/ — recreated by `task share:link`.
+# Do NOT commit files inside these — edit under project/shared/ instead.
+project/hosts/complete-app/addons/
+project/hosts/complete-app/lib/
+project/hosts/complete-app/shaders/
+project/hosts/complete-app/data/
+project/hosts/content-app/addons/
+project/hosts/content-app/lib/
+project/hosts/content-app/shaders/
+project/hosts/content-app/data/
+project/hosts/content-app/content/
+
+# Godot cache for the new project too
+project/hosts/content-app/.godot/
