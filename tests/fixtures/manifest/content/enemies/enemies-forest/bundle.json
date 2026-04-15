@@ -1,0 +1,10 @@
+{
+  "id": "enemies-forest",
+  "kind": "enemies",
+  "policy": "lazy",
+  "deps": [],
+  "include": ["**/*.tres"],
+  "provides": {
+    "definitions": ["goblin", "slime"]
+  }
+}
