@@ -141,13 +141,19 @@ test("hud-battle bundle is lazy + palette textures load cleanly", async ({
 	const path = ["ArrowRight", "ArrowDown", "ArrowDown", "ArrowRight"];
 	for (const key of path) await tap(key);
 
-	// Enter combat — E key = interact action.
+	// Enter combat — E key = interact action. Generous window for the
+	// lazy hud-battle fetch + load_resource_pack to complete (sub-second
+	// once the tab is focused / RAF unthrottled).
 	await tap("KeyE");
 	await page.waitForTimeout(5_000);
 
-	// Give the lazy fetch + load_resource_pack a generous window. The fetch
-	// itself is sub-second once the tab is focused (RAF unthrottled).
-	await page.waitForTimeout(5_000);
+	// Cropped screenshot of the top-left HUD region for visual sanity-check
+	// (version stamp + Era/Pos line). Lands at:
+	// build/_artifacts/latest/screenshots/lazy-bundle-load-final.png
+	await page.screenshot({
+		path: "../../../../build/_artifacts/latest/screenshots/lazy-bundle-load-final.png",
+		clip: { x: 0, y: 0, width: 600, height: 200 },
+	});
 
 	// Dump tail of the Godot console — the [main] / ContentManager prints
 	// only fire if signals routed correctly.
