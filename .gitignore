@@ -51,3 +51,6 @@ project/articy/legend-dad/ProjectInfo.lck
 
 # Superpowers brainstorm sessions
 .superpowers/
+
+# Git worktrees for parallel feature work
+.worktrees/
