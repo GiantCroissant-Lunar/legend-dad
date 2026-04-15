@@ -57,6 +57,13 @@ project/articy/legend-dad/ProjectInfo.lck
 # Superpowers brainstorm sessions
 .superpowers/
 
+# godot-api skill — generated per-class API docs + upstream sparse clone
+.agent/skills/01-godot/godot-api/doc_api/
+.agent/skills/01-godot/godot-api/doc_source/
+
+# External reference checkouts — not part of this repo
+ref-projects/
+
 # Git worktrees for parallel feature work
 .worktrees/
 
