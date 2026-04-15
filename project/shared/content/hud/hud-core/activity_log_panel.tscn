@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://content/hud/hud-core/activity_log_panel.gd" id="1_alp"]
+[ext_resource type="Resource" path="res://content/hud/hud-core/activity_log_panel_style.tres" id="2_style"]
 
 [node name="ActivityLogPanel" type="Control"]
 layout_mode = 3
@@ -8,3 +9,4 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1_alp")
+style = ExtResource("2_style")

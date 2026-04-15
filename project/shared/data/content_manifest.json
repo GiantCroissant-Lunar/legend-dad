@@ -4,7 +4,7 @@
     "hud-core": {
       "kind": "hud",
       "policy": "eager",
-      "pck": "hud-core@6747a4.pck",
+      "pck": "hud-core@09edde.pck",
       "deps": [],
       "provides": {
         "widgets": [
@@ -12,7 +12,7 @@
           "minimap"
         ]
       },
-      "content_hash": "6747a4"
+      "content_hash": "09edde"
     },
     "hud-battle": {
       "kind": "hud",

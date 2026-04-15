@@ -1,32 +1,34 @@
 # scripts/ui/mini_map_panel.gd
 # Small windowed panel in top-right showing simplified map grid.
+#
+# Visual tunables live in `mini_map_panel_style.tres` — see the sibling
+# comment in `activity_log_panel.gd` for why .gd `const` can't carry them
+# on the web build.
 class_name MiniMapPanel
 extends Control
 
-const BG_COLOR = Color(0.05, 0.05, 0.15, 0.85)
-const BORDER_COLOR = Color(0.6, 0.7, 0.9, 0.8)
-const HEADER_COLOR = Color(0.6, 0.7, 0.9)
-const WALKABLE_COLOR = Color(0.15, 0.2, 0.15)
-const BLOCKED_COLOR = Color(0.3, 0.3, 0.35)
-const PLAYER_COLOR = Color(1.0, 0.8, 0.0)
-const ENEMY_COLOR = Color(0.8, 0.2, 0.2)
-const BORDER_WIDTH = 2.0
-const PADDING = 8.0
+@export var style: MiniMapPanelStyle
+
+func _ready() -> void:
+	if style:
+		print("[style-mm] bg_color=", style.bg_color)
 
 func _process(_delta: float) -> void:
 	queue_redraw()
 
 func _draw() -> void:
+	if style == null:
+		return
 	var sz = size
 
 	# Background + border
-	draw_rect(Rect2(Vector2.ZERO, sz), BG_COLOR)
-	draw_rect(Rect2(Vector2.ZERO, sz), BORDER_COLOR, false, BORDER_WIDTH)
+	draw_rect(Rect2(Vector2.ZERO, sz), style.bg_color)
+	draw_rect(Rect2(Vector2.ZERO, sz), style.border_color, false, style.border_width)
 
 	# Header
-	var header_y: float = PADDING + 10.0
-	draw_string(ThemeDB.fallback_font, Vector2(PADDING, header_y), "Map",
-		HORIZONTAL_ALIGNMENT_LEFT, -1, 10, HEADER_COLOR)
+	var header_y: float = style.padding + 10.0
+	draw_string(ThemeDB.fallback_font, Vector2(style.padding, header_y), "Map",
+		HORIZONTAL_ALIGNMENT_LEFT, -1, 10, style.header_color)
 
 	var map_w: int = GameConfig.map_width
 	var map_h: int = GameConfig.map_height
@@ -35,12 +37,12 @@ func _draw() -> void:
 
 	# Grid area below header
 	var grid_top: float = header_y + 6.0
-	var grid_area_w: float = sz.x - PADDING * 2
-	var grid_area_h: float = sz.y - grid_top - PADDING
+	var grid_area_w: float = sz.x - style.padding * 2
+	var grid_area_h: float = sz.y - grid_top - style.padding
 	var dot_size: float = minf(grid_area_w / map_w, grid_area_h / map_h)
 	dot_size = minf(dot_size, 8.0)
 
-	var grid_offset_x: float = PADDING + (grid_area_w - dot_size * map_w) / 2.0
+	var grid_offset_x: float = style.padding + (grid_area_w - dot_size * map_w) / 2.0
 	var grid_offset_y: float = grid_top + (grid_area_h - dot_size * map_h) / 2.0
 
 	# Get collision grid for active era
@@ -57,7 +59,7 @@ func _draw() -> void:
 			var cell_rect = Rect2(rect_pos, Vector2(dot_size - 1, dot_size - 1))
 			var key = Vector2i(col, row)
 			var walkable: bool = collision_grid.get(key, true)
-			draw_rect(cell_rect, WALKABLE_COLOR if walkable else BLOCKED_COLOR)
+			draw_rect(cell_rect, style.walkable_color if walkable else style.blocked_color)
 
 	# Draw entities (player + enemies)
 	var entities = ECS.world.query.with_all([C_GridPosition, C_TimelineEra]).execute()
@@ -73,9 +75,9 @@ func _draw() -> void:
 		var dot_rect = Rect2(dot_pos, Vector2(dot_size * 0.7, dot_size * 0.7))
 
 		if entity.has_component(C_PlayerControlled):
-			draw_rect(dot_rect, PLAYER_COLOR)
+			draw_rect(dot_rect, style.player_color)
 		elif entity.has_component(C_Enemy):
-			draw_rect(dot_rect, ENEMY_COLOR)
+			draw_rect(dot_rect, style.enemy_color)
 
 func _get_active_era() -> C_TimelineEra.Era:
 	var main_node = get_tree().current_scene

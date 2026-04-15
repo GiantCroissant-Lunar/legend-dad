@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ActivityLogPanelStyle" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/activity_log_panel_style.gd" id="1_style"]
+
+[resource]
+script = ExtResource("1_style")
+bg_color = Color(0.05, 0.05, 0.15, 0.85)
+border_color = Color(0.6, 0.7, 0.9, 0.8)
+header_color = Color(0.6, 0.7, 0.9, 1)
+text_color = Color(1, 1, 1, 1)
+msg_font_size = 30
+header_font_size = 33
+line_height = 48.0
+padding = 10.0
+border_width = 2.0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="MiniMapPanelStyle" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/mini_map_panel_style.gd" id="1_style"]
+
+[resource]
+script = ExtResource("1_style")
+bg_color = Color(0.05, 0.05, 0.15, 0.85)
+border_color = Color(0.6, 0.7, 0.9, 0.8)
+header_color = Color(0.6, 0.7, 0.9, 1)
+walkable_color = Color(0.15, 0.2, 0.15, 1)
+blocked_color = Color(0.3, 0.3, 0.35, 1)
+player_color = Color(1, 0.8, 0, 1)
+enemy_color = Color(0.8, 0.2, 0.2, 1)
+border_width = 2.0
+padding = 8.0

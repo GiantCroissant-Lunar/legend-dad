@@ -18,19 +18,22 @@ import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
 
 const REPO_ROOT = resolve(new URL("../../../../..", import.meta.url).pathname);
+// Tweaking the style .tres is the supported iteration path (see
+// style-hot-reload.spec.js). This test reuses that file as a convenient
+// hash-flipping source while asserting the broader reload infrastructure
+// (200 responses, widgets-ok) that style-hot-reload.spec.js doesn't.
 const TWEAKED_FILE = resolve(
 	REPO_ROOT,
-	"project/shared/content/hud/hud-core/activity_log_panel.gd",
+	"project/shared/content/hud/hud-core/activity_log_panel_style.tres",
 );
 
 test("F9 hot-reloads hud-core after `task content:build`", async ({ page }) => {
 	test.setTimeout(180_000);
 
-	// Snapshot the activity_log source so we can guarantee restoration.
 	const original = readFileSync(TWEAKED_FILE, "utf8");
-	if (!original.includes("BG_COLOR = Color(0.05, 0.05, 0.15, 0.85)")) {
+	if (!original.includes("bg_color = Color(0.05, 0.05, 0.15, 0.85)")) {
 		throw new Error(
-			"activity_log_panel.gd shape changed; update the test's marker",
+			"activity_log_panel_style.tres baseline shape changed; update the test's marker",
 		);
 	}
 
@@ -76,12 +79,11 @@ test("F9 hot-reloads hud-core after `task content:build`", async ({ page }) => {
 		).toBeTruthy();
 		console.log(`[test] initial hud-core hash: ${initialHash}`);
 
-		// 2. Tweak the source. Trivial whitespace change is enough to flip the
-		// content hash (the hash is computed over PCK contents which include
-		// the compiled .gdc, which is byte-sensitive to source).
+		// 2. Tweak the style .tres bg_color field. Changing it flips the PCK
+		// content hash so the reload path has something to do.
 		const tweaked = original.replace(
-			"BG_COLOR = Color(0.05, 0.05, 0.15, 0.85)",
-			"BG_COLOR = Color(0.10, 0.05, 0.15, 0.85)  # hot-reload test tweak",
+			"bg_color = Color(0.05, 0.05, 0.15, 0.85)",
+			"bg_color = Color(0.10, 0.05, 0.15, 0.85)",
 		);
 		writeFileSync(TWEAKED_FILE, tweaked);
 
