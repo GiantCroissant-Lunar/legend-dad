@@ -27,6 +27,23 @@
         ]
       },
       "content_hash": "b9d664"
+    },
+    "enemies-core": {
+      "kind": "enemies",
+      "policy": "eager",
+      "pck": "enemies-core@463b56.pck",
+      "deps": [],
+      "provides": {
+        "enemies": [
+          "slime",
+          "bandit",
+          "wolf",
+          "skeleton",
+          "dracky",
+          "metal_scorpion"
+        ]
+      },
+      "content_hash": "463b56"
     }
   }
 }

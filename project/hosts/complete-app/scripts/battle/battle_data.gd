@@ -40,38 +40,9 @@ const ALLY2_STATS := {
 	"level": 2,
 }
 
-const ENEMIES := {
-	"slime": {
-		"name": "Slime",
-		"max_hp": 12,
-		"atk": 5,
-		"def": 2,
-		"spd": 3,
-		"exp": 4,
-		"gold": 3,
-		"color": Color(0.2, 0.8, 0.3),
-	},
-	"bandit": {
-		"name": "Bandit",
-		"max_hp": 25,
-		"atk": 10,
-		"def": 5,
-		"spd": 7,
-		"exp": 12,
-		"gold": 8,
-		"color": Color(0.7, 0.3, 0.3),
-	},
-	"wolf": {
-		"name": "Wolf",
-		"max_hp": 18,
-		"atk": 8,
-		"def": 3,
-		"spd": 12,
-		"exp": 8,
-		"gold": 5,
-		"color": Color(0.5, 0.5, 0.5),
-	},
-}
+# Enemy stats moved to res://content/enemies/enemies-core/*.tres and
+# accessed via ContentManager.get_enemy_definition(id). Player/ally stats
+# still live here — no content iteration need for them yet.
 
 static func calc_damage(atk: int, def: int) -> int:
 	var base = atk - def / 2

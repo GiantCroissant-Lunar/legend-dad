@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/enemy_definition.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = "skeleton"
+display_name = "Skeleton"
+max_hp = 30
+max_mp = 0
+attack = 12
+defense = 6
+spd = 6
+level = 3
+xp_reward = 16
+gold_reward = 12
+tint_color = Color(0.9, 0.88, 0.8, 1)

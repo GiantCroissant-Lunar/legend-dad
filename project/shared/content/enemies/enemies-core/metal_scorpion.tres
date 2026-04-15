@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/enemy_definition.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = "metal_scorpion"
+display_name = "Metal Scorpion"
+max_hp = 20
+max_mp = 0
+attack = 9
+defense = 4
+spd = 14
+level = 2
+xp_reward = 10
+gold_reward = 7
+tint_color = Color(0.8, 0.75, 0.4, 1)

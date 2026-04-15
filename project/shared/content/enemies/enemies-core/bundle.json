@@ -1,0 +1,17 @@
+{
+  "id": "enemies-core",
+  "kind": "enemies",
+  "policy": "eager",
+  "deps": [],
+  "include": ["*.tres"],
+  "provides": {
+    "enemies": [
+      "slime",
+      "bandit",
+      "wolf",
+      "skeleton",
+      "dracky",
+      "metal_scorpion"
+    ]
+  }
+}

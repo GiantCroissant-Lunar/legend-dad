@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/enemy_definition.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = "bandit"
+display_name = "Bandit"
+max_hp = 25
+max_mp = 0
+attack = 10
+defense = 5
+spd = 7
+level = 2
+xp_reward = 12
+gold_reward = 8
+tint_color = Color(0.7, 0.3, 0.3, 1)

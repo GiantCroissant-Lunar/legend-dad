@@ -173,8 +173,12 @@ func _ready() -> void:
 	ActivityLog.log_msg("Entered Whispering Woods")
 
 	# --- Spawn overworld enemies ---
+	# Pulled from the `enemies-core` data bundle (DQ1-inspired roster).
+	# IDs map to res://content/enemies/enemies-core/{id}.tres via
+	# ContentManager.get_enemy_definition.
 	_spawn_enemy(C_TimelineEra.Era.FATHER, 4, 4, "slime")
-	_spawn_enemy(C_TimelineEra.Era.FATHER, 7, 6, "slime")
+	_spawn_enemy(C_TimelineEra.Era.FATHER, 7, 6, "dracky")
+	_spawn_enemy(C_TimelineEra.Era.FATHER, 10, 4, "skeleton")
 
 	# --- WebSocket client ---
 	var ws_client_script = preload("res://scripts/ws_client.gd")
@@ -217,8 +221,12 @@ func _spawn_enemy(era: C_TimelineEra.Era, col: int, row: int, enemy_type: String
 	var visual = EntityVisual.new()
 	visual.visual_type = EntityVisual.VisualType.ENEMY
 	visual.entity = enemy
-	var enemy_data = BattleData.ENEMIES.get(enemy_type, {})
-	visual.enemy_color = enemy_data.get("color", Color(0.2, 0.8, 0.3))
+	var enemy_def := ContentManager.get_enemy_definition(enemy_type) as EnemyDefinition
+	if enemy_def:
+		visual.enemy_color = enemy_def.tint_color
+	else:
+		push_warning("main: no enemy definition for '%s' — using fallback tint" % enemy_type)
+		visual.enemy_color = Color(0.2, 0.8, 0.3)
 	var gp = enemy.get_component(C_GridPosition) as C_GridPosition
 	if gp:
 		visual.position = Vector2(gp.visual_x, gp.visual_y)
@@ -291,9 +299,13 @@ func _start_battle(enemy_entity: E_Enemy, enemy_visual: EntityVisual) -> void:
 		party_combatants.append(Combatant.from_dict(BattleData.ALLY2_STATS))
 
 	var enemy_comp = enemy_entity.get_component(C_Enemy) as C_Enemy
-	var enemy_data = BattleData.ENEMIES.get(enemy_comp.enemy_type, BattleData.ENEMIES["slime"])
+	var enemy_def := ContentManager.get_enemy_definition(enemy_comp.enemy_type) as EnemyDefinition
+	if enemy_def == null:
+		# Fall back to the slime baseline so a typo or missing bundle can't
+		# wedge combat. _spawn_enemy already push_warning'd if the id was bad.
+		enemy_def = ContentManager.get_enemy_definition("slime") as EnemyDefinition
 	var enemy_combatants: Array[Combatant] = []
-	enemy_combatants.append(Combatant.from_dict(enemy_data, true))
+	enemy_combatants.append(Combatant.from_dict(enemy_def.to_combat_dict(), true))
 
 	ActivityLog.log_battle_start()
 	_battle_manager.start_battle(party_combatants, enemy_combatants, _battle_overlay)
