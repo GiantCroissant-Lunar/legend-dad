@@ -16,9 +16,16 @@ signal bundle_will_reload(bundle_id: String)
 const MANIFEST_PATH := "res://data/content_manifest.json"
 # Where fetched PCKs are cached on web. user:// maps to IndexedDB in the browser.
 const WEB_PCK_CACHE_DIR := "user://pck_cache"
+# Game-server endpoint for fetching the latest manifest at runtime (hot reload).
+# The manifest baked into complete-app.pck is frozen at engine-export time and
+# references stale content hashes after a `task content:build`.
+const MANIFEST_HTTP_URL := "http://localhost:7600/manifest.json"
 
 var _manifest: Dictionary = {"schema_version": 1, "bundles": {}}
 var _loaded: Dictionary = {}  # bundle_id -> true
+# Bundles whose PCK was just hot-reloaded — get_hud_widget etc. use
+# CACHE_MODE_REPLACE_DEEP for these so consumers see fresh resources.
+var _just_reloaded: Dictionary = {}  # bundle_id -> true
 # Test seam: tests inject a callable that simulates ProjectSettings.load_resource_pack.
 var _test_pck_loader: Callable = Callable()
 
@@ -56,7 +63,7 @@ func loaded_bundles() -> Array[String]:
 	return out
 
 
-func load_bundle(bundle_id: String) -> bool:
+func load_bundle(bundle_id: String, replace_files: bool = false) -> bool:
 	if is_loaded(bundle_id):
 		return true
 	var entry := describe(bundle_id)
@@ -65,7 +72,7 @@ func load_bundle(bundle_id: String) -> bool:
 		return false
 	# Load deps depth-first.
 	for dep in entry.get("deps", []):
-		var dep_ok: bool = await load_bundle(dep)
+		var dep_ok: bool = await load_bundle(dep, replace_files)
 		if not dep_ok:
 			emit_signal("bundle_load_failed", bundle_id, "dep '%s' failed" % dep)
 			return false
@@ -80,11 +87,11 @@ func load_bundle(bundle_id: String) -> bool:
 		# load_resource_pack on web reads from Emscripten MEMFS, not the network,
 		# so res://pck/... is not reachable. Fetch via HTTP, write to user://,
 		# then load from there.
-		ok = await _load_pck_web(pck_name)
+		ok = await _load_pck_web(pck_name, replace_files)
 	else:
 		# Native (editor / headless / desktop export). Local pck/ symlink or
 		# baked-in res:// path resolves directly.
-		ok = ProjectSettings.load_resource_pack("res://pck/%s" % pck_name, false)
+		ok = ProjectSettings.load_resource_pack("res://pck/%s" % pck_name, replace_files)
 	if not ok:
 		emit_signal("bundle_load_failed", bundle_id, "PCK load failed: %s" % pck_name)
 		return false
@@ -93,10 +100,91 @@ func load_bundle(bundle_id: String) -> bool:
 	return true
 
 
+# Re-fetch the content manifest from the game server. The manifest baked into
+# complete-app.pck is frozen at engine-export time; this picks up new PCK
+# hashes published by `task content:build` since the page was loaded.
+# Native fallback re-reads res://data/content_manifest.json from disk.
+func reload_manifest() -> bool:
+	if not OS.has_feature("web"):
+		var f := FileAccess.open(MANIFEST_PATH, FileAccess.READ)
+		if f == null:
+			push_error("ContentManager: native manifest re-read failed")
+			return false
+		var parsed: Variant = JSON.parse_string(f.get_as_text())
+		if typeof(parsed) != TYPE_DICTIONARY:
+			push_error("ContentManager: malformed manifest on reload")
+			return false
+		_manifest = parsed
+		return true
+
+	# Web: fetch from game-server HTTP endpoint.
+	var http := HTTPRequest.new()
+	http.use_threads = false
+	add_child(http)
+	var err := http.request(MANIFEST_HTTP_URL)
+	if err != OK:
+		push_error("ContentManager: manifest fetch request failed: %d" % err)
+		http.queue_free()
+		return false
+	var result: Array = await http.request_completed
+	http.queue_free()
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	if response_code != 200 or body.is_empty():
+		push_error("ContentManager: manifest fetch HTTP %d" % response_code)
+		return false
+	var parsed_web: Variant = JSON.parse_string(body.get_string_from_utf8())
+	if typeof(parsed_web) != TYPE_DICTIONARY:
+		push_error("ContentManager: manifest from server was not a dictionary")
+		return false
+	_manifest = parsed_web
+	print("[ContentManager] manifest reloaded from server")
+	return true
+
+
+# Hot-reload a single bundle: emit will_reload (consumers free their refs),
+# clear bookkeeping, re-fetch the PCK with replace_files=true (Godot replaces
+# overlapping res:// paths), emit bundle_loaded so consumers can re-instantiate.
+# Caller should `await` this so it can re-create UI after the new PCK is in.
+func reload_bundle(bundle_id: String) -> bool:
+	if not is_loaded(bundle_id):
+		push_warning("ContentManager: cannot reload '%s' — not loaded" % bundle_id)
+		return false
+	emit_signal("bundle_will_reload", bundle_id)
+	_loaded.erase(bundle_id)
+	_just_reloaded[bundle_id] = true
+	var ok := await load_bundle(bundle_id, true)
+	if not ok:
+		_just_reloaded.erase(bundle_id)
+	return ok
+
+
+# Reload every currently-loaded bundle whose hash differs from the current
+# manifest. Re-fetches the manifest first so post-rebuild hashes are visible.
+# Returns the list of bundle_ids that were actually reloaded.
+func reload_all_loaded() -> Array[String]:
+	var reloaded: Array[String] = []
+	# Snapshot loaded set + old hashes BEFORE manifest replacement.
+	var old_hashes: Dictionary = {}
+	for bundle_id in _loaded.keys():
+		old_hashes[bundle_id] = describe(bundle_id).get("content_hash", "")
+	if not await reload_manifest():
+		return reloaded
+	for bundle_id in old_hashes.keys():
+		var new_hash: String = describe(bundle_id).get("content_hash", "")
+		if new_hash == old_hashes[bundle_id]:
+			print("[ContentManager] %s unchanged (%s) — skipping reload" % [bundle_id, new_hash])
+			continue
+		print("[ContentManager] %s hash %s -> %s, reloading" % [bundle_id, old_hashes[bundle_id], new_hash])
+		if await reload_bundle(bundle_id):
+			reloaded.append(bundle_id)
+	return reloaded
+
+
 # Fetches a PCK over HTTP, caches it under user:// (IndexedDB on the browser),
 # and asks Godot to load it. Mirrors the per-call HTTPRequest pattern
 # `LocationManager._fetch_pck_web` already uses successfully in production.
-func _load_pck_web(pck_name: String) -> bool:
+func _load_pck_web(pck_name: String, replace_files: bool = false) -> bool:
 	# Always overwrite — hashed filenames mean stale cache CAN'T happen by
 	# design, and writing fresh bytes guards against any corruption from
 	# earlier broken builds during development.
@@ -146,7 +234,7 @@ func _load_pck_web(pck_name: String) -> bool:
 		return false
 	f.store_buffer(body)
 	f.close()
-	return ProjectSettings.load_resource_pack(cache_path, false)
+	return ProjectSettings.load_resource_pack(cache_path, replace_files)
 
 
 func unload_bundle(bundle_id: String) -> bool:
@@ -193,6 +281,14 @@ func _load_resource_by_kind(kind: String, id: String, ext: String) -> Resource:
 		if entry.get("kind", "") != kind:
 			continue
 		var path := "res://content/%s/%s/%s%s" % [kind, bundle_id, id, ext]
-		if ResourceLoader.exists(path):
-			return load(path)
+		if not ResourceLoader.exists(path):
+			continue
+		# After hot-reload, bypass Godot's resource cache once so the consumer
+		# sees the freshly-packed bytes (CACHE_MODE_REPLACE_DEEP also re-loads
+		# subresources like the PackedScene referenced from a HudWidgetDefinition).
+		# After this call, drop the dirty flag — next read uses the normal cache.
+		if _just_reloaded.has(bundle_id):
+			_just_reloaded.erase(bundle_id)
+			return ResourceLoader.load(path, "", ResourceLoader.CACHE_MODE_REPLACE_DEEP)
+		return load(path)
 	return null
