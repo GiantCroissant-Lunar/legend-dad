@@ -41,14 +41,19 @@ LINKS: tuple[LinkEntry, ...] = (
 
 def create_link(host_dir: Path, name: str, target_dir: Path) -> None:
     """Create or refresh a single link from host_dir/name to target_dir."""
+    target_dir = target_dir.resolve()
     link_path = host_dir / name
     # Remove any stale entry (link, junction, or directory) without touching the target.
-    if link_path.is_symlink() or link_path.exists():
+    # os.path.lexists does NOT follow links, so it returns True for broken symlinks
+    # AND stale Windows junctions (where is_symlink()/exists() both return False).
+    if os.path.lexists(str(link_path)):
         if link_path.is_symlink() or link_path.is_file():
             link_path.unlink()
         else:
             # Directory or junction. On Windows, junctions are reported as dirs
             # by Path.is_dir(); rmdir works for both empty dirs and junctions.
+            # A stale junction has is_symlink()=False and is_file()=False, so it
+            # lands here — rmdir removes the junction entry without touching target.
             try:
                 link_path.rmdir()
             except OSError:
@@ -57,11 +62,14 @@ def create_link(host_dir: Path, name: str, target_dir: Path) -> None:
 
     if IS_WINDOWS:
         # mklink /J creates a directory junction and does NOT require admin.
-        subprocess.run(
+        result = subprocess.run(
             ["cmd", "/c", "mklink", "/J", str(link_path), str(target_dir)],
-            check=True,
+            check=False,
             capture_output=True,
+            text=True,
         )
+        if result.returncode != 0:
+            raise SystemExit(f"mklink /J failed for {link_path} -> {target_dir}: {result.stderr.strip()}") from None
     else:
         rel_target = os.path.relpath(target_dir, link_path.parent)
         link_path.symlink_to(rel_target, target_is_directory=True)

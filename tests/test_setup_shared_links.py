@@ -1,5 +1,8 @@
 import sys
 from pathlib import Path
+from unittest.mock import patch
+
+import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from setup_shared_links import LINKS, create_link, ensure_all_links
@@ -70,4 +73,55 @@ def test_ensure_all_links_creates_all_entries(tmp_path):
     ensure_all_links(project)
 
     for entry in LINKS:
-        assert (project / "hosts" / entry.host / entry.name).exists(), entry
+        link = project / "hosts" / entry.host / entry.name
+        assert link.exists(), entry
+        if not sys.platform.startswith("win"):
+            assert link.is_symlink(), f"{link} should be a symlink"
+
+
+def test_create_link_calls_mklink_on_windows(tmp_path, monkeypatch):
+    monkeypatch.setattr("setup_shared_links.IS_WINDOWS", True)
+    target = tmp_path / "shared" / "addons"
+    target.mkdir(parents=True)
+    host = tmp_path / "hosts" / "complete-app"
+    host.mkdir(parents=True)
+
+    with patch("setup_shared_links.subprocess.run") as mock_run:
+        mock_run.return_value.returncode = 0
+        mock_run.return_value.stderr = ""
+        create_link(host, "addons", target)
+        mock_run.assert_called_once()
+        cmd = mock_run.call_args[0][0]
+        assert cmd[0] == "cmd"
+        assert cmd[1] == "/c"
+        assert cmd[2] == "mklink"
+        assert cmd[3] == "/J"
+        assert cmd[4] == str(host / "addons")
+        assert cmd[5] == str(target.resolve())
+
+
+def test_create_link_raises_on_mklink_failure(tmp_path, monkeypatch):
+    monkeypatch.setattr("setup_shared_links.IS_WINDOWS", True)
+    target = tmp_path / "shared" / "addons"
+    target.mkdir(parents=True)
+    host = tmp_path / "hosts" / "complete-app"
+    host.mkdir(parents=True)
+
+    with patch("setup_shared_links.subprocess.run") as mock_run:
+        mock_run.return_value.returncode = 1
+        mock_run.return_value.stderr = "Cannot create a file when that file already exists."
+        with pytest.raises(SystemExit, match="mklink /J failed"):
+            create_link(host, "addons", target)
+
+
+def test_create_link_refuses_nonempty_real_dir(tmp_path):
+    target = tmp_path / "shared" / "addons"
+    target.mkdir(parents=True)
+    host = tmp_path / "hosts" / "complete-app"
+    host.mkdir(parents=True)
+    occupied = host / "addons"
+    occupied.mkdir()
+    (occupied / "important.gd").write_text("user content")
+
+    with pytest.raises(SystemExit, match="Refusing"):
+        create_link(host, "addons", target)
