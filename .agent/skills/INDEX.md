@@ -37,6 +37,7 @@ Numbered categories create an implicit dependency hierarchy — lower numbers ar
 | `qmd-search` | Local hybrid search (BM25 + vector + reranking) over project docs and skills via QMD. | `@context-discovery`, `@rfc-orchestrator`, `@docling` |
 | `notebooklm` | Query Google NotebookLM notebooks — create, add sources, query, cross-search, audio summaries. | `@docling`, `@qmd-search` |
 | `web-build-iterate` | Tight iteration loop on a running web build: spot issue → edit content → `task content:build -- {id}` → F9 hot-reload → re-verify. Encodes bundle mapping, reload scope matrix (HUD vs location vs engine), and hash-flip verification. | `@context-discovery`, `@validation-guard`, `@game-player` |
+| `visual-qa` | Claude-Haiku-backed vision QA over screenshots: static (reference + shot), dynamic (reference + frames), or free-form question. Catches what pixel-diff + Playwright can't — missing widgets, placement intent, motion anomalies. Advisory, not blocking. | `@web-build-iterate`, `@game-player` |
 
 ## 05-world — World Bible & Lore
 

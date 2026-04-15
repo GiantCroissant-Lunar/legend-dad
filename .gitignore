@@ -91,3 +91,6 @@ project/hosts/content-app/.godot/
 # Dev symlink: serves PCKs from build/_artifacts/pck/ during local headless runs.
 # Recreate with: ln -s ../../../build/_artifacts/pck project/hosts/complete-app/pck
 project/hosts/complete-app/pck
+
+# Visual-QA debug log — one line per invocation, regenerated freely.
+.vqa.log
