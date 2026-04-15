@@ -19,15 +19,15 @@ Live progress log for the [2026-04-15 content/runtime split spec][spec] and [imp
 |---|---|---|
 | 1 — Cross-platform link infrastructure | ✅ done | `ae290ce`, `7628aa9`, `8ce1305`, `b661846`, `8a2d974`, `887c94e` |
 | 2 — shared/ skeleton + relocation | ✅ done | `b95b672`, `d12bfd3`, `6d8b560`, `a7309e1`, `6cd841d`, `f94129c`, `7bf49a2` |
-| 3 — shared lib (enums + Resources + contract) | in progress | — |
-| 4 — content-app project.godot autoloads | pending | — |
-| 5 — Manifest schema + ContentManager autoload | pending | — |
-| 6 — Bundle packager + content:* taskfile targets | pending | — |
-| 7 — Boot scene with safe fallback | pending | — |
-| 8 — Preview harness in content-app | pending | — |
-| 9 — hud-core bundle migration end-to-end | pending | — |
-| 10 — Web build serves PCKs over HTTP | pending | — |
-| 11 — AGENTS.md + dev-log update | pending | — |
+| 3 — shared lib (enums + Resources + contract) | ✅ done | `445b0bb`, `2614090`, `43c483e` |
+| 4 — content-app project.godot autoloads | ✅ done | `1cd9c2c` |
+| 5 — Manifest schema + ContentManager autoload | ✅ done | `70435bd`, `5187df5`, `e2c9c93`, `b03eee2` |
+| 6 — Bundle packager + content:* taskfile targets | ✅ done | `815045a`, `5376d7a`, `46b8704` |
+| 7 — Boot scene with safe fallback | ✅ done | `bcf1793` |
+| 8 — Preview harness in content-app | ✅ done | `0711bfc`, `463334d`, `4d54d56`, `4191b5d` |
+| 9 — hud-core bundle migration end-to-end | ✅ done | `019bd95`, `6fea290`, `f241f0c`, `b4a1a6a` |
+| 10 — Web build serves PCKs over HTTP | ✅ done | `a4dab23`, `3f3a4b0` |
+| 11 — AGENTS.md + dev-log update | in progress | `c8bc5ab` |
 
 ## Findings Not in the Plan
 
@@ -84,6 +84,48 @@ The user already had this fix as uncommitted WIP in main. The worktree (branched
 
 **Plan amendment needed:** Phase 2 should explicitly call out the GUIDE plugin patch as a prerequisite for headless mode. AGENTS.md (Phase 11) should mention this so future addon updates don't reintroduce the regression.
 
+### F7 — `bundle_packager.gd` output path was off by one directory level (Phase 9, addressed in `f241f0c`)
+
+`bundle_packager.gd` runs from `project/hosts/content-app/`. The plan's draft computed the PCK output dir as:
+```gdscript
+var out_dir := ProjectSettings.globalize_path("res://").path_join("../../build/_artifacts/pck")
+```
+But `res://` resolves to `project/hosts/content-app/`, so `../../` lands at `project/build/_artifacts/pck/` — one level too shallow. Meanwhile `content_manifest.py` (sibling tool) reads from `<repo-root>/build/_artifacts/pck/`. Mismatch ⇒ the packager wrote PCKs that the manifest generator never found.
+
+**Fix applied:** change `../../` to `../../../` in `bundle_packager.gd`.
+
+**Plan amendment needed:** Task 6.1's `bundle_packager.gd` snippet must use `../../../build/_artifacts/pck`.
+
+### F8 — GDScript `String.match("**/*.gd")` does not match flat files (Phase 9, addressed in `f241f0c`)
+
+The plan's `bundle.json` example used `"include": ["**/*.tres", "**/*.tscn", "**/*.gd"]`. GDScript's `String.match()` uses Unix shell glob semantics where `**/` requires at least one directory segment before the filename. Files at the bundle root (e.g. `activity_log_panel.gd` directly under `hud-core/`) don't match. The packager dropped them silently and reported "no files matched include patterns".
+
+**Fix applied:** include both nested AND flat patterns: `["**/*.tres", "**/*.tscn", "**/*.gd", "*.tres", "*.tscn", "*.gd"]`.
+
+**Plan amendment needed:** Task 9.2's `bundle.json` example must include the flat-file glob variants. Or — better — update `bundle_packager.gd._collect_files` to make `**` match zero or more directory segments.
+
+### F9 — `HudWidgetDefinition.tres` filename must equal the widget id (Phase 9, addressed in `f241f0c`)
+
+`ContentManager.get_hud_widget("minimap")` looks for `res://content/hud/{bundle}/minimap.tres`. The plan's draft saved the file as `mini_map_panel.tres` (matching the script name) but `_load_resource_by_kind` builds the path from the requested ID, not the filename. Lookup returned null.
+
+**Fix applied:** rename the file to match the widget id. The mini-map widget's `.tres` file is `minimap.tres`.
+
+**Plan amendment needed:** Task 9.2 must clarify that `HudWidgetDefinition.tres` filenames are keyed by the widget's `id`, not the underlying script name.
+
+### F10 — Single-threaded Godot 4.6 web build cannot HTTP-load PCKs at runtime (Phase 10, NOT yet addressed)
+
+`task build` produces a single-threaded web export (default Godot 4.6 web template). At runtime, `ProjectSettings.load_resource_pack("res://pck/foo.pck")` does NOT trigger an HTTP fetch the browser can intercept. Boot prints `[boot] Loading hud-core…` followed immediately by `[boot] Failed to load hud-core` — the load attempt happens, but the file never reaches the WASM filesystem.
+
+This breaks the central goal of the migration: memory-efficient hot-reload of content via PCKs in the web build. Currently the only PCK that ships is whatever Godot baked into `complete-app.pck` at export time.
+
+**Workarounds in scope of this finding:**
+- The Phase 10 Playwright smoke test was extended to fall back to a `request.head()` reachability check so it doesn't require the runtime fetch path. The PCKs ARE served correctly over HTTP (HTTP 200) — Godot just can't consume them in single-threaded mode.
+
+**Plan amendment / follow-up needed:**
+- Switch the Godot web export to the **threaded** template. The static server (`scripts/serve_web.js`) already sets the COOP/COEP headers required for `SharedArrayBuffer`, so this should be a one-line export-preset change plus rebuild.
+- File a follow-up: "Switch web export to threaded template; verify runtime PCK loading via HTTP fetch."
+- Until then, the migration's runtime behavior on web is functionally equivalent to the pre-split state — gameplay works (everything ships in the main wasm bundle) but the hot-reload promise is not yet realized.
+
 ### F6 — `.godot/uid_cache.bin` must exist before headless commands work (Phase 2, addressed in `7bf49a2`)
 
 `project.godot` uses UID-form autoload references like `BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"`. UIDs only resolve when `.godot/uid_cache.bin` exists. The cache is gitignored (correctly — it's machine-local). On a fresh clone there is no cache, so `task test:godot` and `task build` fail with "Unrecognized UID" → autoload load failure → cascading parse errors.
@@ -108,9 +150,27 @@ The user's main checkout has ~20 modified files (including the GUIDE plugin WIP 
 
 ## Future Improvements Worth Filing
 
-(Out of scope for this migration; do not block on these.)
+(Out of scope for this migration; do not block on these. AGENTS.md item is now ✅ done.)
 
+- **[CRITICAL FOLLOW-UP] Switch web export to threaded template** — see F10. The current single-threaded export cannot HTTP-load PCKs at runtime. The static server already supports COOP/COEP for `SharedArrayBuffer`. Without this fix the migration's hot-reload memory benefit is unrealized in the web target.
 - `setup_shared_links.py` should validate every entry's prerequisites in a pre-pass before creating any links, so partial state can never result.
 - A pre-commit / CI check that compares the autoload list across `complete-app/project.godot` and `content-app/project.godot` to catch kernel-set drift.
 - The .uid files Godot generates are currently untracked (matches main's habit). At some point we should decide whether to commit them for build reproducibility or document why they stay out.
-- AGENTS.md needs a "Cross-platform development" section explaining that Windows uses junctions (not symlinks), why, and how `task share:link` handles it.
+- Make `bundle_packager.gd._collect_files` treat `**` as zero-or-more directory segments so `**/*.gd` matches flat files (avoids needing both glob variants in `bundle.json`).
+- Generalize `LocationManager` to delegate raw PCK loading to `ContentManager` (it already handles the location-PCK pipeline; this would consolidate the two patterns).
+
+## Migration Outcomes
+
+End-to-end pipeline confirmed working (Phase 9 verification): `task content:build -- hud-core` → manifest regenerated → headless boot prints `[boot] Loading hud-core…` followed by `[boot] Ready`.
+
+What works:
+- Two-Godot-project structure with shared `project/shared/` linked into both via OS-appropriate links
+- `task setup` is the only command needed on a fresh clone (handles deps + share:link + Godot cache seed)
+- `ContentManager` autoload reads manifest, loads bundles depth-first by deps, refuses unsafe unloads
+- `bundle_packager.gd` produces hash-suffixed PCKs; `content_manifest.py` emits the runtime manifest
+- Boot scene shows safe fallback when manifest absent
+- Preview harness in content-app lets authors iterate on widgets/enemies in isolation
+- `task build` ships PCKs alongside the wasm; HTTP serves them at the expected path
+
+What doesn't yet work (see F10):
+- Runtime HTTP loading of PCKs in the web build under single-threaded export. The plumbing is correct end-to-end on native (headless verification confirmed `[boot] Ready`), and the HTTP server delivers PCKs correctly (200 OK), but the WASM runtime can't consume them without the threaded export. Switching templates is the unblocker.
