@@ -16,7 +16,7 @@ const pckFiles = (() => {
 	}
 })();
 
-test("eager content bundles load on boot", async ({ page, request }) => {
+test("eager content bundles load on boot", async ({ page }) => {
 	const requestedPcks = [];
 	page.on("request", (req) => {
 		if (req.url().includes("/pck/") && req.url().endsWith(".pck")) {
@@ -27,28 +27,24 @@ test("eager content bundles load on boot", async ({ page, request }) => {
 	await page.goto("/complete-app.html");
 	// Boot scene reaches the gameplay state via WS once it's ready.
 	// We only need to confirm the PCK request landed; let the page sit briefly
-	// for asynchronous PCK fetches to flush.
+	// for asynchronous PCK fetches to flush. ContentManager.load_bundle on web
+	// uses HTTPRequest which can take 10+ seconds for the first signal under
+	// the multi-threaded export — give the await chain plenty of headroom.
 	await page.waitForFunction(
 		() => document.title && document.title.length > 0,
 		{
 			timeout: 30000,
 		},
 	);
-	await page.waitForTimeout(2000);
+	await page.waitForTimeout(20000);
 
 	// At least one PCK must be present in the web export's pck/ directory.
 	expect(pckFiles.length).toBeGreaterThan(0);
 	expect(pckFiles.some((f) => f.startsWith("hud-core"))).toBe(true);
 
-	if (requestedPcks.length > 0) {
-		// Multi-threaded build: Playwright intercepted the HTTP fetch Godot made.
-		expect(requestedPcks.some((u) => u.includes("hud-core"))).toBe(true);
-	} else {
-		// Single-threaded build: load_resource_pack does not trigger an XHR that
-		// Playwright can intercept. Verify each PCK is reachable over HTTP instead.
-		for (const pckFile of pckFiles) {
-			const res = await request.head(`/pck/${pckFile}`);
-			expect(res.status()).toBe(200);
-		}
-	}
+	// ContentManager._load_pck_web fetches each eager PCK via HTTPRequest at
+	// boot. Confirm Playwright observed the network call. Without this, F10
+	// silently regresses to PCKs being baked into the main wasm at export time.
+	expect(requestedPcks.length).toBeGreaterThan(0);
+	expect(requestedPcks.some((u) => u.includes("hud-core"))).toBe(true);
 });

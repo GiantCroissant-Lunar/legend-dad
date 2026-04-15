@@ -1,6 +1,8 @@
 # project/hosts/complete-app/scripts/boot.gd
 extends Control
 
+const GAMEPLAY_SCENE := "res://scenes/main.tscn"
+
 @onready var _status: Label = $StatusLabel
 
 
@@ -20,9 +22,10 @@ func _ready() -> void:
 		if not ok:
 			_set_status("Failed to load %s — see logs" % id)
 	_set_status("Ready")
-	# Hand off to gameplay main scene once gameplay scene is implemented in a
-	# follow-up plan. For this plan, boot.tscn is the terminus and the rest
-	# comes from server state via WS.
+	# Hand off to gameplay scene. main.tscn instantiates HUD widgets via
+	# ContentManager.get_hud_widget() so the eager bundles must already be
+	# loaded by this point.
+	get_tree().change_scene_to_file(GAMEPLAY_SCENE)
 
 
 func _load_manifest() -> Dictionary:

@@ -110,7 +110,6 @@ func _load_pck_web(pck_name: String) -> bool:
 	var pathname := str(JavaScriptBridge.eval("window.location.pathname", true))
 	var base := pathname.get_base_dir().rstrip("/")
 	var url := "%s%s/pck/%s" % [origin, base, pck_name]
-	print("[ContentManager] fetch %s" % url)
 
 	# Fresh HTTPRequest per call — reusing one across calls is unreliable
 	# on multi-threaded web (request_completed may not fire).
@@ -126,7 +125,6 @@ func _load_pck_web(pck_name: String) -> bool:
 
 	var response_code: int = result[1]
 	var body: PackedByteArray = result[3]
-	print("[ContentManager] fetched %s (code=%d, %d bytes)" % [pck_name, response_code, body.size()])
 	if response_code != 200 or body.is_empty():
 		push_error(
 			"ContentManager: HTTP fetch failed for %s (code %d, %d bytes)"
@@ -140,9 +138,7 @@ func _load_pck_web(pck_name: String) -> bool:
 		return false
 	f.store_buffer(body)
 	f.close()
-	var ok := ProjectSettings.load_resource_pack(cache_path, false)
-	print("[ContentManager] load_resource_pack(%s) = %s" % [cache_path, ok])
-	return ok
+	return ProjectSettings.load_resource_pack(cache_path, false)
 
 
 func unload_bundle(bundle_id: String) -> bool:
