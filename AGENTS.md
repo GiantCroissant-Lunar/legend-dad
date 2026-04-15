@@ -131,6 +131,8 @@ Agent skills live in `.agent/skills/` organized by numbered categories:
 
 Always run `@context-discovery` before implementation work and `@validation-guard` after.
 
+**Source of truth vs runtime location:** skills are authored under `.agent/skills/{NN-category}/{skill}/` and mirrored into `.claude/skills/{skill}/` by `task skills:sync` (cross-platform symlinks/junctions). `.claude/skills/` is gitignored — regenerate after adding or renaming a skill. `task setup` runs the sync automatically.
+
 ## Session Logging (Mandatory)
 
 **Every agent must write a dev-log entry before ending a session.** See `@dev-log` skill for full format.
