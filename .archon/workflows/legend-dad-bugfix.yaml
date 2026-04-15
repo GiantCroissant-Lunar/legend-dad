@@ -1,0 +1,77 @@
+# legend-dad bugfix workflow
+# Purpose: focused Hermes-guided repair loop with deterministic repo validation
+# Usage:
+#   BUG_REPORT='describe the bug' archon workflow run legend-dad-bugfix --cwd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+name: legend-dad-bugfix
+description: "Handle focused bug reports in legend-dad with Hermes repair plus deterministic validation commands."
+provider: codex
+
+nodes:
+  - id: require-bug-report
+    bash: |
+      set -euo pipefail
+      test -n "${BUG_REPORT:-}"
+      printf 'BUG_REPORT=%s\n' "$BUG_REPORT"
+
+  - id: hermes-summarize-bug
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      /Users/apprenticegc/.local/bin/legend-dad chat -q "You are handling a bugfix for the legend-dad repo. Read AGENTS.md expectations from project context. Rewrite this bug report into a concise repro summary, likely subsystem, and suggested narrow validation command. Bug report: ${BUG_REPORT}" -Q
+    depends_on: [require-bug-report]
+
+  - id: hermes-repair
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      /Users/apprenticegc/.local/bin/legend-dad chat -q "Fix this bug in the legend-dad repo. Follow AGENTS.md, use the smallest safe change, and preserve existing behavior outside the bug scope. Bug report: ${BUG_REPORT}" -Q
+    depends_on: [hermes-summarize-bug]
+
+  - id: setup
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task setup
+    depends_on: [hermes-repair]
+
+  - id: lint
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task lint
+    depends_on: [setup]
+
+  - id: test-python
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:python
+    depends_on: [lint]
+
+  - id: test-server
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:server
+    depends_on: [test-python]
+
+  - id: test-godot
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:godot
+    depends_on: [test-server]
+
+  - id: build-web
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task build
+    depends_on: [test-godot]
+
+  - id: hermes-review
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      /Users/apprenticegc/.local/bin/legend-dad chat -q "Bugfix validation completed for legend-dad. Explain the likely root cause, what changed, any remaining risks, and recommended next action. Use this evidence: bug_report=$require-bug-report.output ; bug_summary=$hermes-summarize-bug.output ; repair=$hermes-repair.output ; lint=$lint.output ; test_python=$test-python.output ; test_server=$test-server.output ; test_godot=$test-godot.output ; build=$build-web.output ." -Q
+    depends_on: [build-web]

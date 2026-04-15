@@ -1,0 +1,4 @@
+worktree:
+  baseBranch: main
+docs:
+  path: vault

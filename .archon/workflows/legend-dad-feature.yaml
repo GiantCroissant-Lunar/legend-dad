@@ -1,0 +1,77 @@
+# legend-dad feature workflow
+# Purpose: Hermes-guided feature implementation with deterministic validation gates
+# Usage:
+#   FEATURE_REQUEST='describe the feature' archon workflow run legend-dad-feature --cwd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+name: legend-dad-feature
+description: "Handle feature implementation in legend-dad with Hermes planning/implementation plus deterministic validation commands."
+provider: codex
+
+nodes:
+  - id: require-feature-request
+    bash: |
+      set -euo pipefail
+      test -n "${FEATURE_REQUEST:-}"
+      printf 'FEATURE_REQUEST=%s\n' "$FEATURE_REQUEST"
+
+  - id: hermes-plan
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      /Users/apprenticegc/.local/bin/legend-dad chat -q "You are planning a feature for the legend-dad repo. Read AGENTS.md expectations from project context. Create a concise implementation plan for this feature request: ${FEATURE_REQUEST}. Include likely files, validation steps, and key risks. Do not implement yet." -Q
+    depends_on: [require-feature-request]
+
+  - id: hermes-implement
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      /Users/apprenticegc/.local/bin/legend-dad chat -q "Implement this feature in the legend-dad repo: ${FEATURE_REQUEST}. Follow AGENTS.md, make only the necessary changes, and summarize changed files plus likely risks when done." -Q
+    depends_on: [hermes-plan]
+
+  - id: setup
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task setup
+    depends_on: [hermes-implement]
+
+  - id: lint
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task lint
+    depends_on: [setup]
+
+  - id: test-python
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:python
+    depends_on: [lint]
+
+  - id: test-server
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:server
+    depends_on: [test-python]
+
+  - id: test-godot
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:godot
+    depends_on: [test-server]
+
+  - id: build-web
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task build
+    depends_on: [test-godot]
+
+  - id: hermes-review
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      /Users/apprenticegc/.local/bin/legend-dad chat -q "Feature workflow completed for legend-dad. Review the result for spec compliance, integration risk, missing validation, and recommended next action. Use this evidence: request=$require-feature-request.output ; plan=$hermes-plan.output ; implement=$hermes-implement.output ; lint=$lint.output ; test_python=$test-python.output ; test_server=$test-server.output ; test_godot=$test-godot.output ; build=$build-web.output ." -Q
+    depends_on: [build-web]

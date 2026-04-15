@@ -1,0 +1,64 @@
+# legend-dad release validation workflow
+# Purpose: deterministic repo health + release readiness with Hermes preflight/review
+# This workflow is fully concrete and does not require runtime input variables.
+name: legend-dad-release-validate
+description: "Run setup, lint, targeted tests, web build, and a Hermes review pass for legend-dad release validation."
+provider: codex
+
+nodes:
+  - id: hermes-preflight
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      result=$(/Users/apprenticegc/.local/bin/legend-dad chat -q "You are performing release validation preflight for the legend-dad repo. Read AGENTS.md expectations from project context and reply with exactly READY if this repo should use task-based validation with lint, tests, and web build. If not, reply with exactly BLOCKED." -Q | head -n 1 | tr -d '\r')
+      echo "$result"
+      test "$result" = "READY"
+
+  - id: setup
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task setup
+    depends_on: [hermes-preflight]
+
+  - id: lint
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task lint
+    depends_on: [setup]
+
+  - id: test-python
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:python
+    depends_on: [lint]
+
+  - id: test-server
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:server
+    depends_on: [test-python]
+
+  - id: test-godot
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task test:godot
+    depends_on: [test-server]
+
+  - id: build-web
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      task build
+    depends_on: [test-godot]
+
+  - id: hermes-review
+    bash: |
+      set -euo pipefail
+      cd /Users/apprenticegc/Work/lunar-horse/yokan-projects/legend-dad
+      /Users/apprenticegc/.local/bin/legend-dad chat -q "Release validation completed for legend-dad. Summarize release readiness for a human. Use this validation evidence: preflight=$hermes-preflight.output ; lint=$lint.output ; test_python=$test-python.output ; test_server=$test-server.output ; test_godot=$test-godot.output ; build=$build-web.output . Focus on blockers, likely risks, and recommended next action." -Q
+    depends_on: [build-web]
