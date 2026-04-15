@@ -162,7 +162,7 @@ tasks:
       - >-
         {{.PYTHON_BIN}} scripts/run_godot_checked.py
         {{.GODOT_PATH}} --headless
-        --path {{.GODOT_PROJECT_DIR}}
+        --path project/hosts/content-app
         --script scripts/pck_builder.gd
         -- --location={{.CLI_ARGS}}
 
