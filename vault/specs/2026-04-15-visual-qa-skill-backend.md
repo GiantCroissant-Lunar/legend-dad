@@ -1,7 +1,9 @@
 ---
 date: 2026-04-15
-status: open
+status: unblocked — value gate passed 2026-04-15, backend choice pending
 owner: (undecided)
+related:
+  - vault/specs/2026-04-15-visual-qa-vs-existing-verification.md
 ---
 
 # Visual QA skill — backend decision

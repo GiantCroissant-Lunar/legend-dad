@@ -1,9 +1,10 @@
 ---
 date: 2026-04-15
-status: open
+status: decided — proceed with port
 owner: (undecided)
 related:
   - vault/specs/2026-04-15-visual-qa-skill-backend.md
+  - vault/references/visual-qa-experiment/
 ---
 
 # Visual QA vs existing web-build verification
@@ -101,12 +102,74 @@ before committing to a backend + skill port:
 **This experiment is the right gate before committing to a backend choice
 in `2026-04-15-visual-qa-skill-backend.md`.**
 
-## Decision matrix (fill in when deciding)
+## Experiment — 2026-04-15
+
+Ran the cheapest honest test: one-shot Playwright spec
+(`_experiment-visual-qa.spec.js`, since removed) that captures a BEFORE
+screenshot, applies a controlled `BG_COLOR` tweak to
+`activity_log_panel.gd` (red channel `0.05 → 0.45`), rebuilds `hud-core`,
+presses F9, and captures AFTER screenshots at +5s and +15s. Screenshots
+preserved under `vault/references/visual-qa-experiment/`.
+
+Then fed all three PNGs to Claude native vision unprimed — "compare these,
+flag anything that looks wrong."
+
+### What native vision caught
+
+Not the intended color shift. Both widgets in `hud-core` — the
+`activity_log_panel` (bottom-left) and the `minimap` (top-right labeled
+"Map") — **vanish after F9 and never come back** (still gone at +15s, so
+not a timing artifact). Before.png has both; after-5s and after-15s have
+neither.
+
+Nothing else in the frame changed: tilemap, top-left HUD text,
+"Haven Town" label, `hud-battle` preview on the right, and the floating
+"Ashenmoor" label all render identically.
+
+### What the existing stack said
+
+`hot-reload.spec.js` runs the **same** F9 flow (with a smaller red-channel
+tweak, `0.05 → 0.10`) and passes. It asserts:
+
+1. Two distinct `hud-core@{hash}.pck` URLs cross the wire.
+2. Console contains `manifest reloaded` / `hash` entries.
+
+Both assertions would still pass even with invisible widgets. No pixel-diff
+baseline exists for the HUD post-F9.
+
+### Interpretation
+
+Native vision caught a regression the deterministic stack is structurally
+blind to. Either:
+- F9 hot-reload has a latent re-instantiation bug that only fires with
+  certain tweaks (plausible — my tweak produces different `.gdc` bytecode
+  than the small-delta tweak the e2e uses), **or**
+- F9 has been silently breaking widgets all along and no test ever looks
+  at pixels post-reload.
+
+Either way, the value case is proven. Visual-qa is not speculative.
+
+## Decision matrix
 
 | Question | Answer |
 |---|---|
-| Did the ad-hoc experiment find real gaps? | (pending) |
-| Is the gap worth 3–10s + API cost per check? | (pending) |
-| Which backend? | see backend spec |
-| Scope on first port: static only, or static + dynamic + question? | (pending) |
-| CI role: advisory warning, or blocking gate? | advisory (default) |
+| Did the ad-hoc experiment find real gaps? | **Yes** — widgets disappearing after F9, invisible to `hot-reload.spec.js`. |
+| Is the gap worth 3–10s + API cost per check? | Yes for iteration verification and pre-merge spot checks. Not for every-commit CI. |
+| Which backend? | See `2026-04-15-visual-qa-skill-backend.md` — unblocked to decide. |
+| Scope on first port | Static mode first (compare reference vs rendered). Dynamic + question modes as follow-up once we actually use static. |
+| CI role | Advisory, never blocking. |
+
+## Follow-ups filed by the experiment
+
+1. **Investigate F9 widget re-instantiation regression.** Reproduce with
+   both the small (e2e) and large (experiment) tweaks. If only the large
+   tweak triggers it, root-cause the difference (probably resource cache,
+   bundle metadata, or the `CACHE_MODE_REPLACE_DEEP` code path). If both
+   trigger it, `hot-reload.spec.js` has been green under a real bug since
+   it landed.
+2. **Add a pixel / widget-count assertion to `hot-reload.spec.js`.**
+   Minimum: after F9, assert that activity-log + minimap are still drawn
+   (either via pixel sample of known regions, or by querying the Godot-side
+   scene tree over WS for the expected nodes).
+3. **Port visual-qa skill with Claude Haiku 4.5 backend** (subject to the
+   backend spec) — the static-mode use case is proven.
