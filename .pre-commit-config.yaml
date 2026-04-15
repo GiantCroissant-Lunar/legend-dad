@@ -10,7 +10,11 @@ repos:
       - id: check-merge-conflict
       - id: check-added-large-files
         args: ["--maxkb=1000"]
-        exclude: ^project/shared/addons/
+        exclude: |
+          (?x)^(
+            project/shared/addons/
+            |project/hosts/[^/]+/locations/.*\.tres$
+          )
 
   - repo: https://github.com/biomejs/pre-commit
     rev: v0.6.1
