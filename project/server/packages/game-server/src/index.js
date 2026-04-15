@@ -8,6 +8,10 @@ import { WebSocketServer } from "ws";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = resolve(__dirname, "../../../../..");
 const PCK_DIR = resolve(PROJECT_ROOT, "build/_artifacts/pck");
+const MANIFEST_PATH = resolve(
+	PROJECT_ROOT,
+	"project/shared/data/content_manifest.json",
+);
 import { createMastraServer } from "./mastra/index.js";
 import { EventQueueRegistry } from "./mcp/event-queue.js";
 import { ContextBuilder } from "./replay/context-builder.js";
@@ -99,6 +103,30 @@ async function main() {
 					res.writeHead(500, { "Content-Type": "application/json" });
 					res.end(JSON.stringify({ error: "MCP error" }));
 				}
+			}
+			return;
+		}
+
+		// Serve the latest content manifest from disk so the running game
+		// can hot-reload bundles after a `task content:build`. The manifest
+		// baked into complete-app.pck is frozen at engine-export time and
+		// references stale content hashes — fetching this endpoint at runtime
+		// gives the game the up-to-date PCK filenames.
+		if (url.pathname === "/manifest.json") {
+			try {
+				const stat = statSync(MANIFEST_PATH);
+				res.writeHead(200, {
+					"Content-Type": "application/json",
+					"Content-Length": stat.size,
+					"Access-Control-Allow-Origin": "*",
+					"Cross-Origin-Resource-Policy": "cross-origin",
+					// Always re-fetch — the whole point is hot reload.
+					"Cache-Control": "no-store",
+				});
+				createReadStream(MANIFEST_PATH).pipe(res);
+			} catch {
+				res.writeHead(404, { "Content-Type": "text/plain" });
+				res.end("manifest.json not found");
 			}
 			return;
 		}
