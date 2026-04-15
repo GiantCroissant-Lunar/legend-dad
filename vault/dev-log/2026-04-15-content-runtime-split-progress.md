@@ -31,7 +31,7 @@ Live progress log for the [2026-04-15 content/runtime split spec][spec] and [imp
 | Post — pnpm-lock for playwright dep | ✅ done | `0a9ad53` |
 | Post — hud-battle bundle migration | ✅ done | `8783cae`, `9fd9307`, `6b163d6` |
 | Post — threaded web export switch | ✅ done | `6fedbb8` |
-| Post — F10 spike (browser hot-load) | 🚧 incomplete | `c6944f3` (async refactor + web stub) |
+| Post — F10 spike (browser hot-load) | ✅ resolved | `c6944f3`, `8f3c5b3`, `23af912` |
 
 ## Findings Not in the Plan
 
@@ -116,7 +116,40 @@ The plan's `bundle.json` example used `"include": ["**/*.tres", "**/*.tscn", "**
 
 **Plan amendment needed:** Task 9.2 must clarify that `HudWidgetDefinition.tres` filenames are keyed by the widget's `id`, not the underlying script name.
 
-### F10 — Runtime PCK loading on web requires custom JS bridge (Phase 10, partially addressed; spike incomplete)
+### F10 — Runtime PCK loading on web (Phase 10, ✅ RESOLVED)
+
+#### TL;DR
+
+The fix is the same pattern `LocationManager._fetch_pck_web` already uses in production: **fresh `HTTPRequest` per call, `add_child`, `request`, `await request_completed`, `queue_free`**, then write bytes to `user://` and `load_resource_pack` from there. My initial attempt failed because I reused a single `_http: HTTPRequest` field — that's the configuration that doesn't work on multi-threaded web. The user pointed this out by asking "before content-app, complete-app could pack pck file and load during web runtime — what is the issue?", which led me to inspect `LocationManager` and find the working pattern.
+
+End-to-end verified in the browser at commit `23af912`:
+- `[boot] Loading hud-core…`
+- `[ContentManager] fetch http://localhost:7601/pck/hud-core@6747a4.pck`
+- `[ContentManager] fetched hud-core@6747a4.pck (code=200, 7188 bytes)`
+- `[ContentManager] load_resource_pack(user://pck_cache/hud-core@6747a4.pck) = true`
+- `[boot] Ready`
+- Game world + activity log + mini-map all rendered from PCK content
+
+#### Investigation history (preserved for posterity)
+
+The investigation took a long detour before the fix landed. Recording the wrong turns so future-me doesn't repeat them:
+
+1. **Initial diagnosis: single-threaded export is the blocker.** Switched to threaded export (`variant/thread_support=true`, commit `6fedbb8`). Build now reports `multi-threaded`, `SharedArrayBuffer` is available. Threading was a real prerequisite (`SharedArrayBuffer` is needed for various Godot subsystems on web) but did NOT by itself fix runtime PCK loading.
+
+2. **Wrong turn — assumed Godot's `HTTPRequest` doesn't fire on multi-threaded web.** Built a JavaScriptBridge + `fetch()` based loader. The browser fetched correctly (visible in DevTools network tab, 200 OK with right bytes), but marshalling bytes back to GDScript via `JavaScriptBridge.eval()` polling hung in the autoload context. Spent significant time on byte marshalling formats (raw arrays vs base64), polling cadence, JS-side flags. None of it worked. Wrote off as "F10 is a known Godot 4 web limitation requiring create_callback() spike."
+
+3. **Pivot — the user asked what changed vs the existing working LocationManager pipeline.** That pipeline already does runtime PCK loading on web. Inspected `location_manager.gd:92-118` and found the working pattern: fresh HTTPRequest per call, immediate `queue_free` after the await. My broken code reused a single HTTPRequest field. Reusing HTTPRequest across calls is what prevents `request_completed` from firing reliably on the multi-threaded web build.
+
+4. **Applied the LocationManager pattern to ContentManager.** First attempt got blocked by polluted IndexedDB (corrupt cached PCKs from the JS-fetch experiments). Once cleared (manual via `chrome://settings/clearBrowserData`), boot reached `[boot] Ready` end-to-end and the game rendered.
+
+#### Remaining quirk
+
+HTTPRequest's `request_completed` signal takes ~12 seconds to fire on the first request after page load, even for an 8KB localhost fetch. Subsequent requests are fast. Cause unknown; possibly multi-threaded web initialization overhead. Not a blocker but worth a future investigation. The Playwright test's `waitForTimeout` was bumped to 20s to absorb the latency.
+
+#### Plan amendments needed
+
+- The plan's web-platform spec section never spelled out the LocationManager pattern as the canonical reference. Add a callout in the spec / AGENTS.md that any future code that fetches resources at runtime on web should mirror the per-call HTTPRequest pattern.
+- The fix is small enough that adding it inline to the original spec is preferable to filing a follow-up.
 
 #### Initial diagnosis
 
