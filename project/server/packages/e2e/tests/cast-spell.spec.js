@@ -4,10 +4,15 @@
 // This asserts the integration wiring: bundle → ContentManager →
 // Combatant.known_spells → BattleManager menu construction. The cast
 // resolution math (MP deducted, HP changed, damage/heal clamping) is
-// covered by `tests/test_battle_manager_cast.gd` in the Godot project —
-// Playwright can't reliably drive the battle menu itself because Chrome
-// throttles the tab's RAF after ~2s of lost focus, which freezes the
-// Godot main loop that the polling-based input handlers depend on.
+// covered by `tests/test_battle_manager_cast.gd` in the Godot project.
+//
+// We don't drive the menu keyboard-first from Playwright because Chrome
+// throttles the tab's RAF / keyboard event delivery after a few hundred
+// ms of lost focus. Even direct `dispatchEvent` calls through
+// page.evaluate only land the first keystroke reliably. The BattleManager
+// input refactor to `_input` fixes responsiveness for real players but
+// can't unstick the browser throttling — that's a Playwright harness
+// problem, not a game problem.
 
 import { expect, test } from "@playwright/test";
 
@@ -19,7 +24,11 @@ test("spells-core loads eagerly and caster menu offers Spell", async ({
 	const logs = [];
 	page.on("console", (msg) => {
 		const text = msg.text();
-		if (text.includes("[ContentManager]") || text.includes("[battle-menu]")) {
+		if (
+			text.includes("[ContentManager]") ||
+			text.includes("[battle-menu]") ||
+			text.includes("[battle]")
+		) {
 			logs.push(text);
 		}
 	});
@@ -45,33 +54,32 @@ test("spells-core loads eagerly and caster menu offers Spell", async ({
 	]) {
 		await tap(key);
 	}
-	// Intro message timer ≈ 1.2s; give plenty of headroom for the command
-	// menu to open. (We only need the _show_menu_for_current_member print
-	// to land — no keyboard navigation needed.)
-	await page.waitForTimeout(4_000);
+	await page.waitForTimeout(3_000); // intro message timer + margin
 
-	// Assertion 1: spells-core PCK was fetched eagerly at boot.
-	// `fetching /pck/spells-core@...` happens on request; `fetched
-	// spells-core@... in N ms` confirms completion. Either line proves
-	// the bundle was pulled.
-	const spellsLoaded = logs.some((l) => l.includes("spells-core@"));
+	// Assertion 1: spells-core loaded at boot (eager).
 	expect(
-		spellsLoaded,
-		"spells-core@{hash}.pck must be fetched during boot (eager bundle)",
+		logs.some((l) => l.includes("spells-core@")),
+		"spells-core@{hash}.pck must load eagerly at boot",
 	).toBe(true);
 
-	// Assertion 2: when the command menu opened for Father, the options
-	// included "Spell" — which only happens when Combatant.known_spells
-	// is non-empty AND was populated from BattleData.FATHER_STATS.
+	// Assertion 2: combat intro fired.
+	expect(
+		logs.some((l) => l.includes("Slime appeared!")),
+		"combat intro must fire once the player interacts with the slime",
+	).toBe(true);
+
+	// Assertion 3: Father's command menu opened with "Spell" present.
+	// Only happens when Combatant.known_spells was populated correctly
+	// from BattleData.FATHER_STATS["spells"] via Combatant.from_dict.
 	const menuLine = logs.find(
 		(l) => l.includes("[battle-menu]") && l.includes("Father"),
 	);
 	expect(
 		menuLine,
-		`expected a [battle-menu] Father line — got logs: ${JSON.stringify(logs)}`,
+		`Father's command menu must have opened. Logs:\n${logs.join("\n")}`,
 	).toBeTruthy();
 	expect(
 		menuLine,
-		`Father's menu must contain "Spell" — got: ${menuLine}`,
+		`Father's menu must include "Spell". Got: ${menuLine}`,
 	).toContain("Spell");
 });

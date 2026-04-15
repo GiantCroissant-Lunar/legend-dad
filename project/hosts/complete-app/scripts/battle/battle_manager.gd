@@ -49,24 +49,46 @@ func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: 
 
 func _process(delta: float) -> void:
 	_input_cooldown -= delta
-
+	# Input is driven by _unhandled_input (event-based) so menu selection
+	# keeps working even when the browser tab throttles RAF. _process is
+	# reserved for timer-tick work: the intro crawl and the
+	# victory/defeat/flee message delay.
 	match state:
 		State.INTRO:
 			_process_intro(delta)
+		State.VICTORY, State.DEFEAT, State.FLEE:
+			_message_timer -= delta
+		_:
+			pass
+
+
+func _input(event: InputEvent) -> void:
+	# Route menu input here (higher priority than _unhandled_input) so
+	# the menu stays responsive even when _process is starved — e.g.
+	# background tab throttling, frame hitches. Previously we polled
+	# Input.is_action_just_pressed per frame and lost presses whenever
+	# the main loop skipped a tick.
+	if not (event is InputEventKey):
+		return
+	if not event.pressed or event.echo:
+		return
+	if _input_cooldown > 0.0:
+		return
+	match state:
 		State.COMMAND:
-			_process_command(delta)
+			_handle_command_event(event)
 		State.SPELL_SELECT:
-			_process_spell_select(delta)
+			_handle_spell_select_event(event)
 		State.TARGET_SELECT:
-			_process_target_select(delta)
-		State.RESOLVE:
-			pass  # Awaiting turn resolution — input ignored
+			_handle_target_select_event(event)
 		State.VICTORY:
-			_process_victory(delta)
+			_handle_end_event(event, true)
 		State.DEFEAT:
-			_process_defeat(delta)
+			_handle_end_event(event, false)
 		State.FLEE:
-			_process_flee(delta)
+			_handle_flee_event(event)
+		_:
+			pass
 
 func _process_intro(delta: float) -> void:
 	_message_timer -= delta
@@ -106,20 +128,17 @@ func _show_menu_for_current_member() -> void:
 	print("[battle-menu] %s options=%s" % [member.combatant_name, items])
 	_input_cooldown = INPUT_COOLDOWN
 
-func _process_command(_delta: float) -> void:
-	if _input_cooldown > 0.0:
-		return
-
-	if Input.is_action_just_pressed("ui_down"):
+func _handle_command_event(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_down"):
 		if ui:
 			ui.set("menu_cursor", (ui.get("menu_cursor") + 1) % (ui.get("menu_items") as Array).size())
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_up"):
+	elif event.is_action_pressed("ui_up"):
 		if ui:
 			var items: Array = ui.get("menu_items")
 			ui.set("menu_cursor", (ui.get("menu_cursor") - 1 + items.size()) % items.size())
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
+	elif event.is_action_pressed("ui_accept") or event.is_action_pressed("interact"):
 		var selected: String = ""
 		if ui:
 			var items: Array = ui.get("menu_items")
@@ -171,22 +190,20 @@ func _start_spell_select() -> void:
 	_input_cooldown = INPUT_COOLDOWN
 
 
-func _process_spell_select(_delta: float) -> void:
-	if _input_cooldown > 0.0:
-		return
-	if Input.is_action_just_pressed("ui_down"):
+func _handle_spell_select_event(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_down"):
 		if ui:
 			ui.set("menu_cursor", (ui.get("menu_cursor") + 1) % _spell_menu.size())
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_up"):
+	elif event.is_action_pressed("ui_up"):
 		if ui:
 			ui.set("menu_cursor", (ui.get("menu_cursor") - 1 + _spell_menu.size()) % _spell_menu.size())
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_cancel") or Input.is_key_pressed(KEY_BACKSPACE):
+	elif event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.keycode == KEY_BACKSPACE):
 		state = State.COMMAND
 		_show_menu_for_current_member()
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
+	elif event.is_action_pressed("ui_accept") or event.is_action_pressed("interact"):
 		var cursor: int = ui.get("menu_cursor") if ui else 0
 		var spell: SpellDefinition = _spell_menu[cursor] as SpellDefinition
 		var member = party[_current_member_idx]
@@ -230,17 +247,14 @@ func _start_target_select() -> void:
 			break
 	_input_cooldown = INPUT_COOLDOWN
 
-func _process_target_select(_delta: float) -> void:
-	if _input_cooldown > 0.0:
-		return
-
-	if Input.is_action_just_pressed("ui_right"):
+func _handle_target_select_event(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_right"):
 		_move_target_cursor(1)
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_left"):
+	elif event.is_action_pressed("ui_left"):
 		_move_target_cursor(-1)
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
+	elif event.is_action_pressed("ui_accept") or event.is_action_pressed("interact"):
 		var member = party[_current_member_idx]
 		var target_enemy: Combatant = enemies[ui.get("target_cursor") if ui else 0]
 		if _pending_cast != null:
@@ -263,7 +277,7 @@ func _process_target_select(_delta: float) -> void:
 		state = State.COMMAND
 		_show_menu_for_current_member()
 		_input_cooldown = INPUT_COOLDOWN
-	elif Input.is_action_just_pressed("ui_cancel") or Input.is_key_pressed(KEY_BACKSPACE):
+	elif event.is_action_pressed("ui_cancel") or (event is InputEventKey and event.keycode == KEY_BACKSPACE):
 		if ui:
 			ui.set("show_target_select", false)
 		# If cancel'd during a cast targeting step, go back to the spell
@@ -338,6 +352,8 @@ func _resolve_turn() -> void:
 		var target: Combatant = cmd["target"]
 		if not actor.is_alive:
 			continue
+		if not _tick_status_effects(actor):
+			continue
 		match cmd["action"]:
 			"attack":
 				if not target.is_alive:
@@ -390,28 +406,29 @@ func _check_battle_end() -> void:
 	else:
 		_start_command_phase()
 
-func _process_victory(delta: float) -> void:
-	_message_timer -= delta
-	if _message_timer <= 0.0:
-		if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
-			var total_exp = 0
-			var total_gold = 0
-			for e in enemies:
-				total_exp += e.exp_reward
-				total_gold += e.gold_reward
-			battle_ended.emit({"won": true, "exp": total_exp, "gold": total_gold, "fled": false})
+# Victory/defeat end screens: message timer ticks in the main _process
+# dispatcher; the accept keypress is handled here. `won` selects which
+# payload shape is emitted via the battle_ended signal.
+func _handle_end_event(event: InputEvent, won: bool) -> void:
+	if _message_timer > 0.0:
+		return
+	if not (event.is_action_pressed("ui_accept") or event.is_action_pressed("interact")):
+		return
+	if won:
+		var total_exp = 0
+		var total_gold = 0
+		for e in enemies:
+			total_exp += e.exp_reward
+			total_gold += e.gold_reward
+		battle_ended.emit({"won": true, "exp": total_exp, "gold": total_gold, "fled": false})
+	else:
+		battle_ended.emit({"won": false, "exp": 0, "gold": 0, "fled": false})
 
-func _process_defeat(delta: float) -> void:
-	_message_timer -= delta
-	if _message_timer <= 0.0:
-		if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
-			battle_ended.emit({"won": false, "exp": 0, "gold": 0, "fled": false})
-
-func _process_flee(delta: float) -> void:
-	_message_timer -= delta
-	if _message_timer <= 0.0:
-		if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
-			battle_ended.emit({"won": false, "exp": 0, "gold": 0, "fled": true})
+func _handle_flee_event(event: InputEvent) -> void:
+	if _message_timer > 0.0:
+		return
+	if event.is_action_pressed("ui_accept") or event.is_action_pressed("interact"):
+		battle_ended.emit({"won": false, "exp": 0, "gold": 0, "fled": true})
 
 # Applies a queued "cast" command: pays MP, rolls power, and applies the
 # effect to `target`. Extracted from the turn-resolution switch so GUT can
@@ -453,12 +470,74 @@ func _apply_cast(actor: Combatant, target: Combatant, spell: SpellDefinition) ->
 			var restored := mini(amount, target.max_hp - target.hp)
 			target.hp += restored
 			_add_message("%s recovers %d HP." % [target.combatant_name, restored])
+		"status":
+			_apply_status_effect(target, spell)
 		_:
 			_add_message("(spell had no effect)")
 	return true
 
 
+# Applies a queued status-effect spell to `target`. Dispatches on
+# `spell.status_effect` (e.g. "sleep"). Returns true if the status
+# landed, false if the target resisted. DQ1 semantics: status spells
+# are chancy — Sleep notoriously fails ~30% of the time on mid-tier
+# enemies. Tunable via spell.power_min/max (treated as % success
+# threshold when non-zero) — but for now we hardcode a DQ1-accurate
+# base rate per effect type.
+func _apply_status_effect(target: Combatant, spell: SpellDefinition) -> bool:
+	match spell.status_effect:
+		"sleep":
+			# ~65% landing rate. If it lands, target sleeps 2-4 turns.
+			if randf() < 0.65:
+				target.status_effects["sleep"] = randi_range(2, 4)
+				_add_message("%s falls asleep!" % target.combatant_name)
+				return true
+			_add_message("But %s resisted!" % target.combatant_name)
+			return false
+		"":
+			push_warning("BattleManager: spell '%s' has effect_kind=status but no status_effect id" % spell.id)
+			_add_message("(spell fizzles)")
+			return false
+		_:
+			push_warning("BattleManager: unhandled status_effect '%s' on spell '%s'" % [spell.status_effect, spell.id])
+			_add_message("(spell had no effect)")
+			return false
+
+
+# Ticks an actor's status effects at the start of their turn. Returns
+# true if the actor can act this turn; false if a status prevented them
+# (e.g. still asleep). Side-effects: decrements counters, emits wake
+# messages.
+#
+# Sleep wake model (DQ1): each turn the sleeper is asleep, ~33% chance
+# to wake. If they don't wake and the counter hits 0, force wake on the
+# next turn. Extracted so GUT can test without driving the whole
+# resolve path.
+func _tick_status_effects(actor: Combatant) -> bool:
+	if actor.status_effects.has("sleep"):
+		if randi() % 3 == 0:
+			# Natural wake.
+			actor.status_effects.erase("sleep")
+			_add_message("%s wakes up!" % actor.combatant_name)
+			return true
+		# Still asleep; decrement. Forced wake when counter expires.
+		var remaining: int = int(actor.status_effects["sleep"]) - 1
+		if remaining <= 0:
+			actor.status_effects.erase("sleep")
+			_add_message("%s wakes up!" % actor.combatant_name)
+			return true
+		actor.status_effects["sleep"] = remaining
+		_add_message("%s is still asleep." % actor.combatant_name)
+		return false
+	return true
+
+
 func _add_message(text: String) -> void:
 	ActivityLog.log_msg(text)
+	# Mirror to stdout so external observers (Playwright console capture,
+	# server logs during headed dev) can correlate the same message stream
+	# the player sees in ActivityLog + the battle-overlay flash banner.
+	# This is the same observability path the hud-core widgets use.
+	print("[battle] ", text)
 	if ui and ui.has_method("show_flash"):
 		ui.show_flash(text)

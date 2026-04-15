@@ -19,7 +19,10 @@ const SON_STATS := {
 	"def": 8,
 	"spd": 10,
 	"level": 2,
-	"spells": ["heal", "hurt"],
+	# DQ1 level gates: Heal L3, Hurt L4, Sleep L7, Healmore L15.
+	# Gating by level is pre-MVP — Son knows the full caster kit so we
+	# can iterate on spell behavior without a progression system.
+	"spells": ["heal", "healmore", "hurt", "sleep"],
 }
 
 const ALLY1_STATS := {

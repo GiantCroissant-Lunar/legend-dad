@@ -17,6 +17,11 @@ var gold_reward: int = 0
 # Spell ids this combatant can cast. Looked up via
 # ContentManager.get_spell_definition(id) at cast time. Empty = no magic.
 var known_spells: Array[String] = []
+# Active status effects: id -> turns_remaining.
+# Example: {"sleep": 3} means this combatant will tick its sleep for 3
+# more turns. Decremented + wake-rolled in BattleManager._tick_status_effects
+# before the actor's action resolves.
+var status_effects: Dictionary = {}
 
 var is_alive: bool:
 	get: return hp > 0

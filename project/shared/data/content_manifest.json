@@ -48,15 +48,17 @@
     "spells-core": {
       "kind": "spells",
       "policy": "eager",
-      "pck": "spells-core@af354d.pck",
+      "pck": "spells-core@d99fd9.pck",
       "deps": [],
       "provides": {
         "spells": [
           "heal",
-          "hurt"
+          "healmore",
+          "hurt",
+          "sleep"
         ]
       },
-      "content_hash": "af354d"
+      "content_hash": "d99fd9"
     }
   }
 }
