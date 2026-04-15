@@ -39,7 +39,7 @@ var _debug_label: Label
 # Battle state
 var in_battle := false
 var _battle_manager: BattleManager = null
-var _battle_overlay: BattleOverlay = null
+var _battle_overlay: Control = null
 var _battle_enemy_entity: E_Enemy = null
 var _battle_enemy_visual: EntityVisual = null
 var _ws_client: Node = null
@@ -245,10 +245,11 @@ func _start_battle(enemy_entity: E_Enemy, enemy_visual: EntityVisual) -> void:
 	_battle_enemy_entity = enemy_entity
 	_battle_enemy_visual = enemy_visual
 
-	# Create battle overlay on the HUD layer
-	_battle_overlay = BattleOverlay.new()
-	_battle_overlay.name = "BattleOverlay"
-	_hud_layer.add_child(_battle_overlay)
+	# Create battle overlay on the HUD layer (loaded from hud-battle bundle)
+	_battle_overlay = _instantiate_widget("battle_overlay")
+	if _battle_overlay:
+		_battle_overlay.name = "BattleOverlay"
+		_hud_layer.add_child(_battle_overlay)
 
 	# Dim the active view
 	var active_view = father_view if active_era == C_TimelineEra.Era.FATHER else son_view
