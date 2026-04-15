@@ -40,11 +40,24 @@ test("F9 hot-reloads hud-core after `task content:build`", async ({ page }) => {
 		if (u.includes("/pck/") && u.endsWith(".pck")) pcks.push(u);
 	});
 
+	// Track response status per PCK URL so we can fail the test on 404. The
+	// original assertion only counted distinct URLs crossing the wire — which
+	// also ticks when the server 404s the new hash. See:
+	// vault/dev-log/2026-04-15-f9-pck-404-root-cause.md
+	const pckStatus = new Map();
+	page.on("response", (resp) => {
+		const u = resp.url();
+		if (u.includes("/pck/") && u.endsWith(".pck"))
+			pckStatus.set(u, resp.status());
+	});
+
 	const consoleHits = [];
+	const fetchFailures = [];
 	page.on("console", (msg) => {
 		const text = msg.text();
 		if (text.includes("ContentManager") || text.includes("[main]"))
 			consoleHits.push(`[${msg.type()}] ${text}`);
+		if (text.includes("HTTP fetch failed")) fetchFailures.push(text);
 	});
 
 	try {
@@ -102,6 +115,25 @@ test("F9 hot-reloads hud-core after `task content:build`", async ({ page }) => {
 			uniqueHashes.length,
 			`hud-core hash should change: ${JSON.stringify(uniqueHashes)}`,
 		).toBeGreaterThanOrEqual(2);
+
+		// Every hud-core PCK request must have returned 200 — including the
+		// rebuild hash. Without this, a 404 silently kills bundle_loaded and
+		// the widgets stay torn down. See root-cause dev-log 2026-04-15.
+		const hudCorePckResponses = [...pckStatus.entries()].filter(([u]) =>
+			u.includes("hud-core"),
+		);
+		console.log("[test] hud-core PCK responses:", hudCorePckResponses);
+		for (const [url, status] of hudCorePckResponses) {
+			expect(status, `PCK ${url} must return 200`).toBe(200);
+		}
+
+		// No ContentManager-side HTTP fetch failures should have occurred —
+		// these indicate load_bundle returned false and _on_bundle_reloaded
+		// therefore never ran.
+		expect(
+			fetchFailures,
+			`ContentManager HTTP fetches must not fail: ${JSON.stringify(fetchFailures)}`,
+		).toEqual([]);
 
 		// Sanity: ContentManager prints land in console — proves the GD code
 		// path ran rather than e.g. the page reloading.
