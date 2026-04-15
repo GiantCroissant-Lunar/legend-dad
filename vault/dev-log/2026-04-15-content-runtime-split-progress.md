@@ -151,6 +151,23 @@ HTTPRequest's `request_completed` signal takes ~12 seconds to fire on the first 
 - The plan's web-platform spec section never spelled out the LocationManager pattern as the canonical reference. Add a callout in the spec / AGENTS.md that any future code that fetches resources at runtime on web should mirror the per-call HTTPRequest pattern.
 - The fix is small enough that adding it inline to the original spec is preferable to filing a follow-up.
 
+## Session End
+
+48 commits on `feature/content-runtime-split`, branched from `5135d4f` (clean main with worktree gitignore landed). End-to-end verified in browser; merged back to `main` at the close of this session.
+
+What works on this branch:
+- Two-Godot-project structure (`complete-app` + `content-app`) sharing `project/shared/` via OS-appropriate links
+- `task setup` is the only command needed on a fresh clone (deps, share:link, godot cache seed, export templates)
+- `ContentManager` autoload reads `content_manifest.json`, loads PCK bundles depth-first by deps, refuses unsafe unloads
+- `bundle_packager.gd` produces hash-suffixed PCKs; `content_manifest.py` emits the runtime manifest
+- Boot scene with safe fallback when manifest absent; hands off to gameplay scene after eager bundles load
+- Preview harness in content-app for isolated authoring on widgets/enemies
+- `hud-core` (eager) and `hud-battle` (lazy, deps on hud-core) bundles migrated
+- `task build` ships PCKs alongside the wasm; runtime fetches them via HTTP from the browser
+- E2E test enforces the intercepted-fetch path (no silent regression to baked-in)
+
+See [the handover doc](2026-04-15-content-runtime-split-handover.md) for what's worth doing next.
+
 #### Initial diagnosis
 
 `task build` originally produced a single-threaded web export. At runtime, `ProjectSettings.load_resource_pack("res://pck/foo.pck")` did NOT trigger an HTTP fetch the browser could intercept. Boot printed `[boot] Loading hud-core…` followed by `[boot] Failed to load hud-core`.
