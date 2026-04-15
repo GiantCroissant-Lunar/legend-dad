@@ -92,9 +92,14 @@ func load_location(location_name: String) -> void:
 func _fetch_pck_web(pck_filename: String) -> bool:
 	var url := PCK_SERVER_URL + pck_filename
 	var http := HTTPRequest.new()
+	# See ContentManager._load_pck_web for why threads are disabled.
+	http.use_threads = false
 	add_child(http)
+	var t0 := Time.get_ticks_msec()
+	print("[LocationManager] fetching %s" % url)
 	http.request(url)
 	var result: Array = await http.request_completed
+	print("[LocationManager] fetched %s in %d ms" % [pck_filename, Time.get_ticks_msec() - t0])
 	http.queue_free()
 
 	var response_code: int = result[1]
@@ -128,9 +133,11 @@ func _load_from_pck(location_name: String, biome: String) -> void:
 		_load_fallback(location_name)
 		return
 
-	# Load palettes
-	_father_palette = load(loc_dir + "palette_father.png") as Texture2D
-	_son_palette = load(loc_dir + "palette_son.png") as Texture2D
+	# Load palettes. These are baked as ImageTexture .tres resources by
+	# pck_builder.gd — packing raw .png + .import would fail at runtime because
+	# the .ctex binary the .import file points at lives outside the PCK.
+	_father_palette = load(loc_dir + "palette_father.tres") as Texture2D
+	_son_palette = load(loc_dir + "palette_son.tres") as Texture2D
 
 	_current_location = location_name
 	_current_biome = biome

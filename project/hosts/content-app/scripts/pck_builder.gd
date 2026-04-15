@@ -87,13 +87,21 @@ func _build_pck(manifest_path: String, location: String, project_root: String) -
 		push_error("pck_builder: failed to save tileset: %s" % error_string(save_err))
 		return false
 
-	# Copy atlas and palette PNGs into the location directory
-	_copy_file(atlas_path, loc_dir + "atlas_32x32.png")
+	# Bake palettes as self-contained ImageTexture resources. Copying the raw
+	# PNGs is not enough — Godot's image loader requires `.import` metadata that
+	# points at a `.godot/imported/*.ctex` binary which lives outside the PCK,
+	# so the PNGs would fail to resolve at runtime. Saving as .tres embeds the
+	# pixel data directly into the resource (same trick the atlas uses inside
+	# tileset.tres above), making the PCK fully self-describing.
 	var palettes: Dictionary = manifest.get("palettes", {})
-	_copy_file(palettes.get("father", ""), loc_dir + "palette_father.png")
-	_copy_file(palettes.get("son", ""), loc_dir + "palette_son.png")
+	if not _bake_palette_texture(palettes.get("father", ""), loc_dir + "palette_father.tres"):
+		return false
+	if not _bake_palette_texture(palettes.get("son", ""), loc_dir + "palette_son.tres"):
+		return false
 
-	# Copy manifest for debugging
+	# Copy manifest for debugging — atlas/palette PNGs intentionally not packed:
+	# they're embedded in the saved resources above and the raw PNGs would
+	# require .import companions to load at runtime.
 	_copy_file(manifest_path, loc_dir + "manifest.json")
 
 	# Pack into PCK
@@ -135,6 +143,25 @@ func _copy_file(src: String, dst: String) -> void:
 	var out := FileAccess.open(dst, FileAccess.WRITE)
 	out.store_buffer(data)
 	out.close()
+
+
+# Loads a PNG from the host filesystem and saves an ImageTexture .tres resource
+# that embeds the pixel data — the runtime can then `load(...tres)` directly
+# without depending on Godot's import pipeline (.import + .ctex).
+func _bake_palette_texture(src_path: String, dst_path: String) -> bool:
+	if src_path.is_empty() or not FileAccess.file_exists(src_path):
+		push_error("pck_builder: palette source not found: %s" % src_path)
+		return false
+	var img := Image.load_from_file(src_path)
+	if img == null:
+		push_error("pck_builder: failed to load palette image %s" % src_path)
+		return false
+	var tex := ImageTexture.create_from_image(img)
+	var err := ResourceSaver.save(tex, dst_path)
+	if err != OK:
+		push_error("pck_builder: failed to save palette %s: %s" % [dst_path, error_string(err)])
+		return false
+	return true
 
 
 func _get_arg(prefix: String) -> String:
