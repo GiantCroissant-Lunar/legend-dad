@@ -304,8 +304,7 @@ func _start_battle(enemy_entity: E_Enemy, enemy_visual: EntityVisual) -> void:
 		# Fall back to the slime baseline so a typo or missing bundle can't
 		# wedge combat. _spawn_enemy already push_warning'd if the id was bad.
 		enemy_def = ContentManager.get_enemy_definition("slime") as EnemyDefinition
-	var enemy_combatants: Array[Combatant] = []
-	enemy_combatants.append(Combatant.from_dict(enemy_def.to_combat_dict(), true))
+	var enemy_combatants := build_enemy_group(enemy_def)
 
 	ActivityLog.log_battle_start()
 	_battle_manager.start_battle(party_combatants, enemy_combatants, _battle_overlay)
@@ -879,3 +878,30 @@ func _update_debug_hud() -> void:
 		+ "Entities in world: %d | %s\n" % [entity_count, time_text]
 		+ "Controls: Arrows=move | Tab=era | M=map | E=interact | P=pause | N=step | []=speed"
 	)
+
+
+# Rolls a group of Combatants for the encounter, using the enemy def's
+# group_size_min/max range (defaults to 1-1 for solo encounters). When
+# count > 1, each Combatant is suffixed with a letter (A, B, C, …) so
+# the battle log ("Slime A attacks Father!") and target cursor can
+# distinguish otherwise-identical enemies.
+#
+# Extracted as `static` + explicit def param so GUT can verify the
+# label scheme and count clamping without wiring up ECS + ContentManager.
+static func build_enemy_group(def: EnemyDefinition) -> Array[Combatant]:
+	var out: Array[Combatant] = []
+	if def == null:
+		return out
+	var lo: int = maxi(1, def.group_size_min)
+	var hi: int = maxi(lo, def.group_size_max)
+	var count: int = randi_range(lo, hi)
+	var base_dict := def.to_combat_dict()
+	var base_name: String = base_dict.get("name", "Enemy")
+	for i in count:
+		var dict := base_dict.duplicate()
+		if count > 1:
+			# A, B, C, … suffix distinguishes otherwise-identical combatants
+			# in the battle log and target cursor. ASCII 65 = 'A'.
+			dict["name"] = "%s %s" % [base_name, char(65 + i)]
+		out.append(Combatant.from_dict(dict, true))
+	return out

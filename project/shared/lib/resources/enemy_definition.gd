@@ -38,6 +38,15 @@ class_name EnemyDefinition
 # get a chance to queue a cast each turn — see BattleManager._maybe_queue_enemy_cast.
 @export var spells: PackedStringArray = PackedStringArray()
 
+# Group-size range rolled at encounter time. A single overworld entity
+# represents the whole group; on encounter, main.gd rolls
+# randi_range(group_size_min, group_size_max) copies into the battle.
+# Defaults match a solo encounter so rare/boss enemies stay 1-of-1 unless
+# their .tres opts in. DQ1 canon: weak fodder (Slime, Dracky, Wolf) runs
+# in packs; tougher units (Bandit, Magician, Metal Scorpion) solo.
+@export var group_size_min: int = 1
+@export var group_size_max: int = 1
+
 # Returns a Dictionary in the shape Combatant.from_dict expects, so callers
 # don't need to know about the field-name difference between this Resource
 # (`attack`/`defense`/`xp_reward`/...) and the dict shape the battle code

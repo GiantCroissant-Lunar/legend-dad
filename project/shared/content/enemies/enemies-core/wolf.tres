@@ -15,3 +15,5 @@ level = 2
 xp_reward = 8
 gold_reward = 5
 tint_color = Color(0.5, 0.5, 0.5, 1)
+group_size_min = 1
+group_size_max = 2
