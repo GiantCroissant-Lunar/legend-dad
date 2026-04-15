@@ -113,14 +113,22 @@ func _load_pck_web(pck_name: String) -> bool:
 
 	# Fresh HTTPRequest per call — reusing one across calls is unreliable
 	# on multi-threaded web (request_completed may not fire).
+	# use_threads = false is critical on multi-threaded web export: each
+	# threaded HTTPRequest spawns a new pthread worker which costs ~10s+ on
+	# first call (Emscripten worker pool warm-up). Polling mode runs on the
+	# main thread and avoids the worker spawn entirely.
 	var http := HTTPRequest.new()
+	http.use_threads = false
 	add_child(http)
+	var t0 := Time.get_ticks_msec()
+	print("[ContentManager] fetching %s" % url)
 	var err := http.request(url)
 	if err != OK:
 		push_error("ContentManager: HTTPRequest.request failed (%d) for %s" % [err, url])
 		http.queue_free()
 		return false
 	var result: Array = await http.request_completed
+	print("[ContentManager] fetched %s in %d ms" % [pck_name, Time.get_ticks_msec() - t0])
 	http.queue_free()
 
 	var response_code: int = result[1]
