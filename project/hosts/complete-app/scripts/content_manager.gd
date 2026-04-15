@@ -93,25 +93,56 @@ func load_bundle(bundle_id: String) -> bool:
 	return true
 
 
-# NOT YET IMPLEMENTED — see vault/dev-log/2026-04-15-content-runtime-split-progress.md
-# (finding F10) for details. Godot 4.6's `ProjectSettings.load_resource_pack()`
-# on web reads from Emscripten's MEMFS, not the browser network. A working
-# implementation needs to:
-#   1. Fetch the PCK over HTTP via JavaScriptBridge + fetch() (HTTPRequest does
-#      not reliably fire on the multi-threaded web build — confirmed via spike).
-#   2. Marshal the bytes back to GDScript reliably (base64 round-trip via
-#      JavaScriptBridge.eval was attempted; polling cadence with
-#      `await get_tree().process_frame` inside an autoload appeared to hang
-#      mid-boot. Likely needs JavaScriptBridge.create_callback() instead).
-#   3. Write to user:// (IndexedDB on web) so load_resource_pack can read it.
-# Until that spike is resolved, web builds emit a clear error and content
-# bundles ship inside the main complete-app.pck baked at export time.
+# Fetches a PCK over HTTP, caches it under user:// (IndexedDB on the browser),
+# and asks Godot to load it. Mirrors the per-call HTTPRequest pattern
+# `LocationManager._fetch_pck_web` already uses successfully in production.
 func _load_pck_web(pck_name: String) -> bool:
-	push_error(
-		"ContentManager: runtime PCK loading on web is not yet implemented (F10). "
-		+ "Cannot load %s." % pck_name
+	# Always overwrite — hashed filenames mean stale cache CAN'T happen by
+	# design, and writing fresh bytes guards against any corruption from
+	# earlier broken builds during development.
+	DirAccess.make_dir_recursive_absolute(
+		ProjectSettings.globalize_path(WEB_PCK_CACHE_DIR)
 	)
-	return false
+	var cache_path := "%s/%s" % [WEB_PCK_CACHE_DIR, pck_name]
+
+	# Build absolute URL relative to where the wasm is served.
+	var origin := str(JavaScriptBridge.eval("window.location.origin", true))
+	var pathname := str(JavaScriptBridge.eval("window.location.pathname", true))
+	var base := pathname.get_base_dir().rstrip("/")
+	var url := "%s%s/pck/%s" % [origin, base, pck_name]
+	print("[ContentManager] fetch %s" % url)
+
+	# Fresh HTTPRequest per call — reusing one across calls is unreliable
+	# on multi-threaded web (request_completed may not fire).
+	var http := HTTPRequest.new()
+	add_child(http)
+	var err := http.request(url)
+	if err != OK:
+		push_error("ContentManager: HTTPRequest.request failed (%d) for %s" % [err, url])
+		http.queue_free()
+		return false
+	var result: Array = await http.request_completed
+	http.queue_free()
+
+	var response_code: int = result[1]
+	var body: PackedByteArray = result[3]
+	print("[ContentManager] fetched %s (code=%d, %d bytes)" % [pck_name, response_code, body.size()])
+	if response_code != 200 or body.is_empty():
+		push_error(
+			"ContentManager: HTTP fetch failed for %s (code %d, %d bytes)"
+			% [url, response_code, body.size()]
+		)
+		return false
+
+	var f := FileAccess.open(cache_path, FileAccess.WRITE)
+	if f == null:
+		push_error("ContentManager: cannot write %s" % cache_path)
+		return false
+	f.store_buffer(body)
+	f.close()
+	var ok := ProjectSettings.load_resource_pack(cache_path, false)
+	print("[ContentManager] load_resource_pack(%s) = %s" % [cache_path, ok])
+	return ok
 
 
 func unload_bundle(bundle_id: String) -> bool:
