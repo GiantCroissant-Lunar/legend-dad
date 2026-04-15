@@ -16,7 +16,7 @@ func _ready() -> void:
 	var eager_ids := _eager_bundle_ids(manifest)
 	for id in eager_ids:
 		_set_status("Loading %s…" % id)
-		var ok: bool = ContentManager.load_bundle(id)
+		var ok: bool = await ContentManager.load_bundle(id)
 		if not ok:
 			_set_status("Failed to load %s — see logs" % id)
 	_set_status("Ready")

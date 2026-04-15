@@ -14,6 +14,8 @@ signal bundle_unloaded(bundle_id: String)
 signal bundle_will_reload(bundle_id: String)
 
 const MANIFEST_PATH := "res://data/content_manifest.json"
+# Where fetched PCKs are cached on web. user:// maps to IndexedDB in the browser.
+const WEB_PCK_CACHE_DIR := "user://pck_cache"
 
 var _manifest: Dictionary = {"schema_version": 1, "bundles": {}}
 var _loaded: Dictionary = {}  # bundle_id -> true
@@ -63,23 +65,53 @@ func load_bundle(bundle_id: String) -> bool:
 		return false
 	# Load deps depth-first.
 	for dep in entry.get("deps", []):
-		if not load_bundle(dep):
+		var dep_ok: bool = await load_bundle(dep)
+		if not dep_ok:
 			emit_signal("bundle_load_failed", bundle_id, "dep '%s' failed" % dep)
 			return false
 	emit_signal("bundle_loading", bundle_id)
 	var pck_name := str(entry.get("pck", ""))
-	var pck_path := "res://pck/%s" % pck_name  # web build serves PCKs alongside the wasm
 	var ok: bool
 	if _test_pck_loader.is_valid():
-		ok = _test_pck_loader.call(pck_path)
+		# Tests inject a fake loader; preserve the legacy res:// path shape so
+		# existing test contracts don't shift.
+		ok = _test_pck_loader.call("res://pck/%s" % pck_name)
+	elif OS.has_feature("web"):
+		# load_resource_pack on web reads from Emscripten MEMFS, not the network,
+		# so res://pck/... is not reachable. Fetch via HTTP, write to user://,
+		# then load from there.
+		ok = await _load_pck_web(pck_name)
 	else:
-		ok = ProjectSettings.load_resource_pack(pck_path, false)
+		# Native (editor / headless / desktop export). Local pck/ symlink or
+		# baked-in res:// path resolves directly.
+		ok = ProjectSettings.load_resource_pack("res://pck/%s" % pck_name, false)
 	if not ok:
-		emit_signal("bundle_load_failed", bundle_id, "PCK load failed: %s" % pck_path)
+		emit_signal("bundle_load_failed", bundle_id, "PCK load failed: %s" % pck_name)
 		return false
 	_loaded[bundle_id] = true
 	emit_signal("bundle_loaded", bundle_id)
 	return true
+
+
+# NOT YET IMPLEMENTED — see vault/dev-log/2026-04-15-content-runtime-split-progress.md
+# (finding F10) for details. Godot 4.6's `ProjectSettings.load_resource_pack()`
+# on web reads from Emscripten's MEMFS, not the browser network. A working
+# implementation needs to:
+#   1. Fetch the PCK over HTTP via JavaScriptBridge + fetch() (HTTPRequest does
+#      not reliably fire on the multi-threaded web build — confirmed via spike).
+#   2. Marshal the bytes back to GDScript reliably (base64 round-trip via
+#      JavaScriptBridge.eval was attempted; polling cadence with
+#      `await get_tree().process_frame` inside an autoload appeared to hang
+#      mid-boot. Likely needs JavaScriptBridge.create_callback() instead).
+#   3. Write to user:// (IndexedDB on web) so load_resource_pack can read it.
+# Until that spike is resolved, web builds emit a clear error and content
+# bundles ship inside the main complete-app.pck baked at export time.
+func _load_pck_web(pck_name: String) -> bool:
+	push_error(
+		"ContentManager: runtime PCK loading on web is not yet implemented (F10). "
+		+ "Cannot load %s." % pck_name
+	)
+	return false
 
 
 func unload_bundle(bundle_id: String) -> bool:

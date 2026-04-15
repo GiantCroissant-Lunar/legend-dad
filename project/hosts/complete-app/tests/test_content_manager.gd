@@ -40,7 +40,7 @@ func test_dependency_loaded_before_dependent() -> void:
 	})
 	# Stub the actual PCK loader so we test ordering, not file IO.
 	_cm._test_pck_loader = func(_path: String) -> bool: return true
-	_cm.load_bundle("child")
+	await _cm.load_bundle("child")
 	assert_eq(loaded_order, ["base", "child"])
 
 func test_unload_refused_when_dependent_loaded() -> void:
@@ -52,7 +52,7 @@ func test_unload_refused_when_dependent_loaded() -> void:
 		}
 	})
 	_cm._test_pck_loader = func(_p): return true
-	_cm.load_bundle("child")
+	await _cm.load_bundle("child")
 	var ok := _cm.unload_bundle("base")
 	assert_false(ok, "should refuse to unload base while child is loaded")
 	assert_true(_cm.is_loaded("base"))
@@ -67,7 +67,7 @@ func test_load_failed_signal_when_pck_missing() -> void:
 	_cm._test_pck_loader = func(_p): return false
 	var failed_with: Array = []
 	_cm.bundle_load_failed.connect(func(id, reason): failed_with.append([id, reason]))
-	var ok := _cm.load_bundle("missing")
+	var ok: bool = await _cm.load_bundle("missing")
 	assert_false(ok)
 	assert_eq(failed_with.size(), 1)
 	assert_eq(failed_with[0][0], "missing")
