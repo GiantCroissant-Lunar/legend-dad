@@ -1,0 +1,10 @@
+{
+  "id": "hud-core",
+  "kind": "hud",
+  "policy": "eager",
+  "deps": [],
+  "include": ["*.tres", "*.tscn", "*.gd", "**/*.tres", "**/*.tscn", "**/*.gd"],
+  "provides": {
+    "widgets": ["activity_log_panel", "minimap"]
+  }
+}

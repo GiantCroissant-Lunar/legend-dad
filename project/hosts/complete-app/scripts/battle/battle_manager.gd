@@ -8,7 +8,7 @@ enum State { INTRO, COMMAND, TARGET_SELECT, RESOLVE, VICTORY, DEFEAT, FLEE }
 var state: State = State.INTRO
 var party: Array[Combatant] = []
 var enemies: Array[Combatant] = []
-var ui: BattleOverlay = null
+var ui: Control = null
 
 var _current_member_idx: int = 0
 var _turn_commands: Array[Dictionary] = []
@@ -20,7 +20,7 @@ const MESSAGE_DELAY := 0.6
 var _input_cooldown: float = 0.0
 const INPUT_COOLDOWN := 0.15
 
-func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: BattleOverlay) -> void:
+func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: Control) -> void:
 	party = p_party
 	enemies = p_enemies
 	ui = p_ui
@@ -28,10 +28,11 @@ func start_battle(p_party: Array[Combatant], p_enemies: Array[Combatant], p_ui: 
 	_turn_commands.clear()
 	_current_member_idx = 0
 
-	ui.enemies = enemies
-	ui.party = party
-	ui.show_menu = false
-	ui.show_target_select = false
+	if ui:
+		ui.set("enemies", enemies)
+		ui.set("party", party)
+		ui.set("show_menu", false)
+		ui.set("show_target_select", false)
 
 	var enemy_names = []
 	for e in enemies:
@@ -80,11 +81,12 @@ func _show_menu_for_current_member() -> void:
 		return
 
 	var member = party[_current_member_idx]
-	ui.show_menu = true
-	ui.show_target_select = false
-	ui.menu_items = ["Attack", "Defend", "Flee"]
-	ui.menu_cursor = 0
-	ui.current_member_name = member.combatant_name
+	if ui:
+		ui.set("show_menu", true)
+		ui.set("show_target_select", false)
+		ui.set("menu_items", ["Attack", "Defend", "Flee"])
+		ui.set("menu_cursor", 0)
+		ui.set("current_member_name", member.combatant_name)
 	_input_cooldown = INPUT_COOLDOWN
 
 func _process_command(_delta: float) -> void:
@@ -92,13 +94,19 @@ func _process_command(_delta: float) -> void:
 		return
 
 	if Input.is_action_just_pressed("ui_down"):
-		ui.menu_cursor = (ui.menu_cursor + 1) % ui.menu_items.size()
+		if ui:
+			ui.set("menu_cursor", (ui.get("menu_cursor") + 1) % (ui.get("menu_items") as Array).size())
 		_input_cooldown = INPUT_COOLDOWN
 	elif Input.is_action_just_pressed("ui_up"):
-		ui.menu_cursor = (ui.menu_cursor - 1 + ui.menu_items.size()) % ui.menu_items.size()
+		if ui:
+			var items: Array = ui.get("menu_items")
+			ui.set("menu_cursor", (ui.get("menu_cursor") - 1 + items.size()) % items.size())
 		_input_cooldown = INPUT_COOLDOWN
 	elif Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("interact"):
-		var selected = ui.menu_items[ui.menu_cursor]
+		var selected: String = ""
+		if ui:
+			var items: Array = ui.get("menu_items")
+			selected = items[ui.get("menu_cursor")]
 		_input_cooldown = INPUT_COOLDOWN
 		match selected:
 			"Attack":
@@ -118,12 +126,14 @@ func _process_command(_delta: float) -> void:
 
 func _start_target_select() -> void:
 	state = State.TARGET_SELECT
-	ui.show_menu = false
-	ui.show_target_select = true
-	ui.target_cursor = 0
+	if ui:
+		ui.set("show_menu", false)
+		ui.set("show_target_select", true)
+		ui.set("target_cursor", 0)
 	for i in enemies.size():
 		if enemies[i].is_alive:
-			ui.target_cursor = i
+			if ui:
+				ui.set("target_cursor", i)
 			break
 	_input_cooldown = INPUT_COOLDOWN
 
@@ -142,25 +152,31 @@ func _process_target_select(_delta: float) -> void:
 		_turn_commands.append({
 			"actor": member,
 			"action": "attack",
-			"target": enemies[ui.target_cursor],
+			"target": enemies[ui.get("target_cursor") if ui else 0],
 		})
-		ui.show_target_select = false
+		if ui:
+			ui.set("show_target_select", false)
 		_current_member_idx += 1
 		state = State.COMMAND
 		_show_menu_for_current_member()
 		_input_cooldown = INPUT_COOLDOWN
 	elif Input.is_action_just_pressed("ui_cancel") or Input.is_key_pressed(KEY_BACKSPACE):
-		ui.show_target_select = false
+		if ui:
+			ui.set("show_target_select", false)
 		state = State.COMMAND
 		_show_menu_for_current_member()
 		_input_cooldown = INPUT_COOLDOWN
 
 func _move_target_cursor(dir: int) -> void:
-	var start = ui.target_cursor
-	ui.target_cursor = (ui.target_cursor + dir + enemies.size()) % enemies.size()
+	if not ui:
+		return
+	var cursor: int = ui.get("target_cursor")
+	cursor = (cursor + dir + enemies.size()) % enemies.size()
+	ui.set("target_cursor", cursor)
 	var attempts = 0
-	while not enemies[ui.target_cursor].is_alive and attempts < enemies.size():
-		ui.target_cursor = (ui.target_cursor + dir + enemies.size()) % enemies.size()
+	while not enemies[ui.get("target_cursor")].is_alive and attempts < enemies.size():
+		cursor = (ui.get("target_cursor") + dir + enemies.size()) % enemies.size()
+		ui.set("target_cursor", cursor)
 		attempts += 1
 
 func _attempt_flee() -> void:
@@ -179,7 +195,8 @@ func _attempt_flee() -> void:
 
 	if BattleData.calc_flee_chance(avg_spd, enemy_max_spd):
 		_add_message("Escaped successfully!")
-		ui.show_menu = false
+		if ui:
+			ui.set("show_menu", false)
 		state = State.FLEE
 		_message_timer = MESSAGE_DELAY * 2
 	else:
@@ -189,8 +206,9 @@ func _attempt_flee() -> void:
 
 func _resolve_turn() -> void:
 	state = State.RESOLVE
-	ui.show_menu = false
-	ui.show_target_select = false
+	if ui:
+		ui.set("show_menu", false)
+		ui.set("show_target_select", false)
 
 	for enemy in enemies:
 		if enemy.is_alive:
@@ -285,5 +303,5 @@ func _process_flee(delta: float) -> void:
 
 func _add_message(text: String) -> void:
 	ActivityLog.log_msg(text)
-	if ui:
+	if ui and ui.has_method("show_flash"):
 		ui.show_flash(text)

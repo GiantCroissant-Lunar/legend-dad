@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "bundles": {
+    "hud-core": {
+      "kind": "hud",
+      "policy": "eager",
+      "pck": "hud-core@6747a4.pck",
+      "deps": [],
+      "provides": {
+        "widgets": [
+          "activity_log_panel",
+          "minimap"
+        ]
+      },
+      "content_hash": "6747a4"
+    },
+    "hud-battle": {
+      "kind": "hud",
+      "policy": "lazy",
+      "pck": "hud-battle@b9d664.pck",
+      "deps": [
+        "hud-core"
+      ],
+      "provides": {
+        "widgets": [
+          "battle_overlay"
+        ]
+      },
+      "content_hash": "b9d664"
+    }
+  }
+}

@@ -8,7 +8,9 @@ var _main_panel:Control
 
 
 func _enable_plugin() -> void:
-	add_autoload_singleton("GUIDE", "res://addons/guide/guide.gd")
+	# GUIDE is declared in project.godot [autoload] so it is available during
+	# headless parsing/export too. Do not dynamically mutate autoloads here.
+	pass
 
 func _enter_tree() -> void:
 	_main_panel = MainPanel.instantiate()
@@ -24,7 +26,7 @@ func _exit_tree() -> void:
 	GUIDEInputFormatter.cleanup()
 
 func _disable_plugin() -> void:
-	remove_autoload_singleton("GUIDE")
+	pass
 
 
 func _edit(object) -> void:

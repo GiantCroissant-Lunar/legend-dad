@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="complete-app"
-run/main_scene="res://scenes/main.tscn"
+run/main_scene="res://scenes/boot.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
+ContentManager="*res://scripts/content_manager.gd"
 ECS="*uid://dfqwl5njvdnmq"
 GUIDE="*res://addons/guide/guide.gd"
 GameActions="*res://scripts/game_actions.gd"

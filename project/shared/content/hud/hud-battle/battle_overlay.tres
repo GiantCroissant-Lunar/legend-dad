@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HudWidgetDefinition" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/hud_widget_definition.gd" id="1_def"]
+[ext_resource type="PackedScene" path="res://content/hud/hud-battle/battle_overlay.tscn" id="2_scene"]
+
+[resource]
+script = ExtResource("1_def")
+id = "battle_overlay"
+scene = ExtResource("2_scene")
+anchor = 4

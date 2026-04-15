@@ -10,12 +10,25 @@ vars:
 
 tasks:
   setup:
-    desc: Install all dependencies and download Godot export templates
+    desc: Install all dependencies, link shared/, seed Godot caches, and download templates
     cmds:
       - '{{.PYTHON_BIN}} -m pip install --user jsonschema'
       - '{{.PYTHON_BIN}} scripts/download_templates.py'
       - cd {{.SERVER_DIR}} && pnpm install
       - pre-commit install
+      - task: share:link
+      - task: setup:godot
+
+  share:link:
+    desc: Create cross-platform links from host projects to project/shared/
+    cmds:
+      - '{{.PYTHON_BIN}} scripts/setup_shared_links.py'
+
+  setup:godot:
+    desc: Seed Godot .godot/ caches by running each host project once headlessly
+    cmds:
+      - '{{.GODOT_PATH}} --editor --headless --quit --path project/hosts/complete-app'
+      - '{{.GODOT_PATH}} --editor --headless --quit --path project/hosts/content-app'
 
   version:
     desc: Print the current GitVersion SemVer
@@ -36,6 +49,8 @@ tasks:
         {{.GODOT_PATH}} --headless --path {{.GODOT_PROJECT_DIR}}
         --export-release "Web"
         {{.ROOT_DIR}}/{{.ARTIFACTS_DIR}}/{{.VERSION}}/web/complete-app.html
+      - mkdir -p {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/pck
+      - cp {{.ARTIFACTS_DIR}}/pck/*.pck {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/pck/ 2>/dev/null || true
       - rm -f {{.ARTIFACTS_DIR}}/latest
       - ln -s {{.VERSION}} {{.ARTIFACTS_DIR}}/latest
       - echo "Built version {{.VERSION}} -> {{.ARTIFACTS_DIR}}/{{.VERSION}}/web/"
@@ -149,9 +164,30 @@ tasks:
       - >-
         {{.PYTHON_BIN}} scripts/run_godot_checked.py
         {{.GODOT_PATH}} --headless
-        --path {{.GODOT_PROJECT_DIR}}
+        --path project/hosts/content-app
         --script scripts/pck_builder.gd
         -- --location={{.CLI_ARGS}}
+
+  content:build:
+    desc: Build a single content bundle into a PCK (use -- {bundle-id})
+    cmds:
+      - >-
+        {{.PYTHON_BIN}} scripts/run_godot_checked.py
+        {{.GODOT_PATH}} --headless
+        --path project/hosts/content-app
+        --script scripts/bundle_packager.gd
+        -- --bundle={{.CLI_ARGS}}
+      - task: content:manifest
+
+  content:manifest:
+    desc: Regenerate project/shared/data/content_manifest.json
+    cmds:
+      - '{{.PYTHON_BIN}} scripts/content_manifest.py'
+
+  content:build:all:
+    desc: Build every bundle declared under project/shared/content/**/bundle.json
+    cmds:
+      - '{{.PYTHON_BIN}} scripts/build_all_bundles.py'
 
   articy:build:
     desc: Build and deploy MDK plugin to articy local plugins folder
