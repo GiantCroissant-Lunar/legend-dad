@@ -1,7 +1,7 @@
 ---
 type: bestiary
 status: draft
-articy-id: ""
+articy-id: "72057594037929573"
 tags: [predator, wolf, thornwall, pack-hunter]
 connections:
   - "[[Thornwall]]"

@@ -1,7 +1,7 @@
 ---
 type: event
 status: draft
-articy-id: ""
+articy-id: "72057594037929502"
 tags: [disaster, academy, ritual, turning-point]
 connections:
   - "[[Elder Aldric]]"

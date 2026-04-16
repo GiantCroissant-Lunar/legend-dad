@@ -1,7 +1,7 @@
 ---
 type: lore
 status: draft
-articy-id: ""
+articy-id: "72057594037929513"
 tags: [underground, crystal, dark-energy, iron-peaks]
 connections:
   - "[[Iron Peaks]]"

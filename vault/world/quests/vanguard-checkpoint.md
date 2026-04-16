@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037929454"
 tags: [main-quest, son-era, iron-vanguard, blockade, faction-conflict]
 connections:
   - "[[Aric]]"

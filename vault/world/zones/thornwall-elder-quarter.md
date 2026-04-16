@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037929709"
 tags: [town, residential, story]
 connections:
   - "[[Thornwall]]"

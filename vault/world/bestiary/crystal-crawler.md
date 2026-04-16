@@ -1,7 +1,7 @@
 ---
 type: bestiary
 status: draft
-articy-id: ""
+articy-id: "72057594037929537"
 tags: [insectoid, crystal, iron-peaks, cavern, emergent-threat]
 connections:
   - "[[Iron Peaks]]"

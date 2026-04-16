@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037929467"
 tags: [main-quest, son-era, whispering-woods, crystal-corruption, environmental]
 connections:
   - "[[Aric]]"

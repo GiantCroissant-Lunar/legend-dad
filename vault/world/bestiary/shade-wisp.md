@@ -1,7 +1,7 @@
 ---
 type: bestiary
 status: draft
-articy-id: ""
+articy-id: "72057594037929564"
 tags: [ghost, spectral, ambient, all-locations, light]
 connections:
   - "[[Thornwall]]"

@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037929697"
 tags: [dungeon, mine, underground]
 connections:
   - "[[Iron Peaks]]"

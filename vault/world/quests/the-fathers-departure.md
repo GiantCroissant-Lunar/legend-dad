@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037929428"
 tags: [main-quest, father-era, thornwall, iron-peaks, inciting-incident]
 connections:
   - "[[Kaelen]]"

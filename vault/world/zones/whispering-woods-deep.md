@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037929745"
 tags: [forest, wilderness, danger]
 connections:
   - "[[Whispering Woods]]"

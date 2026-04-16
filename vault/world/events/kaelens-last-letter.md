@@ -1,7 +1,7 @@
 ---
 type: event
 status: draft
-articy-id: ""
+articy-id: "72057594037929480"
 tags: [mystery, letter, father-son, iron-peaks]
 connections:
   - "[[Kaelen]]"
