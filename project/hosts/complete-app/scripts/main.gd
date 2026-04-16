@@ -888,6 +888,34 @@ func _update_debug_hud() -> void:
 #
 # Extracted as `static` + explicit def param so GUT can verify the
 # label scheme and count clamping without wiring up ECS + ContentManager.
+static func era_to_string(era) -> String:
+	match era:
+		C_TimelineEra.Era.FATHER: return "father"
+		C_TimelineEra.Era.SON: return "son"
+		_: return "both"
+
+
+# Phase 2A: Roll an encounter from a zone's EncounterTable. Returns
+# an Array[Combatant] built from the rolled bestiary entry, or an empty
+# array if the zone has no table or the roll finds nothing for this era.
+#
+# Integration point: once zone tracking is wired (player knows which
+# zone they're in), call this from _start_battle instead of looking up
+# the overworld entity's enemy_type directly.
+static func roll_zone_encounter(zone_id: String, era_string: String) -> Array[Combatant]:
+	var tbl := ContentManager.get_resource("encounters-core", zone_id) as EncounterTable
+	if tbl == null:
+		return []
+	var bestiary_id := tbl.roll(era_string)
+	if bestiary_id.is_empty():
+		return []
+	var enemy_def := ContentManager.get_enemy_definition(bestiary_id) as EnemyDefinition
+	if enemy_def == null:
+		push_warning("main: zone %s rolled unknown bestiary_id '%s'" % [zone_id, bestiary_id])
+		return []
+	return build_enemy_group(enemy_def)
+
+
 static func build_enemy_group(def: EnemyDefinition) -> Array[Combatant]:
 	var out: Array[Combatant] = []
 	if def == null:
