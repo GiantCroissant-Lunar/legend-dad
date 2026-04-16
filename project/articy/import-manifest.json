@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generated": "2026-04-16T04:38:13.824670+00:00",
+  "generated": "2026-04-16T04:52:09.476445+00:00",
   "generated_by": "vault_to_manifest",
   "entities": [
     {
@@ -1051,6 +1051,279 @@
       "flow_notes": ""
     },
     {
+      "vault_path": "vault/world/zones/ashenford-canyon-mouth.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Ashenford Canyon Mouth",
+      "template_properties": {
+        "overview": "The narrow canyon pass at the northern edge of Ashenford, where the road climbs from the lowland plain toward the Iron Peaks. In Kaelen's era this is a simple approach with two sentry posts flanking a small wooden gatehouse; traffic passes freely, the Vanguard logs names into a civilian passage book, and travelers continue. In Aric's era, the same canyon holds the full Vanguard Checkpoint \u2014 a timber-and-stone gatehouse with flanking watchtowers, iron-reinforced gates, a refugee encampment pressed up against the south entry, and patrols on the walls. The zone is the staging ground for most of the \"Vanguard Checkpoint\" quest and part of \"The Missing Patrol.\"",
+        "layout_and_terrain": "Long narrow zone (26x18 tiles), oriented south-to-north, reflecting the canyon pass geometry. Southern half: the approach \u2014 the main road paved with worn flagstones running up the canyon floor (3 tiles wide), steep red-brown cliff walls on both east and west sides (impassable, implied height), scattered rocks and mineral-vein boulders as visual flavor. Middle: the gatehouse area \u2014 in father's era, two small 2x2 sentry posts flanking a 4x3 wooden gatehouse with a simple wooden bar across the road; in son's era, a full 8x5 timber-and-stone gatehouse with flanking 3x3 watchtowers and a heavy iron-reinforced gate across the road. A goat trail climbs from the southwest cliff base along a narrow ledge \u2014 this is the stealth-path option for \"Vanguard Checkpoint\" and is only walkable with Maren in the party. Northern half: beyond the gatehouse, the canyon widens slightly before exiting off-map north to Iron Peaks Trail. Exits: south (to Ashenford Garrison Square in father's era, directly into Ashenford Refugee Camp in son's era), north off-map (to Iron Peaks Trail).",
+        "entities_and_encounters": "**Father's era:**\n- 2 sentry NPCs at the flanking posts (dialogue: passage log, directions)\n- 1 junior officer in the gatehouse (dialogue: Rhen's passage instructions if Kaelen carries Rhen's written recommendation from \"The Vanguard's Debt\")\n- Passage book on a small lectern outside the gatehouse (interactable, lore about who has traveled here recently)\n- Minimal ambient patrol walking the flagstones\n- No combat encounters in this zone in father's era (encounter_rate bypass)\n\n**Son's era:**\n- 4-6 Vanguard soldier NPCs on the walls and at the gate (non-interactable as individuals; interaction goes through Captain Voss at the gatehouse for \"Vanguard Checkpoint\" diplomacy path)\n- Captain Voss at the gatehouse interior (scripted quest NPC, branching dialogue per \"Vanguard Checkpoint\" quest's three paths)\n- Wounded Sentry on the south side of the gatehouse exterior (per \"The Missing Patrol\" \u2014 the same sentry visible in the Refugee Camp zone may appear here depending on quest state)\n- Goat trail NPCs: none, but Maren will guide Aric along it as a scripted sequence if the stealth path is chosen\n- Combat encounters per table for players who leave the road and enter the canyon's eastern slopes beyond the gatehouse (Crystal Crawler, Shade Wisp); rate low (0.08) \u2014 most traffic stays on the flagstone road",
+        "era_variants": "**Father \u2192 Son changes:**\n- Gatehouse: small 4x3 wooden structure with a simple bar-gate \u2192 full 8x5 timber-and-stone fortification with iron-reinforced double doors\n- Sentry posts: two small 2x2 wooden posts \u2192 two full 3x3 stone watchtowers, each with a Vanguard banner and a visible sentry at the top\n- Wooden bar across the road: ordinary, opens via lever \u2192 iron-reinforced gates, opens via chain-windlass from inside the gatehouse (audible as the clang the refugees flinch at)\n- Passage book lectern: present, interactable \u2192 gone (replaced by a Vanguard decree posted on the gatehouse wall)\n- Goat trail: present as environmental detail only \u2192 visible and walkable if Maren is in the party\n- Cliff-wall mineral veins: rust-and-gold streaks, natural \u2192 streaks interrupted in places by faint violet crystal threads that have started to climb out of the rock (very subtle \u2014 the corruption is reaching the surface here)\n- Refugees outside the gate: none \u2192 camp visible through the south exit into Ashenford Refugee Camp\n- Road flagstones: clean, swept \u2192 trampled-mud patches at the gatehouse approach where refugee traffic and Vanguard inspection lines have worn the stone",
+        "encounter_table": [
+          {
+            "bestiary": "[[Crystal Crawler]]",
+            "weight": 2,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Shade Wisp]]",
+            "weight": 1,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.08,
+        "difficulty_tier": 4
+      },
+      "connections": [
+        {
+          "target_vault_path": "Ashenford",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Ashenford Garrison Square",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks Trail",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Vanguard's Debt",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Vanguard Checkpoint",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Missing Patrol",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: red-brown cliff wall tiles (implied vertical height, impassable, with visible rust-orange mineral streaks), flagstone road tiles (gray, worn, 3 tiles wide in a strip down the canyon), canyon-floor rock tiles (reddish-brown gravel texture, walkable, slightly uneven), scattered boulder sprites, goat trail tile (narrow ledge, 1 tile wide, cliff-hugging), gatehouse structure tiles (timber-and-stone building faces in both scales \u2014 the father's-era smaller variant and the son's-era larger variant), watchtower stone tiles (rough ashlar, 3-tile implied height), iron-reinforced gate tile (2x3, closed state dominant in son's era), Vanguard banner sprite (red-and-steel cooperative in father's era, gray-on-gray in son's), sentry sprites (soldier figures at posts and on walls). Son's era additions: faint violet crystal-thread tiles overlaying the rust mineral streaks on the cliff walls (subtle, not the full corruption glow), wanted-poster sprites on the gatehouse wall (lore flavor), refugees-visible-through-gate overlay if looking south from the gatehouse area.",
+        "ambience": "Canyon acoustics with natural reverb \u2014 sounds bounce between the cliff walls with a half-second delay, making distant voices present but unintelligible. Father's era: occasional sentry's boot on flagstone, junior officer writing at the passage book, mule team passing through with cart-wheels on stone and teamster's quiet commands, a distant bird of prey's cry echoing between the cliffs. Son's era: the gatehouse gate's chain-windlass clang at unpredictable intervals (the sound that echoes down into the Refugee Camp), Vanguard soldiers on the walls calling tight-procedural orders to each other across the pass, the flapping of the new gray banners in the canyon wind, the scrape of boots on stone platforms overhead. The canyon wind itself is unchanged between eras \u2014 sharp, channeled, the most constant sound in the zone.",
+        "music": "Shares the Ashenford march theme but more distant and more enclosed (the canyon geometry compresses the music). Father's era: the snare cadence and tenor-horn melody from the Garrison Square play at reduced volume, with the canyon's reverb adding a half-second echo that deepens the march's sense of scale. Son's era: the same march but with the snare playing behind the beat more noticeably here, and a new element \u2014 a single long trumpet note sustained above the march, representing the closed gate \u2014 that does not resolve. On the goat trail, all melodic instruments drop out and only ambient wind plus a quiet sustained bass note carry the music. If combat triggers in the eastern slopes, a sharp plucked-string tension theme from the shared combat track layers over everything."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/ashenford-garrison-square.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Ashenford Garrison Square",
+      "template_properties": {
+        "overview": "The central parade ground of Ashenford, flanked by the barracks, the Command Hall, the armory, and the Depot warehouse. In Kaelen's era this is the functional heart of a cooperative Vanguard garrison; in Aric's era it has been expanded into a closed military staging yard with timber palisade walls added on three sides and civilians no longer permitted to linger. The zone serves as the hub for quest interactions with Captain Rhen Halloway (father's era) and Quartermaster Berin (both eras), and it is where the Traveler's Hearth inn faces for the father's era.",
+        "layout_and_terrain": "Rectangular zone (22x16 tiles). Open flagstone parade ground at center (roughly 10x8 tiles) with a raised dais at the west edge where officers address drills. Command Hall on the north side (5x4, impassable except at the central door); Depot warehouse on the east (6x4, impassable except at the sliding loading door); barracks block on the south (7x3 with two doors); armory on the west flanking the dais (4x3). The Traveler's Hearth inn facade sits outside the parade ground proper, on the south side of the barracks block, accessible via a narrow lane. In the son's era, the south lane to the Traveler's Hearth is closed by timber palisade with a heavy gate. Exits: south (to Ashenford Refugee Camp or to Traveler's Hearth in father's era), north (to Ashenford Canyon Mouth via the main road).",
+        "entities_and_encounters": "**Father's era:**\n- Captain Rhen Halloway in the Command Hall (transition to interior)\n- Quartermaster Berin at the Depot's loading door (exterior, dialogue + shop interface)\n- 2 soldiers drilling on the parade ground (ambient, animated sword-form sprites)\n- 1 sergeant at the dais (ambient calling cadence)\n- 1 farrier at the armory's side forge (animated hammer-strike sprite)\n- Notice board on the north side with militia postings (interactable, lore)\n\n**Son's era:**\n- Rhen Halloway not here (retired; he is at his small stone house at the camp's edge \u2014 see Ashenford Refugee Camp)\n- Berin same position, same dialogue framework, grimmer\n- 3-4 soldiers on the parade ground (now in newer gray kit rather than old cooperative red-and-steel)\n- Dais empty\n- Farrier absent; forge cold\n- Notice board replaced with Vanguard posters (restricted zone warnings)\n- Timber palisade walls visible on three edges of the zone (non-interactable, impassable)",
+        "era_variants": "**Father \u2192 Son changes:**\n- Parade ground flagstone: clean, swept \u2192 scuffed, trampled-mud patches at the palisade edges\n- Banners at the Command Hall: red-and-steel cooperative sigil \u2192 colder gray-on-gray Vanguard sigil\n- Notice board: open wooden frame with layered posting papers (trade, militia, community) \u2192 iron-banded frame with restricted-zone decrees printed in uniform type\n- Command Hall door: carved timber, oiled, open during business hours \u2192 reinforced iron-banded, closed, a sentry at the step\n- Depot loading door: open to civilian trade in posted hours \u2192 open by Vanguard schedule only; Berin's window shutter is the civilian-interface now\n- Barracks windows: shuttered open, lamp-lit at dusk \u2192 shuttered closed, lamp-lit from behind gray-painted glass\n- Traveler's Hearth access: open via south lane \u2192 closed, palisade gate across the lane\n- Farrier's forge: lit, active, hammer sounds \u2192 cold, tools racked and locked",
+        "encounter_rate": 0
+      },
+      "connections": [
+        {
+          "target_vault_path": "Ashenford",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Ashenford Refugee Camp",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Ashenford Canyon Mouth",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Rhen Halloway",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Quartermaster Berin",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Vanguard's Debt",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Missing Patrol",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: gray ashlar stone building walls with dark iron fittings (Command Hall, armory, barracks), timber-frame barracks variant for upper-story implied walls, stone-and-iron Depot warehouse with sliding loading door (the door is a 2-tile-wide sprite, closed and open variants), flagstone parade ground tiles (gray, subtly worn in wear-pattern from drill lines), dais tile (raised stone step, 2x1), wooden notice board prop tile, forge tile (open-sided wall with glowing coals in father's era, cold dark coals in son's), Vanguard banner sprite (hanging from iron brackets at regular intervals along building faces \u2014 old cooperative sigil in father's era, new gray sigil in son's). Son's era additions: timber palisade wall tiles (rough vertical logs, 2-tile implied height, impassable), palisade gate tile (heavy double-door, closed in most states), decree-poster wall tiles (replacing the open notice board), graffito-overlay tile for the old cooperative banners (a single tile where the old sigil was scrubbed off the stonework).",
+        "ambience": "Father's era: staggered marching boots on flagstone (a squad drilling distantly), rhythmic farrier hammer-ring, horses snorting from the stable block (implied east beyond the depot), sergeant calling cadence, cartwheels over cobblestone, wood being stacked near the depot, occasional greeting between soldiers and civilians. Canyon wind funneling in from the north. Son's era: drill cadence still present but fewer voices, civilian sounds absent from the central streets, the farrier's hammer absent (replaced by the distant clang of the checkpoint gate opening and closing at unpredictable intervals, which the refugees flinch at but which echoes into this zone from the north). Canyon wind unchanged \u2014 it was always loudest here.",
+        "music": "Shares the Ashenford location theme. Father's era: the snare-and-tenor-horn march in E minor plays at full presence in this zone \u2014 parade tempo, 120 bpm, the fife carries a hummable middle passage that brings the military scaffolding down to human scale. Son's era: same march cadence but stripped of the fife, brass line transposed a minor third down and played with a heavier attack, snare slightly behind the beat suggesting institutional fatigue. Beneath the march, the refugee-camp fiddle melody (from Ashenford Refugee Camp) bleeds in at very low volume if the player stands near the palisade south edge \u2014 the two musics never sync."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/ashenford-refugee-camp.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Ashenford Refugee Camp",
+      "template_properties": {
+        "overview": "A son-era-only zone at the southern edge of Ashenford, outside the old town gate, where displaced miners and their families have settled into a makeshift encampment while they wait for the Vanguard Checkpoint to reopen the road to the Iron Peaks. The camp has been here three years. It is not leaving. This zone hosts the opening of \"The Missing Patrol,\" the encounter with Alva the midwife, and the discovery of retired Captain Rhen Halloway at his small stone house at the camp's eastern edge.",
+        "layout_and_terrain": "Medium zone (20x14 tiles). The Ashenford south town gate is the northern exit (centered, 2-tile-wide archway). South of the gate, the camp sprawls in an irregular pattern: a central communal cook-fire in a ring of river stones (2x2, impassable center, walkable around), patched canvas tents in clusters of three or four, guy-ropes staked into the ground (decorative overlays \u2014 tile is walkable but ropes are a visual boundary), stacked wagons on the west edge serving as wind-break. Rhen Halloway's small stone house sits on the eastern edge, two rooms and a small porch, recognizable as a pre-camp building. Alva's shelter is a larger canvas lean-to on the south edge, built against a low dry-stone wall that predates the camp. Exits: north (to Ashenford Garrison Square via the south town gate), off-map south (to coast road).",
+        "entities_and_encounters": "**Son's era only:**\n- Alva the midwife at her lean-to (quest-giver for \"The Missing Patrol\")\n- Rhen Halloway at his small stone house porch (reflective dialogue; will acknowledge Aric if he recognizes Kaelen's line first)\n- 3-4 refugee NPCs at the cook-fire (ambient, dialogue about lost homes, the Vanguard, the sound of the checkpoint gate)\n- 1 child sprite near Rhen's house (ambient, Rhen tolerates the child's presence)\n- 2 refugee NPCs stacking firewood on the west side (ambient)\n- 1 camp dog sprite (roams, non-interactive)",
+        "era_variants": "This zone does not exist in the father's era. A small note in the Ashenford location page covers the space that the refugee camp occupies in the son's era: in the father's era, this ground is an open field south of the town gate used for militia practice and occasional market days, without permanent structures. No era-variant toggle in LDtk is required \u2014 the zone simply does not render in the father's timeline.",
+        "encounter_rate": 0
+      },
+      "connections": [
+        {
+          "target_vault_path": "Ashenford",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Ashenford Garrison Square",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Rhen Halloway",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Missing Patrol",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Vanguard Checkpoint",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: trampled-earth ground (packed brown with patches of weeds where the grass has been worn through), river-stone ring with central cook-fire (warm orange glow, thin smoke wisp sprite rising and dispersing), patched canvas tent tiles (2x2, tan canvas with visible stitched repairs, different colors per tent to suggest individual households \u2014 faded red, faded blue, faded green), guy-rope overlay tiles (thin brown lines staked at corners, decorative), stacked wagon tile on the west (collapsed to one wheel and a box, serves as wind-break \u2014 2x1), Rhen's small stone house facade (gray stone, small wooden porch, a single window and a door, recognizably a pre-camp building), Alva's lean-to (tall canvas against low dry-stone wall, brown and gray palette, a small clay oven smoking on the wall side), camp dog sprite (animated idle and roam cycles), firewood stack tile on the west. A south town gate archway tile at the north exit \u2014 old cooperative stonework with a Vanguard sentry sprite optionally at the arch in son's era (the sentry will pass the player through without comment, but his presence is visual). Palette: muted browns, canvas-tans, stone-grays, with the cook-fire and Alva's oven as the only warm light sources.",
+        "ambience": "Low voices, a child being hushed, a wooden ladle in a clay pot, canvas flapping in the canyon wind (intermittent), a small fire popping at irregular intervals, a dog's quiet panting, occasional firewood-splitting thwack, the distant clang of the Vanguard Checkpoint gate from the north-northwest (audible through the Ashenford Garrison Square and into this zone at reduced volume, unpredictable cadence that the refugees flinch at). Rhen's porch has its own quieter acoustic pocket \u2014 the camp sounds reach him at half volume, as if the small stone house has its own sound-shelter built in.",
+        "music": "A solo acoustic guitar plays a tired, circular folk pattern in C minor \u2014 the same three chords repeating without resolution. A fiddle enters in the second pass with a counter-melody that is distinctly non-military in key and phrasing, and does not sync with the Ashenford Garrison march if the player can hear both musics at the zone boundary. Near Rhen Halloway's porch, the guitar thins to a solo and the fiddle drops out; the instrumentation there is just the guitar and, very faintly, the muted trumpet of Rhen's character theme held as a single sustained note. The piece does not build or resolve; it is the music of people who have been waiting for three years and have decided they will keep waiting."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/hollows-rest-hearth-circle.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Hollow's Rest Hearth Circle",
+      "template_properties": {
+        "overview": "The central hub of Hollow's Rest \u2014 the natural amphitheater formed where three ancient trunks fell across one another a century ago and rotted down into a broad bowl of deep moss and rich loam. The Hearth Circle itself is a ring of river stones at the bowl's center with a shared cook-fire; around it are the settlement's fifty-odd inhabitants' dwellings, built into the root-arches of the fallen trunks without cutting the living canopy above. This is the zone where \"Roots of Exile\" climaxes and where \"The Old Elder's Map\" begins.",
+        "layout_and_terrain": "Circular-organic zone (18x16 tiles). The tree-fall bowl occupies the entire zone \u2014 three massive fallen trunks (each 4-5 tiles long, 2 tiles wide) overlap at the zone's west, north-northeast, and south-southeast edges, forming the natural walls of the amphitheater. The Hearth Circle at the exact center is a 3x3 ring of river stones with the cook-fire at the middle (1x1 impassable, walkable around). Root-arch cottages are built into the fallen trunks: Torbin's on the northern trunk (entrance facing south into the bowl), the Old Midwife's Hearth where Physician Wren works on the east side (entrance facing west), the Salvage Lean-To on the south side (open-sided), and three smaller family dwellings around the western arc. River-stone paths wind between the cottages through deep moss. The Listening Stones (three large stones) sit at the zone's southern edge, where children keep watch. Exits: south (to Hollow's Rest Hidden Path via a small gap between the southern trunk and the Listening Stones \u2014 walkable only if the player has been introduced to the settlement).",
+        "entities_and_encounters": "**Son's era only:**\n- Torbin at the door of his cottage on the north trunk (quest-giver for \"Roots of Exile\" and \"The Old Elder's Map\")\n- Physician Wren at the east cottage door (dialogue: supply list, herb trade, coastal-corruption questions)\n- Scavenger Mott at the south Salvage Lean-To when not out on a run (roughly 50% availability; when present, dialogue about road conditions and Vanguard patrol schedules)\n- Wren's young apprentice (14, non-named archetype, ambient near Wren's cottage)\n- 2-3 child sprites at the Listening Stones (ambient watch duty)\n- 2 hunter sprites at the northern edge (ambient sharpening arrows)\n- 1 midwife sprite at the east cottage (ambient, unnamed)\n- Shared cook-fire at the Hearth Circle (ambient hearth-crackle sound, warmth-glow sprite)",
+        "era_variants": "This zone does not exist in the father's era. Hollow's Rest was founded three years before Aric's quest; the great fall happened a century ago but was left as impassable tangle until Torbin led the seventeen families into it. No LDtk era-variant toggle is needed \u2014 the zone simply does not render in the father's timeline.",
+        "encounter_rate": 0
+      },
+      "connections": [
+        {
+          "target_vault_path": "Hollow's Rest",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Hollow's Rest Hidden Path",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Torbin",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Physician Wren",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Scavenger Mott",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Roots of Exile",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Old Elder's Map",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: massive fallen trunk tiles (4-5 tiles wide, 2 tiles deep, moss-covered brown bark with fern-sprite overlays, half-rotted and darker on the ground side), root-arch dwelling tiles (cottages built directly into root systems, with woven-wattle walls visible between exposed roots and living-root lintels above doors), deep-moss ground tiles (rich varied greens with occasional small white mushroom sprites), river-stone path tiles (flat gray stones pressed into moss, walkable), Hearth Circle stone-ring tile (a 3x3 arrangement with the central cook-fire sprite \u2014 warm orange glow, thin smoke wisp that disperses upward through the canopy), Listening Stones sprite (three large gray stones arranged in a loose triangle, 2x2 total footprint), Salvage Lean-To tile (open-sided wooden shed with stacked crates, barrels, and small iron-tool silhouettes inside), canopy overlay tile cast above the entire zone (semi-transparent dappled green-gold pattern layered above the ground, suggesting intact overhead canopy). The visual palette is the inverse of Ashenford's gray \u2014 rich greens, warm browns, muted ambers, the saturated earth tones of a settlement that has grown into its landscape rather than been built on top of it. Torbin's cottage is the largest and most obviously a root-arch dwelling; Wren's has small stitched herb-symbol sprites on the doorframe.",
+        "ambience": "A deliberately quieter soundscape than the rest of the son's-era woods. The Whispering Woods' canopy whisper is present at normal (pre-corruption) pitch \u2014 the old version of the forest's sound, rendered cleanly here because the corruption has not reached this pocket. Small wood fires crackle at low volume (mostly the central Hearth Circle fire; cottage hearths go cold after dark to keep the settlement invisible from above). A child's voice, hushed, carries briefly before a parent shushes it. Someone splitting kindling at slow intervals. A broom on packed earth. Wren's mortar-and-pestle grinding herbs. A hunter sharpening an arrowhead. Birds sing here \u2014 real ones, at normal pitch, not the wrong birdsong of the corruption zones \u2014 but softly. No loud voices. No hammering. No ringing bells. The absence of machine-sound is the signature of the place.",
+        "music": "Shares the Hollow's Rest location theme. Solo mandolin in G dorian, fingerstyle, walking tempo. The melody is a circular four-bar phrase repeating with minor variations \u2014 the sound of patience, of people who have decided to stay for as long as they can. A second voice enters in the second pass \u2014 a low-tuned whistle or recorder carrying a counter-melody in thirds underneath, suggesting quiet companionship. Near Torbin's cottage, his character's wooden-recorder theme layers in as a quiet third voice, and Elen's wordless alto humming briefly shadows the melody (from Torbin's character music). Near Wren's cottage, the hammered-dulcimer patient-medicine theme from Wren's character music replaces the second whistle. The piece drifts in and out of time with its own breathing \u2014 no percussion, no drone, a held breath slowly released."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/hollows-rest-hidden-path.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Hollow's Rest Hidden Path",
+      "template_properties": {
+        "overview": "The approach route to Hollow's Rest from the surrounding Whispering Woods \u2014 a path that is not quite a path, deliberately so. The zone covers a swampy low ground, a fallen-log bridge, a stream crossing at a place where footprints do not hold, and a final thicket before the tree-fall hollow. Only Maren can guide a first-time visitor through; subsequent traversals are possible but slower without her. This is the zone Aric and Maren walk in Act 1 of \"Roots of Exile\" and the route Scavenger Mott takes on his supply runs.",
+        "layout_and_terrain": "Medium-large zone (24x22 tiles). Topology from south to north: the southern third is swampy low ground with shallow standing water, reed hummocks, and clumps of dead-looking undergrowth that is in fact still-healthy forest holding its breath; the middle third is firmer ground with a fallen-log bridge (4 tiles long, 1 tile wide, walkable) crossing a wider stream; the northern third is a thicket of dense standing trees, with the final approach to the Hearth Circle gap visible at the north edge. The stream curves diagonally from the northeast to the southwest, cut through by the fallen-log bridge at the middle. A stone-hopping crossing exists at the zone's east side for Maren's shortcut route during Scavenger Mott's runs. Walkable: firm ground, the fallen log, stone-hops, the thicket's narrow gaps; impassable: standing water deeper than ankle height, reed hummocks, tree trunks, rooted undergrowth in the thicket. Exits: south (to a Whispering Woods boundary \u2014 leading off into the larger woods), north (through the thicket to Hollow's Rest Hearth Circle; gated by first-time-introduction flag).",
+        "entities_and_encounters": "**Son's era only:**\n- No NPCs in the zone itself \u2014 this is the liminal approach route, not a living zone\n- Combat encounters per table: Moss Lurker (swamp ambush in the southern third), Thornbriar Stalker (thicket-dwelling, in the northern third)\n- Rare environmental event: a Hollow's Rest child-scout's bird-call whistle will signal the player's approach when they cross the stream \u2014 if the player does not have the woven signal-token tied to their wrist, the settlement hides and the northern gap becomes temporarily impassable (a narrative beat Maren explains in Act 1)\n- Ambient wildlife: a healthy-forest owl-call (son's era, but from this uncorrupted pocket), a small deer sprite that flees when approached\n- Optional: a hidden herb pickup on the east stone-hop route (deep-forest moss that Wren values; only spawns if the player has spoken with Wren in the Hearth Circle first)",
+        "era_variants": "This zone does not exist in the father's era. In the father's era, the same geographic space is simply a part of the larger Whispering Woods Deep \u2014 walkable as normal forest, with different encounter tables per that zone's definition. No LDtk era-variant toggle is needed for this zone; the father's-era renderer falls through to Whispering Woods Deep tiles.",
+        "encounter_table": [
+          {
+            "bestiary": "[[Moss Lurker]]",
+            "weight": 3,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Thornbriar Stalker]]",
+            "weight": 2,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.14,
+        "difficulty_tier": 6
+      },
+      "connections": [
+        {
+          "target_vault_path": "Hollow's Rest",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Hollow's Rest Hearth Circle",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Whispering Woods",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Whispering Woods Deep",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Maren",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Roots of Exile",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Old Elder's Map",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: swampy ground tile (dark green-black with patches of standing water, occasional reed-hummock sprites, walkable only in specific patterns), shallow water tile (dark teal, semi-transparent, impassable deeper variants), reed hummock sprite (1x1 cluster, impassable), fallen-log bridge tile (4x1 strip of large mossy log with visible bark texture and a slight downward bow in the middle, walkable), stream water tile (clear-teal flowing water, animated), stone-hop stones in the stream (three small gray stones in a row, walkable with precise positioning), thicket tree tiles (dense standing trees, 1x1 with larger canopy overlay, impassable trunks but walkable between), underbrush tiles (shorter dark-green bushes, impassable), path-clue tiles (almost-invisible to the player: a small worn patch of moss where Maren's foot has rested before, a single trimmed twig, a bit of red fiber from Mott's cloak on a branch \u2014 easter-egg details that reward close inspection). The northern thicket should feel denser than anywhere else in the Whispering Woods, including the corruption zones \u2014 this is a healthy dense forest holding its own against the surrounding decay. Palette: rich greens, warm browns, the same inverse-of-Ashenford colors as the Hearth Circle but in the higher saturation of untouched woods.",
+        "ambience": "The Whispering Woods' canopy whisper is present at normal (pre-corruption) pitch \u2014 as at the Hearth Circle, this pocket has not been reached by the corruption, so the forest here sounds the way the woods sounded in the father's era. Shallow water lapping at the reed hummocks, the slow drip of condensed mist from leaves, a frog at irregular intervals in the southern third, a woodpecker far off, a healthy deer stepping through undergrowth, the particular dry-papery-creak of the fallen-log bridge under foot-weight, the small crystalline splash of the stream at the stone-hops. When Aric and Maren first walk this zone in \"Roots of Exile,\" the soundscape is the same but foregrounded more carefully \u2014 the player's attention is meant to stay on the fact that this is a different kind of forest-sound than the corruption zones. Combat encounters layer the shared combat tension theme over this bed without removing the ambient layer entirely.",
+        "music": "Solo fiddle (Maren's theme) plays alone through the southern swamp \u2014 a cautious walking melody that matches the player's careful foot-placement across the uneven ground. At the fallen-log bridge, the fiddle pauses and a single wooden flute enters for the length of the crossing, its note held across four bars while the fiddle rests. At the stream stone-hop, both instruments drop out and only the stream's own sound carries the music. In the northern thicket, the mandolin of the Hollow's Rest location theme enters at very low volume from the north, suggesting the settlement is just ahead \u2014 the closer the player gets to the north exit, the clearer the mandolin becomes, until at the north edge the Hearth Circle's full theme takes over. This zone's music is the music of a journey ending \u2014 not arriving yet, but close."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
       "vault_path": "vault/world/zones/iron-peaks-trail.md",
       "articy_id": "72057594037929730",
       "type": "zone",
@@ -1142,6 +1415,263 @@
         "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: mine tunnel floor (dark gray stone with gravel texture), mine wall tiles (rough-hewn rock, darker than floor), support timber tiles (brown vertical beams at tunnel edges), rail track tiles (two parallel rust-brown lines on floor), collapsed rubble tiles (mixed rock and timber, impassable), hub room floor (smoother stone, lighter \u2014 the worked center of the mine), mining equipment tiles (pickaxe against wall, lantern on hook, barrel, crate), minecart tile (on rails, can be pushed?), elevator shaft tile (dark square with wooden frame, non-functional). Son's era additions: crystal vein wall tiles (stone with glowing violet lines \u2014 the crystal is growing through the rock), crystal cluster tiles (larger formations, 1x1 and 2x2, emit pale violet light), crystal-cracked timber tiles (wood split by crystal growth), buckled rail tiles (bent upward by force from below), unstable floor tiles (subtle crack pattern, slightly different color \u2014 visual warning), crystal haze overlay (semi-transparent violet tint on affected areas). Lighting: father's era uses warm orange (torch/lantern), son's era mixes orange torchlight with violet crystal glow \u2014 the two light sources competing.",
         "ambience": "Father's era: underground echo chamber acoustics. Dripping water (irregular, echoing), footsteps on stone (sharp reverb), bat wing flutters (sudden, startling), wind draft through tunnels (low moan), timber creaking under rock pressure, distant rock settling, minecart wheels on rails (if pushed), lantern flame hiss. The mine should sound hollow and abandoned \u2014 every sound echoes. Son's era: same base acoustics but warmer (crystal heat changes the air). Crystal resonance hum (constant, varies by location \u2014 louder near clusters), creature skittering (fast, in walls), unstable floor rumble (warning sound before damage), crystal breaking (sharp, glass-like when nodes are destroyed), a deep pulse from below (the Sealed Cavern, rhythmic, like a heartbeat). The crystal hum should become the new normal \u2014 silence is when it stops, and that's scarier.",
         "music": "Father's era: minimal \u2014 mostly ambient with occasional musical stings. A low, sustained cello note as base drone. Sparse pizzicato strings when exploring (plucked notes, irregular rhythm, suggesting careful steps in the dark). Combat encounters: the drone intensifies, percussion enters. The music should feel like the mine is breathing \u2014 slow, patient, not hostile but not safe. Loop: 180 seconds with long quiet sections. Son's era: the cello drone is replaced by a synthesized crystal tone (same pitch, different timbre \u2014 organic replaced by mineral). Pizzicato strings are joined by crystal percussion (tuned chimes struck with mallets). The rhythm is slightly faster \u2014 the mine is more active, more alive. Near the Sealed Cavern entrance: all other music fades, replaced by a deep, throbbing bass note and the crystal hum at its loudest. Loop: 180 seconds."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/lastwatch-broken-bailey.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Lastwatch Broken Bailey",
+      "template_properties": {
+        "overview": "The outer bailey of Lastwatch keep \u2014 the walled courtyard enclosing the central tower, stables, cistern, and Hesper's Stone. In Kaelen's era the bailey is intact and austere: gray granite walls, packed-earth ground, a small stone stable block, a cistern cap in the courtyard center, the carved slab of Hesper's Stone set against the east wall. In Aric's era the bailey is half-consumed: crystal growths have come up through the foundations and climbed the bailey walls, the north wall is cracked open in a jagged breach, the stables are a lattice of pale violet, and the cistern water has gone silver-gray. Only Hesper's Stone remains in a small clear ring at the east wall. This is Lastwatch's combat zone.",
+        "layout_and_terrain": "Medium zone (22x18 tiles) with a roughly square bailey interior. Granite outer walls form the zone boundary on east, south, and west (3-tile implied height, impassable); the north wall has a jagged breach (2-tile-wide gap, walkable, opening to a cliff path off-map north that links to Iron Peaks Trail). The central tower door sits against the south inner wall (transition to Lastwatch Tower Interior). The stable block is a 4x3 structure on the east-southeast (partially impassable \u2014 walkable interior in father's era with stalls and a tack room, impassable entirely in son's era due to crystal lattice). The cistern cap (1x1 iron grate, impassable) is at the bailey's center. Hesper's Stone is a 1x1 slab against the east wall with a small walkable clear-ring around it. Packed-earth ground covers the majority of walkable space in father's era; son's era overlays crystal-growth cluster tiles across perhaps 40% of the ground. Exits: south (to Lastwatch Tower Interior via the tower door), north (through the wall breach to Iron Peaks Trail off-map \u2014 son's era only).",
+        "entities_and_encounters": "**Father's era:**\n- Patrol-rotation soldier sprites (2-3 at varying positions, ambient walking patterns)\n- Stable boy sprite near the stable block (ambient)\n- 1 hitching post with 2 horse sprites at the stable block\n- Holt's forge glow visible through an open armory-adjacent exterior window on the south-southwest wall (audible hammer from inside; see Tower Interior zone)\n- No combat encounters (encounter_rate bypass in father era)\n- Hesper's Stone is interactable: reading the inscription surfaces lore about Jessa Vale's grandmother\n\n**Son's era:**\n- No NPCs (Jessa stays in the tower; no one else remains)\n- Combat encounters per table: Crystal Crawler (primary, emerging from crystal-growth clusters), Iron Borer (from the wall breach)\n- Hesper's Stone still interactable, with additional son's-era dialogue if Aric reads it after speaking with Jessa (she mentions that she visits the stone daily \u2014 the small clear ring around it is the only other place in Lastwatch that remains clear)\n- Wall breach on the north is walkable (connects to Iron Peaks Trail)\n- Crystal growth clusters are interactable: they can be broken for resources (small crystal fragments) at the cost of audible noise that triggers a faster encounter roll while the sound lasts",
+        "era_variants": "**Father \u2192 Son changes:**\n- Outer walls: granite blocks intact, crisp corners \u2192 the north wall is cracked open with a jagged 2-tile breach; the east and west walls have visible crystal threads climbing them\n- Ground: packed earth, clean, with patrol-path wear patterns \u2192 packed earth with pale violet crystal-growth clusters occupying perhaps 40% of the walkable space\n- Stable block: intact, 2 horses, straw on the floor, tack room in the rear \u2192 a lattice of pale violet crystal consuming the entire block; no horses, no straw; the block is walkable only as a perimeter around its impassable crystal interior\n- Cistern cap: iron grate over clear rainwater \u2192 iron grate over silver-gray silted water; the water emits a faint crystal shimmer that is visible through the grate\n- Hesper's Stone: intact slab, packed-earth ring around it \u2192 intact slab, small clear ring around it that the crystal growth has not crossed (a narrative detail \u2014 the only other clear ring in Lastwatch besides the tower and platform)\n- Patrol soldiers: 2-3 ambient \u2192 none\n- Light: daytime with strong mountain sun, or dusk with the signal brazier lighting the tower roof above \u2192 same daylight, but the crystal clusters emit a faint steady violet glow that competes with the sun; at dusk the crystal glow is the dominant light source in the bailey except near Hesper's Stone",
+        "encounter_table": [
+          {
+            "bestiary": "[[Crystal Crawler]]",
+            "weight": 4,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Iron Borer]]",
+            "weight": 3,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.18,
+        "difficulty_tier": 7
+      },
+      "connections": [
+        {
+          "target_vault_path": "Lastwatch",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Lastwatch Tower Interior",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron Peaks Trail",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Jessa Vale",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Watch Holds",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Crystal Shadow",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: dark gray granite outer wall tiles (3-tile implied height, impassable, with slight weathering variations), packed-earth ground tiles (brown with subtle patterns of worn patrol paths), stable block structure tiles (gray stone base with dark-stained timber upper walls, thatched roof overlay), cistern-cap iron grate sprite (1x1, circular, set into a square stone frame), Hesper's Stone slab sprite (1x1, dark gray, with fine carved lettering visible at pixel level), hitching post sprite, horse sprites (walking-idle and grazing variants), armory window glow sprite (warm orange leak from the south-southwest wall, father's era only). Son's era additions: north-wall breach tiles (jagged stone debris spilling inward, walkable through the gap), crystal-thread wall-overlay tiles (pale violet geometric threads climbing the east and west walls), crystal-growth cluster tiles on the ground (geometric pale violet shapes, 1-3 tiles per cluster, emit faint glow), crystal-consumed stable block overlay (the stable block's silhouette is still present but overlaid with a lattice of pale violet crystal, its interior now impassable), silver-gray silted cistern variant (the grate's water sheen changes to that pale gray-violet), Hesper's Stone clear-ring tile (a 1-tile-radius border of clean packed earth around the stone, contrasting against the surrounding crystal growth). The bailey should read visually as two different places that share a floor plan \u2014 the same space, one preserved and one consumed.",
+        "ambience": "Exterior: the same high-altitude wind as the rest of Lastwatch, channeled differently by the bailey walls \u2014 less moaning through arrow slits (fewer slits on the interior) and more direct flow across the courtyard. Father's era: patrol boots on packed earth at regular intervals, horses snorting in the stable, stable boy's boots on straw, Holt's hammer from inside the armory (three strikes, pause, three strikes, pause \u2014 the armorer's working rhythm), the clink of a bucket against the cistern grate when someone draws water. The keep's low background ambient of a small garrison going about its day. Son's era: wind dominates. The crystal clusters produce a faint continuous high-frequency hum that is louder in this zone than anywhere else in the keep (because the clusters are densest here); the hum has a rhythmic quality that is just below melodic, as if the keep is trying to sing. When Crystal Crawlers trigger, the skitter of their legs on stone is the first warning; Iron Borers emerging from the wall breach have a distinct grinding-through-rock sound that precedes their appearance by two to three seconds. Hesper's Stone's clear ring has a small specific acoustic property \u2014 standing inside it, the crystal hum drops by about 30%, as if the stone itself is holding the space.",
+        "music": "Father's era: shares the Lastwatch Tower Interior theme at reduced volume \u2014 the French horn melody of a watchman's scan plays overhead from the tower, drifting down into the bailey at a softer presence, giving the zone a sense of being watched over rather than hosting its own music. No distinct bailey theme. Son's era: the tower theme is not audible here \u2014 the crystal hum fills the acoustic space. A low bowed bass holds a single sustained note as the zone's base music layer, moving slowly between two pitches a tritone apart. When combat triggers, the shared combat tension theme layers over the bass; when combat ends, the bass resumes alone. At Hesper's Stone in the son's era, standing inside the clear ring briefly, a quiet fragment of the cooperative joint-militia march (from the Crystal-Shunted Watchman's music) surfaces, played forward rather than backward \u2014 the keep remembering what it was built for. The fragment lasts two bars. Then the bass returns."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/lastwatch-tower-interior.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Lastwatch Tower Interior",
+      "template_properties": {
+        "overview": "The central three-story tower of Lastwatch keep plus its signal platform rooftop \u2014 the only part of the keep that remains free of crystal growth in the son's era and the functional core of the keep in both eras. This zone covers the ground-floor Great Hall, the second-floor armory access and landing, Jessa Vale's warden's tower room on the third floor, and the open signal platform above. Vertically stacked via LDtk floor layers (floor 1 here represents the tower; the adjacent Broken Bailey is floor 0).",
+        "layout_and_terrain": "Narrow vertical zone (14x20 tiles) oriented around the central tower's interior. The zone uses a stacked vertical layout \u2014 four sub-regions represent the tower's four levels, connected by spiral staircase tiles at the tower's north wall. Ground floor (bottom 5 rows): the Great Hall \u2014 a long rectangular stone-vaulted chamber with a long timber table (father's era) or crystal-growth-claimed table (son's era) at center, iron-banded chairs, a wall map at the west, a cold hearth at the east wall, spiral stair entry at the north. Second floor (next 4 rows): the armory access and landing \u2014 a small square landing with the armory door on the west wall (open in father's era with Holt at work visible through the doorway; sealed behind a crystal-wall in the son's era, the door blocked). Third floor (next 4 rows): Jessa's warden's tower room \u2014 a narrow bed on the east, a writing desk at the west under a single east-facing window, a cold hearth (Jessa has not lit a fire here in years per her character page \u2014 the state applies in both eras), three stacks of logs on the desk. Top (top 5 rows): the signal platform \u2014 an open stone deck with a mounted iron brazier prop on a rotating frame, rope-and-pulley rigging visible at the north. Sky overhead. Exits: a south door at the ground floor's Great Hall leads to Lastwatch Broken Bailey.",
+        "entities_and_encounters": "**Father's era:**\n- Jessa Vale in the warden's tower room at the writing desk (quest-giver for \"The Watch Holds\"; offers tea from the small iron kettle)\n- Keep Armorer Holt in the armory through the second-floor landing door (sharpening, hammering, interactable for gear repair and blade-offering scene in \"The Watch Holds\")\n- 1-2 ambient soldier sprites in the Great Hall (off-duty, eating at the table)\n- Standard wall map and log-book as interactable lore props\n\n**Son's era:**\n- Jessa Vale alone, same writing desk, thirty years later (quest-giver for \"The Crystal Shadow\")\n- Holt absent (armory sealed behind crystal)\n- The Crystal-Shunted Watchman appears on the signal platform at dusk (scripted per \"The Crystal Shadow\" Act 3)\n- The sealed iron box with Kaelen's residue sample on a desk shelf (interactable per \"The Crystal Shadow\")\n- Jessa's thirty years of logs stacked on the desk (interactable lore \u2014 reading them surfaces sightings entries and weather records)\n- No ambient soldiers",
+        "era_variants": "**Father \u2192 Son changes:**\n- Great Hall timber table: intact, iron-banded chairs, map on the wall \u2192 one leg of the table claimed by crystal growth coming up through the flagstone floor; map fossilized in pale violet crystal film, still readable; two of the four iron-banded chairs gone under crystal\n- Great Hall hearth: cold in both eras (stated detail: Jessa does not light fires in the keep's lower rooms in either era; the cold hearth is a character note in the father's era too, because of her grandmother's burden)\n- Armory door (second floor): oiled timber, open during Holt's work hours \u2192 sealed behind a crystal-wall of growth, the door blocked and impassable\n- Warden's tower room: bed, desk, cold hearth, logs \u2014 unchanged across both eras; the room is the same room, same bed, same kettle, one of the few continuities in the whole keep\n- Signal platform brazier: crisp iron, full of pitch-soaked wood, rope-pulleys maintained \u2192 iron tarnished, pitch replaced weekly by Jessa with whatever she can salvage, rope-pulleys Jessa has rebuilt by hand three times (she is the only person who has ever serviced them in the son's era)\n- Crystal-growth presence: none \u2192 visible at the Great Hall only; the second floor's armory corridor is fully crystal-claimed; the third-floor warden's room is clear; the signal platform is clear",
+        "encounter_rate": 0
+      },
+      "connections": [
+        {
+          "target_vault_path": "Lastwatch",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Lastwatch Broken Bailey",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Jessa Vale",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Keep Armorer Holt",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Crystal-Shunted Watchman",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Watch Holds",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "The Crystal Shadow",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective with vertical floor layering, 16x16 tile grid. Core tiles: dark gray granite interior wall tiles (stone-vaulted Great Hall), stone flagstone floor tiles (lighter gray, worn smooth near the table), long timber table tile (4x1, dark-stained wood in father's era, one end overtaken by crystal in son's era), iron-banded chair sprites, wall-map sprite (parchment with painted-ink contour lines, 2x1), cold hearth tile (empty stone fireplace with ash-residue, cold in both eras), spiral staircase tile (stone steps rising, visual shorthand for vertical transition between floors), armory door tile (open variant with glimpse of forge-glow in father's era, crystal-sealed variant in son's era), bed sprite (narrow wooden frame with wool blanket), writing desk tile (1x2 wooden desk with candle, goose-quill, ink well, small iron kettle on a brass trivet), log-book stack tile, signal-platform stone deck tile (open to sky, cold gray light), mounted iron brazier sprite (rotating-frame structure, unlit daytime variant and lit-with-warm-orange-glow dusk variant). Son's era additions: crystal-growth tiles climbing up through flagstones at the Great Hall's northwest corner, crystal-sealed armory door variant, fossilized-in-crystal wall map overlay, sealed iron box sprite on the desk's bottom shelf (glowing very faintly through its casing). The warden's tower room and signal platform are intentionally visually identical between eras \u2014 the keep has been taken everywhere else, but these two spaces have held.",
+        "ambience": "High-altitude wind as a dominant layer through the signal platform, varying in pitch with wall geometry \u2014 moaning through arrow slits, whistling past the brazier-frame. Father's era interior: four pairs of boots on stone floors in the Great Hall, Holt's hammer from the armory above (consistent three-strike rhythm), Jessa's voice occasionally giving instructions to a soldier, wood crackling in the Great Hall's hearth if it happens to be lit during a meal, a cook stirring a pot in a small kitchen-alcove off the Great Hall (implied off-map). Son's era interior: silence as the default. Jessa's footsteps (slow) on stone stairs. Her writing quill on parchment at the desk. A new constant throughout the whole tower: the crystal growths at the keep's core emit a faint continuous high-frequency hum that is at the edge of perception and intensifies in the Great Hall near the taken table-leg. The warden's tower room and signal platform have almost no hum \u2014 those two spaces remain acoustically clean in both eras.",
+        "music": "Shares the Lastwatch location theme. Father's era: solo French horn in C minor playing the long rising-and-falling melody of a watchman's horizon-scan, with a low-string drone. A second violin enters in the second half playing in thirds with the horn \u2014 the cooperative counterpoint of the joint-militia era. Son's era: the horn plays alone, same melody, same tone; the second violin is gone; the drone has thinned to a single sustained note. Jessa's own violin voice enters quietly in the third-floor warden's room if the player lingers \u2014 a wordless alto counter-melody that is the music remembering her. On the signal platform at dusk in the son's era, all normal music drops out and the Crystal-Shunted Watchman's theme takes over if he is present (two pitched crystal tones plus a third quarter-tone off, plus the faint reversed fragment of a joint-militia march in the deep background)."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/saltmere-chalk-estuary.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Saltmere Chalk Estuary",
+      "template_properties": {
+        "overview": "The broad reed-fringed estuary south of Saltmere Harbor, where the chalk river empties into the Moonlit Sea. Walkable shingle beach, reed beds, and a derelict tide mill define the zone. This is the outdoor encounter zone of Saltmere Port and the setting for the dive scene in \"Iron in the Tide.\" In the father's era it is lightly populated with working salt-mill hands and fishing boats in the deeper channel; in the son's era, it is empty except for crystal-borne creatures that have started to come up out of the corrupted seabed.",
+        "layout_and_terrain": "Large coastal zone (28x20 tiles). The sea occupies the eastern third (walkable dock path along the north edge leading to where \"Smuggler's Cove\" starts off-map south; shallows tiles elsewhere, swimmable only in scripted dive scenes). The chalk river meanders across the zone's middle from the west edge to the sea, with reed beds on both banks (4-tile-wide strips, partially impassable in father's era and fully impassable in son's era where the reeds are dead and stiff). The Tide Mill is a 4x4 derelict structure on the north bank of the river, about two-thirds of the way east, with an interior entrance (not covered here). Shingle beach tiles ring the southeastern corner of the zone. A coast road runs along the north edge of the zone from the west (toward Saltmere Harbor Docks) to the east-southeast (toward the hidden cove off-map). Exits: north (to Saltmere Harbor Docks via the coast road), off-map south-east scripted exit to Smuggler's Cove scene.",
+        "entities_and_encounters": "**Father's era:**\n- 2 salt-mill workers at the Tide Mill (ambient, dialogue about tide schedule)\n- 1 fishing boat offshore (scripted appearance only; Kaelen boards it during \"Iron in the Tide\")\n- Medicinal kelp pickups on the shingle beach (3-4 spots)\n- 1 seagull flock (animated ambient)\n- No combat encounters (encounter_rate bypass in father era)\n\n**Son's era:**\n- Tide Mill is abandoned (boarded door, no workers)\n- Combat encounters per table: Iron Borer (small crystal-bored insectoid that has moved up out of the silted shallows), Shade Wisp (dusk-only ambient-hazard spawn)\n- Pale mineral film overlay on the waterline tiles (visual, non-mechanical)\n- One dead seabird on the shingle (environmental flavor \u2014 same encounter Aric and Maren pass in \"Smuggler's Cove\")\n- 1 seagull (alone, wrong-pitched call)",
+        "era_variants": "**Father \u2192 Son changes:**\n- River water: clear turquoise \u2192 silver-gray silted outflow\n- Reed beds: green and flowering, partial barrier \u2192 dead gray-stiff stubble, full barrier\n- Tide Mill: operational with running wheel and smoke from the grinder roof \u2192 boarded, still wheel, no smoke\n- Shingle beach tiles: pale clean pebble \u2192 pale pebble with mineral film crusting at the waterline\n- Sea tile waterline: clean teal edge \u2192 pale violet tint near where the river outflow meets the sea\n- Kelp pickups: 3-4 in father's era \u2192 1-2, the rest replaced by \"crystallized kelp\" decorative tiles (non-usable)\n- Seagull count: flock (6-8) \u2192 1",
+        "encounter_table": [
+          {
+            "bestiary": "[[Iron Borer]]",
+            "weight": 3,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Shade Wisp]]",
+            "weight": 2,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.1,
+        "difficulty_tier": 3
+      },
+      "connections": [
+        {
+          "target_vault_path": "Saltmere Port",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Saltmere Harbor Docks",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron in the Tide",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Smuggler's Cove",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: shingle beach (pale gray-tan pebble texture, walkable), chalk-river water (clear turquoise in father's era, silver-gray in son's), reed bed tiles (green reeds in father's era with tiny white flowers, dead gray-brown stiff stubble in son's era), sea water tiles (teal-blue deep, lighter at shallows), coast road tile (packed earth with wheel-ruts), Tide Mill exterior (wooden 4x4 building with water-wheel on the river-facing side \u2014 animated spinning in father's era, stopped in son's), salt-drying rack tiles on the north bank (wooden frames with white salt granules in father's era, empty in son's). Son's era additions: mineral-film overlay at waterline (thin pale violet band along the edge where water meets shingle), crystallized-kelp tile (pale violet geometric overlay on the kelp-spot tile), dead-seabird prop tile (small sprite on the shingle), boarded-Tide-Mill door variant. Sky tiles overhead: low silver-gray with band of pink at the horizon for Smuggler's Cove dusk scene.",
+        "ambience": "Father's era: full coastal-estuary soundscape \u2014 small waves at the shingle (slow), reed rustle in the river-wind (the reeds have a specific dry-papery-green sound), distant gull flock calls, the Tide Mill's water-wheel splash-rhythm (steady, mechanical), salt-mill workers calling to each other, a small boat's rope creak. A low layered surf from the open sea beyond. Son's era: the reeds have a different sound \u2014 drier, sharper, more brittle. The waves slap differently against the mineral-filmed shingle. The Tide Mill is silent. A single gull, wrong-pitched. The surf beyond is the same. A new sound: a very faint subsonic pulse from the shallows where the river meets the sea, audible mostly as a feeling in the chest, that a player will come to recognize as the same pulse beneath Thornwall's well and beneath the Iron Peaks fissures.",
+        "music": "Father's era: the Saltmere Port concertina theme plays at reduced volume over a wash of sea-wind, with a solo tin whistle carrying the melodic line instead of the full ensemble \u2014 this is the port's song heard from outside the port. Son's era: the whistle is gone. A solo fiddle plays a variation on the concertina melody in the relative minor, with long silences between phrases. Underneath, the same subsonic pulse from the ambient layer briefly surfaces as a musical note \u2014 the corruption itself entering the scale. When combat triggers (encounter_table rolls), the fiddle drops out and a sharp plucked-string tension theme (from the shared combat track) rises."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/saltmere-harbor-docks.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Saltmere Harbor Docks",
+      "template_properties": {
+        "overview": "The working waterfront of Saltmere Port \u2014 the zone that holds the harbormaster's tower, the Low Docks, Nella's fish stall, and the base of the two stone breakwaters. This is the player's primary hub in Saltmere in both eras, and the zone where most of \"Iron in the Tide\" and the opening beats of \"Smuggler's Cove\" take place.",
+        "layout_and_terrain": "Wide coastal zone (24x18 tiles) oriented with the sea to the east (right edge) and town buildings on the west. The zone is divided roughly into three north-south strips: the water (eastern third \u2014 walkable dock tiles extending into it), the dockside strip (middle third \u2014 flagstones, stalls, bollards), and the waterfront buildings (western third \u2014 warehouses, Harbormaster's Tower, Saltscale Inn facade partial). The Harbormaster's Tower is a 3x3 structure in the north with an entrance that transitions into its own interior zone (not covered here). The Low Docks extend from the southern half \u2014 five parallel wooden piers, each 2 tiles wide, reaching east into the harbor water. Nella's fish stall is a small 2x1 structure at the base of the central Low Dock pier. Exits: west (to Saltmere Merchant Quarter), south (to Saltmere Chalk Estuary via the coast road).",
+        "entities_and_encounters": "**Father's era:**\n- Cael Vire on the third floor of the Harbormaster's Tower (accessible via tower door in the north)\n- Brine visible at the Saltscale Inn facade door (transitions into inn interior)\n- Nella at her fish stall (ambient dialogue, rumor source)\n- 3-4 fisher NPCs working the Low Docks (ambient, mooring or unloading)\n- 2 gulls (animated ambient sprites, ignorable)\n\n**Son's era:**\n- Cael Vire same position (warier greeting on first meeting)\n- Brine same (quieter, recognizes Aric's eyes)\n- Nella same stall (has more to say if asked about Kaelen's visit)\n- 1-2 fisher NPCs (fewer boats, fewer hands)\n- 3 boarded-up Low Dock slips (visual flavor, impassable end tiles)",
+        "era_variants": "**Father \u2192 Son changes:**\n- Low Docks: five piers, all active with moored boats \u2192 three piers functional, two rotted with planks missing\n- Harbor water tile: clear teal-blue \u2192 muddy gray-green at the dockside edge\n- Flagstone paving: clean, wet in places \u2192 cracked, salt-rimed\n- Harbormaster's Tower pennant: crisp blue-and-white \u2192 frayed, the seaward beacon on the north breakwater now unlit\n- Fish stall: full of fresh catch sprites \u2192 half-empty\n- Warehouse walls: weathered silver but maintained \u2192 patched with mismatched salvage wood\n- Gull count: 4-6 \u2192 2",
+        "encounter_rate": 0
+      },
+      "connections": [
+        {
+          "target_vault_path": "Saltmere Port",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Saltmere Merchant Quarter",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Saltmere Chalk Estuary",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Cael Vire",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Brine",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Nella",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Iron in the Tide",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Smuggler's Cove",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: silver-gray weathered timber warehouse walls with rust-stained iron braces (west strip), flagstone paving tiles (middle strip, 2-3 weathered variants), sloping wooden dock tiles extending east (1-tile-wide plank patterns, walkable), rope bollard props at dock heads, stone breakwater tile (curves north and south at the edge of the zone \u2014 implied off-screen), harbor water tiles (teal-blue in father's era with white foam edge at dock lines, muddy gray-green in son's era), small fishing boat sprite overlays at moored slips, Harbormaster's Tower base (stone, 3x3, iron-banded door sprite facing south). Nella's fish stall: small wooden 2x1 with a red awning in father's era, awning stripped in son's era. Son's era additions: rotted dock variants with gap-toothed planks (impassable end tiles), abandoned boat hull props leaning against pilings, scum-crusted waterline tiles. Palette per location page.",
+        "ambience": "Father's era: full working-port soundscape \u2014 gulls calling overhead, wave-slap against pilings at slow intervals, rope creaking on bollards, ship bells at varied distances, a caulker's hammer, fishmonger calling prices, rope reels clacking, cart wheels on flagstone. Under it all, the low rush of surf on the breakwaters. Son's era: same bed, thinned \u2014 fewer gulls, no caulker, Nella's call heard once not repeated, surf on breakwater has a new hiss from sediment frothing against the stones, plus the slow grinding shift of silted mud when the tide pulls back.",
+        "music": "Shares the Saltmere Port location theme. Father's era: concertina and tin whistle in D major, moderate walking tempo, the lilting lead melody of the port. Son's era: same melody on concertina, slower, no whistle, a single bass drum at long intervals like a distant bell buoy, solo fiddle counter-melody in the relative minor. The theme plays at full volume in this zone \u2014 the Harbor Docks are the signature of Saltmere."
+      },
+      "dialogue_hooks": [],
+      "flow_notes": ""
+    },
+    {
+      "vault_path": "vault/world/zones/saltmere-merchant-quarter.md",
+      "articy_id": "",
+      "type": "zone",
+      "status": "new",
+      "display_name": "Saltmere Merchant Quarter",
+      "template_properties": {
+        "overview": "The uphill residential and trade quarter of Saltmere Port, behind the waterfront warehouses. Three-story stone townhouses with iron balconies line narrow flagstone lanes climbing from the harbor to a small market plaza at the hill's crest. In Kaelen's era, the quarter holds the port's wealthier traders and the guild council house. In Aric's era, half the townhouses are shuttered and the guild council no longer meets.",
+        "layout_and_terrain": "Medium zone (20x16 tiles) sloping west-to-east, with the harbor implied downslope to the east. Main feature: a rising switchback lane of flagstone that zigzags from the east edge up to the Market Plaza near the west edge. Stone townhouse blocks line both sides of the lane (2x3 each, impassable except at doors). The Market Plaza at the west edge is a small open space (5x5 tiles) with a central stone water-fountain (1x1 impassable) and two permanent trade stalls at its north and south sides. The Guild Council House is a larger 4x4 structure on the south side of the plaza with a carved wooden double-door facing north. Exits: east (to Saltmere Harbor Docks).",
+        "entities_and_encounters": "**Father's era:**\n- 2 wealthier-trader NPCs (ambient on the plaza)\n- 1 guild clerk at the Council House door (dialogue: guild postings, legitimate trade routes)\n- 2 market stall vendors in the plaza (one cloth, one salt \u2014 shop interactions)\n- 1 child NPC near the fountain (ambient)\n- Ambient lantern-lighter NPC at dusk (ambient walk cycle)\n\n**Son's era:**\n- 1 trader NPC (pessimistic, mostly retired)\n- Guild Council House door is sealed \u2014 a weathered notice nailed to it\n- 1 remaining stall on the plaza (limited stock)\n- No children\n- Fountain basin cracked but still holds water",
+        "era_variants": "**Father \u2192 Son changes:**\n- Townhouse shutters: most open in father's era \u2192 two-thirds closed and latched in son's\n- Balcony plantings: potted herbs and flowers \u2192 empty clay pots, some broken\n- Flagstone lanes: swept clean \u2192 weeds between stones, salt-rime at the edges\n- Guild Council House double-door: oiled timber with polished brass \u2192 weathered, brass tarnished black, chains through the handles\n- Market Plaza stalls: four active \u2192 one active, three dismantled (blank wooden plinths)\n- Water fountain: clean stream from a carved fish-spout \u2192 cracked spout, water trickles rather than arcs\n- Lantern-lighter walks at dusk \u2192 lanterns unlit, poles remain",
+        "encounter_rate": 0
+      },
+      "connections": [
+        {
+          "target_vault_path": "Saltmere Port",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Saltmere Harbor Docks",
+          "relation": "related_to"
+        },
+        {
+          "target_vault_path": "Cael Vire",
+          "relation": "related_to"
+        }
+      ],
+      "creative_prompts": {
+        "tilemap-art": "16-bit pixel art tileset, top-down perspective, 16x16 tile grid. Core tiles: pale limestone townhouse walls (3-tile implied height), iron balcony props at upper-story windows, flagstone lane tiles (gray, slight slope shading), Market Plaza flagstone variant (lighter, worn smoother by foot traffic), stone fountain tile (circular basin, carved fish-spout centerpiece), trade stall tiles (wooden frame with colored awning \u2014 blue and ochre in father's era), Guild Council House facade (carved lintel, brass fittings, double-door sprite). Son's era additions: shuttered-townhouse variant (gray-brown weathered wood across windows), empty clay pots on balcony tiles, weed-gapped flagstone variants, chained Council House door sprite with a faded paper notice, dismantled stall plinth tiles, cracked fountain-spout variant. The quarter should feel like a neighborhood of faded comfort \u2014 never squalid, always a step below its original dignity in the son's era.",
+        "ambience": "Father's era: quieter than the Harbor Docks by design \u2014 flagstone footsteps at low traffic, a vendor calling from the plaza, a child's laugh near the fountain, fountain water arc-splash, distant harbor sounds filtered over the warehouse roofs. A cat meowing from a balcony. Occasional conversation between townhouse windows. Wind is lighter here, sheltered by the buildings. Son's era: flagstone footsteps alone for long stretches, the fountain's reduced trickle, wind now audible as it channels between the shuttered townhouses. One distant voice from the remaining stall. A single cat, still on one of the balconies. The harbor sounds reach through less because there are fewer of them to begin with.",
+        "music": "Shares the Saltmere Port theme but at reduced presence. Father's era: the concertina melody from the Harbor Docks fades as the player ascends the lane, replaced by a solo pennywhistle playing the same melody at half volume \u2014 a quieter variation on the shared port song, suggesting a neighborhood that hums the tune rather than sings it. Son's era: the pennywhistle is gone. A single sustained low note on a bowed bass holds for the duration of the zone's music, punctuated every eight bars by a very quiet solo concertina phrase from the Harbor theme \u2014 the theme briefly remembered, then dropped again."
       },
       "dialogue_hooks": [],
       "flow_notes": ""
