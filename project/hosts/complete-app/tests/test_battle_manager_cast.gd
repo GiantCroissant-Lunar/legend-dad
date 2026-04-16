@@ -472,3 +472,42 @@ func test_damage_spell_redirects_when_target_already_dead() -> void:
 
 	assert_eq(_enemy.hp, 0, "original dead target must stay at 0")
 	assert_eq(second_enemy.hp, 12 - 8, "redirect must land on the alive sibling")
+
+
+# --- Phase 2A: Action-driven enemy AI ---
+
+func test_pick_enemy_action_respects_frequencies() -> void:
+	var actions := [
+		{"id": "rare_hit", "kind": "attack", "frequency": 0.1, "power_min": 5, "power_max": 5, "target_kind": "enemy"},
+		{"id": "common_hit", "kind": "attack", "frequency": 0.9, "power_min": 3, "power_max": 3, "target_kind": "enemy"},
+	]
+	var common_picks := 0
+	for i in 500:
+		var a: Dictionary = _bm._pick_enemy_action(actions)
+		if a.get("id") == "common_hit":
+			common_picks += 1
+	# 90% frequency → >= 400/500 overwhelmingly.
+	assert_gt(common_picks, 400)
+
+
+func test_pick_enemy_action_empty_returns_empty() -> void:
+	var a: Dictionary = _bm._pick_enemy_action([])
+	assert_true(a.is_empty())
+
+
+func test_action_to_command_attack_kind() -> void:
+	_bm.party = [_caster, _ally]
+	var action := {"id": "slash", "kind": "attack", "frequency": 1.0, "power_min": 5, "power_max": 10, "target_kind": "enemy"}
+	var alive_party := [_caster, _ally]
+	var cmd: Dictionary = _bm._action_to_command(_enemy, action, alive_party)
+	assert_eq(cmd["action"], "attack")
+	assert_true(cmd.has("action_data"))
+	assert_eq(cmd["action_data"]["power_min"], 5)
+
+
+func test_action_to_command_status_inflict_kind() -> void:
+	_bm.party = [_caster]
+	var action := {"id": "sleep_dust", "kind": "status_inflict", "frequency": 1.0, "status_effect": "sleep", "target_kind": "enemy"}
+	var cmd: Dictionary = _bm._action_to_command(_enemy, action, [_caster])
+	assert_eq(cmd["action"], "status_inflict")
+	assert_eq(cmd["action_data"]["status_effect"], "sleep")

@@ -340,6 +340,13 @@ func _resolve_turn() -> void:
 			var alive_party = party.filter(func(m): return m.is_alive)
 			if alive_party.is_empty():
 				break
+			# Prefer action-driven selection if the enemy has a bestiary action table.
+			if not enemy.actions.is_empty():
+				var action: Dictionary = _pick_enemy_action(enemy.actions)
+				if not action.is_empty():
+					_turn_commands.append(_action_to_command(enemy, action, alive_party))
+					continue
+			# Legacy path (pre-Phase-2A enemies without `actions`).
 			var cast_cmd := _maybe_queue_enemy_cast(enemy)
 			if not cast_cmd.is_empty():
 				_turn_commands.append(cast_cmd)
@@ -373,7 +380,13 @@ func _resolve_turn() -> void:
 						if alive.is_empty():
 							continue
 						target = alive[randi() % alive.size()]
-				var damage = BattleData.calc_damage(actor.atk, target.def)
+				var action_data: Dictionary = cmd.get("action_data", {})
+				var damage: int
+				if action_data.has("power_min"):
+					damage = randi_range(int(action_data["power_min"]), int(action_data["power_max"]))
+					damage = maxi(1, damage - target.def / 2)
+				else:
+					damage = BattleData.calc_damage(actor.atk, target.def)
 				if target.is_defending:
 					damage = maxi(1, damage / 2)
 				target.hp = maxi(0, target.hp - damage)
@@ -382,6 +395,15 @@ func _resolve_turn() -> void:
 					_add_message("%s is defeated!" % target.combatant_name)
 				else:
 					_check_hit_wakes_sleeper(target)
+					# Action-driven attacks can inflict status on hit
+					var status_id: String = action_data.get("status_effect", "")
+					if status_id != "" and target.is_alive:
+						_apply_status_effect(target, status_id)
+			"status_inflict":
+				var action_data2: Dictionary = cmd.get("action_data", {})
+				var status_id2: String = action_data2.get("status_effect", "")
+				if status_id2 != "":
+					_apply_status_effect(target, status_id2)
 			"cast":
 				var spell: SpellDefinition = cmd.get("spell") as SpellDefinition
 				_apply_cast(actor, target, spell)
@@ -434,6 +456,51 @@ static func _gate_by_level(defs: Array[SpellDefinition], level: int) -> Array[Sp
 # Called at queue time (not resolve time) — matches DQ1: action choice
 # is locked in at turn start. Status effects applied mid-turn by a
 # faster party member only affect the NEXT enemy turn.
+# --- Action-driven enemy AI (Phase 2A) ---
+
+# Weighted random pick from a bestiary action table. Returns {} if empty.
+func _pick_enemy_action(action_list: Array) -> Dictionary:
+	if action_list.is_empty():
+		return {}
+	var total := 0.0
+	for a in action_list:
+		total += float(a.get("frequency", 0.0))
+	if total <= 0.0:
+		return {}
+	var r := randf() * total
+	var acc := 0.0
+	for a in action_list:
+		acc += float(a.get("frequency", 0.0))
+		if r <= acc:
+			return a
+	return action_list[-1]
+
+
+# Convert a bestiary action dict into a turn-command dict for the resolve loop.
+func _action_to_command(enemy: Combatant, action: Dictionary, alive_party: Array) -> Dictionary:
+	var target: Combatant
+	match action.get("target_kind", "enemy"):
+		"self":
+			target = enemy
+		_:
+			target = alive_party[randi() % alive_party.size()]
+
+	match action.get("kind", "attack"):
+		"attack":
+			return {"actor": enemy, "action": "attack", "target": target, "action_data": action}
+		"status_inflict":
+			return {"actor": enemy, "action": "status_inflict", "target": target, "action_data": action}
+		"spell":
+			var spell_def := ContentManager.get_spell_definition(action.get("spell_id", "")) as SpellDefinition
+			if spell_def:
+				return {"actor": enemy, "action": "cast", "target": target, "spell": spell_def}
+			return {"actor": enemy, "action": "attack", "target": target}
+		_:
+			return {"actor": enemy, "action": "attack", "target": target}
+
+
+# --- Legacy enemy AI (pre-Phase-2A) ---
+
 const ENEMY_CAST_CHANCE := 0.35
 
 func _maybe_queue_enemy_cast(enemy: Combatant) -> Dictionary:

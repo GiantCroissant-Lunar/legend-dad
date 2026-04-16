@@ -47,6 +47,12 @@ class_name EnemyDefinition
 @export var group_size_min: int = 1
 @export var group_size_max: int = 1
 
+# Action dicts authored in bestiary frontmatter. Each entry:
+#   {id, kind ("attack"|"spell"|"status_inflict"), frequency, power_min, power_max,
+#    target_kind, status_effect?, spell_id?}
+# Consumed by BattleManager._pick_enemy_action when queuing a turn.
+@export var actions: Array = []
+
 # Returns a Dictionary in the shape Combatant.from_dict expects, so callers
 # don't need to know about the field-name difference between this Resource
 # (`attack`/`defense`/`xp_reward`/...) and the dict shape the battle code
@@ -64,4 +70,5 @@ func to_combat_dict() -> Dictionary:
 		"exp": xp_reward,
 		"gold": gold_reward,
 		"spells": Array(spells),
+		"actions": actions,
 	}

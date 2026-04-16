@@ -22,6 +22,12 @@ var known_spells: Array[String] = []
 # more turns. Decremented + wake-rolled in BattleManager._tick_status_effects
 # before the actor's action resolves.
 var status_effects: Dictionary = {}
+# Action table from bestiary frontmatter. Each entry:
+#   {id, kind ("attack"|"spell"|"status_inflict"), frequency, power_min, power_max,
+#    target_kind, status_effect?, spell_id?}
+# When non-empty, BattleManager._pick_enemy_action uses weighted random
+# from this table instead of the legacy cast-or-attack path.
+var actions: Array = []
 
 var is_alive: bool:
 	get: return hp > 0
@@ -48,4 +54,5 @@ static func from_dict(data: Dictionary, enemy: bool = false) -> Combatant:
 	for s in spells_raw:
 		spells.append(str(s))
 	c.known_spells = spells
+	c.actions = data.get("actions", [])
 	return c
