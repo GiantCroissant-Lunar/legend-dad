@@ -1,25 +1,133 @@
 {
-  "Sera.DisplayName": {
+  "Iron_Peaks_Trail.DisplayName": {
     "zh-TW": {
-      "Text": "Sera"
+      "Text": "Iron Peaks Trail"
     },
-    "Context": "Entities/Sera"
+    "Context": "Entities/Iron Peaks Trail"
   },
-  "Sera.Text": {
+  "Iron_Peaks_Trail.Text": {
     "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Elder Aldric (72057594037929305)"
+      "Text": "--- Connections ---\r\nrelated_to: Iron Peaks (72057594037929321)\r\nrelated_to: Whispering Woods Deep (72057594037929745)\r\nrelated_to: Iron Peaks Upper Mines (72057594037929697)"
     },
-    "Context": "Entities/Sera"
+    "Context": "Entities/Iron Peaks Trail"
+  },
+  "Iron_Peaks_Upper_Mines.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Peaks Upper Mines"
+    },
+    "Context": "Entities/Iron Peaks Upper Mines"
+  },
+  "Iron_Peaks_Upper_Mines.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Iron Peaks (72057594037929321)\r\nrelated_to: Iron Peaks Trail (72057594037929685)\r\nrelated_to: Iron Peaks Sealed Cavern (UNRESOLVED)"
+    },
+    "Context": "Entities/Iron Peaks Upper Mines"
+  },
+  "Thornwall_Elder_Quarter.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornwall Elder Quarter"
+    },
+    "Context": "Entities/Thornwall Elder Quarter"
+  },
+  "Thornwall_Elder_Quarter.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Thornwall Market (72057594037929721)\r\nrelated_to: Elder Aldric (72057594037929305)\r\nrelated_to: Aric (72057594037929309)"
+    },
+    "Context": "Entities/Thornwall Elder Quarter"
+  },
+  "Thornwall_Market.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornwall Market"
+    },
+    "Context": "Entities/Thornwall Market"
+  },
+  "Thornwall_Market.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Thornwall North Gate (72057594037929733)\r\nrelated_to: Thornwall Elder Quarter (72057594037929709)"
+    },
+    "Context": "Entities/Thornwall Market"
+  },
+  "Thornwall_North_Gate.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornwall North Gate"
+    },
+    "Context": "Entities/Thornwall North Gate"
+  },
+  "Thornwall_North_Gate.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Thornwall Market (72057594037929721)\r\nrelated_to: Whispering Woods Edge (72057594037929757)"
+    },
+    "Context": "Entities/Thornwall North Gate"
+  },
+  "Whispering_Woods_Deep.DisplayName": {
+    "zh-TW": {
+      "Text": "Whispering Woods Deep"
+    },
+    "Context": "Entities/Whispering Woods Deep"
+  },
+  "Whispering_Woods_Deep.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Whispering Woods (72057594037929357)\r\nrelated_to: Whispering Woods Edge (72057594037929757)\r\nrelated_to: Iron Peaks Trail (72057594037929685)"
+    },
+    "Context": "Entities/Whispering Woods Deep"
+  },
+  "Whispering_Woods_Edge.DisplayName": {
+    "zh-TW": {
+      "Text": "Whispering Woods Edge"
+    },
+    "Context": "Entities/Whispering Woods Edge"
+  },
+  "Whispering_Woods_Edge.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Whispering Woods (72057594037929357)\r\nrelated_to: Thornwall North Gate (72057594037929733)\r\nrelated_to: Whispering Woods Deep (72057594037929745)\r\nrelated_to: Maren (72057594037929317)"
+    },
+    "Context": "Entities/Whispering Woods Edge"
+  },
+  "72057594037929730.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Peaks Trail"
+    },
+    "Context": "Entities/Iron Peaks Trail"
+  },
+  "72057594037929745.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Peaks Upper Mines"
+    },
+    "Context": "Entities/Iron Peaks Upper Mines"
+  },
+  "72057594037929760.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornwall Elder Quarter"
+    },
+    "Context": "Entities/Thornwall Elder Quarter"
+  },
+  "72057594037929773.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornwall Market"
+    },
+    "Context": "Entities/Thornwall Market"
+  },
+  "72057594037929786.DisplayName": {
+    "zh-TW": {
+      "Text": "Thornwall North Gate"
+    },
+    "Context": "Entities/Thornwall North Gate"
+  },
+  "72057594037929799.DisplayName": {
+    "zh-TW": {
+      "Text": "Whispering Woods Deep"
+    },
+    "Context": "Entities/Whispering Woods Deep"
+  },
+  "72057594037929814.DisplayName": {
+    "zh-TW": {
+      "Text": "Whispering Woods Edge"
+    },
+    "Context": "Entities/Whispering Woods Edge"
   },
   "Elder_Aldric.DisplayName": {
     "zh-TW": {
       "Text": "Elder Aldric"
-    },
-    "Context": "Entities/Elder Aldric"
-  },
-  "Elder_Aldric.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Sera (72057594037929152)\r\nrelated_to: Starlight Academy (72057594037929333)\r\nrelated_to: Kaelen (72057594037929313)"
     },
     "Context": "Entities/Elder Aldric"
   },
@@ -29,21 +137,9 @@
     },
     "Context": "Entities/Aric"
   },
-  "Aric.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Maren (72057594037929317)"
-    },
-    "Context": "Entities/Aric"
-  },
   "Kaelen.DisplayName": {
     "zh-TW": {
       "Text": "Kaelen"
-    },
-    "Context": "Entities/Kaelen"
-  },
-  "Kaelen.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Elder Aldric (72057594037929305)\r\nrelated_to: Iron Vanguard (72057594037929369)"
     },
     "Context": "Entities/Kaelen"
   },
@@ -53,21 +149,15 @@
     },
     "Context": "Entities/Maren"
   },
-  "Maren.Text": {
+  "Sera.DisplayName": {
     "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Thornwall (72057594037929345)"
+      "Text": "Sera"
     },
-    "Context": "Entities/Maren"
+    "Context": "Entities/Sera"
   },
   "Iron_Peaks.DisplayName": {
     "zh-TW": {
       "Text": "Iron Peaks"
-    },
-    "Context": "Entities/Iron Peaks"
-  },
-  "Iron_Peaks.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)"
     },
     "Context": "Entities/Iron Peaks"
   },
@@ -77,21 +167,9 @@
     },
     "Context": "Entities/Starlight Academy"
   },
-  "Starlight_Academy.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Sera (72057594037929152)\r\nrelated_to: Elder Aldric (72057594037929305)"
-    },
-    "Context": "Entities/Starlight Academy"
-  },
   "Thornwall.DisplayName": {
     "zh-TW": {
       "Text": "Thornwall"
-    },
-    "Context": "Entities/Thornwall"
-  },
-  "Thornwall.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Maren (72057594037929317)\r\nrelated_to: Iron Peaks (72057594037929321)"
     },
     "Context": "Entities/Thornwall"
   },
@@ -101,21 +179,9 @@
     },
     "Context": "Entities/Whispering Woods"
   },
-  "Whispering_Woods.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Maren (72057594037929317)"
-    },
-    "Context": "Entities/Whispering Woods"
-  },
   "Iron_Vanguard.DisplayName": {
     "zh-TW": {
       "Text": "Iron Vanguard"
-    },
-    "Context": "Entities/Iron Vanguard"
-  },
-  "Iron_Vanguard.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Thornwall (72057594037929345)\r\nrelated_to: Iron Peaks (72057594037929321)"
     },
     "Context": "Entities/Iron Vanguard"
   },
@@ -124,48 +190,6 @@
       "Text": "Starlight Scholars"
     },
     "Context": "Entities/Starlight Scholars"
-  },
-  "Starlight_Scholars.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Starlight Academy (72057594037929333)\r\nrelated_to: Elder Aldric (72057594037929305)\r\nrelated_to: Sera (72057594037929152)"
-    },
-    "Context": "Entities/Starlight Scholars"
-  },
-  "Iron_Dawn.DisplayName": {
-    "zh-TW": {
-      "Text": "Iron Dawn"
-    },
-    "Context": "Entities/Iron Dawn"
-  },
-  "Iron_Dawn.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Iron Vanguard (72057594037929369)"
-    },
-    "Context": "Entities/Iron Dawn"
-  },
-  "Kaelens_Journal.DisplayName": {
-    "zh-TW": {
-      "Text": "Kaelen's Journal"
-    },
-    "Context": "Entities/Kaelen's Journal"
-  },
-  "Kaelens_Journal.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929313)\r\nrelated_to: Aric (72057594037929309)\r\nrelated_to: Thornwall (72057594037929345)"
-    },
-    "Context": "Entities/Kaelen's Journal"
-  },
-  "Starweaver_Lens.DisplayName": {
-    "zh-TW": {
-      "Text": "Starweaver Lens"
-    },
-    "Context": "Entities/Starweaver Lens"
-  },
-  "Starweaver_Lens.Text": {
-    "zh-TW": {
-      "Text": "--- Connections ---\r\nrelated_to: Starlight Academy (72057594037929333)\r\nrelated_to: Elder Aldric (72057594037929305)\r\nrelated_to: Sera (72057594037929152)"
-    },
-    "Context": "Entities/Starweaver Lens"
   },
   "The_Fathers_Departure.DisplayName": {
     "zh-TW": {
@@ -190,6 +214,24 @@
       "Text": "Whispers in the Woods"
     },
     "Context": "Entities/Whispers in the Woods"
+  },
+  "Iron_Dawn.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron Dawn"
+    },
+    "Context": "Entities/Iron Dawn"
+  },
+  "Kaelens_Journal.DisplayName": {
+    "zh-TW": {
+      "Text": "Kaelen's Journal"
+    },
+    "Context": "Entities/Kaelen's Journal"
+  },
+  "Starweaver_Lens.DisplayName": {
+    "zh-TW": {
+      "Text": "Starweaver Lens"
+    },
+    "Context": "Entities/Starweaver Lens"
   },
   "Kaelens_Last_Letter.DisplayName": {
     "zh-TW": {

@@ -1,7 +1,7 @@
 ---
 type: item
 status: draft
-articy-id: "72057594037929393"
+articy-id: "72057594037929905"
 tags: [weapon, father-era, legacy]
 connections:
   - "[[Kaelen]]"

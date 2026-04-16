@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: "72057594037929685"
+articy-id: "72057594037929730"
 tags: [mountain, path, transition]
 connections:
   - "[[Iron Peaks]]"

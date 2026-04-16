@@ -46,147 +46,217 @@
       "Type": "Entities",
       "Children": [
         {
-          "Id": "0x010000000000055D",
+          "Id": "0x0100000000000696",
           "TechnicalName": "Aric",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000641",
+          "Id": "0x0100000000000802",
           "TechnicalName": "Crystal_Crawler",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000559",
+          "Id": "0x010000000000068A",
           "TechnicalName": "Elder_Aldric",
           "Type": "Entity"
         },
         {
-          "Id": "0x010000000000064A",
+          "Id": "0x0100000000000810",
           "TechnicalName": "Iron_Borer",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005B1",
+          "Id": "0x01000000000007B1",
           "TechnicalName": "Iron_Dawn",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000569",
+          "Id": "0x01000000000006C6",
           "TechnicalName": "Iron_Peaks",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000599",
+          "Id": "0x0100000000000616",
+          "TechnicalName": "Iron_Peaks_Trail",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000702",
+          "TechnicalName": "Iron_Peaks_Trail",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000625",
+          "TechnicalName": "Iron_Peaks_Upper_Mines",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000711",
+          "TechnicalName": "Iron_Peaks_Upper_Mines",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000765",
           "TechnicalName": "Iron_Vanguard",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000561",
+          "Id": "0x01000000000006A2",
           "TechnicalName": "Kaelen",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005B9",
+          "Id": "0x01000000000007B9",
           "TechnicalName": "Kaelens_Journal",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000608",
+          "Id": "0x01000000000007C9",
           "TechnicalName": "Kaelens_Last_Letter",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000565",
+          "Id": "0x01000000000006AE",
           "TechnicalName": "Maren",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000653",
+          "Id": "0x010000000000081E",
           "TechnicalName": "Moss_Lurker",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000004C0",
+          "Id": "0x01000000000006BA",
           "TechnicalName": "Sera",
           "Type": "Entity"
         },
         {
-          "Id": "0x010000000000065C",
+          "Id": "0x010000000000082C",
           "TechnicalName": "Shade_Wisp",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000575",
+          "Id": "0x01000000000006D5",
           "TechnicalName": "Starlight_Academy",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005A5",
+          "Id": "0x0100000000000771",
           "TechnicalName": "Starlight_Scholars",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005C1",
+          "Id": "0x01000000000007C1",
           "TechnicalName": "Starweaver_Lens",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005D4",
+          "Id": "0x010000000000077D",
           "TechnicalName": "The_Fathers_Departure",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000613",
+          "Id": "0x01000000000007D4",
           "TechnicalName": "The_First_Tremor",
           "Type": "Entity"
         },
         {
-          "Id": "0x010000000000061E",
+          "Id": "0x01000000000007DF",
           "TechnicalName": "The_Observatory_Disaster",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000629",
+          "Id": "0x01000000000007EA",
           "TechnicalName": "The_Sealed_Caverns",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005E1",
+          "Id": "0x010000000000078A",
           "TechnicalName": "The_Sealed_Observatory",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000631",
+          "Id": "0x01000000000007F2",
           "TechnicalName": "The_Starweavers",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000639",
+          "Id": "0x01000000000007FA",
           "TechnicalName": "The_Whispering_Enchantment",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000665",
+          "Id": "0x010000000000083A",
           "TechnicalName": "Thornbriar_Stalker",
           "Type": "Entity"
         },
         {
-          "Id": "0x0100000000000581",
+          "Id": "0x01000000000006E4",
           "TechnicalName": "Thornwall",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005EE",
+          "Id": "0x0100000000000634",
+          "TechnicalName": "Thornwall_Elder_Quarter",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000720",
+          "TechnicalName": "Thornwall_Elder_Quarter",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000641",
+          "TechnicalName": "Thornwall_Market",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000072D",
+          "TechnicalName": "Thornwall_Market",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000064E",
+          "TechnicalName": "Thornwall_North_Gate",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000073A",
+          "TechnicalName": "Thornwall_North_Gate",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000797",
           "TechnicalName": "Vanguard_Checkpoint",
           "Type": "Entity"
         },
         {
-          "Id": "0x010000000000058D",
+          "Id": "0x01000000000006F3",
           "TechnicalName": "Whispering_Woods",
           "Type": "Entity"
         },
         {
-          "Id": "0x01000000000005FB",
+          "Id": "0x010000000000065B",
+          "TechnicalName": "Whispering_Woods_Deep",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000747",
+          "TechnicalName": "Whispering_Woods_Deep",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000066A",
+          "TechnicalName": "Whispering_Woods_Edge",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000756",
+          "TechnicalName": "Whispering_Woods_Edge",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000007A4",
           "TechnicalName": "Whispers_in_the_Woods",
           "Type": "Entity"
         }
@@ -223,32 +293,62 @@
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000467",
+              "Id": "0x010000000000013F",
+              "TechnicalName": "LD_Character_CreativePrompts",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x0100000000000128",
+              "TechnicalName": "LD_Character_NarrativeProps",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x0100000000000156",
+              "TechnicalName": "LD_Character_PipelineMeta",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x010000000000052E",
+              "TechnicalName": "LD_Creature_BattleStats",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x0100000000000553",
               "TechnicalName": "LD_Creature_CreativePrompts",
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000449",
+              "Id": "0x0100000000000510",
               "TechnicalName": "LD_Creature_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000477",
+              "Id": "0x0100000000000563",
               "TechnicalName": "LD_Creature_PipelineMeta",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000003A0",
+              "Id": "0x01000000000005C6",
+              "TechnicalName": "LD_Curve_CurveData",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x01000000000005DD",
+              "TechnicalName": "LD_Curve_PipelineMeta",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x0100000000000467",
               "TechnicalName": "LD_Event_CreativePrompts",
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000382",
+              "Id": "0x0100000000000449",
               "TechnicalName": "LD_Event_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000003B0",
+              "Id": "0x0100000000000477",
               "TechnicalName": "LD_Event_PipelineMeta",
               "Type": "Feature"
             },
@@ -258,82 +358,92 @@
               "Type": "Feature"
             },
             {
-              "Id": "0x010000000000024A",
+              "Id": "0x0100000000000311",
               "TechnicalName": "LD_Faction_CreativePrompts",
               "Type": "Feature"
             },
             {
-              "Id": "0x010000000000022C",
+              "Id": "0x01000000000002F3",
               "TechnicalName": "LD_Faction_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000261",
+              "Id": "0x0100000000000328",
               "TechnicalName": "LD_Faction_PipelineMeta",
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000332",
+              "Id": "0x01000000000003F9",
               "TechnicalName": "LD_Item_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000349",
+              "Id": "0x0100000000000410",
               "TechnicalName": "LD_Item_PipelineMeta",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000001C7",
+              "Id": "0x01000000000001D4",
               "TechnicalName": "LD_Location_CreativePrompts",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000001A9",
+              "Id": "0x01000000000001BD",
+              "TechnicalName": "LD_Location_DifficultyData",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x010000000000019F",
               "TechnicalName": "LD_Location_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000001DE",
+              "Id": "0x01000000000001EB",
               "TechnicalName": "LD_Location_PipelineMeta",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000003F9",
+              "Id": "0x01000000000004C0",
               "TechnicalName": "LD_Lore_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x0100000000000410",
+              "Id": "0x01000000000004D7",
               "TechnicalName": "LD_Lore_PipelineMeta",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000002CD",
+              "Id": "0x0100000000000394",
               "TechnicalName": "LD_Quest_CreativePrompts",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000002AF",
+              "Id": "0x0100000000000376",
               "TechnicalName": "LD_Quest_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000002E4",
+              "Id": "0x01000000000003AB",
               "TechnicalName": "LD_Quest_PipelineMeta",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000004F4",
+              "Id": "0x010000000000027E",
               "TechnicalName": "LD_Zone_CreativePrompts",
               "Type": "Feature"
             },
             {
-              "Id": "0x01000000000004D6",
+              "Id": "0x0100000000000267",
+              "TechnicalName": "LD_Zone_EncounterData",
+              "Type": "Feature"
+            },
+            {
+              "Id": "0x0100000000000249",
               "TechnicalName": "LD_Zone_NarrativeProps",
               "Type": "Feature"
             },
             {
-              "Id": "0x010000000000050B",
+              "Id": "0x0100000000000295",
               "TechnicalName": "LD_Zone_PipelineMeta",
               "Type": "Feature"
             }
@@ -412,37 +522,42 @@
               "Type": "TemplateTypeFolder",
               "Children": [
                 {
-                  "Id": "0x0100000000000177",
+                  "Id": "0x010000000000016D",
                   "TechnicalName": "LD_Character",
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x010000000000048E",
+                  "Id": "0x010000000000057A",
                   "TechnicalName": "LD_Creature",
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x01000000000003C7",
+                  "Id": "0x01000000000005F4",
+                  "TechnicalName": "LD_Curve",
+                  "Type": "Template"
+                },
+                {
+                  "Id": "0x010000000000048E",
                   "TechnicalName": "LD_Event",
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x0100000000000278",
+                  "Id": "0x010000000000033F",
                   "TechnicalName": "LD_Faction",
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x0100000000000360",
+                  "Id": "0x0100000000000427",
                   "TechnicalName": "LD_Item",
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x01000000000001F5",
+                  "Id": "0x0100000000000202",
                   "TechnicalName": "LD_Location",
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x0100000000000427",
+                  "Id": "0x01000000000004EE",
                   "TechnicalName": "LD_Lore",
                   "Type": "Template"
                 },
@@ -452,7 +567,7 @@
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x01000000000002FB",
+                  "Id": "0x01000000000003C2",
                   "TechnicalName": "LD_Quest",
                   "Type": "Template"
                 },
@@ -462,7 +577,7 @@
                   "Type": "Template"
                 },
                 {
-                  "Id": "0x0100000000000522",
+                  "Id": "0x01000000000002AC",
                   "TechnicalName": "LD_Zone",
                   "Type": "Template"
                 }

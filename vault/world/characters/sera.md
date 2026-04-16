@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: "72057594037929152"
+articy-id: "72057594037929658"
 tags: [protagonist]
 connections:
   - "[[Elder Aldric]]"

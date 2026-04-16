@@ -1210,7 +1210,158 @@
           "g": 0.8862745,
           "b": 0.90588236
         },
-        "Features": []
+        "Features": [
+          {
+            "TechnicalName": "LD_Character_PipelineMeta",
+            "DisplayName": "Character - Pipeline Metadata",
+            "Properties": [
+              {
+                "Property": "vault_path",
+                "Type": "ArticyString",
+                "DisplayName": "Vault Path"
+              },
+              {
+                "Property": "dialogue_hooks",
+                "Type": "ArticyString",
+                "DisplayName": "Dialogue Hooks"
+              },
+              {
+                "Property": "flow_notes",
+                "Type": "ArticyString",
+                "DisplayName": "Flow Notes"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "vault_path",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "dialogue_hooks",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "flow_notes",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          },
+          {
+            "TechnicalName": "LD_Character_CreativePrompts",
+            "DisplayName": "Character - Creative Prompts",
+            "Properties": [
+              {
+                "Property": "portrait",
+                "Type": "ArticyString",
+                "DisplayName": "Portrait Prompt"
+              },
+              {
+                "Property": "voice",
+                "Type": "ArticyString",
+                "DisplayName": "Voice Prompt"
+              },
+              {
+                "Property": "theme_music",
+                "Type": "ArticyString",
+                "DisplayName": "Theme Music Prompt"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "portrait",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "voice",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "theme_music",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          },
+          {
+            "TechnicalName": "LD_Character_NarrativeProps",
+            "DisplayName": "Character - Narrative Properties",
+            "Properties": [
+              {
+                "Property": "overview",
+                "Type": "ArticyString",
+                "DisplayName": "Overview"
+              },
+              {
+                "Property": "backstory",
+                "Type": "ArticyString",
+                "DisplayName": "Backstory"
+              },
+              {
+                "Property": "personality_and_motivation",
+                "Type": "ArticyString",
+                "DisplayName": "Personality & Motivation"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "overview",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "backstory",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "personality_and_motivation",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          }
+        ]
       }
     },
     {
@@ -1328,6 +1479,56 @@
             ]
           },
           {
+            "TechnicalName": "LD_Location_DifficultyData",
+            "DisplayName": "Location - Difficulty Data",
+            "Properties": [
+              {
+                "Property": "recommended_level_min",
+                "Type": "ArticyString",
+                "DisplayName": "Recommended Level Min"
+              },
+              {
+                "Property": "recommended_level_max",
+                "Type": "ArticyString",
+                "DisplayName": "Recommended Level Max"
+              },
+              {
+                "Property": "difficulty_tier",
+                "Type": "ArticyString",
+                "DisplayName": "Difficulty Tier"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "recommended_level_min",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "recommended_level_max",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "difficulty_tier",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          },
+          {
             "TechnicalName": "LD_Location_NarrativeProps",
             "DisplayName": "Location - Narrative Properties",
             "Properties": [
@@ -1382,6 +1583,237 @@
               },
               {
                 "Property": "notable_features",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "Type": "LD_Zone",
+      "Class": "Entity",
+      "InheritsFrom": "Entity",
+      "Template": {
+        "TechnicalName": "LD_Zone",
+        "DisplayName": "Zone",
+        "Color": {
+          "a": 1.0,
+          "r": 0.78431374,
+          "g": 0.8862745,
+          "b": 0.90588236
+        },
+        "Features": [
+          {
+            "TechnicalName": "LD_Zone_PipelineMeta",
+            "DisplayName": "Zone - Pipeline Metadata",
+            "Properties": [
+              {
+                "Property": "vault_path",
+                "Type": "ArticyString",
+                "DisplayName": "Vault Path"
+              },
+              {
+                "Property": "dialogue_hooks",
+                "Type": "ArticyString",
+                "DisplayName": "Dialogue Hooks"
+              },
+              {
+                "Property": "flow_notes",
+                "Type": "ArticyString",
+                "DisplayName": "Flow Notes"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "vault_path",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "dialogue_hooks",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "flow_notes",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          },
+          {
+            "TechnicalName": "LD_Zone_CreativePrompts",
+            "DisplayName": "Zone - Creative Prompts",
+            "Properties": [
+              {
+                "Property": "tilemap_art",
+                "Type": "ArticyString",
+                "DisplayName": "Tilemap Art Prompt"
+              },
+              {
+                "Property": "ambience",
+                "Type": "ArticyString",
+                "DisplayName": "Ambience Prompt"
+              },
+              {
+                "Property": "music",
+                "Type": "ArticyString",
+                "DisplayName": "Music Prompt"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "tilemap_art",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "ambience",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "music",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          },
+          {
+            "TechnicalName": "LD_Zone_EncounterData",
+            "DisplayName": "Zone - Encounter Data",
+            "Properties": [
+              {
+                "Property": "encounter_table",
+                "Type": "ArticyString",
+                "DisplayName": "Encounter Table (JSON)"
+              },
+              {
+                "Property": "encounter_rate",
+                "Type": "ArticyString",
+                "DisplayName": "Encounter Rate"
+              },
+              {
+                "Property": "difficulty_tier",
+                "Type": "ArticyString",
+                "DisplayName": "Difficulty Tier"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "encounter_table",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "encounter_rate",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "difficulty_tier",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          },
+          {
+            "TechnicalName": "LD_Zone_NarrativeProps",
+            "DisplayName": "Zone - Narrative Properties",
+            "Properties": [
+              {
+                "Property": "overview",
+                "Type": "ArticyString",
+                "DisplayName": "Overview"
+              },
+              {
+                "Property": "layout_and_terrain",
+                "Type": "ArticyString",
+                "DisplayName": "Layout & Terrain"
+              },
+              {
+                "Property": "entities_and_encounters",
+                "Type": "ArticyString",
+                "DisplayName": "Entities & Encounters"
+              },
+              {
+                "Property": "era_variants",
+                "Type": "ArticyString",
+                "DisplayName": "Era Variants"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "overview",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "layout_and_terrain",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "entities_and_encounters",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "era_variants",
                 "Type": "Text",
                 "MaxLength": "2048",
                 "PlaceholderValue": "",
@@ -2258,6 +2690,84 @@
             ]
           },
           {
+            "TechnicalName": "LD_Creature_BattleStats",
+            "DisplayName": "Creature - Battle Statistics",
+            "Properties": [
+              {
+                "Property": "battle_stats",
+                "Type": "ArticyString",
+                "DisplayName": "Battle Stats (JSON)"
+              },
+              {
+                "Property": "actions",
+                "Type": "ArticyString",
+                "DisplayName": "Actions (JSON)"
+              },
+              {
+                "Property": "group_size_min",
+                "Type": "ArticyString",
+                "DisplayName": "Group Size Min"
+              },
+              {
+                "Property": "group_size_max",
+                "Type": "ArticyString",
+                "DisplayName": "Group Size Max"
+              },
+              {
+                "Property": "zone_affinity",
+                "Type": "ArticyString",
+                "DisplayName": "Zone Affinity (JSON)"
+              }
+            ],
+            "Constraints": [
+              {
+                "Property": "battle_stats",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "actions",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "group_size_min",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "group_size_max",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              },
+              {
+                "Property": "zone_affinity",
+                "Type": "Text",
+                "MaxLength": "2048",
+                "PlaceholderValue": "",
+                "IsLocalized": "False",
+                "AllowsLinebreaks": "False",
+                "HasVoiceOver": "False"
+              }
+            ]
+          },
+          {
             "TechnicalName": "LD_Creature_NarrativeProps",
             "DisplayName": "Creature - Narrative Properties",
             "Properties": [
@@ -2325,12 +2835,12 @@
       }
     },
     {
-      "Type": "LD_Zone",
+      "Type": "LD_Curve",
       "Class": "Entity",
       "InheritsFrom": "Entity",
       "Template": {
-        "TechnicalName": "LD_Zone",
-        "DisplayName": "Zone",
+        "TechnicalName": "LD_Curve",
+        "DisplayName": "Curve",
         "Color": {
           "a": 1.0,
           "r": 0.78431374,
@@ -2339,8 +2849,8 @@
         },
         "Features": [
           {
-            "TechnicalName": "LD_Zone_PipelineMeta",
-            "DisplayName": "Zone - Pipeline Metadata",
+            "TechnicalName": "LD_Curve_PipelineMeta",
+            "DisplayName": "Curve - Pipeline Metadata",
             "Properties": [
               {
                 "Property": "vault_path",
@@ -2389,28 +2899,28 @@
             ]
           },
           {
-            "TechnicalName": "LD_Zone_CreativePrompts",
-            "DisplayName": "Zone - Creative Prompts",
+            "TechnicalName": "LD_Curve_CurveData",
+            "DisplayName": "Curve - Curve Data",
             "Properties": [
               {
-                "Property": "tilemap_art",
+                "Property": "curve_kind",
                 "Type": "ArticyString",
-                "DisplayName": "Tilemap Art Prompt"
+                "DisplayName": "Curve Kind"
               },
               {
-                "Property": "ambience",
+                "Property": "applies_to",
                 "Type": "ArticyString",
-                "DisplayName": "Ambience Prompt"
+                "DisplayName": "Applies To"
               },
               {
-                "Property": "music",
+                "Property": "data_points",
                 "Type": "ArticyString",
-                "DisplayName": "Music Prompt"
+                "DisplayName": "Data Points (JSON)"
               }
             ],
             "Constraints": [
               {
-                "Property": "tilemap_art",
+                "Property": "curve_kind",
                 "Type": "Text",
                 "MaxLength": "2048",
                 "PlaceholderValue": "",
@@ -2419,7 +2929,7 @@
                 "HasVoiceOver": "False"
               },
               {
-                "Property": "ambience",
+                "Property": "applies_to",
                 "Type": "Text",
                 "MaxLength": "2048",
                 "PlaceholderValue": "",
@@ -2428,71 +2938,7 @@
                 "HasVoiceOver": "False"
               },
               {
-                "Property": "music",
-                "Type": "Text",
-                "MaxLength": "2048",
-                "PlaceholderValue": "",
-                "IsLocalized": "False",
-                "AllowsLinebreaks": "False",
-                "HasVoiceOver": "False"
-              }
-            ]
-          },
-          {
-            "TechnicalName": "LD_Zone_NarrativeProps",
-            "DisplayName": "Zone - Narrative Properties",
-            "Properties": [
-              {
-                "Property": "overview",
-                "Type": "ArticyString",
-                "DisplayName": "Overview"
-              },
-              {
-                "Property": "layout_and_terrain",
-                "Type": "ArticyString",
-                "DisplayName": "Layout & Terrain"
-              },
-              {
-                "Property": "entities_and_encounters",
-                "Type": "ArticyString",
-                "DisplayName": "Entities & Encounters"
-              },
-              {
-                "Property": "era_variants",
-                "Type": "ArticyString",
-                "DisplayName": "Era Variants"
-              }
-            ],
-            "Constraints": [
-              {
-                "Property": "overview",
-                "Type": "Text",
-                "MaxLength": "2048",
-                "PlaceholderValue": "",
-                "IsLocalized": "False",
-                "AllowsLinebreaks": "False",
-                "HasVoiceOver": "False"
-              },
-              {
-                "Property": "layout_and_terrain",
-                "Type": "Text",
-                "MaxLength": "2048",
-                "PlaceholderValue": "",
-                "IsLocalized": "False",
-                "AllowsLinebreaks": "False",
-                "HasVoiceOver": "False"
-              },
-              {
-                "Property": "entities_and_encounters",
-                "Type": "Text",
-                "MaxLength": "2048",
-                "PlaceholderValue": "",
-                "IsLocalized": "False",
-                "AllowsLinebreaks": "False",
-                "HasVoiceOver": "False"
-              },
-              {
-                "Property": "era_variants",
+                "Property": "data_points",
                 "Type": "Text",
                 "MaxLength": "2048",
                 "PlaceholderValue": "",

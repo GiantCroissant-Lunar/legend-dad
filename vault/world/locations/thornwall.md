@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: "72057594037929345"
+articy-id: "72057594037929700"
 tags: [town, starting-area, father-era, son-era]
 connections:
   - "[[Kaelen]]"

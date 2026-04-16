@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: "72057594037929317"
+articy-id: "72057594037929646"
 tags: [companion, tracker, son-era]
 connections:
   - "[[Aric]]"

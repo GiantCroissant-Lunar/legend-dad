@@ -1,7 +1,7 @@
 ---
 type: faction
 status: draft
-articy-id: "72057594037929381"
+articy-id: "72057594037929841"
 tags: [knowledge, academy, neutral]
 connections:
   - "[[Starlight Academy]]"

@@ -1,7 +1,7 @@
 ---
 type: bestiary
 status: draft
-articy-id: "72057594037929546"
+articy-id: "72057594037930000"
 tags: [worm, tunneler, iron-peaks, miner-pest, underground]
 connections:
   - "[[Iron Peaks]]"

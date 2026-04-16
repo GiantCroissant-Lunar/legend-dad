@@ -1,7 +1,7 @@
 ---
 type: lore
 status: draft
-articy-id: "72057594037929521"
+articy-id: "72057594037929970"
 tags: [scholars, celestial, ancient-order, knowledge]
 connections:
   - "[[Starlight Academy]]"

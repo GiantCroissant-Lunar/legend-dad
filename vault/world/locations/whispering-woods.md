@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: "72057594037929357"
+articy-id: "72057594037929715"
 tags: [forest, wilderness, exploration]
 connections:
   - "[[Thornwall]]"

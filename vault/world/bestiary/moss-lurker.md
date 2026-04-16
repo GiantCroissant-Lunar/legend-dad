@@ -1,7 +1,7 @@
 ---
 type: bestiary
 status: draft
-articy-id: "72057594037929555"
+articy-id: "72057594037930014"
 tags: [ambush-predator, camouflage, whispering-woods, forest]
 connections:
   - "[[Whispering Woods]]"

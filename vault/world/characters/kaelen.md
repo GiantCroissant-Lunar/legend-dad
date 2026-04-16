@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: "72057594037929313"
+articy-id: "72057594037929634"
 tags: [protagonist, father, hero]
 connections:
   - "[[Aric]]"

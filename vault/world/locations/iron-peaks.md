@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: "72057594037929321"
+articy-id: "72057594037929670"
 tags: [mountain, dungeon, danger-zone]
 connections:
   - "[[Thornwall]]"

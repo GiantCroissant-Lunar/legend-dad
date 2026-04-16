@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: "72057594037929333"
+articy-id: "72057594037929685"
 tags: [academy, hub, knowledge]
 connections:
   - "[[Sera]]"

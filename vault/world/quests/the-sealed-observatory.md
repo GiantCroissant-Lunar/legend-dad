@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: "72057594037929441"
+articy-id: "72057594037929866"
 tags: [side-quest, dual-era, starlight-academy, observatory, puzzle]
 connections:
   - "[[Kaelen]]"
