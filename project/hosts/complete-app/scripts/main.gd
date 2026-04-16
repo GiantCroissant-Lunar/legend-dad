@@ -958,7 +958,7 @@ static func roll_zone_encounter(zone_id: String, era_string: String) -> Array[Co
 	return build_enemy_group(enemy_def)
 
 
-static func build_enemy_group(def: EnemyDefinition) -> Array[Combatant]:
+static func build_enemy_group(def: EnemyDefinition, difficulty_tier: int = 1, scaling: LevelCurve = null) -> Array[Combatant]:
 	var out: Array[Combatant] = []
 	if def == null:
 		return out
@@ -967,11 +967,20 @@ static func build_enemy_group(def: EnemyDefinition) -> Array[Combatant]:
 	var count: int = randi_range(lo, hi)
 	var base_dict := def.to_combat_dict()
 	var base_name: String = base_dict.get("name", "Enemy")
+
+	# Apply difficulty scaling: bump stats by a percentage per level offset
+	if scaling != null and difficulty_tier > 1:
+		var level_offset: int = scaling.stat_at_level("level_offset", difficulty_tier)
+		if level_offset > 0:
+			var scale_factor := 1.0 + 0.1 * level_offset  # +10% per offset level
+			base_dict["max_hp"] = int(ceil(float(base_dict.get("max_hp", 1)) * scale_factor))
+			base_dict["atk"] = int(ceil(float(base_dict.get("atk", 1)) * (1.0 + 0.08 * level_offset)))
+			base_dict["def"] = int(ceil(float(base_dict.get("def", 0)) * (1.0 + 0.05 * level_offset)))
+			base_dict["level"] = int(base_dict.get("level", 1)) + level_offset
+
 	for i in count:
 		var dict := base_dict.duplicate()
 		if count > 1:
-			# A, B, C, … suffix distinguishes otherwise-identical combatants
-			# in the battle log and target cursor. ASCII 65 = 'A'.
 			dict["name"] = "%s %s" % [base_name, char(65 + i)]
 		out.append(Combatant.from_dict(dict, true))
 	return out

@@ -116,3 +116,41 @@ func test_group_stats_come_from_def_to_combat_dict() -> void:
 		assert_eq(c.def, 2)
 		assert_eq(c.exp_reward, 4)
 		assert_eq(c.gold_reward, 3)
+
+
+# --- Phase 2B: Difficulty-tier scaling ---
+
+const LevelCurveScript = preload("res://lib/resources/level_curve.gd")
+
+func _stub_scaling_curve() -> LevelCurve:
+	var c: LevelCurve = LevelCurveScript.new()
+	c.kind = "monster_scaling"
+	c.data_points = [
+		{"level": 1, "level_offset": 0},
+		{"level": 2, "level_offset": 1},
+		{"level": 5, "level_offset": 5},
+	]
+	return c
+
+
+func test_build_enemy_group_tier_1_no_scaling() -> void:
+	var def := _make_def({
+		"id": "slime", "display_name": "Slime", "max_hp": 12, "attack": 5,
+		"group_size_min": 1, "group_size_max": 1,
+	})
+	var scaling := _stub_scaling_curve()
+	var group := MainScript.build_enemy_group(def, 1, scaling)
+	assert_eq(group[0].max_hp, 12, "tier 1 = no scaling")
+
+
+func test_build_enemy_group_tier_2_scales_stats() -> void:
+	var def := _make_def({
+		"id": "slime", "display_name": "Slime", "max_hp": 12, "attack": 5,
+		"defense": 2, "level": 1,
+		"group_size_min": 1, "group_size_max": 1,
+	})
+	var scaling := _stub_scaling_curve()
+	var group := MainScript.build_enemy_group(def, 2, scaling)
+	# level_offset=1 at tier 2 → +10% HP = ceil(12 * 1.1) = 14
+	assert_gt(group[0].max_hp, 12, "tier 2 must scale HP above base")
+	assert_gt(group[0].atk, 5, "tier 2 must scale ATK above base")
