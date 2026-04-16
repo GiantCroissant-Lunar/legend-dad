@@ -111,6 +111,184 @@ Ethereal strings and soft choir, key of D major, slow tempo. Evokes wonder and t
 
 
 @pytest.fixture()
+def sample_bestiary_md():
+    return """\
+---
+type: bestiary
+status: draft
+articy-id: ""
+tags: [insectoid, son-era]
+connections:
+  - "[[Iron Peaks]]"
+era: "Son"
+battle_stats:
+  max_hp: 18
+  max_mp: 4
+  atk: 9
+  def: 5
+  spd: 11
+  level: 5
+  xp_reward: 14
+  gold_reward: 9
+actions:
+  - id: "crystal_slash"
+    kind: "attack"
+    frequency: 0.7
+    power_min: 4
+    power_max: 8
+    target_kind: "enemy"
+  - id: "resonance_pulse"
+    kind: "status_inflict"
+    frequency: 0.3
+    status_effect: "paralysis"
+    target_kind: "all_enemies"
+group_size_min: 3
+group_size_max: 6
+zone_affinity:
+  - "[[Iron Peaks Upper Mines]]"
+  - "[[Iron Peaks Trail]]"
+last-agent-pass: "2026-04-16"
+---
+
+# Crystal Crawler
+
+## Overview
+
+A crystalline insectoid found deep in Iron Peaks.
+
+## Ecology & Habitat
+
+Thrives in mineral-rich cave systems.
+
+## Behavior
+
+Hunts in swarms, using resonance pulses to disorient prey.
+
+## Lore & Cultural Significance
+
+Miners consider them a sign of rich ore veins nearby.
+
+## Creative Prompts
+
+### creature-art
+
+16-bit pixel art crystalline beetle with glowing facets.
+
+### sound-design
+
+Chittering clicks with crystalline resonance.
+"""
+
+
+@pytest.fixture()
+def sample_zone_md():
+    return """\
+---
+type: zone
+status: draft
+articy-id: ""
+tags: [forest, starter]
+connections:
+  - "[[Whispering Woods]]"
+era: "Both"
+encounter_table:
+  - bestiary: "[[Moss Lurker]]"
+    weight: 4
+    era: "son"
+  - bestiary: "[[Thornbriar Stalker]]"
+    weight: 1
+    era: "son"
+encounter_rate: 0.12
+difficulty_tier: 2
+last-agent-pass: "2026-04-16"
+---
+
+# Whispering Woods Edge
+
+## Overview
+
+The outer fringe of the ancient Whispering Woods.
+
+## Layout & Terrain
+
+Dense undergrowth gives way to towering oaks.
+
+## Entities & Encounters
+
+Moss Lurkers hide among fallen logs.
+
+## Era Variants
+
+Father era: peaceful. Son era: corrupted.
+
+## Creative Prompts
+
+### tilemap-art
+
+16-bit forest tiles, dappled sunlight through canopy.
+
+### ambience
+
+Rustling leaves, distant bird calls, occasional crack of twigs.
+
+### music
+
+Gentle woodwind melody shifting to minor key for encounters.
+"""
+
+
+@pytest.fixture()
+def sample_location_with_tier_md():
+    return """\
+---
+type: location
+status: draft
+articy-id: ""
+tags: [forest]
+connections: []
+era: "Both"
+recommended_level_min: 2
+recommended_level_max: 5
+difficulty_tier: 2
+last-agent-pass: "2026-04-16"
+---
+
+# Whispering Woods
+
+## Overview
+
+A vast ancient forest stretching south of Thornwall.
+
+## Atmosphere & Appearance
+
+Towering oaks with thick canopy filtering sunlight.
+
+## History
+
+Once home to the Forest Wardens before the corruption.
+
+## Notable Features
+
+- The Heartwood — an ancient tree at the center
+- The Overgrown Path — half-hidden trail to deeper woods
+
+## Creative Prompts
+
+### environment-art
+
+16-bit forest landscape with ancient trees.
+
+### ambience
+
+Wind through leaves, distant water sounds.
+
+### music
+
+Mysterious woodland theme in D minor.
+"""
+
+
+@pytest.fixture()
 def tmp_vault(tmp_path, sample_character_md, sample_location_md):
     """Create a temporary vault structure with sample pages."""
     world = tmp_path / "vault" / "world"

@@ -135,6 +135,37 @@ def _extract_dialogue_hooks(sections: dict[str, str]) -> list[str]:
     return hooks
 
 
+# Frontmatter keys that carry structured mechanical data into template_properties.
+# These are lifted verbatim (dicts, arrays, ints) — not flattened to strings.
+_MECHANICAL_KEYS_BESTIARY = (
+    "battle_stats", "actions", "group_size_min", "group_size_max", "zone_affinity",
+)
+_MECHANICAL_KEYS_ZONE = (
+    "encounter_table", "encounter_rate", "difficulty_tier",
+)
+_MECHANICAL_KEYS_LOCATION = (
+    "recommended_level_min", "recommended_level_max", "difficulty_tier",
+)
+_MECHANICAL_KEYS_CURVE = (
+    "curve_kind", "applies_to", "data_points",
+)
+
+_MECHANICAL_KEYS_BY_TYPE: dict[str, tuple[str, ...]] = {
+    "bestiary": _MECHANICAL_KEYS_BESTIARY,
+    "zone": _MECHANICAL_KEYS_ZONE,
+    "location": _MECHANICAL_KEYS_LOCATION,
+    "curve": _MECHANICAL_KEYS_CURVE,
+}
+
+
+def _lift_mechanical_sections(entity_type: str, frontmatter: dict, template_properties: dict) -> None:
+    """Lift structured YAML frontmatter fields into template_properties."""
+    keys = _MECHANICAL_KEYS_BY_TYPE.get(entity_type, ())
+    for key in keys:
+        if key in frontmatter:
+            template_properties[key] = frontmatter[key]
+
+
 def build_entity(text: str, vault_path: str) -> dict:
     """Build a manifest entity dict from raw vault page text."""
     page = parse_vault_page(text)
@@ -146,6 +177,9 @@ def build_entity(text: str, vault_path: str) -> dict:
         if heading in sections:
             template_props[key] = sections[heading]
 
+    entity_type = fm.get("type", "")
+    _lift_mechanical_sections(entity_type, fm, template_props)
+
     creative_section = sections.get("Creative Prompts", "")
     creative_prompts = extract_creative_prompts(creative_section)
 
@@ -155,7 +189,7 @@ def build_entity(text: str, vault_path: str) -> dict:
     return {
         "vault_path": vault_path,
         "articy_id": fm.get("articy-id", ""),
-        "type": fm.get("type", ""),
+        "type": entity_type,
         "status": "new",
         "display_name": _extract_display_name(page["content"]),
         "template_properties": template_props,
@@ -177,6 +211,7 @@ _TYPE_DIRS = {
     "events": "event",
     "lore": "lore",
     "bestiary": "bestiary",
+    "curves": "curve",
 }
 
 

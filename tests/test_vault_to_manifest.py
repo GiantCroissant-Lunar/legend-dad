@@ -163,3 +163,81 @@ def test_cli_validates_against_schema_flag(tmp_vault):
     )
     assert result.returncode == 0, result.stderr
     assert "Validated against schema" in result.stdout
+
+
+# --- Phase 2A: Mechanical frontmatter lifting ---
+
+
+def test_bestiary_battle_stats_lifted(sample_bestiary_md):
+    entity = build_entity(sample_bestiary_md, "vault/world/bestiary/crystal-crawler.md")
+    stats = entity["template_properties"]["battle_stats"]
+    assert stats["max_hp"] == 18
+    assert stats["atk"] == 9
+    assert stats["def"] == 5
+    assert stats["spd"] == 11
+    assert stats["xp_reward"] == 14
+    assert stats["gold_reward"] == 9
+
+
+def test_bestiary_actions_lifted(sample_bestiary_md):
+    entity = build_entity(sample_bestiary_md, "vault/world/bestiary/crystal-crawler.md")
+    actions = entity["template_properties"]["actions"]
+    assert len(actions) == 2
+    assert actions[0]["id"] == "crystal_slash"
+    assert actions[0]["kind"] == "attack"
+    assert actions[0]["frequency"] == 0.7
+    assert actions[1]["id"] == "resonance_pulse"
+    assert actions[1]["status_effect"] == "paralysis"
+
+
+def test_bestiary_group_size_lifted(sample_bestiary_md):
+    entity = build_entity(sample_bestiary_md, "vault/world/bestiary/crystal-crawler.md")
+    assert entity["template_properties"]["group_size_min"] == 3
+    assert entity["template_properties"]["group_size_max"] == 6
+
+
+def test_bestiary_zone_affinity_lifted(sample_bestiary_md):
+    entity = build_entity(sample_bestiary_md, "vault/world/bestiary/crystal-crawler.md")
+    affinity = entity["template_properties"]["zone_affinity"]
+    assert len(affinity) == 2
+    assert "[[Iron Peaks Upper Mines]]" in affinity
+
+
+def test_zone_encounter_table_lifted(sample_zone_md):
+    entity = build_entity(sample_zone_md, "vault/world/zones/whispering-woods-edge.md")
+    tbl = entity["template_properties"]["encounter_table"]
+    assert len(tbl) == 2
+    assert tbl[0]["bestiary"] == "[[Moss Lurker]]"
+    assert tbl[0]["weight"] == 4
+    assert tbl[0]["era"] == "son"
+    assert entity["template_properties"]["encounter_rate"] == 0.12
+    assert entity["template_properties"]["difficulty_tier"] == 2
+
+
+def test_location_recommended_level_lifted(sample_location_with_tier_md):
+    entity = build_entity(sample_location_with_tier_md, "vault/world/locations/whispering-woods.md")
+    assert entity["template_properties"]["recommended_level_min"] == 2
+    assert entity["template_properties"]["recommended_level_max"] == 5
+    assert entity["template_properties"]["difficulty_tier"] == 2
+
+
+def test_bestiary_validates_against_schema(sample_bestiary_md, schema):
+    entity = build_entity(sample_bestiary_md, "vault/world/bestiary/crystal-crawler.md")
+    manifest = {
+        "version": "0.1.0",
+        "generated": "2026-04-16T00:00:00+00:00",
+        "generated_by": "vault_to_manifest",
+        "entities": [entity],
+    }
+    jsonschema.validate(manifest, schema)
+
+
+def test_zone_validates_against_schema(sample_zone_md, schema):
+    entity = build_entity(sample_zone_md, "vault/world/zones/whispering-woods-edge.md")
+    manifest = {
+        "version": "0.1.0",
+        "generated": "2026-04-16T00:00:00+00:00",
+        "generated_by": "vault_to_manifest",
+        "entities": [entity],
+    }
+    jsonschema.validate(manifest, schema)
