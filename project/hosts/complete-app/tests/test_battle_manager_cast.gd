@@ -183,7 +183,7 @@ func test_apply_status_effect_sleep_sets_turn_counter() -> void:
 	var any_landed := false
 	for i in 20:
 		_enemy.status_effects.clear()
-		if _bm._apply_status_effect(_enemy, sleep_spell):
+		if _bm._apply_status_effect(_enemy, sleep_spell.status_effect, sleep_spell.id):
 			any_landed = true
 			assert_true(_enemy.status_effects.has("sleep"), "sleep on success sets status_effects['sleep']")
 			var turns := int(_enemy.status_effects["sleep"])
@@ -276,7 +276,7 @@ func test_apply_status_effect_poison_always_lands_with_duration() -> void:
 		"status_effect": "poison",
 	})
 	_enemy.status_effects.clear()
-	assert_true(_bm._apply_status_effect(_enemy, poison), "poison has no resist roll")
+	assert_true(_bm._apply_status_effect(_enemy, poison.status_effect, poison.id), "poison has no resist roll")
 	assert_true(_enemy.status_effects.has("poison"))
 	var turns := int(_enemy.status_effects["poison"])
 	assert_true(turns >= 4 and turns <= 8, "poison 4-8 ticks, got %d" % turns)
@@ -291,7 +291,7 @@ func test_apply_status_effect_stopspell_lands_at_least_once() -> void:
 	var any_landed := false
 	for i in 20:
 		_enemy.status_effects.clear()
-		if _bm._apply_status_effect(_enemy, stop):
+		if _bm._apply_status_effect(_enemy, stop.status_effect, stop.id):
 			any_landed = true
 			var turns := int(_enemy.status_effects["stopspell"])
 			assert_true(turns >= 3 and turns <= 5, "stopspell 3-5 ticks, got %d" % turns)

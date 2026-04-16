@@ -19,6 +19,11 @@ const PCK_SERVER_URL := "http://localhost:7600/pck/"
 
 var _current_location := ""
 var _current_biome := ""
+# Zone-level tracking for encounter-table lookup. Zones are sub-regions of a
+# location (e.g., whispering-woods has whispering_woods_edge, whispering_woods_deep).
+# Defaults from locations.json "default_zone" on load_location, but can be
+# overwritten by LDtk level-transition logic later.
+var _current_zone_id := ""
 var _locations_registry := {}
 var _father_tilemap: TileMapLayer
 var _son_tilemap: TileMapLayer
@@ -87,6 +92,10 @@ func load_location(location_name: String) -> void:
 	else:
 		push_warning("LocationManager: PCK not available for '%s', using fallback" % location_name)
 		_load_fallback(location_name)
+
+	# Seed current zone from registry default. LDtk level transitions can
+	# override this later by calling set_current_zone directly.
+	_current_zone_id = str(config.get("default_zone", ""))
 
 
 func _fetch_pck_web(pck_filename: String) -> bool:
@@ -164,6 +173,7 @@ func unload_location() -> void:
 	_son_tilemap = null
 	_current_location = ""
 	_current_biome = ""
+	_current_zone_id = ""
 	_using_fallback = false
 	_collision_grids = {}
 	# _ldtk_project intentionally kept: single project file is shared across all locations
@@ -203,6 +213,17 @@ func swap_era(era: int) -> void:
 
 func get_current_location() -> String:
 	return _current_location
+
+
+func get_current_zone() -> String:
+	return _current_zone_id
+
+
+## Override the active zone id. LDtk level-transition hooks will call this
+## when the player moves between zones within a location. Safe to call with
+## an empty string to clear zone tracking (encounter roll returns empty).
+func set_current_zone(zone_id: String) -> void:
+	_current_zone_id = zone_id
 
 
 func is_location_loaded() -> bool:

@@ -634,7 +634,7 @@ func _apply_cast(actor: Combatant, target: Combatant, spell: SpellDefinition) ->
 			target.hp += restored
 			_add_message("%s recovers %d HP." % [target.combatant_name, restored])
 		"status":
-			_apply_status_effect(target, spell)
+			_apply_status_effect(target, spell.status_effect, spell.id)
 		_:
 			_add_message("(spell had no effect)")
 	return true
@@ -646,8 +646,8 @@ func _apply_cast(actor: Combatant, target: Combatant, spell: SpellDefinition) ->
 # spells are chancy — Sleep / Stopspell both fail roughly 30-40% of the
 # time on mid-tier enemies. Landing rates + durations are tuned per
 # status below.
-func _apply_status_effect(target: Combatant, spell: SpellDefinition) -> bool:
-	match spell.status_effect:
+func _apply_status_effect(target: Combatant, status_id: String, source_id: String = "") -> bool:
+	match status_id:
 		"sleep":
 			# ~65% landing rate. If it lands, target sleeps 2-4 turns.
 			if randf() < 0.65:
@@ -681,11 +681,11 @@ func _apply_status_effect(target: Combatant, spell: SpellDefinition) -> bool:
 			_add_message("But %s resisted!" % target.combatant_name)
 			return false
 		"":
-			push_warning("BattleManager: spell '%s' has effect_kind=status but no status_effect id" % spell.id)
+			push_warning("BattleManager: source '%s' has effect_kind=status but no status_effect id" % source_id)
 			_add_message("(spell fizzles)")
 			return false
 		_:
-			push_warning("BattleManager: unhandled status_effect '%s' on spell '%s'" % [spell.status_effect, spell.id])
+			push_warning("BattleManager: unhandled status_effect '%s' from source '%s'" % [status_id, source_id])
 			_add_message("(spell had no effect)")
 			return false
 

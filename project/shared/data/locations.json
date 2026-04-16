@@ -1,14 +1,17 @@
 {
 	"whispering-woods": {
 		"biome": "field",
-		"pck": "whispering-woods.pck"
+		"pck": "whispering-woods.pck",
+		"default_zone": "whispering_woods_edge"
 	},
 	"thornwall-market": {
 		"biome": "town",
-		"pck": "thornwall-market.pck"
+		"pck": "thornwall-market.pck",
+		"default_zone": ""
 	},
 	"iron-peaks-mine": {
 		"biome": "dungeon",
-		"pck": "iron-peaks-mine.pck"
+		"pck": "iron-peaks-mine.pck",
+		"default_zone": "iron_peaks_upper_mines"
 	}
 }
