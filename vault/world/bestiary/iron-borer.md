@@ -6,7 +6,34 @@ tags: [worm, tunneler, iron-peaks, miner-pest, underground]
 connections:
   - "[[Iron Peaks]]"
 era: "Both"
-last-agent-pass: "2026-04-13"
+battle_stats:
+  max_hp: 32
+  max_mp: 0
+  atk: 11
+  def: 14
+  spd: 3
+  level: 6
+  xp_reward: 20
+  gold_reward: 15
+actions:
+  - id: "iron_mandibles"
+    kind: "attack"
+    frequency: 0.8
+    power_min: 6
+    power_max: 10
+    target_kind: "enemy"
+  - id: "tunnel_collapse"
+    kind: "attack"
+    frequency: 0.2
+    power_min: 4
+    power_max: 7
+    target_kind: "all_enemies"
+group_size_min: 1
+group_size_max: 2
+zone_affinity:
+  - "[[Iron Peaks Upper Mines]]"
+  - "[[Iron Peaks Trail]]"
+last-agent-pass: "2026-04-16"
 ---
 
 # Iron Borer

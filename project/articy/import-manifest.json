@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generated": "2026-04-16T01:12:15.792731+00:00",
+  "generated": "2026-04-16T01:13:26.506842+00:00",
   "generated_by": "vault_to_manifest",
   "entities": [
     {
@@ -1103,7 +1103,7 @@
       "vault_path": "vault/world/bestiary/crystal-crawler.md",
       "articy_id": "72057594037929537",
       "type": "bestiary",
-      "status": "updated",
+      "status": "unchanged",
       "display_name": "Crystal Crawler",
       "template_properties": {
         "overview": "The Crystal Crawler is an insectoid creature roughly the size of a large dog, with a segmented carapace studded with translucent crystal formations that glow faintly from within. It has six articulated legs ending in sharp crystalline points that allow it to cling to cave walls and ceilings with equal ease. Its mandibles are reinforced with the same mineral growths, capable of shearing through stone to reach the crystal veins it feeds on.\n\nThese creatures were completely unknown during Kaelen's era because they inhabited sealed cavern systems deep beneath the Iron Peaks -- chambers that no mine shaft had ever reached. When the land began to fracture in the years before Aric's story, cracks opened between these deep caverns and the existing mine network, releasing the crawlers into tunnels that humans had worked for generations. The first sightings were dismissed as miner's hallucinations until a surveying team was driven from a lower gallery by a swarm of glowing, clicking things that poured from a fissure in the wall.\n\nCrystal Crawlers are drawn to concentrations of crystal energy, and the Iron Peaks' richest veins act as beacons that pull them upward through the fracture network. Their presence has made several of the deepest mine levels impassable, and the crystals they carry in their bodies interfere with the enchantments that kept the old mine supports stable.",
@@ -1161,13 +1161,47 @@
       "vault_path": "vault/world/bestiary/iron-borer.md",
       "articy_id": "72057594037929546",
       "type": "bestiary",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Iron Borer",
       "template_properties": {
         "overview": "The Iron Borer is a segmented, worm-like creature native to the rock strata of the Iron Peaks. In Kaelen's era, a typical adult measured roughly an arm's length and was as thick as a man's wrist -- an unpleasant but manageable pest that miners dealt with as a routine hazard of underground work. Its body is covered in overlapping plates of mineral-hardened chitin that give it a metallic sheen, and its head is a ring of rotating, serrated mandibles capable of grinding through solid stone at a steady pace.\n\nBorers feed on iron-rich minerals in the rock, processing ore through their digestive systems and excreting compacted mineral waste behind them as they tunnel. Miners have long cursed them for weakening support pillars and intersecting drainage channels, but they also grudgingly acknowledged that borer tunnels sometimes revealed new ore deposits. A miner who found a fresh borer channel knew there was good iron nearby.\n\nIn Aric's era, the Iron Borers have grown dramatically. Adults now reach the length of a horse and the girth of a barrel, their mandibles capable of collapsing entire tunnel sections. The cause is unclear -- some blame the increased mineral energy released by the land's fracturing, others suggest the borers are feeding on the same crystal veins that draw the Crystal Crawlers, supercharging their growth. Whatever the reason, what was once a nuisance has become a genuine threat to anyone entering the deeper mines.",
         "ecology_and_habitat": "Iron Borers are found throughout the mine network of the Iron Peaks, from the shallowest galleries to the deepest shafts. They prefer rock with high iron content, and their tunnels follow ore veins with an instinctive accuracy that human prospectors have historically envied. They are solitary creatures for most of their lives, only congregating during brief mating periods when their grinding mandibles produce a low resonant vibration that travels through the rock and attracts partners.\n\nTheir life cycle is tied to the mineral composition of the rock they consume. In iron-poor areas, borers remain small and sluggish. In iron-rich zones, they grow quickly and bore with greater speed. The mineral waste they leave behind -- called \"borer slag\" by miners -- is actually a useful material: dense, fire-resistant, and easily shaped when wet. Miners' children traditionally collected it to make crude figurines and game pieces. In the Son's era, the slag from enlarged borers has unusual crystalline inclusions that glow faintly, suggesting the creatures are now processing minerals that were previously beyond their reach.",
         "behavior": "In JRPG encounters, Iron Borers in the Father's era appear as low-level nuisance enemies, encountered singly. They use **Grind Bite**, a basic physical attack, and **Burrow**, which lets them disappear underground for a turn before re-emerging for a guaranteed hit. They have high physical defence but low speed and are weak to water and ice attacks that cool and crack their mineral plating.\n\nIn the Son's era, enlarged borers are mid-tier threats. Their **Tunnel Collapse** ability deals earth-elemental damage to the entire party by destabilizing the ceiling above. **Iron Hide** passively reduces physical damage by a significant percentage. The most dangerous variant is the **Deep Borer**, a massive creature encountered as a mini-boss in the lowest mine levels. It uses **Seismic Bore**, an ability that shakes the entire battlefield, dealing heavy damage and potentially stunning party members. Deep Borers are also armoured enough that only magical attacks or weapons enhanced with mineral-piercing properties deal full damage.",
-        "lore_and_cultural_significance": "Iron Borers are so deeply embedded in the culture of Iron Peaks mining communities that they appear on the miners' guild crest -- a coiled borer circling a pickaxe, symbolizing that the earth's creatures and human industry share the same stone. New miners are traditionally given a preserved borer mandible as a good-luck charm, the reasoning being that the borer always finds the richest vein, and its tooth will guide the miner's pick.\n\nThere is an old miners' ballad called \"The Borer's Road\" that tells of a prospector who followed a borer's tunnel deep beneath the mountain and found a chamber filled with iron so pure it sang when struck. The ballad ends ambiguously -- the prospector either became rich beyond measure or was never seen again, depending on who is singing. In Aric's time, the song has taken on a darker resonance. The enlarged borers are tunnelling deeper than any human has gone, carving paths toward something in the mountain's core. Miners who press their ears to the rock in the deepest active galleries report hearing not just the grinding of borer mandibles but a rhythmic pulsing beneath it, as though the borers are digging in time with a heartbeat that is not their own."
+        "lore_and_cultural_significance": "Iron Borers are so deeply embedded in the culture of Iron Peaks mining communities that they appear on the miners' guild crest -- a coiled borer circling a pickaxe, symbolizing that the earth's creatures and human industry share the same stone. New miners are traditionally given a preserved borer mandible as a good-luck charm, the reasoning being that the borer always finds the richest vein, and its tooth will guide the miner's pick.\n\nThere is an old miners' ballad called \"The Borer's Road\" that tells of a prospector who followed a borer's tunnel deep beneath the mountain and found a chamber filled with iron so pure it sang when struck. The ballad ends ambiguously -- the prospector either became rich beyond measure or was never seen again, depending on who is singing. In Aric's time, the song has taken on a darker resonance. The enlarged borers are tunnelling deeper than any human has gone, carving paths toward something in the mountain's core. Miners who press their ears to the rock in the deepest active galleries report hearing not just the grinding of borer mandibles but a rhythmic pulsing beneath it, as though the borers are digging in time with a heartbeat that is not their own.",
+        "battle_stats": {
+          "max_hp": 32,
+          "max_mp": 0,
+          "atk": 11,
+          "def": 14,
+          "spd": 3,
+          "level": 6,
+          "xp_reward": 20,
+          "gold_reward": 15
+        },
+        "actions": [
+          {
+            "id": "iron_mandibles",
+            "kind": "attack",
+            "frequency": 0.8,
+            "power_min": 6,
+            "power_max": 10,
+            "target_kind": "enemy"
+          },
+          {
+            "id": "tunnel_collapse",
+            "kind": "attack",
+            "frequency": 0.2,
+            "power_min": 4,
+            "power_max": 7,
+            "target_kind": "all_enemies"
+          }
+        ],
+        "group_size_min": 1,
+        "group_size_max": 2,
+        "zone_affinity": [
+          "[[Iron Peaks Upper Mines]]",
+          "[[Iron Peaks Trail]]"
+        ]
       },
       "connections": [
         {
@@ -1186,13 +1220,48 @@
       "vault_path": "vault/world/bestiary/moss-lurker.md",
       "articy_id": "72057594037929555",
       "type": "bestiary",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Moss Lurker",
       "template_properties": {
         "overview": "The Moss Lurker is a broad, flat-bodied ambush predator that inhabits the damp forest floor of the Whispering Woods. At rest, it is virtually indistinguishable from a mossy fallen log -- its segmented back is covered in a thick layer of living moss, lichen, and small ferns that grow directly from its hide. Only the faint rhythmic rise and fall of its breathing might betray its presence to a sharp-eyed traveller.\n\nBeneath the camouflage lies a powerful creature roughly two metres long, with six squat legs ending in root-like claws that anchor it to the forest floor. Its head is little more than a wide, hinged jaw lined with rows of flat crushing teeth, designed to seize and hold rather than tear. When prey -- typically deer, boar, or an unwary human -- steps within striking distance, the Moss Lurker erupts from the ground with shocking speed, clamping down and dragging its victim to the earth.\n\nThe creature exists in both eras, though woodcutters and hunters have always known to watch for them. In Kaelen's time, experienced foresters could identify a lurker by the unnatural regularity of its shape and the absence of insects on its surface. By Aric's era, the Whispering Woods have grown denser and darker, and Moss Lurkers have spread into areas closer to the forest edge where they were never seen before.",
         "ecology_and_habitat": "Moss Lurkers thrive in areas of the Whispering Woods where the canopy is thick enough to maintain constant dampness -- the moisture is essential for the symbiotic moss growth that provides their camouflage. They prefer positions along game trails and near streams where prey animals are likely to pass. A lurker will occupy the same ambush site for weeks at a time, only relocating when prey becomes scarce or the seasons shift.\n\nThey reproduce by budding: a mature lurker will shed a section of its back moss containing larval offspring, which take root in the soil and grow over several months into juvenile lurkers no larger than a boot. These juveniles are voracious, feeding on insects and small rodents until they reach sufficient size to tackle larger prey. The Whispering Woods' increasingly unstable ecosystem in the Son's era has accelerated their breeding cycle, leading to a noticeable population boom.",
         "behavior": "In JRPG encounters, Moss Lurkers always open combat with a **Surprise Ambush** -- unless the party has a detection ability or item active, the lurker gets a guaranteed first strike dealing heavy physical damage to a single target. Its primary attack, **Root Clamp**, deals moderate damage and has a chance to inflict the Immobilized status, preventing the target from fleeing or repositioning.\n\nMoss Lurkers have high physical defence thanks to their dense hide and moss covering, but are weak to fire. Their ability **Moss Shroud** can raise their evasion for several turns as they partially re-camouflage during combat. When defeated, they sometimes drop Lurker Moss, an alchemy ingredient used in camouflage potions and healing poultices.",
-        "lore_and_cultural_significance": "The people of the Whispering Woods region have a saying: \"Trust no log that has no rot.\" It is one of the first lessons taught to children who live near the forest. Woodcutters traditionally carry a long iron-tipped prod called a lurker-stick, used to poke any suspicious ground cover before stepping near it. The practice is so ingrained that \"prodding for lurkers\" has become a local idiom meaning to check for hidden problems before committing to a course of action.\n\nIn older folklore, Moss Lurkers are said to be fragments of a great forest spirit that shattered long ago when the first mines were dug in the Iron Peaks. Each lurker carries a sliver of the spirit's patience and hunger. Whether this has any connection to the land's current fracturing is a question that haunts the scholars who still study the old stories. Some believe the lurkers' spread toward settled areas is not mere ecological pressure but a slow, instinctive migration toward something they are trying to reassemble."
+        "lore_and_cultural_significance": "The people of the Whispering Woods region have a saying: \"Trust no log that has no rot.\" It is one of the first lessons taught to children who live near the forest. Woodcutters traditionally carry a long iron-tipped prod called a lurker-stick, used to poke any suspicious ground cover before stepping near it. The practice is so ingrained that \"prodding for lurkers\" has become a local idiom meaning to check for hidden problems before committing to a course of action.\n\nIn older folklore, Moss Lurkers are said to be fragments of a great forest spirit that shattered long ago when the first mines were dug in the Iron Peaks. Each lurker carries a sliver of the spirit's patience and hunger. Whether this has any connection to the land's current fracturing is a question that haunts the scholars who still study the old stories. Some believe the lurkers' spread toward settled areas is not mere ecological pressure but a slow, instinctive migration toward something they are trying to reassemble.",
+        "battle_stats": {
+          "max_hp": 14,
+          "max_mp": 0,
+          "atk": 7,
+          "def": 3,
+          "spd": 5,
+          "level": 2,
+          "xp_reward": 8,
+          "gold_reward": 4
+        },
+        "actions": [
+          {
+            "id": "spore_bite",
+            "kind": "attack",
+            "frequency": 0.6,
+            "power_min": 3,
+            "power_max": 6,
+            "target_kind": "enemy",
+            "status_effect": "poison"
+          },
+          {
+            "id": "root_clamp",
+            "kind": "attack",
+            "frequency": 0.4,
+            "power_min": 5,
+            "power_max": 8,
+            "target_kind": "enemy"
+          }
+        ],
+        "group_size_min": 1,
+        "group_size_max": 3,
+        "zone_affinity": [
+          "[[Whispering Woods Edge]]",
+          "[[Whispering Woods Deep]]"
+        ]
       },
       "connections": [
         {
@@ -1211,13 +1280,52 @@
       "vault_path": "vault/world/bestiary/shade-wisp.md",
       "articy_id": "72057594037929564",
       "type": "bestiary",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Shade Wisp",
       "template_properties": {
         "overview": "The Shade Wisp is a small, ghostly entity that manifests as a flickering sphere of pale light surrounded by wisps of shadow that trail behind it like dark smoke. No larger than a clenched fist, it drifts silently through dark spaces -- shadowed forest clearings, unlit mine tunnels, and the dim alleys of Thornwall after nightfall. Its light shifts between cold blue-white and a sickly amber depending on its state, and it moves with a drifting, moth-like unpredictability.\n\nIn Kaelen's era, Shade Wisps were a familiar and largely harmless phenomenon. Travellers knew them as corpse-candles, fool's lanterns, or simply \"the little lights.\" They appeared most often near places where the boundary between the living world and something older felt thin -- old graveyards, ruined shrines, the deepest parts of the Whispering Woods. Following one was considered foolish, as they tended to lead the unwary into bogs or off trail edges, but they posed no direct physical threat.\n\nBy Aric's time, the wisps have changed. They appear in far greater numbers, their light burns hotter and more erratic, and they have developed an aggressive territoriality. A single wisp remains little more than a nuisance, but clusters of them can drain the vitality of living creatures, leaving victims cold and exhausted. The transformation is one of the most visible signs that something fundamental has shifted in the land's spiritual fabric.",
         "ecology_and_habitat": "Shade Wisps are not biological creatures in any conventional sense. They appear to be manifestations of residual spiritual energy -- echoes left behind by the dead, by old magic, or by the land itself. They are most commonly found in locations with strong connections to the past: battlefields, abandoned settlements, the roots of ancient trees, and the deepest galleries of the Iron Peaks where the oldest rock is exposed.\n\nThey are drawn to darkness and repelled by strong natural light, which is why they are rarely seen during full daylight hours. Artificial light affects them differently -- a lantern or torch does not drive them away but instead seems to agitate them, causing their movements to become more rapid and erratic. In the Son's era, wisps have been observed congregating around the fracture points where the land is splitting, forming dense clouds of flickering light that miners and travellers have learned to avoid.",
         "behavior": "In JRPG encounters during the Father's era, Shade Wisps typically do not initiate combat. They may appear as environmental elements during exploration, adding atmosphere. If provoked or cornered, a single wisp uses **Flicker Touch**, a weak cold-elemental attack that deals minor damage and may cause the Chill status.\n\nIn the Son's era, wisps are hostile and appear in swarms of four to eight. Their primary threat is **Vitality Drain**, a magical attack that saps HP and transfers a portion to other wisps in the group, making them difficult to wear down individually. Their most dangerous ability is **Shade Convergence**: when enough wisps are present, they merge temporarily into a **Shade Wraith**, a larger spectral form with significantly higher stats and the ability to use **Soul Chill**, a party-wide cold and dark elemental attack that can inflict the Dread status, reducing the party's attack power. Defeating the wraith causes it to split back into weakened individual wisps.",
-        "lore_and_cultural_significance": "Every region has its own relationship with the Shade Wisps. In Thornwall, they are called \"the watch-fires of the dead\" and are believed to be the spirits of those who died defending the town in ages past, still walking their old patrols. It is considered respectful to bow when one passes and deeply unlucky to swat at them. In the Whispering Woods, foresters know them as \"path-takers\" and believe they are the forest's way of testing whether a traveller belongs -- those who follow a wisp and find their way back are said to have the forest's blessing.\n\nThe miners of Iron Peaks have the most practical view: they call them \"gas-ghosts\" and originally assumed they were a luminous effect caused by underground vapours. This theory was never satisfying, given that the wisps move with apparent intent, but it was preferable to the alternative. The wisps' transformation into aggressive entities in Aric's era has forced a reckoning with the spiritual explanations that the rational-minded miners long dismissed. Whatever the wisps truly are, their agitation seems to mirror the land's own distress, as though the energy that once rested quietly in dark places has been stirred awake and cannot find peace."
+        "lore_and_cultural_significance": "Every region has its own relationship with the Shade Wisps. In Thornwall, they are called \"the watch-fires of the dead\" and are believed to be the spirits of those who died defending the town in ages past, still walking their old patrols. It is considered respectful to bow when one passes and deeply unlucky to swat at them. In the Whispering Woods, foresters know them as \"path-takers\" and believe they are the forest's way of testing whether a traveller belongs -- those who follow a wisp and find their way back are said to have the forest's blessing.\n\nThe miners of Iron Peaks have the most practical view: they call them \"gas-ghosts\" and originally assumed they were a luminous effect caused by underground vapours. This theory was never satisfying, given that the wisps move with apparent intent, but it was preferable to the alternative. The wisps' transformation into aggressive entities in Aric's era has forced a reckoning with the spiritual explanations that the rational-minded miners long dismissed. Whatever the wisps truly are, their agitation seems to mirror the land's own distress, as though the energy that once rested quietly in dark places has been stirred awake and cannot find peace.",
+        "battle_stats": {
+          "max_hp": 10,
+          "max_mp": 12,
+          "atk": 4,
+          "def": 2,
+          "spd": 12,
+          "level": 4,
+          "xp_reward": 12,
+          "gold_reward": 6
+        },
+        "actions": [
+          {
+            "id": "chill_touch",
+            "kind": "attack",
+            "frequency": 0.5,
+            "power_min": 3,
+            "power_max": 5,
+            "target_kind": "enemy"
+          },
+          {
+            "id": "whispered_curse",
+            "kind": "status_inflict",
+            "frequency": 0.3,
+            "status_effect": "sleep",
+            "target_kind": "enemy"
+          },
+          {
+            "id": "fade",
+            "kind": "status_inflict",
+            "frequency": 0.2,
+            "status_effect": "stopspell",
+            "target_kind": "enemy"
+          }
+        ],
+        "group_size_min": 2,
+        "group_size_max": 4,
+        "zone_affinity": [
+          "[[Whispering Woods Deep]]"
+        ]
       },
       "connections": [
         {
@@ -1244,13 +1352,46 @@
       "vault_path": "vault/world/bestiary/thornbriar-stalker.md",
       "articy_id": "72057594037929573",
       "type": "bestiary",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Thornbriar Stalker",
       "template_properties": {
         "overview": "The Thornbriar Stalker is a lean, wolf-like predator distinguished by the bony thorn-shaped growths that sprout along its spine and shoulders. Its coarse fur shifts between grey-green and dark brown depending on the season, providing natural camouflage within the dense thornbriar hedge that encircles Thornwall. Adults stand roughly hip-height to a grown man, with elongated limbs built for bursts of speed through tangled undergrowth.\n\nIn Kaelen's era, Thornbriar Stalkers were a rare but known hazard. Solitary hunters or mated pairs would occasionally drag off livestock that strayed too close to the hedge, and the town guard kept their numbers in check with seasonal culls. They were respected as dangerous but manageable -- a natural part of the thornbriar ecosystem that kept smaller vermin in balance.\n\nBy Aric's time, everything has changed. The hedge itself is weakening, its ancient root network destabilized by the fracturing of the land. Stalker packs have swelled to eight or ten members, emboldened by the thinning barrier between wild and settled land. They now hunt in coordinated groups, flanking prey with unsettling intelligence, and have begun venturing into the outer streets of Thornwall at dusk.",
         "ecology_and_habitat": "Thornbriar Stalkers make their dens in hollowed-out sections of the thornbriar hedge itself, weaving shed thorns and undergrowth into nest-like structures. The thorn growths on their bodies are not merely decorative -- they allow the stalkers to push through the dense hedge without injury, a trait no other predator in the region shares. Their primary prey consists of hedge-rabbits, ground birds, and the occasional feral goat, though they are opportunistic and will scavenge from refuse pits near Thornwall's outer wall.\n\nThey are most active at dawn and dusk when the light filtering through the hedge creates deep shadows that favour their mottled colouring. In the Son's era, as the hedge grows patchier, stalkers have been spotted hunting in the open fields between Thornwall and the Whispering Woods -- territory they never ventured into before.",
         "behavior": "In JRPG encounters, Thornbriar Stalkers appear in groups of two to four. They favour a flanking strategy: one stalker will hold the party's attention with snarling feints while others circle to strike from behind. Their signature ability, **Thorn Lunge**, deals physical damage and applies a bleed effect from the barbed growths along their forelegs.\n\nAt low health, a stalker may use **Hedge Call**, a howl that has a chance to summon one additional stalker to the fight. In the Son's era, an alpha variant called the **Thornbriar Packmother** can appear as a mini-boss, commanding a full pack and using **Briar Cage** to restrict party movement by calling thorned roots from the ground.",
-        "lore_and_cultural_significance": "Thornwall's founders planted the great hedge as a living wall against the dangers of the wild lands, and the stalkers evolved alongside it over centuries. Local folklore holds that the stalkers are the hedge's own guardians -- that they keep the barrier healthy by pruning dead growth and driving out burrowing pests. The town's oldest families leave cuts of meat at the hedge-line during the winter solstice, a tradition called the Thornkeeper's Tithe.\n\nThis belief has made the stalkers' aggression in Aric's era deeply unsettling to the people of Thornwall. If the hedge's own guardians are turning hostile, many take it as a sign that the land's ancient compact with civilization is breaking down. Some desperate voices in the town council have proposed burning sections of the hedge to deny the stalkers cover, a suggestion that horrifies traditionalists who believe the hedge is all that stands between Thornwall and worse things in the wild."
+        "lore_and_cultural_significance": "Thornwall's founders planted the great hedge as a living wall against the dangers of the wild lands, and the stalkers evolved alongside it over centuries. Local folklore holds that the stalkers are the hedge's own guardians -- that they keep the barrier healthy by pruning dead growth and driving out burrowing pests. The town's oldest families leave cuts of meat at the hedge-line during the winter solstice, a tradition called the Thornkeeper's Tithe.\n\nThis belief has made the stalkers' aggression in Aric's era deeply unsettling to the people of Thornwall. If the hedge's own guardians are turning hostile, many take it as a sign that the land's ancient compact with civilization is breaking down. Some desperate voices in the town council have proposed burning sections of the hedge to deny the stalkers cover, a suggestion that horrifies traditionalists who believe the hedge is all that stands between Thornwall and worse things in the wild.",
+        "battle_stats": {
+          "max_hp": 22,
+          "max_mp": 0,
+          "atk": 10,
+          "def": 6,
+          "spd": 9,
+          "level": 4,
+          "xp_reward": 16,
+          "gold_reward": 8
+        },
+        "actions": [
+          {
+            "id": "thorn_lash",
+            "kind": "attack",
+            "frequency": 0.75,
+            "power_min": 5,
+            "power_max": 9,
+            "target_kind": "enemy"
+          },
+          {
+            "id": "briar_cage",
+            "kind": "status_inflict",
+            "frequency": 0.25,
+            "status_effect": "paralysis",
+            "target_kind": "enemy"
+          }
+        ],
+        "group_size_min": 1,
+        "group_size_max": 2,
+        "zone_affinity": [
+          "[[Whispering Woods Deep]]",
+          "[[Thornwall North Gate]]"
+        ]
       },
       "connections": [
         {

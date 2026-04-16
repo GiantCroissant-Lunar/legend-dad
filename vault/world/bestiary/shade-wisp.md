@@ -8,7 +8,37 @@ connections:
   - "[[Whispering Woods]]"
   - "[[Iron Peaks]]"
 era: "Both"
-last-agent-pass: "2026-04-13"
+battle_stats:
+  max_hp: 10
+  max_mp: 12
+  atk: 4
+  def: 2
+  spd: 12
+  level: 4
+  xp_reward: 12
+  gold_reward: 6
+actions:
+  - id: "chill_touch"
+    kind: "attack"
+    frequency: 0.5
+    power_min: 3
+    power_max: 5
+    target_kind: "enemy"
+  - id: "whispered_curse"
+    kind: "status_inflict"
+    frequency: 0.3
+    status_effect: "sleep"
+    target_kind: "enemy"
+  - id: "fade"
+    kind: "status_inflict"
+    frequency: 0.2
+    status_effect: "stopspell"
+    target_kind: "enemy"
+group_size_min: 2
+group_size_max: 4
+zone_affinity:
+  - "[[Whispering Woods Deep]]"
+last-agent-pass: "2026-04-16"
 ---
 
 # Shade Wisp

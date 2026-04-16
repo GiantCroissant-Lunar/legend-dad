@@ -6,7 +6,35 @@ tags: [ambush-predator, camouflage, whispering-woods, forest]
 connections:
   - "[[Whispering Woods]]"
 era: "Both"
-last-agent-pass: "2026-04-13"
+battle_stats:
+  max_hp: 14
+  max_mp: 0
+  atk: 7
+  def: 3
+  spd: 5
+  level: 2
+  xp_reward: 8
+  gold_reward: 4
+actions:
+  - id: "spore_bite"
+    kind: "attack"
+    frequency: 0.6
+    power_min: 3
+    power_max: 6
+    target_kind: "enemy"
+    status_effect: "poison"
+  - id: "root_clamp"
+    kind: "attack"
+    frequency: 0.4
+    power_min: 5
+    power_max: 8
+    target_kind: "enemy"
+group_size_min: 1
+group_size_max: 3
+zone_affinity:
+  - "[[Whispering Woods Edge]]"
+  - "[[Whispering Woods Deep]]"
+last-agent-pass: "2026-04-16"
 ---
 
 # Moss Lurker

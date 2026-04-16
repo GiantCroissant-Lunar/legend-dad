@@ -7,7 +7,33 @@ connections:
   - "[[Thornwall]]"
   - "[[Whispering Woods]]"
 era: "Both"
-last-agent-pass: "2026-04-13"
+battle_stats:
+  max_hp: 22
+  max_mp: 0
+  atk: 10
+  def: 6
+  spd: 9
+  level: 4
+  xp_reward: 16
+  gold_reward: 8
+actions:
+  - id: "thorn_lash"
+    kind: "attack"
+    frequency: 0.75
+    power_min: 5
+    power_max: 9
+    target_kind: "enemy"
+  - id: "briar_cage"
+    kind: "status_inflict"
+    frequency: 0.25
+    status_effect: "paralysis"
+    target_kind: "enemy"
+group_size_min: 1
+group_size_max: 2
+zone_affinity:
+  - "[[Whispering Woods Deep]]"
+  - "[[Thornwall North Gate]]"
+last-agent-pass: "2026-04-16"
 ---
 
 # Thornbriar Stalker
