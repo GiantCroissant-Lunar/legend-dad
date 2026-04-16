@@ -1,0 +1,10 @@
+{
+  "id": "encounters-core",
+  "kind": "encounters",
+  "policy": "eager",
+  "deps": [],
+  "include": ["*.tres"],
+  "provides": {
+    "encounters": []
+  }
+}
