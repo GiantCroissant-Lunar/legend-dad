@@ -47,7 +47,7 @@ Numbered categories create an implicit dependency hierarchy — lower numbers ar
 | `world-refiner` | Iteratively score and improve vault pages against 8 measurable quality metrics. | `@world-writer`, `@lore-checker` |
 | `lore-checker` | Validate vault pages against the master timeline and existing canon for contradictions. | `@world-writer`, `@lore-extractor` |
 | `lore-extractor` | Extract world facts from RFCs and design docs into vault-formatted pages. | `@world-writer`, `@lore-checker`, `@rfc-orchestrator` |
-| `articy-prep` | Format reviewed vault pages into Articy-import-ready structured data. | `@world-writer`, `@lore-checker` |
+| `articy-prep` | Full vault → articy → Godot pipeline: manifest, MDK import/export, writeback, .tres generation. | `@world-writer`, `@lore-checker` |
 
 ## Agent Workflow
 
