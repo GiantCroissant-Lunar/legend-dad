@@ -302,6 +302,22 @@ def build_entity_field_defs(uid_alloc: UidAllocator) -> list[dict]:
     ]
 
 
+def _zone_identifier(display_name: str) -> str:
+    """Convert a zone display name into the LDtk identifier convention
+    (Capitalize style): underscores between words, no apostrophes or dashes.
+    """
+    return display_name.replace(" ", "_").replace("'", "").replace("-", "_")
+
+
+def _zone_dimensions_px(template_props: dict) -> tuple[int, int]:
+    """Pull pixel dimensions from a zone entity's template_properties.
+    Falls back to 20x16 tiles if grid_width/grid_height are missing.
+    """
+    grid_w = int(template_props.get("grid_width", 20))
+    grid_h = int(template_props.get("grid_height", 16))
+    return GRID_SIZE * grid_w, GRID_SIZE * grid_h
+
+
 def _make_levels_from_zones(uid_alloc: UidAllocator, manifest: dict) -> list[dict]:
     """Create LDtk levels from zone entities in the manifest."""
     levels = []
@@ -314,15 +330,13 @@ def _make_levels_from_zones(uid_alloc: UidAllocator, manifest: dict) -> list[dic
             continue
 
         display_name = entity.get("display_name", "Zone")
-        # Convert display name to a valid LDtk identifier (PascalCase, no spaces)
-        identifier = display_name.replace(" ", "_").replace("'", "").replace("-", "_")
+        identifier = _zone_identifier(display_name)
 
-        # Read zone dimensions from frontmatter (passed through template_properties)
-        # Default to 16x16 tiles if not specified
-        # Note: grid-width/grid-height are in the vault frontmatter but not in template_properties
-        # For now use a default; the designer adjusts in LDtk
-        px_wid = GRID_SIZE * 20
-        px_hei = GRID_SIZE * 16
+        # Zone dimensions come from the vault frontmatter's grid-width /
+        # grid-height (normalized to grid_width / grid_height in the manifest
+        # by vault_to_manifest._lift_mechanical_sections).
+        template_props = entity.get("template_properties", {}) or {}
+        px_wid, px_hei = _zone_dimensions_px(template_props)
 
         level = {
             "identifier": identifier,
@@ -594,7 +608,14 @@ def generate_ldtk_project(manifest: dict) -> dict:
 
 
 def merge_ldtk_project(existing: dict, new_defs: dict) -> dict:
-    """Merge new definitions into an existing LDtk project, preserving levels."""
+    """Merge new definitions into an existing LDtk project, preserving
+    user-authored level tile data and entity instances.
+
+    Preserves every existing level as-is (including painted tiles, collision
+    grids, and placed entity instances). For zones that appeared in the
+    manifest since the last sync, appends a fresh empty-grid level so the
+    designer can open the LDtk editor and start painting.
+    """
     existing["defs"]["enums"] = new_defs["defs"]["enums"]
     existing["defs"]["entities"] = new_defs["defs"]["entities"]
     existing["defs"]["layers"] = new_defs["defs"]["layers"]
@@ -606,6 +627,26 @@ def merge_ldtk_project(existing: dict, new_defs: dict) -> dict:
         existing["defs"]["layers"],
         LEVEL_LAYOUTS,
     )
+
+    # Append levels from new_defs that aren't in existing yet (new zones).
+    existing_ids = {L["identifier"] for L in existing.get("levels", [])}
+    new_levels = [L for L in new_defs.get("levels", []) if L["identifier"] not in existing_ids]
+    if new_levels:
+        # Re-assign worldX so new levels don't stack at x=0 (which would
+        # visually overlap old levels in the LDtk world view).
+        max_world_x = max((L.get("worldX", 0) + L.get("pxWid", 0) for L in existing.get("levels", [])), default=0)
+        spacing = 32
+        cursor = max_world_x + spacing if max_world_x else 0
+        for L in new_levels:
+            L["worldX"] = cursor
+            cursor += L.get("pxWid", 0) + spacing
+        existing.setdefault("levels", []).extend(new_levels)
+        # Populate layer instances for the newly-appended levels.
+        _populate_layer_instances(
+            existing["levels"],
+            existing["defs"]["layers"],
+            LEVEL_LAYOUTS,
+        )
 
     return existing
 

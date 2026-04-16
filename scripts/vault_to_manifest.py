@@ -142,6 +142,10 @@ _MECHANICAL_KEYS_BESTIARY = (
 )
 _MECHANICAL_KEYS_ZONE = (
     "encounter_table", "encounter_rate", "difficulty_tier",
+    # Topological + rendering metadata (vault uses dashes, normalized to
+    # underscores below so downstream JSON consumers have valid keys).
+    "zone-type", "parent-location", "floor", "biome",
+    "grid-width", "grid-height",
 )
 _MECHANICAL_KEYS_LOCATION = (
     "recommended_level_min", "recommended_level_max", "difficulty_tier",
@@ -159,11 +163,18 @@ _MECHANICAL_KEYS_BY_TYPE: dict[str, tuple[str, ...]] = {
 
 
 def _lift_mechanical_sections(entity_type: str, frontmatter: dict, template_properties: dict) -> None:
-    """Lift structured YAML frontmatter fields into template_properties."""
+    """Lift structured YAML frontmatter fields into template_properties.
+
+    YAML keys containing dashes (e.g. 'grid-width', 'zone-type') are
+    normalized to underscores in template_properties so the field names
+    are valid identifiers for downstream consumers (quicktype, JSON schema,
+    template_properties.some_key accessors in adapter code).
+    """
     keys = _MECHANICAL_KEYS_BY_TYPE.get(entity_type, ())
     for key in keys:
         if key in frontmatter:
-            template_properties[key] = frontmatter[key]
+            normalized = key.replace("-", "_")
+            template_properties[normalized] = frontmatter[key]
 
 
 def build_entity(text: str, vault_path: str) -> dict:
