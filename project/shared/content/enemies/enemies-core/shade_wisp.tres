@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="EnemyDefinition" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/enemy_definition.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+id = "shade_wisp"
+display_name = "Shade Wisp"
+max_hp = 10
+max_mp = 12
+attack = 4
+defense = 2
+spd = 12
+level = 4
+xp_reward = 12
+gold_reward = 6
+group_size_min = 2
+group_size_max = 4

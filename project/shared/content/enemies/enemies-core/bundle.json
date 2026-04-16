@@ -3,16 +3,23 @@
   "kind": "enemies",
   "policy": "eager",
   "deps": [],
-  "include": ["*.tres"],
+  "include": [
+    "*.tres"
+  ],
   "provides": {
     "enemies": [
-      "slime",
       "bandit",
-      "wolf",
-      "skeleton",
+      "crystal_crawler",
       "dracky",
+      "iron_borer",
+      "magician",
       "metal_scorpion",
-      "magician"
+      "moss_lurker",
+      "shade_wisp",
+      "skeleton",
+      "slime",
+      "thornbriar_stalker",
+      "wolf"
     ]
   }
 }

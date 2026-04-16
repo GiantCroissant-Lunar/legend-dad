@@ -3,8 +3,15 @@
   "kind": "encounters",
   "policy": "eager",
   "deps": [],
-  "include": ["*.tres"],
+  "include": [
+    "*.tres"
+  ],
   "provides": {
-    "encounters": []
+    "encounters": [
+      "iron_peaks_trail",
+      "iron_peaks_upper_mines",
+      "whispering_woods_deep",
+      "whispering_woods_edge"
+    ]
   }
 }

@@ -253,6 +253,11 @@ tasks:
         python3 scripts/writeback_articy_ids.py
         project/articy/import-manifest.json
 
+  content:generate:tres:
+    desc: Regenerate bestiary + encounter .tres files from import manifest
+    cmds:
+      - python3 scripts/adapters/canonical_to_godot.py
+
   articy:validate:
     desc: Validate existing import manifest against JSON schema
     cmds:

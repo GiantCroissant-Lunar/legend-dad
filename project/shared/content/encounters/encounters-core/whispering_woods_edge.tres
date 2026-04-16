@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterTable" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/encounter_table.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+zone_id = "whispering_woods_edge"
+encounter_rate = 0.12
+difficulty_tier = 2
+entries = [
+	{ "bestiary_id": "moss_lurker", "weight": 4, "era": "son" },
+	{ "bestiary_id": "thornbriar_stalker", "weight": 1, "era": "son" },
+]
