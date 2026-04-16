@@ -12,8 +12,8 @@ parent-location: "[[Whispering Woods]]"
 zone-type: overworld
 biome: field
 floor: 0
-grid-width: 24
-grid-height: 20
+grid-width: 20
+grid-height: 16
 era: "Both"
 encounter_table:
   - bestiary: "[[Moss Lurker]]"
@@ -60,6 +60,58 @@ Large zone (24x20 tiles). The southern third is transitional — scattered trees
 - Forester's Cabin: well-maintained → patched up, Maren's modifications visible
 - Path condition: clear dirt → overgrown edges, some roots breaking through
 - Creature type: passive animals → hostile corrupted creatures
+
+## Layout Spec
+
+Reference implementation: this is the layout that shipped with the
+original prototype as hardcoded Python CSVs in `scripts/ldtk_sync.py`.
+It's now expressed as a `raw:` block so an agent or designer has a
+concrete sample of the spec format. Rewriting it in the higher-level
+primitives (regions/paths) is future work — the raw form preserves the
+exact bytes the game already loads.
+
+```yaml
+# 20x16 field biome zone. Grid values use the names defined in
+# scripts/ldtk_vocabulary.INTGRID_COLLISION / INTGRID_TERRAIN:
+#   Collision: 0=empty, 1=solid, 2=water, 3=pit
+#   Terrain:   0=void, 1=ground, 3=water_shallow, 10=tall_grass,
+#              11=bush, 12=tree_trunk, 15=path_dirt, 18=undergrowth
+raw:
+  Collision:
+    [1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
+     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
+     0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+     1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,1,
+     1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,1,
+     1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+     1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
+     1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
+     1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
+     1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1]
+  Terrain:
+    [12,12,12,12,1,1,10,10,10,1,1,10,10,10,1,1,12,12,12,12,
+     12,1,10,10,10,1,1,10,10,10,1,1,10,1,1,10,10,10,1,12,
+     11,1,1,10,10,10,1,1,10,10,10,1,1,10,10,10,1,1,10,11,
+     12,10,1,1,15,15,15,15,15,15,15,15,15,15,1,1,10,1,3,12,
+     11,10,10,1,15,1,1,1,1,1,1,1,1,15,10,10,1,1,3,12,
+     1,1,10,10,15,1,1,1,1,1,1,1,1,15,10,10,10,1,3,11,
+     1,1,10,10,15,1,1,1,1,1,1,1,1,15,10,10,10,1,3,11,
+     1,1,10,10,15,15,15,15,15,15,15,15,15,15,10,10,10,1,1,12,
+     12,1,1,10,10,18,18,1,1,1,1,18,18,10,10,10,1,1,10,12,
+     12,10,1,1,18,18,12,12,18,18,18,18,12,12,18,18,1,1,10,11,
+     11,10,10,1,18,18,12,12,18,18,18,18,12,12,18,18,1,1,10,12,
+     12,10,10,1,1,18,18,18,18,1,1,18,18,18,18,1,1,10,10,12,
+     12,12,1,1,10,10,18,18,1,1,1,1,18,18,10,10,1,1,12,12,
+     12,12,12,1,1,10,10,10,10,1,1,10,10,10,10,1,1,12,12,12,
+     12,12,12,12,1,1,10,10,10,1,1,10,10,10,1,1,12,12,12,12,
+     12,12,12,12,12,12,12,12,1,1,1,1,12,12,12,12,12,12,12,12]
+```
 
 ## Creative Prompts
 

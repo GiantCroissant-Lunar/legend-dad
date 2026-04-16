@@ -177,6 +177,43 @@ def _lift_mechanical_sections(entity_type: str, frontmatter: dict, template_prop
             template_properties[normalized] = frontmatter[key]
 
 
+def extract_layout_spec(content: str) -> dict | None:
+    """Parse the fenced YAML block under '## Layout Spec' in a zone page.
+
+    The convention is:
+
+        ## Layout Spec
+
+        ```yaml
+        base:
+          collision: empty
+          terrain: ground
+        regions: ...
+        ```
+
+    Returns the parsed dict, or None if the section is absent / the block
+    is empty. Raises yaml.YAMLError on malformed YAML so authoring
+    mistakes surface at manifest-build time rather than at LDtk render
+    time.
+    """
+    # Match the section heading followed by a yaml fence. Tolerant of
+    # extra whitespace and other prose between heading and fence.
+    pattern = re.compile(
+        r"^##\s+Layout Spec\s*$.*?```yaml\s*$(.*?)^```",
+        re.MULTILINE | re.DOTALL,
+    )
+    m = pattern.search(content)
+    if not m:
+        return None
+    body = m.group(1).strip()
+    if not body:
+        return None
+    parsed = yaml.safe_load(body)
+    if parsed is None:
+        return None
+    return parsed
+
+
 def build_entity(text: str, vault_path: str) -> dict:
     """Build a manifest entity dict from raw vault page text."""
     page = parse_vault_page(text)
@@ -190,6 +227,14 @@ def build_entity(text: str, vault_path: str) -> dict:
 
     entity_type = fm.get("type", "")
     _lift_mechanical_sections(entity_type, fm, template_props)
+
+    # Zones can carry a structured layout spec under ## Layout Spec. Lift
+    # it into template_properties.layout so the LDtk render stage can
+    # consume it from the manifest without re-reading markdown.
+    if entity_type == "zone":
+        layout_spec = extract_layout_spec(page["content"])
+        if layout_spec is not None:
+            template_props["layout"] = layout_spec
 
     creative_section = sections.get("Creative Prompts", "")
     creative_prompts = extract_creative_prompts(creative_section)

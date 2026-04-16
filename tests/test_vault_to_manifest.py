@@ -8,6 +8,7 @@ import jsonschema
 from vault_to_manifest import (
     build_entity,
     extract_creative_prompts,
+    extract_layout_spec,
     extract_sections,
     generate_manifest,
     parse_vault_page,
@@ -241,3 +242,93 @@ def test_zone_validates_against_schema(sample_zone_md, schema):
         "entities": [entity],
     }
     jsonschema.validate(manifest, schema)
+
+
+# --- Layout Spec extraction ---
+
+
+_ZONE_WITH_LAYOUT_MD = """\
+---
+type: zone
+status: draft
+articy-id: ""
+tags: [hub]
+connections: []
+era: "Both"
+grid-width: 4
+grid-height: 3
+biome: town
+last-agent-pass: "2026-04-16"
+---
+
+# Sample Zone
+
+## Overview
+
+A sample zone for layout-spec extraction tests.
+
+## Layout Spec
+
+```yaml
+base:
+  collision: empty
+  terrain: cobblestone
+regions:
+  - id: fountain
+    shape: circle
+    center: [2, 1]
+    radius: 0
+    collision: solid
+    terrain: well_fountain
+entities:
+  - type: Character
+    vault_ref: cael-vire
+    at: [1, 1]
+    era: Both
+```
+
+## Creative Prompts
+
+### tilemap-art
+
+16-bit town tiles.
+"""
+
+
+def test_extract_layout_spec_returns_parsed_yaml():
+    spec = extract_layout_spec(_ZONE_WITH_LAYOUT_MD)
+    assert spec is not None
+    assert spec["base"]["terrain"] == "cobblestone"
+    assert spec["regions"][0]["id"] == "fountain"
+    assert spec["entities"][0]["vault_ref"] == "cael-vire"
+
+
+def test_extract_layout_spec_returns_none_when_section_absent(sample_zone_md):
+    assert extract_layout_spec(sample_zone_md) is None
+
+
+def test_extract_layout_spec_handles_empty_fenced_block():
+    page = """\
+## Layout Spec
+
+```yaml
+```
+"""
+    assert extract_layout_spec(page) is None
+
+
+def test_zone_layout_lifted_into_template_properties():
+    entity = build_entity(_ZONE_WITH_LAYOUT_MD, "vault/world/zones/sample.md")
+    assert "layout" in entity["template_properties"]
+    layout = entity["template_properties"]["layout"]
+    assert layout["base"]["terrain"] == "cobblestone"
+    # Other mechanical zone fields still round-trip
+    assert entity["template_properties"]["grid_width"] == 4
+    assert entity["template_properties"]["biome"] == "town"
+
+
+def test_non_zone_entities_do_not_lift_layout(sample_character_md):
+    # A character page would never have a Layout Spec, but even if one
+    # were accidentally pasted in, only zone entities should lift it.
+    entity = build_entity(sample_character_md, "vault/world/characters/sera.md")
+    assert "layout" not in entity["template_properties"]

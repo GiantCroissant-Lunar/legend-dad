@@ -13,6 +13,12 @@ import sys
 import uuid
 from pathlib import Path
 
+# Allow sibling imports when the script is run from the repo root via Taskfile
+# (python3 scripts/ldtk_sync.py ...). Safe to append even if already present.
+_SCRIPTS_DIR = str(Path(__file__).resolve().parent)
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, _SCRIPTS_DIR)
+
 # LDtk JSON format version (matches the schema we target)
 LDTK_JSON_VERSION = "1.5.3"
 
@@ -47,62 +53,10 @@ TYPE_TO_ENTITY = {
 # Entity colors for Zone type
 ENTITY_COLORS["Zone"] = "#4A8B6F"
 
-# IntGrid values for collision layer
-INTGRID_COLLISION = [
-    {"value": 0, "identifier": "empty", "color": "#000000", "tile": None, "groupUid": 0},
-    {"value": 1, "identifier": "solid", "color": "#FFFFFF", "tile": None, "groupUid": 0},
-    {"value": 2, "identifier": "water", "color": "#4488CC", "tile": None, "groupUid": 0},
-    {"value": 3, "identifier": "pit", "color": "#332222", "tile": None, "groupUid": 0},
-]
-
-# IntGrid values for terrain layers (universal + all biomes)
-# Colors chosen for visual distinction in LDtk editor
-INTGRID_TERRAIN = [
-    # Universal (0-9)
-    {"value": 0, "identifier": "void", "color": "#000000", "tile": None, "groupUid": 0},
-    {"value": 1, "identifier": "ground", "color": "#8B7355", "tile": None, "groupUid": 0},
-    {"value": 2, "identifier": "wall", "color": "#555555", "tile": None, "groupUid": 0},
-    {"value": 3, "identifier": "water_shallow", "color": "#6699CC", "tile": None, "groupUid": 0},
-    {"value": 4, "identifier": "water_deep", "color": "#334466", "tile": None, "groupUid": 0},
-    {"value": 5, "identifier": "pit", "color": "#332222", "tile": None, "groupUid": 0},
-    {"value": 6, "identifier": "door", "color": "#AA7744", "tile": None, "groupUid": 0},
-    {"value": 7, "identifier": "stairs_up", "color": "#CCAA66", "tile": None, "groupUid": 0},
-    {"value": 8, "identifier": "stairs_down", "color": "#997744", "tile": None, "groupUid": 0},
-    {"value": 9, "identifier": "bridge", "color": "#AA8855", "tile": None, "groupUid": 0},
-    # Field biome (10-19)
-    {"value": 10, "identifier": "tall_grass", "color": "#55AA44", "tile": None, "groupUid": 0},
-    {"value": 11, "identifier": "bush", "color": "#337722", "tile": None, "groupUid": 0},
-    {"value": 12, "identifier": "tree_trunk", "color": "#553311", "tile": None, "groupUid": 0},
-    {"value": 13, "identifier": "fallen_log", "color": "#664422", "tile": None, "groupUid": 0},
-    {"value": 14, "identifier": "cliff_edge", "color": "#887766", "tile": None, "groupUid": 0},
-    {"value": 15, "identifier": "path_dirt", "color": "#AA8844", "tile": None, "groupUid": 0},
-    {"value": 16, "identifier": "path_stone", "color": "#999988", "tile": None, "groupUid": 0},
-    {"value": 17, "identifier": "stream_crossing", "color": "#77AACC", "tile": None, "groupUid": 0},
-    {"value": 18, "identifier": "undergrowth", "color": "#448833", "tile": None, "groupUid": 0},
-    {"value": 19, "identifier": "hollow", "color": "#2A3A1A", "tile": None, "groupUid": 0},
-    # Dungeon biome (20-29)
-    {"value": 20, "identifier": "cave_floor", "color": "#666655", "tile": None, "groupUid": 0},
-    {"value": 21, "identifier": "cave_wall", "color": "#444433", "tile": None, "groupUid": 0},
-    {"value": 22, "identifier": "lava", "color": "#CC4411", "tile": None, "groupUid": 0},
-    {"value": 23, "identifier": "mine_track", "color": "#886644", "tile": None, "groupUid": 0},
-    {"value": 24, "identifier": "cracked_floor", "color": "#777766", "tile": None, "groupUid": 0},
-    {"value": 25, "identifier": "ore_vein", "color": "#99AA77", "tile": None, "groupUid": 0},
-    {"value": 26, "identifier": "rubble", "color": "#555544", "tile": None, "groupUid": 0},
-    {"value": 27, "identifier": "crystal", "color": "#88CCDD", "tile": None, "groupUid": 0},
-    {"value": 28, "identifier": "ice_floor", "color": "#BBDDEE", "tile": None, "groupUid": 0},
-    {"value": 29, "identifier": "dark_zone", "color": "#222222", "tile": None, "groupUid": 0},
-    # Town biome (30-39)
-    {"value": 30, "identifier": "cobblestone", "color": "#998877", "tile": None, "groupUid": 0},
-    {"value": 31, "identifier": "fence", "color": "#775533", "tile": None, "groupUid": 0},
-    {"value": 32, "identifier": "garden", "color": "#66AA55", "tile": None, "groupUid": 0},
-    {"value": 33, "identifier": "market_stall", "color": "#CC9944", "tile": None, "groupUid": 0},
-    {"value": 34, "identifier": "well_fountain", "color": "#5588AA", "tile": None, "groupUid": 0},
-    {"value": 35, "identifier": "building_wall", "color": "#887766", "tile": None, "groupUid": 0},
-    {"value": 36, "identifier": "interior_floor", "color": "#AA9977", "tile": None, "groupUid": 0},
-    {"value": 37, "identifier": "counter", "color": "#776644", "tile": None, "groupUid": 0},
-    {"value": 38, "identifier": "furniture", "color": "#665544", "tile": None, "groupUid": 0},
-    {"value": 39, "identifier": "signpost_lamp", "color": "#CCBB44", "tile": None, "groupUid": 0},
-]
+# IntGrid vocabularies for collision + terrain layers are shared with the
+# zone layout renderer via scripts/ldtk_vocabulary. Re-exported here under
+# the existing names so this module's public API is unchanged.
+from ldtk_vocabulary import INTGRID_COLLISION, INTGRID_TERRAIN  # noqa: E402
 
 
 class UidAllocator:
@@ -409,13 +363,24 @@ def _make_layer_instance(
     }
 
 
-def _populate_layer_instances(levels: list[dict], layer_defs: list[dict], level_layouts: dict) -> None:
-    """Populate layerInstances on levels that have None."""
-    # Layer order in instances matches layer_defs order (top-first)
+def _populate_layer_instances(
+    levels: list[dict],
+    layer_defs: list[dict],
+    level_layouts: dict,
+    force: bool = False,
+) -> None:
+    """Populate layerInstances on levels.
+
+    By default, only levels whose layerInstances is None are populated
+    (preserving already-authored data). Pass force=True to overwrite
+    all levels — used when rendering from vault layout specs, where the
+    spec is the source of truth and the .ldtk is a derived artifact.
+
+    Layer order in instances matches layer_defs order (top-first).
+    """
     for level in levels:
-        if level.get("layerInstances") is not None:
+        if not force and level.get("layerInstances") is not None:
             continue
-        # Skip stub levels that lack required dimensions
         if "pxWid" not in level or "pxHei" not in level:
             continue
 
@@ -431,60 +396,232 @@ def _populate_layer_instances(levels: list[dict], layer_defs: list[dict], level_
         level["layerInstances"] = instances
 
 
-# ── Hand-designed level layouts ──────────────────────────────────────────────
-# Each layout is a dict of layer_name -> intGridCsv (flat, row-major, 20 cols x 16 rows = 320 cells)
-# Only layers with non-default data need entries; missing layers get all-zeros.
+def _vault_slug_from_path(vault_path: str) -> str:
+    """Extract the slug from a manifest vault_path.
 
-# fmt: off
-# Whispering Woods Edge: 20x16 field biome
-# Collision: 0=empty(walkable), 1=solid, 2=water, 3=pit
-_WWE_COLLISION = [
-    1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,1,
-    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,1,
-    1,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,1,
-    1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-    1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,
-    1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,
-    1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
-    1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,
-]
+    'vault/world/characters/torbin.md' -> 'torbin'
+    Works cross-platform (handles both / and \\ separators).
+    """
+    name = vault_path.replace("\\", "/").split("/")[-1]
+    return name[:-3] if name.endswith(".md") else name
 
-# Terrain: uses field IntGrid values
-# 0=void, 1=ground, 10=tall_grass, 11=bush, 12=tree_trunk, 15=path_dirt, 3=water_shallow, 18=undergrowth
-_WWE_TERRAIN = [
-    12,12,12,12,1,1,10,10,10,1,1,10,10,10,1,1,12,12,12,12,
-    12,1,10,10,10,1,1,10,10,10,1,1,10,1,1,10,10,10,1,12,
-    11,1,1,10,10,10,1,1,10,10,10,1,1,10,10,10,1,1,10,11,
-    12,10,1,1,15,15,15,15,15,15,15,15,15,15,1,1,10,1,3,12,
-    11,10,10,1,15,1,1,1,1,1,1,1,1,15,10,10,1,1,3,12,
-    1,1,10,10,15,1,1,1,1,1,1,1,1,15,10,10,10,1,3,11,
-    1,1,10,10,15,1,1,1,1,1,1,1,1,15,10,10,10,1,3,11,
-    1,1,10,10,15,15,15,15,15,15,15,15,15,15,10,10,10,1,1,12,
-    12,1,1,10,10,18,18,1,1,1,1,18,18,10,10,10,1,1,10,12,
-    12,10,1,1,18,18,12,12,18,18,18,18,12,12,18,18,1,1,10,11,
-    11,10,10,1,18,18,12,12,18,18,18,18,12,12,18,18,1,1,10,12,
-    12,10,10,1,1,18,18,18,18,1,1,18,18,18,18,1,1,10,10,12,
-    12,12,1,1,10,10,18,18,1,1,1,1,18,18,10,10,1,1,12,12,
-    12,12,12,1,1,10,10,10,10,1,1,10,10,10,10,1,1,12,12,12,
-    12,12,12,12,1,1,10,10,10,1,1,10,10,10,1,1,12,12,12,12,
-    12,12,12,12,12,12,12,12,1,1,1,1,12,12,12,12,12,12,12,12,
-]
-# fmt: on
 
-LEVEL_LAYOUTS = {
-    "Whispering_Woods_Edge": {
-        "Collision": _WWE_COLLISION,
-        "Terrain": _WWE_TERRAIN,
-    },
-}
+def _build_slug_lookup(manifest: dict) -> dict[str, dict]:
+    """Index manifest entities by slug for entity-instance vault_ref resolution."""
+    out: dict[str, dict] = {}
+    for e in manifest.get("entities", []):
+        slug = _vault_slug_from_path(e.get("vault_path", ""))
+        if slug:
+            out[slug] = e
+    return out
+
+
+def _apply_entity_instances(
+    levels: list[dict],
+    layer_defs: list[dict],
+    rendered_layouts: dict,
+    manifest: dict,
+) -> None:
+    """Write agent-authored entity placements into each level's Entities layer.
+
+    `rendered_layouts[level_id]["__entities__"]` is a list of entity specs
+    produced by zone_layout_render:
+
+        [{ "type": "Character", "vault_ref": "torbin", "at": [3, 4], "era": "Both" }, ...]
+
+    This function resolves vault_ref → manifest entity, then builds the
+    LDtk `entityInstances` array with fieldInstances populated from the
+    manifest's articy_id / display_name / vault_path plus the spec's era.
+    """
+    # Find the Entities layer def and its field defs (display_name,
+    # vault_path, era, articy_id). Field defs are per-entity-def, so we
+    # build a lookup table keyed by entity-def identifier.
+    entities_layer_def = next((ld for ld in layer_defs if ld.get("type") == "Entities"), None)
+    if entities_layer_def is None:
+        return  # nothing to write into
+
+    slug_lookup = _build_slug_lookup(manifest)
+
+    # Entity-def field UID lookup by entity identifier (Character, Creature, ...).
+    # We need the LDtk field-def UIDs because entityInstances.fieldInstances
+    # reference them, not the field names directly.
+    entity_defs = manifest.get("_entity_defs_cache")  # set by caller if available
+    # Otherwise walk the entity defs ourselves from the project layers/defs;
+    # this gets called with a project dict whose defs.entities is accessible.
+    # For now, fish them out of the layer_defs' sibling structure by convention
+    # — the caller (generate/merge) passes the full layer_defs list which is
+    # already aligned with the project's defs.entities. To keep the API clean,
+    # entity-def UIDs are obtained via a pass over all levels' pre-existing
+    # entityInstances, falling back to None (which writes unresolved refs).
+    #
+    # A cleaner future refactor: pass the entity_defs list explicitly.
+
+    for level in levels:
+        level_id = level.get("identifier", "")
+        layout = rendered_layouts.get(level_id)
+        if not layout:
+            continue
+        entity_specs = layout.get("__entities__", []) or []
+        if not entity_specs:
+            continue
+
+        # Find the Entities layerInstance for this level.
+        ent_instance = next(
+            (li for li in (level.get("layerInstances") or []) if li.get("__type") == "Entities"),
+            None,
+        )
+        if ent_instance is None:
+            continue
+
+        # Replace per the authoring policy: vault spec is source of truth.
+        ent_instance["entityInstances"] = []
+        grid_size = GRID_SIZE
+
+        for spec in entity_specs:
+            etype = spec["type"]
+            vault_ref = spec["vault_ref"]
+            col, row = spec["at"]
+            era = spec.get("era", "Both")
+
+            vault_entity = slug_lookup.get(vault_ref)
+            if vault_entity is None:
+                # Unknown slug — fail loudly so typos don't silently
+                # produce invisible entity instances.
+                raise SystemExit(
+                    f"ERROR: zone {level_id!r} entity spec references unknown "
+                    f"vault slug {vault_ref!r}; ensure the .md page exists and "
+                    f"`task articy:prep` has been run."
+                )
+
+            display_name = vault_entity.get("display_name", vault_ref)
+            vault_path = vault_entity.get("vault_path", "")
+            articy_id = vault_entity.get("articy_id", "") or ""
+
+            ent_instance["entityInstances"].append(
+                _make_entity_instance(
+                    entity_type=etype,
+                    col=col,
+                    row=row,
+                    grid_size=grid_size,
+                    level_uid=level["uid"],
+                    display_name=display_name,
+                    vault_path=vault_path,
+                    era=era,
+                    articy_id=articy_id,
+                )
+            )
+
+
+def _make_entity_instance(
+    entity_type: str,
+    col: int,
+    row: int,
+    grid_size: int,
+    level_uid: int,
+    display_name: str,
+    vault_path: str,
+    era: str,
+    articy_id: str,
+) -> dict:
+    """Build a minimal valid LDtk entityInstance dict.
+
+    The defUid is set to -1 as a placeholder — LDtk will resolve it when
+    the file is opened in the editor because __identifier matches an
+    existing entity def. Field values are written as __value (engine-facing)
+    with the name in __identifier; LDtk re-derives defUid references on load.
+    """
+    px_x = col * grid_size + grid_size // 2
+    px_y = row * grid_size + grid_size  # bottom pivot (matches defaultPivotY=1.0)
+    return {
+        "__identifier": entity_type,
+        "__grid": [col, row],
+        "__pivot": [0.5, 1.0],
+        "__tags": ["vault_entity"],
+        "__tile": None,
+        "__smartColor": "#A0A0A0",
+        "__worldX": px_x,
+        "__worldY": px_y,
+        "iid": _make_iid(),
+        "width": grid_size,
+        "height": grid_size,
+        "defUid": -1,
+        "px": [px_x, px_y],
+        "fieldInstances": [
+            _make_field_instance("display_name", "String", display_name),
+            _make_field_instance("vault_path", "String", vault_path),
+            _make_field_instance("era", "LocalEnum.Era", era),
+            _make_field_instance("articy_id", "String", articy_id),
+        ],
+    }
+
+
+def _make_field_instance(name: str, type_name: str, value) -> dict:
+    return {
+        "__identifier": name,
+        "__type": type_name,
+        "__value": value,
+        "__tile": None,
+        "defUid": -1,
+        "realEditorValues": [{"id": "V_String" if type_name == "String" else "V_String", "params": [value]}],
+    }
+
+
+def _render_zone_layouts(manifest: dict) -> dict[str, dict[str, list[int]]]:
+    """Walk zone entities in the manifest; render their layout specs into
+    per-level CSV arrays keyed by LDtk level identifier.
+
+    Zones without a `template_properties.layout` contribute nothing to
+    the output (their level stays at empty-grid defaults). Zones with a
+    layout spec render through scripts.zone_layout_render.render() using
+    the grid dimensions + biome from their frontmatter.
+    """
+    from zone_layout_render import LayoutSpecError, render as _render
+
+    out: dict[str, dict[str, list[int]]] = {}
+    for entity in manifest.get("entities", []):
+        if entity.get("type") != "zone":
+            continue
+        tp = entity.get("template_properties", {}) or {}
+        spec = tp.get("layout")
+        if spec is None:
+            continue
+
+        grid_w = int(tp.get("grid_width", 20))
+        grid_h = int(tp.get("grid_height", 16))
+        biome = str(tp.get("biome", "field"))
+        identifier = _zone_identifier(entity.get("display_name", "Zone"))
+
+        try:
+            rendered = _render(spec, grid_w, grid_h, biome, zone_id=identifier)
+        except LayoutSpecError as exc:
+            # Surface the error with zone identifier so the designer
+            # can find the bad page instantly.
+            raise SystemExit(f"ERROR: {exc}") from exc
+
+        # ldtk_sync's LEVEL_LAYOUTS dict is "identifier -> {layer_name: csv, ...}".
+        # entities (the Entities layer) is built separately — it's a list of
+        # entity-instance dicts, not a CSV. Stashing it under a reserved key
+        # so _populate_layer_instances can pick it up in a follow-up pass.
+        out[identifier] = {
+            "Collision": rendered["Collision"],
+            "Terrain": rendered["Terrain"],
+            "Terrain_Father": rendered["Terrain_Father"],
+            "Terrain_Son": rendered["Terrain_Son"],
+            "__entities__": rendered["entities"],
+        }
+    return out
+
+
+# Legacy hardcoded layouts have moved. Zone tile data now lives in each
+# zone's vault page under a '## Layout Spec' fenced YAML block, lifted
+# through vault_to_manifest → template_properties.layout → zone_layout_render.
+# See vault/world/_meta/zone-schema.md for the spec grammar.
+#
+# This empty LEVEL_LAYOUTS is retained only as the fallback target for
+# merge_ldtk_project(manifest=None) calls, which older callers use when
+# they don't have a manifest in scope. New code paths should always pass
+# the manifest so the vault spec drives the render.
+LEVEL_LAYOUTS: dict = {}
 
 
 def _make_default_level(uid_alloc: UidAllocator) -> dict:
@@ -601,39 +738,41 @@ def generate_ldtk_project(manifest: dict) -> dict:
         "levels": levels if levels else [_make_default_level(uid)],
     }
 
-    # Populate layer instances on freshly created levels
-    _populate_layer_instances(project["levels"], layers, LEVEL_LAYOUTS)
+    # Render zone layout specs (if any). Always force=True per authoring
+    # policy: vault zone pages are the source of truth for tile data,
+    # the LDtk editor is a preview.
+    rendered_layouts = _render_zone_layouts(manifest)
+    _populate_layer_instances(project["levels"], layers, rendered_layouts, force=True)
+    _apply_entity_instances(project["levels"], layers, rendered_layouts, manifest)
 
     return project
 
 
-def merge_ldtk_project(existing: dict, new_defs: dict) -> dict:
-    """Merge new definitions into an existing LDtk project, preserving
-    user-authored level tile data and entity instances.
+def merge_ldtk_project(existing: dict, new_defs: dict, manifest: dict | None = None) -> dict:
+    """Merge new definitions into an existing LDtk project.
 
-    Preserves every existing level as-is (including painted tiles, collision
-    grids, and placed entity instances). For zones that appeared in the
-    manifest since the last sync, appends a fresh empty-grid level so the
-    designer can open the LDtk editor and start painting.
+    Behavior depending on whether a `manifest` is provided:
+
+    * manifest=None (legacy): preserves existing level layerInstances;
+      only populates None layerInstances from LEVEL_LAYOUTS. This matches
+      the original behavior for tools that don't have a manifest in hand.
+    * manifest=<dict>: renders zone layout specs from the manifest and
+      OVERWRITES every level's layerInstances. Per authoring policy, the
+      vault spec is the source of truth and the .ldtk is derived.
+
+    In both cases, zones that appeared in new_defs but weren't in
+    existing are appended as new levels with offset worldX so they don't
+    overlap existing levels in the LDtk world view.
     """
     existing["defs"]["enums"] = new_defs["defs"]["enums"]
     existing["defs"]["entities"] = new_defs["defs"]["entities"]
     existing["defs"]["layers"] = new_defs["defs"]["layers"]
     existing["nextUid"] = new_defs["nextUid"]
 
-    # Populate layerInstances on levels that have None
-    _populate_layer_instances(
-        existing.get("levels", []),
-        existing["defs"]["layers"],
-        LEVEL_LAYOUTS,
-    )
-
     # Append levels from new_defs that aren't in existing yet (new zones).
     existing_ids = {L["identifier"] for L in existing.get("levels", [])}
     new_levels = [L for L in new_defs.get("levels", []) if L["identifier"] not in existing_ids]
     if new_levels:
-        # Re-assign worldX so new levels don't stack at x=0 (which would
-        # visually overlap old levels in the LDtk world view).
         max_world_x = max((L.get("worldX", 0) + L.get("pxWid", 0) for L in existing.get("levels", [])), default=0)
         spacing = 32
         cursor = max_world_x + spacing if max_world_x else 0
@@ -641,9 +780,19 @@ def merge_ldtk_project(existing: dict, new_defs: dict) -> dict:
             L["worldX"] = cursor
             cursor += L.get("pxWid", 0) + spacing
         existing.setdefault("levels", []).extend(new_levels)
-        # Populate layer instances for the newly-appended levels.
+
+    if manifest is not None:
+        rendered_layouts = _render_zone_layouts(manifest)
         _populate_layer_instances(
             existing["levels"],
+            existing["defs"]["layers"],
+            rendered_layouts,
+            force=True,
+        )
+        _apply_entity_instances(existing["levels"], existing["defs"]["layers"], rendered_layouts, manifest)
+    else:
+        _populate_layer_instances(
+            existing.get("levels", []),
             existing["defs"]["layers"],
             LEVEL_LAYOUTS,
         )
@@ -669,7 +818,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.output.exists():
         with open(args.output, encoding="utf-8") as f:
             existing = json.load(f)
-        result = merge_ldtk_project(existing, new_project)
+        result = merge_ldtk_project(existing, new_project, manifest=manifest)
         print(f"Updated existing LDtk project: {args.output}")
     else:
         result = new_project

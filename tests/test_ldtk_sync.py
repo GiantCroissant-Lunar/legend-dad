@@ -144,14 +144,34 @@ class TestGenerateLdtkProject:
 
 class TestMergeLdtkProject:
     def test_preserves_levels(self):
+        # Preservation contract: an existing level with a unique identifier
+        # survives the merge unchanged.
         existing = generate_ldtk_project(_make_manifest("character"))
-        existing["levels"] = [{"identifier": "TestLevel", "uid": 999}]
+        existing["levels"] = [{"identifier": "TestLevel", "uid": 999, "worldX": 0, "pxWid": 100}]
 
         new_defs = generate_ldtk_project(_make_manifest("character", "location"))
         merged = merge_ldtk_project(existing, new_defs)
 
-        assert len(merged["levels"]) == 1
-        assert merged["levels"][0]["identifier"] == "TestLevel"
+        identifiers = [L["identifier"] for L in merged["levels"]]
+        assert "TestLevel" in identifiers
+        # TestLevel must remain the same object — check preserved uid.
+        test_level = next(L for L in merged["levels"] if L["identifier"] == "TestLevel")
+        assert test_level["uid"] == 999
+
+    def test_appends_missing_levels_from_new_defs(self):
+        # When new_defs introduces a level identifier that existing lacks,
+        # merge_ldtk_project appends it. This unblocks newly-authored zones
+        # in the vault showing up in the .ldtk file on the next sync.
+        existing = generate_ldtk_project(_make_manifest("character"))
+        existing["levels"] = [{"identifier": "TestLevel", "uid": 999, "worldX": 0, "pxWid": 100}]
+
+        new_defs = generate_ldtk_project(_make_manifest("character"))
+        merged = merge_ldtk_project(existing, new_defs)
+
+        identifiers = [L["identifier"] for L in merged["levels"]]
+        # Level_0 is the default level when the manifest has no zones.
+        assert "Level_0" in identifiers
+        assert "TestLevel" in identifiers
 
     def test_updates_entity_defs(self):
         existing = generate_ldtk_project(_make_manifest("character"))
