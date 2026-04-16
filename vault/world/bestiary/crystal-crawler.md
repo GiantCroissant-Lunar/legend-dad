@@ -6,7 +6,33 @@ tags: [insectoid, crystal, iron-peaks, cavern, emergent-threat]
 connections:
   - "[[Iron Peaks]]"
 era: "Son"
-last-agent-pass: "2026-04-13"
+battle_stats:
+  max_hp: 18
+  max_mp: 4
+  atk: 9
+  def: 5
+  spd: 11
+  level: 5
+  xp_reward: 14
+  gold_reward: 9
+actions:
+  - id: "crystal_slash"
+    kind: "attack"
+    frequency: 0.7
+    power_min: 4
+    power_max: 8
+    target_kind: "enemy"
+  - id: "resonance_pulse"
+    kind: "status_inflict"
+    frequency: 0.3
+    status_effect: "paralysis"
+    target_kind: "all_enemies"
+group_size_min: 3
+group_size_max: 6
+zone_affinity:
+  - "[[Iron Peaks Upper Mines]]"
+  - "[[Iron Peaks Trail]]"
+last-agent-pass: "2026-04-16"
 ---
 
 # Crystal Crawler

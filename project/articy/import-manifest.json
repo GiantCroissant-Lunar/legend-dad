@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generated": "2026-04-13T10:41:28.275427+00:00",
+  "generated": "2026-04-16T01:12:15.792731+00:00",
   "generated_by": "vault_to_manifest",
   "entities": [
     {
@@ -627,9 +627,9 @@
     },
     {
       "vault_path": "vault/world/quests/the-fathers-departure.md",
-      "articy_id": "",
+      "articy_id": "72057594037929428",
       "type": "quest",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "The Father's Departure",
       "template_properties": {
         "overview": "The first main quest of Kaelen's era. Strange tremors have been shaking the Iron Peaks for weeks, collapsing mineshafts and splitting well-stones in Thornwall. The village militia, stretched thin by raider activity on the trade roads, cannot spare a squad to investigate. They turn to Kaelen \u2014 the only fighter in Thornwall with experience beyond the village walls. The militia captain presents him with Iron Dawn, a broadsword forged from ore pulled out of the deepest Iron Peaks mine, and asks him to find the source of the tremors before the village's foundations crack. Kaelen accepts, knowing the journey will take him away from his infant son Aric and his wife Lira. He tells himself it will be a short trip. It will not be.",
@@ -673,9 +673,9 @@
     },
     {
       "vault_path": "vault/world/quests/the-sealed-observatory.md",
-      "articy_id": "",
+      "articy_id": "72057594037929441",
       "type": "quest",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "The Sealed Observatory",
       "template_properties": {
         "overview": "A dual-era side quest set at Starlight Academy, the mountain-top institution where the Starlight Scholars study celestial mechanics, geological resonance, and the old star-charts that map the region's deep-earth cycles. In the Father's era, Kaelen visits the Academy seeking information about the tremors \u2014 Elder Aldric directed him here, saying the star-charts would reveal whether the current tremors match a historical pattern. In the Son's era, twenty years later, Sera \u2014 a young scholar and researcher \u2014 asks Aric for help accessing the Sealed Observatory, a restricted wing that Aldric personally locked thirty years ago after a research incident. The quest connects both eras through a shared location and reveals that Aldric has been hiding critical information about the underground threat.",
@@ -723,9 +723,9 @@
     },
     {
       "vault_path": "vault/world/quests/vanguard-checkpoint.md",
-      "articy_id": "",
+      "articy_id": "72057594037929454",
       "type": "quest",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Vanguard Checkpoint",
       "template_properties": {
         "overview": "A Son-era main quest that forces Aric to confront the Iron Vanguard directly. The military faction has established a fortified checkpoint on the only maintained road between the lowlands and the Iron Peaks, blocking all civilian access to the mining region. Twenty years ago, the Vanguard was a professional but cooperative force \u2014 Kaelen dealt with them as respectful equals. In the intervening decades, the Vanguard has militarized aggressively, seizing control of the Iron Peaks mines under the justification of \"geological security\" and cutting off the communities that once depended on the mining trade. Aric must get past the checkpoint to reach the Iron Peaks tunnel system. How he does it reveals what kind of hero he will become \u2014 and whether he can avoid repeating his father's mistakes.",
@@ -765,9 +765,9 @@
     },
     {
       "vault_path": "vault/world/quests/whispers-in-the-woods.md",
-      "articy_id": "",
+      "articy_id": "72057594037929467",
       "type": "quest",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Whispers in the Woods",
       "template_properties": {
         "overview": "The first major quest of Aric's era. Twenty years after Kaelen's departure, the Whispering Woods \u2014 a vast old-growth forest between Thornwall and the Iron Peaks \u2014 are dying. Trees shed their leaves in midsummer, streams run cloudy with mineral sediment, and the forest's wildlife has fled or turned aggressive. Thornwall's hunters report sinkholes opening along familiar trails, and a strange crystalline growth spreading from the sinkholes' edges. Aric, now twenty-two and restless in a village that still whispers his father's name, volunteers to investigate with Maren, a tracker who knows the woods better than anyone alive. What they discover will pull Aric into the same underground crisis his father faced two decades earlier.",
@@ -903,9 +903,9 @@
     },
     {
       "vault_path": "vault/world/events/kaelens-last-letter.md",
-      "articy_id": "",
+      "articy_id": "72057594037929480",
       "type": "event",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Kaelen's Last Letter",
       "template_properties": {
         "overview": "The last known communication from [[Kaelen]] is a letter written on the [[Iron Peaks]] trail, addressed to his son [[Aric]] and entrusted to a messenger heading south toward [[Thornwall]]. The letter was never delivered. The messenger died \u2014 cause unknown \u2014 on a remote stretch of road between the peaks and the village. Twenty years later, Aric discovers the letter in the messenger's weathered satchel, found half-buried in a roadside ditch by a traveling merchant who brought it to Thornwall's market. The letter's contents are fragmentary, damaged by weather and time, but what remains fundamentally changes Aric's understanding of his father's departure.",
@@ -940,9 +940,9 @@
     },
     {
       "vault_path": "vault/world/events/the-first-tremor.md",
-      "articy_id": "",
+      "articy_id": "72057594037929491",
       "type": "event",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "The First Tremor",
       "template_properties": {
         "overview": "The first earthquake to originate from the sealed caverns beneath the [[Iron Peaks]] occurred during Kaelen's era, approximately three years before he left [[Thornwall]]. The tremor was minor by any objective measure \u2014 it lasted seven seconds, cracked a few walls in Thornwall's older buildings, and knocked goods off shelves in the market. No one was injured. Most residents dismissed it as an ordinary geological event and repaired their walls without further thought. But [[Kaelen]], who had been reading his father's old mining journals and knew about the sealed caverns, recognized the tremor for what it was: the first audible signal that the seal was failing. This recognition set him on the path that would eventually take him away from his family and into the mountains.",
@@ -977,9 +977,9 @@
     },
     {
       "vault_path": "vault/world/events/the-observatory-disaster.md",
-      "articy_id": "",
+      "articy_id": "72057594037929502",
       "type": "event",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "The Observatory Disaster",
       "template_properties": {
         "overview": "Thirty years before the events of Aric's era, a young [[Elder Aldric]] \u2014 then the most promising Starweaver of his generation \u2014 attempted a ritual to unseal the Observatory at the top of the [[Starlight Academy]]'s west wing. The Observatory had been sealed by the order's founders centuries earlier, after they determined that the master charts inside were too dangerous to use. Aldric believed he could access the charts safely, reading them without activating their interventionist properties. He was wrong. The ritual killed three fellow scholars, collapsed the connecting bridge to the west wing, and left Aldric physically unharmed but permanently changed. He sealed the entire west wing afterward and has refused to discuss what he saw inside.",
@@ -1010,9 +1010,9 @@
     },
     {
       "vault_path": "vault/world/lore/the-sealed-caverns.md",
-      "articy_id": "",
+      "articy_id": "72057594037929513",
       "type": "lore",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "The Sealed Caverns",
       "template_properties": {
         "overview": "Deep beneath the [[Iron Peaks]], a network of natural caverns extends far below the reach of the old mines. Two generations ago, miners broke through the lowest tunnel wall and discovered a vast underground chamber filled with a crystalline substance that hummed audibly, emitted faint violet light, and killed three workers within days of exposure. The mining guild sealed the breach with stone and mortar, abandoned the mines entirely, and the surviving miners' families relocated south to found [[Thornwall]]. What lies sealed in those caverns has been leaking through the cracks ever since \u2014 slowly, imperceptibly at first, but with increasing force. The tremors that drove [[Kaelen]] north and that now threaten Aric's world originate here.",
@@ -1043,9 +1043,9 @@
     },
     {
       "vault_path": "vault/world/lore/the-starweavers.md",
-      "articy_id": "",
+      "articy_id": "72057594037929521",
       "type": "lore",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "The Starweavers",
       "template_properties": {
         "overview": "The Starweavers were an order of scholars who discovered that starlight carries information \u2014 not metaphorically, but literally. Certain patterns of stellar light, observed through specific crystalline lenses, correspond to events in the physical world: earthquakes, harvests, plagues, the movements of armies. The Starweavers did not predict the future so much as read the present state of the world from a vantage point no one else could access. They founded the [[Starlight Academy]] five hundred years ago to study and preserve this knowledge. The order's bloodline has since thinned to near-extinction; [[Elder Aldric]] is believed to be the last living person who can read starlight with the naked eye.",
@@ -1072,9 +1072,9 @@
     },
     {
       "vault_path": "vault/world/lore/the-whispering-enchantment.md",
-      "articy_id": "",
+      "articy_id": "72057594037929529",
       "type": "lore",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "The Whispering Enchantment",
       "template_properties": {
         "overview": "The canopy of the [[Whispering Woods]] does not merely rustle \u2014 it speaks. A constant, layered murmur passes through the leaves regardless of wind conditions, producing sounds that shift between the barely-audible and the almost-comprehensible. This is not a natural phenomenon. The forest was enchanted through an ancient pact between the civilization that planted it and something that lived beneath the roots. The enchantment serves as a ward: the whispers are warnings, calibrated to alert those who listen to approaching danger. When the forest dies, the enchantment dies with it \u2014 and whatever the ward was designed to contain will no longer be contained.",
@@ -1101,15 +1101,48 @@
     },
     {
       "vault_path": "vault/world/bestiary/crystal-crawler.md",
-      "articy_id": "",
+      "articy_id": "72057594037929537",
       "type": "bestiary",
-      "status": "new",
+      "status": "updated",
       "display_name": "Crystal Crawler",
       "template_properties": {
         "overview": "The Crystal Crawler is an insectoid creature roughly the size of a large dog, with a segmented carapace studded with translucent crystal formations that glow faintly from within. It has six articulated legs ending in sharp crystalline points that allow it to cling to cave walls and ceilings with equal ease. Its mandibles are reinforced with the same mineral growths, capable of shearing through stone to reach the crystal veins it feeds on.\n\nThese creatures were completely unknown during Kaelen's era because they inhabited sealed cavern systems deep beneath the Iron Peaks -- chambers that no mine shaft had ever reached. When the land began to fracture in the years before Aric's story, cracks opened between these deep caverns and the existing mine network, releasing the crawlers into tunnels that humans had worked for generations. The first sightings were dismissed as miner's hallucinations until a surveying team was driven from a lower gallery by a swarm of glowing, clicking things that poured from a fissure in the wall.\n\nCrystal Crawlers are drawn to concentrations of crystal energy, and the Iron Peaks' richest veins act as beacons that pull them upward through the fracture network. Their presence has made several of the deepest mine levels impassable, and the crystals they carry in their bodies interfere with the enchantments that kept the old mine supports stable.",
         "ecology_and_habitat": "Crystal Crawlers are native to the lightless deep caverns beneath the Iron Peaks, ecosystems sustained by geothermal heat and mineral-rich water. In their native environment, they are part of a complex subterranean food chain, feeding on crystal growths and being preyed upon by larger deep-cave organisms that have not yet emerged through the fractures. Their crystal-studded carapaces are not armour but sensory organs -- each formation vibrates at frequencies that allow the crawler to navigate in total darkness and detect crystal deposits through solid rock.\n\nSince reaching the mine tunnels, crawlers have established hive-like colonies near major crystal veins, constructing lattice structures from crystalline secretions. These hive walls resonate with a low harmonic hum that miners report hearing from several tunnels away. The colonies grow rapidly, and crawlers have been observed carrying crystal fragments back to the hive in a behaviour resembling resource stockpiling, though what they are building toward remains unknown.",
         "behavior": "In JRPG encounters, Crystal Crawlers appear in groups of three to six, often emerging from walls or ceilings to surround the party. They are fast and evasive, favouring hit-and-run tactics. Their basic attack, **Crystal Slash**, deals physical damage with a chance to inflict Crystallize -- a status that slowly reduces the target's speed as mineral growths spread across their armour.\n\nTheir signature group ability is **Resonance Pulse**: when three or more crawlers are present, they synchronize their crystal growths to emit a burst of disorienting energy that deals magical damage to the entire party and can cause Confusion. Individually fragile, their danger lies in numbers and coordination. A rare elite variant, the **Prism Crawler**, has fully developed crystal formations that refract magical attacks, granting it partial spell reflection.",
-        "lore_and_cultural_significance": "The miners of Iron Peaks had old superstitions about \"the deep glow\" -- a faint light sometimes seen at the bottom of the deepest shafts, always just beyond the reach of lantern-light. Elders warned that the glow was the earth's own fire and that digging toward it would wake things better left sleeping. These warnings were largely dismissed as the talk of men who had spent too long underground, but the emergence of the Crystal Crawlers has given the old stories a grim validation.\n\nThe crystals embedded in the crawlers' bodies have unusual properties -- they hold and release energy in patterns that some scholars believe resemble a primitive form of memory. A theory has emerged among Aric's contemporaries that the sealed caverns were not naturally formed but were deliberately closed off in an age before recorded history, and that the Crystal Crawlers are not wild animals but something closer to sentinels whose containment has finally failed. What they were meant to guard -- or guard against -- is a question with no comfortable answers."
+        "lore_and_cultural_significance": "The miners of Iron Peaks had old superstitions about \"the deep glow\" -- a faint light sometimes seen at the bottom of the deepest shafts, always just beyond the reach of lantern-light. Elders warned that the glow was the earth's own fire and that digging toward it would wake things better left sleeping. These warnings were largely dismissed as the talk of men who had spent too long underground, but the emergence of the Crystal Crawlers has given the old stories a grim validation.\n\nThe crystals embedded in the crawlers' bodies have unusual properties -- they hold and release energy in patterns that some scholars believe resemble a primitive form of memory. A theory has emerged among Aric's contemporaries that the sealed caverns were not naturally formed but were deliberately closed off in an age before recorded history, and that the Crystal Crawlers are not wild animals but something closer to sentinels whose containment has finally failed. What they were meant to guard -- or guard against -- is a question with no comfortable answers.",
+        "battle_stats": {
+          "max_hp": 18,
+          "max_mp": 4,
+          "atk": 9,
+          "def": 5,
+          "spd": 11,
+          "level": 5,
+          "xp_reward": 14,
+          "gold_reward": 9
+        },
+        "actions": [
+          {
+            "id": "crystal_slash",
+            "kind": "attack",
+            "frequency": 0.7,
+            "power_min": 4,
+            "power_max": 8,
+            "target_kind": "enemy"
+          },
+          {
+            "id": "resonance_pulse",
+            "kind": "status_inflict",
+            "frequency": 0.3,
+            "status_effect": "paralysis",
+            "target_kind": "all_enemies"
+          }
+        ],
+        "group_size_min": 3,
+        "group_size_max": 6,
+        "zone_affinity": [
+          "[[Iron Peaks Upper Mines]]",
+          "[[Iron Peaks Trail]]"
+        ]
       },
       "connections": [
         {
@@ -1126,9 +1159,9 @@
     },
     {
       "vault_path": "vault/world/bestiary/iron-borer.md",
-      "articy_id": "",
+      "articy_id": "72057594037929546",
       "type": "bestiary",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Iron Borer",
       "template_properties": {
         "overview": "The Iron Borer is a segmented, worm-like creature native to the rock strata of the Iron Peaks. In Kaelen's era, a typical adult measured roughly an arm's length and was as thick as a man's wrist -- an unpleasant but manageable pest that miners dealt with as a routine hazard of underground work. Its body is covered in overlapping plates of mineral-hardened chitin that give it a metallic sheen, and its head is a ring of rotating, serrated mandibles capable of grinding through solid stone at a steady pace.\n\nBorers feed on iron-rich minerals in the rock, processing ore through their digestive systems and excreting compacted mineral waste behind them as they tunnel. Miners have long cursed them for weakening support pillars and intersecting drainage channels, but they also grudgingly acknowledged that borer tunnels sometimes revealed new ore deposits. A miner who found a fresh borer channel knew there was good iron nearby.\n\nIn Aric's era, the Iron Borers have grown dramatically. Adults now reach the length of a horse and the girth of a barrel, their mandibles capable of collapsing entire tunnel sections. The cause is unclear -- some blame the increased mineral energy released by the land's fracturing, others suggest the borers are feeding on the same crystal veins that draw the Crystal Crawlers, supercharging their growth. Whatever the reason, what was once a nuisance has become a genuine threat to anyone entering the deeper mines.",
@@ -1151,9 +1184,9 @@
     },
     {
       "vault_path": "vault/world/bestiary/moss-lurker.md",
-      "articy_id": "",
+      "articy_id": "72057594037929555",
       "type": "bestiary",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Moss Lurker",
       "template_properties": {
         "overview": "The Moss Lurker is a broad, flat-bodied ambush predator that inhabits the damp forest floor of the Whispering Woods. At rest, it is virtually indistinguishable from a mossy fallen log -- its segmented back is covered in a thick layer of living moss, lichen, and small ferns that grow directly from its hide. Only the faint rhythmic rise and fall of its breathing might betray its presence to a sharp-eyed traveller.\n\nBeneath the camouflage lies a powerful creature roughly two metres long, with six squat legs ending in root-like claws that anchor it to the forest floor. Its head is little more than a wide, hinged jaw lined with rows of flat crushing teeth, designed to seize and hold rather than tear. When prey -- typically deer, boar, or an unwary human -- steps within striking distance, the Moss Lurker erupts from the ground with shocking speed, clamping down and dragging its victim to the earth.\n\nThe creature exists in both eras, though woodcutters and hunters have always known to watch for them. In Kaelen's time, experienced foresters could identify a lurker by the unnatural regularity of its shape and the absence of insects on its surface. By Aric's era, the Whispering Woods have grown denser and darker, and Moss Lurkers have spread into areas closer to the forest edge where they were never seen before.",
@@ -1176,9 +1209,9 @@
     },
     {
       "vault_path": "vault/world/bestiary/shade-wisp.md",
-      "articy_id": "",
+      "articy_id": "72057594037929564",
       "type": "bestiary",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Shade Wisp",
       "template_properties": {
         "overview": "The Shade Wisp is a small, ghostly entity that manifests as a flickering sphere of pale light surrounded by wisps of shadow that trail behind it like dark smoke. No larger than a clenched fist, it drifts silently through dark spaces -- shadowed forest clearings, unlit mine tunnels, and the dim alleys of Thornwall after nightfall. Its light shifts between cold blue-white and a sickly amber depending on its state, and it moves with a drifting, moth-like unpredictability.\n\nIn Kaelen's era, Shade Wisps were a familiar and largely harmless phenomenon. Travellers knew them as corpse-candles, fool's lanterns, or simply \"the little lights.\" They appeared most often near places where the boundary between the living world and something older felt thin -- old graveyards, ruined shrines, the deepest parts of the Whispering Woods. Following one was considered foolish, as they tended to lead the unwary into bogs or off trail edges, but they posed no direct physical threat.\n\nBy Aric's time, the wisps have changed. They appear in far greater numbers, their light burns hotter and more erratic, and they have developed an aggressive territoriality. A single wisp remains little more than a nuisance, but clusters of them can drain the vitality of living creatures, leaving victims cold and exhausted. The transformation is one of the most visible signs that something fundamental has shifted in the land's spiritual fabric.",
@@ -1209,9 +1242,9 @@
     },
     {
       "vault_path": "vault/world/bestiary/thornbriar-stalker.md",
-      "articy_id": "",
+      "articy_id": "72057594037929573",
       "type": "bestiary",
-      "status": "new",
+      "status": "unchanged",
       "display_name": "Thornbriar Stalker",
       "template_properties": {
         "overview": "The Thornbriar Stalker is a lean, wolf-like predator distinguished by the bony thorn-shaped growths that sprout along its spine and shoulders. Its coarse fur shifts between grey-green and dark brown depending on the season, providing natural camouflage within the dense thornbriar hedge that encircles Thornwall. Adults stand roughly hip-height to a grown man, with elongated limbs built for bursts of speed through tangled undergrowth.\n\nIn Kaelen's era, Thornbriar Stalkers were a rare but known hazard. Solitary hunters or mated pairs would occasionally drag off livestock that strayed too close to the hedge, and the town guard kept their numbers in check with seasonal culls. They were respected as dangerous but manageable -- a natural part of the thornbriar ecosystem that kept smaller vermin in balance.\n\nBy Aric's time, everything has changed. The hedge itself is weakening, its ancient root network destabilized by the fracturing of the land. Stalker packs have swelled to eight or ten members, emboldened by the thinning barrier between wild and settled land. They now hunt in coordinated groups, flanking prey with unsettling intelligence, and have begun venturing into the outer streets of Thornwall at dusk.",
