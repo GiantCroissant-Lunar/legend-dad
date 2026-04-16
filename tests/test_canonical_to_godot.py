@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from adapters.canonical_to_godot import emit_enemy_tres, emit_encounter_tres
+from adapters.canonical_to_godot import emit_enemy_tres, emit_encounter_tres, emit_curve_tres
 
 
 def test_emit_enemy_tres_writes_valid_tres(tmp_path):
@@ -68,3 +68,26 @@ def test_emit_enemy_tres_with_spell_actions(tmp_path):
     txt = out.read_text()
     assert "max_mp = 12" in txt
     assert 'spells = PackedStringArray("sleep")' in txt
+
+
+def test_emit_curve_tres_writes_data_points(tmp_path):
+    entity = {
+        "display_name": "Father XP-to-Level Curve",
+        "template_properties": {
+            "curve_kind": "xp_to_level",
+            "applies_to": "father",
+            "data_points": [
+                {"level": 1, "xp_required": 0},
+                {"level": 2, "xp_required": 10},
+                {"level": 5, "xp_required": 100},
+            ],
+        },
+    }
+    out = tmp_path / "father_xp.tres"
+    emit_curve_tres(entity, out)
+    txt = out.read_text()
+    assert 'script_class="LevelCurve"' in txt
+    assert 'kind = "xp_to_level"' in txt
+    assert 'applies_to = "father"' in txt
+    assert '"level": 1' in txt
+    assert '"xp_required": 100' in txt

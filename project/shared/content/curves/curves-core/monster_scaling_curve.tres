@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="LevelCurve" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/level_curve.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+kind = "monster_scaling"
+applies_to = ""
+data_points = [
+	{ "level": 1, "level_offset": 0 },
+	{ "level": 2, "level_offset": 1 },
+	{ "level": 3, "level_offset": 2 },
+	{ "level": 4, "level_offset": 3 },
+	{ "level": 5, "level_offset": 5 },
+	{ "level": 6, "level_offset": 7 },
+	{ "level": 7, "level_offset": 9 },
+	{ "level": 8, "level_offset": 12 },
+]

@@ -2,7 +2,7 @@
 
 Called from Taskfile (`task content:generate:tres`). Keeps Godot data
 in lock-step with articy exports — each pipeline run regenerates all
-bestiary + encounter .tres files into the relevant bundle directories.
+bestiary + encounter + curve .tres files into the relevant bundle dirs.
 """
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ENEMIES_DIR = REPO_ROOT / "project/shared/content/enemies/enemies-core"
 ENCOUNTERS_DIR = REPO_ROOT / "project/shared/content/encounters/encounters-core"
+CURVES_DIR = REPO_ROOT / "project/shared/content/curves/curves-core"
 
 
 def _slug(display_name: str) -> str:
@@ -91,6 +92,33 @@ def emit_encounter_tres(entity: dict, out_path: Path) -> None:
     out_path.write_text("\n".join(lines) + "\n")
 
 
+def emit_curve_tres(entity: dict, out_path: Path) -> None:
+    """Write a LevelCurve .tres from a curve manifest entity."""
+    props = entity["template_properties"]
+    slug = _slug(entity["display_name"])
+    data_points = props.get("data_points", [])
+
+    lines = [
+        '[gd_resource type="Resource" script_class="LevelCurve" load_steps=2 format=3]',
+        "",
+        '[ext_resource type="Script" path="res://lib/resources/level_curve.gd" id="1_def"]',
+        "",
+        "[resource]",
+        'script = ExtResource("1_def")',
+        f'kind = "{props.get("curve_kind", "")}"',
+        f'applies_to = "{props.get("applies_to", "")}"',
+        "data_points = [",
+    ]
+    for dp in data_points:
+        fields = ", ".join(
+            f'"{k}": {v}' for k, v in dp.items()
+        )
+        lines.append(f"\t{{ {fields} }},")
+    lines.append("]")
+
+    out_path.write_text("\n".join(lines) + "\n")
+
+
 def _update_bundle(bundle_path: Path, kind: str, dir_path: Path) -> None:
     """Update a bundle.json's provides list with all .tres files in the dir."""
     bundle = json.loads(bundle_path.read_text(encoding="utf-8"))
@@ -108,6 +136,7 @@ def main() -> int:
     doc = json.loads(manifest_path.read_text(encoding="utf-8"))
     enemies_written = 0
     encounters_written = 0
+    curves_written = 0
 
     for entity in doc["entities"]:
         entity_type = entity.get("type", "")
@@ -123,11 +152,19 @@ def main() -> int:
             emit_encounter_tres(entity, out)
             encounters_written += 1
 
+        elif entity_type == "curve" and tp.get("data_points"):
+            CURVES_DIR.mkdir(parents=True, exist_ok=True)
+            out = CURVES_DIR / f"{_slug(entity['display_name'])}.tres"
+            emit_curve_tres(entity, out)
+            curves_written += 1
+
     # Update bundle manifests
     _update_bundle(ENEMIES_DIR / "bundle.json", "enemies", ENEMIES_DIR)
     _update_bundle(ENCOUNTERS_DIR / "bundle.json", "encounters", ENCOUNTERS_DIR)
+    if CURVES_DIR.exists() and (CURVES_DIR / "bundle.json").exists():
+        _update_bundle(CURVES_DIR / "bundle.json", "curves", CURVES_DIR)
 
-    print(f"Generated {enemies_written} enemy .tres, {encounters_written} encounter .tres")
+    print(f"Generated {enemies_written} enemy, {encounters_written} encounter, {curves_written} curve .tres")
     return 0
 
 

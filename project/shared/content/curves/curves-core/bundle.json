@@ -1,0 +1,18 @@
+{
+  "id": "curves-core",
+  "kind": "curves",
+  "policy": "eager",
+  "deps": [],
+  "include": [
+    "*.tres"
+  ],
+  "provides": {
+    "curves": [
+      "father_stat_growth_curve",
+      "father_xp_to_level_curve",
+      "monster_scaling_curve",
+      "son_stat_growth_curve",
+      "son_xp_to_level_curve"
+    ]
+  }
+}
