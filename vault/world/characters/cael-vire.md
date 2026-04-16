@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930078"
 tags: [harbormaster, quest-giver, saltmere-port, father-era, son-era]
 connections:
   - "[[Saltmere Port]]"

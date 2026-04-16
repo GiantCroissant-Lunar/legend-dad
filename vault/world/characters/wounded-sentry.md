@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930198"
 tags: [iron-vanguard, sentry, archetype, ashenford, son-era, crystal-corruption, missing-patrol]
 connections:
   - "[[Ashenford]]"

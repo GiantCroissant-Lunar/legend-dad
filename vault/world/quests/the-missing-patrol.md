@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930460"
 tags: [side-quest, son-era, ashenford, iron-vanguard, crystal-corruption, horror]
 connections:
   - "[[Aric]]"

@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930090"
 tags: [watchman, archetype, lastwatch, son-era, crystal-corruption, revenant]
 connections:
   - "[[Lastwatch]]"

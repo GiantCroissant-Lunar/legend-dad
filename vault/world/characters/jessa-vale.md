@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930102"
 tags: [warden, lastwatch, solitary, father-era, son-era]
 connections:
   - "[[Lastwatch]]"

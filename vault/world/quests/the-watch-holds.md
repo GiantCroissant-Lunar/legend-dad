@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930499"
 tags: [main-quest, father-era, lastwatch, breach, main-arc-tie-in]
 connections:
   - "[[Kaelen]]"

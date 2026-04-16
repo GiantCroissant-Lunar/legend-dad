@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930324"
 tags: [overworld, forest, hidden-path, son-era, encounter]
 connections:
   - "[[Hollow's Rest]]"

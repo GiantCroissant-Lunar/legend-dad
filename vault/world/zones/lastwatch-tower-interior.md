@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930354"
 tags: [interior, keep, hub, joint-militia]
 connections:
   - "[[Lastwatch]]"

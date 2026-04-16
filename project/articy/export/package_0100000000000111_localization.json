@@ -125,9 +125,75 @@
     },
     "Context": "Entities/Whispering Woods Edge"
   },
+  "Ashenford_Canyon_Mouth.DisplayName": {
+    "zh-TW": {
+      "Text": "Ashenford Canyon Mouth"
+    },
+    "Context": "Entities/Ashenford Canyon Mouth"
+  },
+  "Ashenford_Garrison_Square.DisplayName": {
+    "zh-TW": {
+      "Text": "Ashenford Garrison Square"
+    },
+    "Context": "Entities/Ashenford Garrison Square"
+  },
+  "Ashenford_Refugee_Camp.DisplayName": {
+    "zh-TW": {
+      "Text": "Ashenford Refugee Camp"
+    },
+    "Context": "Entities/Ashenford Refugee Camp"
+  },
+  "Hollows_Rest_Hearth_Circle.DisplayName": {
+    "zh-TW": {
+      "Text": "Hollow's Rest Hearth Circle"
+    },
+    "Context": "Entities/Hollow's Rest Hearth Circle"
+  },
+  "Hollows_Rest_Hidden_Path.DisplayName": {
+    "zh-TW": {
+      "Text": "Hollow's Rest Hidden Path"
+    },
+    "Context": "Entities/Hollow's Rest Hidden Path"
+  },
+  "Lastwatch_Broken_Bailey.DisplayName": {
+    "zh-TW": {
+      "Text": "Lastwatch Broken Bailey"
+    },
+    "Context": "Entities/Lastwatch Broken Bailey"
+  },
+  "Lastwatch_Tower_Interior.DisplayName": {
+    "zh-TW": {
+      "Text": "Lastwatch Tower Interior"
+    },
+    "Context": "Entities/Lastwatch Tower Interior"
+  },
+  "Saltmere_Chalk_Estuary.DisplayName": {
+    "zh-TW": {
+      "Text": "Saltmere Chalk Estuary"
+    },
+    "Context": "Entities/Saltmere Chalk Estuary"
+  },
+  "Saltmere_Harbor_Docks.DisplayName": {
+    "zh-TW": {
+      "Text": "Saltmere Harbor Docks"
+    },
+    "Context": "Entities/Saltmere Harbor Docks"
+  },
+  "Saltmere_Merchant_Quarter.DisplayName": {
+    "zh-TW": {
+      "Text": "Saltmere Merchant Quarter"
+    },
+    "Context": "Entities/Saltmere Merchant Quarter"
+  },
   "Elder_Aldric.DisplayName": {
     "zh-TW": {
       "Text": "Elder Aldric"
+    },
+    "Context": "Entities/Elder Aldric"
+  },
+  "Elder_Aldric.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Sera (72057594037929658)\r\nrelated_to: Starlight Academy (72057594037929685)\r\nrelated_to: Kaelen (72057594037929634)"
     },
     "Context": "Entities/Elder Aldric"
   },
@@ -137,9 +203,21 @@
     },
     "Context": "Entities/Aric"
   },
+  "Aric.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Maren (72057594037929646)"
+    },
+    "Context": "Entities/Aric"
+  },
   "Kaelen.DisplayName": {
     "zh-TW": {
       "Text": "Kaelen"
+    },
+    "Context": "Entities/Kaelen"
+  },
+  "Kaelen.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Elder Aldric (72057594037929610)\r\nrelated_to: Iron Vanguard (72057594037929829)"
     },
     "Context": "Entities/Kaelen"
   },
@@ -149,15 +227,105 @@
     },
     "Context": "Entities/Maren"
   },
+  "Maren.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Thornwall (72057594037929700)"
+    },
+    "Context": "Entities/Maren"
+  },
   "Sera.DisplayName": {
     "zh-TW": {
       "Text": "Sera"
     },
     "Context": "Entities/Sera"
   },
+  "Sera.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Elder Aldric (72057594037929610)"
+    },
+    "Context": "Entities/Sera"
+  },
+  "Brine.DisplayName": {
+    "zh-TW": {
+      "Text": "Brine"
+    },
+    "Context": "Entities/Brine"
+  },
+  "Cael_Vire.DisplayName": {
+    "zh-TW": {
+      "Text": "Cael Vire"
+    },
+    "Context": "Entities/Cael Vire"
+  },
+  "The_Crystal_Shunted_Watchman.DisplayName": {
+    "zh-TW": {
+      "Text": "The Crystal-Shunted Watchman"
+    },
+    "Context": "Entities/The Crystal-Shunted Watchman"
+  },
+  "Warden_Jessa_Vale.DisplayName": {
+    "zh-TW": {
+      "Text": "Warden Jessa Vale"
+    },
+    "Context": "Entities/Warden Jessa Vale"
+  },
+  "Keep_Armorer_Holt.DisplayName": {
+    "zh-TW": {
+      "Text": "Keep Armorer Holt"
+    },
+    "Context": "Entities/Keep Armorer Holt"
+  },
+  "Nella.DisplayName": {
+    "zh-TW": {
+      "Text": "Nella"
+    },
+    "Context": "Entities/Nella"
+  },
+  "Physician_Wren.DisplayName": {
+    "zh-TW": {
+      "Text": "Physician Wren"
+    },
+    "Context": "Entities/Physician Wren"
+  },
+  "Quartermaster_Berin.DisplayName": {
+    "zh-TW": {
+      "Text": "Quartermaster Berin"
+    },
+    "Context": "Entities/Quartermaster Berin"
+  },
+  "Captain_Rhen_Halloway.DisplayName": {
+    "zh-TW": {
+      "Text": "Captain Rhen Halloway"
+    },
+    "Context": "Entities/Captain Rhen Halloway"
+  },
+  "Scavenger_Mott.DisplayName": {
+    "zh-TW": {
+      "Text": "Scavenger Mott"
+    },
+    "Context": "Entities/Scavenger Mott"
+  },
+  "Elder_Torbin.DisplayName": {
+    "zh-TW": {
+      "Text": "Elder Torbin"
+    },
+    "Context": "Entities/Elder Torbin"
+  },
+  "The_Wounded_Sentry.DisplayName": {
+    "zh-TW": {
+      "Text": "The Wounded Sentry"
+    },
+    "Context": "Entities/The Wounded Sentry"
+  },
   "Iron_Peaks.DisplayName": {
     "zh-TW": {
       "Text": "Iron Peaks"
+    },
+    "Context": "Entities/Iron Peaks"
+  },
+  "Iron_Peaks.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Aric (72057594037929622)"
     },
     "Context": "Entities/Iron Peaks"
   },
@@ -167,9 +335,21 @@
     },
     "Context": "Entities/Starlight Academy"
   },
+  "Starlight_Academy.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Sera (72057594037929658)\r\nrelated_to: Elder Aldric (72057594037929610)"
+    },
+    "Context": "Entities/Starlight Academy"
+  },
   "Thornwall.DisplayName": {
     "zh-TW": {
       "Text": "Thornwall"
+    },
+    "Context": "Entities/Thornwall"
+  },
+  "Thornwall.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Maren (72057594037929646)\r\nrelated_to: Iron Peaks (72057594037929670)"
     },
     "Context": "Entities/Thornwall"
   },
@@ -179,9 +359,45 @@
     },
     "Context": "Entities/Whispering Woods"
   },
+  "Whispering_Woods.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Maren (72057594037929646)"
+    },
+    "Context": "Entities/Whispering Woods"
+  },
+  "Ashenford.DisplayName": {
+    "zh-TW": {
+      "Text": "Ashenford"
+    },
+    "Context": "Entities/Ashenford"
+  },
+  "Hollows_Rest.DisplayName": {
+    "zh-TW": {
+      "Text": "Hollow's Rest"
+    },
+    "Context": "Entities/Hollow's Rest"
+  },
+  "Lastwatch.DisplayName": {
+    "zh-TW": {
+      "Text": "Lastwatch"
+    },
+    "Context": "Entities/Lastwatch"
+  },
+  "Saltmere_Port.DisplayName": {
+    "zh-TW": {
+      "Text": "Saltmere Port"
+    },
+    "Context": "Entities/Saltmere Port"
+  },
   "Iron_Vanguard.DisplayName": {
     "zh-TW": {
       "Text": "Iron Vanguard"
+    },
+    "Context": "Entities/Iron Vanguard"
+  },
+  "Iron_Vanguard.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Iron Peaks (72057594037929670)"
     },
     "Context": "Entities/Iron Vanguard"
   },
@@ -191,9 +407,21 @@
     },
     "Context": "Entities/Starlight Scholars"
   },
+  "Starlight_Scholars.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Starlight Academy (72057594037929685)\r\nrelated_to: Elder Aldric (72057594037929610)\r\nrelated_to: Sera (72057594037929658)"
+    },
+    "Context": "Entities/Starlight Scholars"
+  },
   "The_Fathers_Departure.DisplayName": {
     "zh-TW": {
       "Text": "The Father's Departure"
+    },
+    "Context": "Entities/The Father's Departure"
+  },
+  "The_Fathers_Departure.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Iron Peaks (72057594037929670)\r\nrelated_to: Iron Dawn (72057594037929905)\r\nrelated_to: Elder Aldric (72057594037929610)\r\nrelated_to: Iron Vanguard (72057594037929829)"
     },
     "Context": "Entities/The Father's Departure"
   },
@@ -203,9 +431,21 @@
     },
     "Context": "Entities/The Sealed Observatory"
   },
+  "The_Sealed_Observatory.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Sera (72057594037929658)\r\nrelated_to: Elder Aldric (72057594037929610)\r\nrelated_to: Starlight Academy (72057594037929685)\r\nrelated_to: Starweaver Lens (72057594037929921)\r\nrelated_to: Starlight Scholars (72057594037929841)"
+    },
+    "Context": "Entities/The Sealed Observatory"
+  },
   "Vanguard_Checkpoint.DisplayName": {
     "zh-TW": {
       "Text": "Vanguard Checkpoint"
+    },
+    "Context": "Entities/Vanguard Checkpoint"
+  },
+  "Vanguard_Checkpoint.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Maren (72057594037929646)\r\nrelated_to: Iron Vanguard (72057594037929829)\r\nrelated_to: Iron Peaks (72057594037929670)\r\nrelated_to: Kaelen (72057594037929634)"
     },
     "Context": "Entities/Vanguard Checkpoint"
   },
@@ -215,9 +455,69 @@
     },
     "Context": "Entities/Whispers in the Woods"
   },
+  "Whispers_in_the_Woods.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Maren (72057594037929646)\r\nrelated_to: Whispering Woods (72057594037929715)\r\nrelated_to: Iron Peaks (72057594037929670)\r\nrelated_to: Kaelen's Journal (72057594037929913)"
+    },
+    "Context": "Entities/Whispers in the Woods"
+  },
+  "Iron_in_the_Tide.DisplayName": {
+    "zh-TW": {
+      "Text": "Iron in the Tide"
+    },
+    "Context": "Entities/Iron in the Tide"
+  },
+  "Roots_of_Exile.DisplayName": {
+    "zh-TW": {
+      "Text": "Roots of Exile"
+    },
+    "Context": "Entities/Roots of Exile"
+  },
+  "Smugglers_Cove.DisplayName": {
+    "zh-TW": {
+      "Text": "Smuggler's Cove"
+    },
+    "Context": "Entities/Smuggler's Cove"
+  },
+  "The_Crystal_Shadow.DisplayName": {
+    "zh-TW": {
+      "Text": "The Crystal Shadow"
+    },
+    "Context": "Entities/The Crystal Shadow"
+  },
+  "The_Missing_Patrol.DisplayName": {
+    "zh-TW": {
+      "Text": "The Missing Patrol"
+    },
+    "Context": "Entities/The Missing Patrol"
+  },
+  "The_Old_Elders_Map.DisplayName": {
+    "zh-TW": {
+      "Text": "The Old Elder's Map"
+    },
+    "Context": "Entities/The Old Elder's Map"
+  },
+  "The_Vanguards_Debt.DisplayName": {
+    "zh-TW": {
+      "Text": "The Vanguard's Debt"
+    },
+    "Context": "Entities/The Vanguard's Debt"
+  },
+  "The_Watch_Holds.DisplayName": {
+    "zh-TW": {
+      "Text": "The Watch Holds"
+    },
+    "Context": "Entities/The Watch Holds"
+  },
   "Iron_Dawn.DisplayName": {
     "zh-TW": {
       "Text": "Iron Dawn"
+    },
+    "Context": "Entities/Iron Dawn"
+  },
+  "Iron_Dawn.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Iron Vanguard (72057594037929829)"
     },
     "Context": "Entities/Iron Dawn"
   },
@@ -227,9 +527,21 @@
     },
     "Context": "Entities/Kaelen's Journal"
   },
+  "Kaelens_Journal.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Thornwall (72057594037929700)"
+    },
+    "Context": "Entities/Kaelen's Journal"
+  },
   "Starweaver_Lens.DisplayName": {
     "zh-TW": {
       "Text": "Starweaver Lens"
+    },
+    "Context": "Entities/Starweaver Lens"
+  },
+  "Starweaver_Lens.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Starlight Academy (72057594037929685)\r\nrelated_to: Elder Aldric (72057594037929610)\r\nrelated_to: Sera (72057594037929658)"
     },
     "Context": "Entities/Starweaver Lens"
   },
@@ -239,9 +551,21 @@
     },
     "Context": "Entities/Kaelen's Last Letter"
   },
+  "Kaelens_Last_Letter.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Aric (72057594037929622)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Iron Peaks (72057594037929670)"
+    },
+    "Context": "Entities/Kaelen's Last Letter"
+  },
   "The_First_Tremor.DisplayName": {
     "zh-TW": {
       "Text": "The First Tremor"
+    },
+    "Context": "Entities/The First Tremor"
+  },
+  "The_First_Tremor.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Iron Peaks (72057594037929670)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Whispering Woods (72057594037929715)"
     },
     "Context": "Entities/The First Tremor"
   },
@@ -251,9 +575,21 @@
     },
     "Context": "Entities/The Observatory Disaster"
   },
+  "The_Observatory_Disaster.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Elder Aldric (72057594037929610)\r\nrelated_to: Starlight Academy (72057594037929685)\r\nrelated_to: Sera (72057594037929658)"
+    },
+    "Context": "Entities/The Observatory Disaster"
+  },
   "The_Sealed_Caverns.DisplayName": {
     "zh-TW": {
       "Text": "The Sealed Caverns"
+    },
+    "Context": "Entities/The Sealed Caverns"
+  },
+  "The_Sealed_Caverns.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Iron Peaks (72057594037929670)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Kaelen (72057594037929634)\r\nrelated_to: Aric (72057594037929622)"
     },
     "Context": "Entities/The Sealed Caverns"
   },
@@ -263,9 +599,21 @@
     },
     "Context": "Entities/The Starweavers"
   },
+  "The_Starweavers.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Starlight Academy (72057594037929685)\r\nrelated_to: Elder Aldric (72057594037929610)\r\nrelated_to: Sera (72057594037929658)"
+    },
+    "Context": "Entities/The Starweavers"
+  },
   "The_Whispering_Enchantment.DisplayName": {
     "zh-TW": {
       "Text": "The Whispering Enchantment"
+    },
+    "Context": "Entities/The Whispering Enchantment"
+  },
+  "The_Whispering_Enchantment.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Whispering Woods (72057594037929715)\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Maren (72057594037929646)"
     },
     "Context": "Entities/The Whispering Enchantment"
   },
@@ -275,9 +623,21 @@
     },
     "Context": "Entities/Crystal Crawler"
   },
+  "Crystal_Crawler.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Iron Peaks (72057594037929670)"
+    },
+    "Context": "Entities/Crystal Crawler"
+  },
   "Iron_Borer.DisplayName": {
     "zh-TW": {
       "Text": "Iron Borer"
+    },
+    "Context": "Entities/Iron Borer"
+  },
+  "Iron_Borer.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Iron Peaks (72057594037929670)"
     },
     "Context": "Entities/Iron Borer"
   },
@@ -287,9 +647,21 @@
     },
     "Context": "Entities/Moss Lurker"
   },
+  "Moss_Lurker.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Whispering Woods (72057594037929715)"
+    },
+    "Context": "Entities/Moss Lurker"
+  },
   "Shade_Wisp.DisplayName": {
     "zh-TW": {
       "Text": "Shade Wisp"
+    },
+    "Context": "Entities/Shade Wisp"
+  },
+  "Shade_Wisp.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Whispering Woods (72057594037929715)\r\nrelated_to: Iron Peaks (72057594037929670)"
     },
     "Context": "Entities/Shade Wisp"
   },
@@ -298,5 +670,41 @@
       "Text": "Thornbriar Stalker"
     },
     "Context": "Entities/Thornbriar Stalker"
+  },
+  "Thornbriar_Stalker.Text": {
+    "zh-TW": {
+      "Text": "--- Connections ---\r\nrelated_to: Thornwall (72057594037929700)\r\nrelated_to: Whispering Woods (72057594037929715)"
+    },
+    "Context": "Entities/Thornbriar Stalker"
+  },
+  "Monster_Scaling_Curve.DisplayName": {
+    "zh-TW": {
+      "Text": "Monster Scaling Curve"
+    },
+    "Context": "Entities/Monster Scaling Curve"
+  },
+  "Father_Stat_Growth_Curve.DisplayName": {
+    "zh-TW": {
+      "Text": "Father Stat Growth Curve"
+    },
+    "Context": "Entities/Father Stat Growth Curve"
+  },
+  "Father_XP_to_Level_Curve.DisplayName": {
+    "zh-TW": {
+      "Text": "Father XP-to-Level Curve"
+    },
+    "Context": "Entities/Father XP-to-Level Curve"
+  },
+  "Son_Stat_Growth_Curve.DisplayName": {
+    "zh-TW": {
+      "Text": "Son Stat Growth Curve"
+    },
+    "Context": "Entities/Son Stat Growth Curve"
+  },
+  "Son_XP_to_Level_Curve.DisplayName": {
+    "zh-TW": {
+      "Text": "Son XP-to-Level Curve"
+    },
+    "Context": "Entities/Son XP-to-Level Curve"
   }
 }

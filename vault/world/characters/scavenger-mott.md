@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930174"
 tags: [scavenger, archetype, hollows-rest, supply-runner, son-era]
 connections:
   - "[[Hollow's Rest]]"

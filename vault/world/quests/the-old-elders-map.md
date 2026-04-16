@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930473"
 tags: [side-quest, son-era, hollows-rest, cartography, character-beat]
 connections:
   - "[[Aric]]"

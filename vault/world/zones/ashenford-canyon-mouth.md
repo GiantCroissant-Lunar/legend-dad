@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930270"
 tags: [overworld, canyon, checkpoint, dungeon-pass]
 connections:
   - "[[Ashenford]]"

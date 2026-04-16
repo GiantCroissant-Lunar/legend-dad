@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: ""
+articy-id: "72057594037930210"
 tags: [town, vanguard, military, checkpoint, father-era, son-era]
 connections:
   - "[[Thornwall]]"

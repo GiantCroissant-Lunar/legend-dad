@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930138"
 tags: [physician, archetype, hollows-rest, herbalist, son-era]
 connections:
   - "[[Hollow's Rest]]"

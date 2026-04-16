@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: ""
+articy-id: "72057594037930240"
 tags: [keep, waystation, father-era, son-era, crystal-corruption]
 connections:
   - "[[Iron Peaks]]"

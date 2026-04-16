@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930447"
 tags: [side-quest, son-era, lastwatch, crystal-corruption, ghost, character-beat]
 connections:
   - "[[Aric]]"

@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930162"
 tags: [iron-vanguard, captain, ashenford, father-era, son-era]
 connections:
   - "[[Ashenford]]"

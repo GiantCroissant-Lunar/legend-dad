@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: ""
+articy-id: "72057594037930255"
 tags: [town, coastal, trade-hub, father-era, son-era]
 connections:
   - "[[Thornwall]]"

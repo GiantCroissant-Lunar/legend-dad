@@ -1,7 +1,7 @@
 ---
 type: curve
 status: draft
-articy-id: ""
+articy-id: "72057594037930527"
 curve_kind: xp_to_level
 applies_to: father
 data_points:

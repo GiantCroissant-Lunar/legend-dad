@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterTable" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/encounter_table.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+zone_id = "hollow_s_rest_hidden_path"
+encounter_rate = 0.14
+difficulty_tier = 6
+entries = [
+	{ "bestiary_id": "moss_lurker", "weight": 3, "era": "son" },
+	{ "bestiary_id": "thornbriar_stalker", "weight": 2, "era": "son" },
+]

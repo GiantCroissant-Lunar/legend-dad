@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930408"
 tags: [main-quest, father-era, saltmere-port, tremor, main-arc-tie-in]
 connections:
   - "[[Kaelen]]"

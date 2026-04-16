@@ -51,6 +51,41 @@
           "Type": "Entity"
         },
         {
+          "Id": "0x01000000000008E2",
+          "TechnicalName": "Ashenford",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000091E",
+          "TechnicalName": "Ashenford_Canyon_Mouth",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000092D",
+          "TechnicalName": "Ashenford_Garrison_Square",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000093A",
+          "TechnicalName": "Ashenford_Refugee_Camp",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000852",
+          "TechnicalName": "Brine",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000085E",
+          "TechnicalName": "Cael_Vire",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000008B2",
+          "TechnicalName": "Captain_Rhen_Halloway",
+          "Type": "Entity"
+        },
+        {
           "Id": "0x0100000000000802",
           "TechnicalName": "Crystal_Crawler",
           "Type": "Entity"
@@ -61,6 +96,36 @@
           "Type": "Entity"
         },
         {
+          "Id": "0x01000000000008CA",
+          "TechnicalName": "Elder_Torbin",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000A17",
+          "TechnicalName": "Father_Stat_Growth_Curve",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000A1F",
+          "TechnicalName": "Father_XP_to_Level_Curve",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000008F1",
+          "TechnicalName": "Hollows_Rest",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000947",
+          "TechnicalName": "Hollows_Rest_Hearth_Circle",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000954",
+          "TechnicalName": "Hollows_Rest_Hidden_Path",
+          "Type": "Entity"
+        },
+        {
           "Id": "0x0100000000000810",
           "TechnicalName": "Iron_Borer",
           "Type": "Entity"
@@ -68,6 +133,11 @@
         {
           "Id": "0x01000000000007B1",
           "TechnicalName": "Iron_Dawn",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000009A8",
+          "TechnicalName": "Iron_in_the_Tide",
           "Type": "Entity"
         },
         {
@@ -116,13 +186,83 @@
           "Type": "Entity"
         },
         {
+          "Id": "0x0100000000000882",
+          "TechnicalName": "Keep_Armorer_Holt",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000900",
+          "TechnicalName": "Lastwatch",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000963",
+          "TechnicalName": "Lastwatch_Broken_Bailey",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000972",
+          "TechnicalName": "Lastwatch_Tower_Interior",
+          "Type": "Entity"
+        },
+        {
           "Id": "0x01000000000006AE",
           "TechnicalName": "Maren",
           "Type": "Entity"
         },
         {
+          "Id": "0x0100000000000A10",
+          "TechnicalName": "Monster_Scaling_Curve",
+          "Type": "Entity"
+        },
+        {
           "Id": "0x010000000000081E",
           "TechnicalName": "Moss_Lurker",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000088E",
+          "TechnicalName": "Nella",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000089A",
+          "TechnicalName": "Physician_Wren",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000008A6",
+          "TechnicalName": "Quartermaster_Berin",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000009B5",
+          "TechnicalName": "Roots_of_Exile",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000097F",
+          "TechnicalName": "Saltmere_Chalk_Estuary",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000098E",
+          "TechnicalName": "Saltmere_Harbor_Docks",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000099B",
+          "TechnicalName": "Saltmere_Merchant_Quarter",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000090F",
+          "TechnicalName": "Saltmere_Port",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000008BE",
+          "TechnicalName": "Scavenger_Mott",
           "Type": "Entity"
         },
         {
@@ -133,6 +273,21 @@
         {
           "Id": "0x010000000000082C",
           "TechnicalName": "Shade_Wisp",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000009C2",
+          "TechnicalName": "Smugglers_Cove",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000A27",
+          "TechnicalName": "Son_Stat_Growth_Curve",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000A2F",
+          "TechnicalName": "Son_XP_to_Level_Curve",
           "Type": "Entity"
         },
         {
@@ -151,6 +306,16 @@
           "Type": "Entity"
         },
         {
+          "Id": "0x01000000000009CF",
+          "TechnicalName": "The_Crystal_Shadow",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x010000000000086A",
+          "TechnicalName": "The_Crystal_Shunted_Watchman",
+          "Type": "Entity"
+        },
+        {
           "Id": "0x010000000000077D",
           "TechnicalName": "The_Fathers_Departure",
           "Type": "Entity"
@@ -161,8 +326,18 @@
           "Type": "Entity"
         },
         {
+          "Id": "0x01000000000009DC",
+          "TechnicalName": "The_Missing_Patrol",
+          "Type": "Entity"
+        },
+        {
           "Id": "0x01000000000007DF",
           "TechnicalName": "The_Observatory_Disaster",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000009E9",
+          "TechnicalName": "The_Old_Elders_Map",
           "Type": "Entity"
         },
         {
@@ -181,8 +356,23 @@
           "Type": "Entity"
         },
         {
+          "Id": "0x01000000000009F6",
+          "TechnicalName": "The_Vanguards_Debt",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000A03",
+          "TechnicalName": "The_Watch_Holds",
+          "Type": "Entity"
+        },
+        {
           "Id": "0x01000000000007FA",
           "TechnicalName": "The_Whispering_Enchantment",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x01000000000008D6",
+          "TechnicalName": "The_Wounded_Sentry",
           "Type": "Entity"
         },
         {
@@ -228,6 +418,11 @@
         {
           "Id": "0x0100000000000797",
           "TechnicalName": "Vanguard_Checkpoint",
+          "Type": "Entity"
+        },
+        {
+          "Id": "0x0100000000000876",
+          "TechnicalName": "Warden_Jessa_Vale",
           "Type": "Entity"
         },
         {

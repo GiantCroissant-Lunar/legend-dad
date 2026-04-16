@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930339"
 tags: [dungeon, crystal-corruption, exterior, son-era-hazard]
 connections:
   - "[[Lastwatch]]"

@@ -8,8 +8,12 @@
   ],
   "provides": {
     "encounters": [
+      "ashenford_canyon_mouth",
+      "hollow_s_rest_hidden_path",
       "iron_peaks_trail",
       "iron_peaks_upper_mines",
+      "lastwatch_broken_bailey",
+      "saltmere_chalk_estuary",
       "whispering_woods_deep",
       "whispering_woods_edge"
     ]

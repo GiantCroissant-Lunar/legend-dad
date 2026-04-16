@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930298"
 tags: [town, refugee, son-era, quest-hub]
 connections:
   - "[[Ashenford]]"

@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930486"
 tags: [main-quest, father-era, ashenford, iron-vanguard, main-arc-tie-in]
 connections:
   - "[[Kaelen]]"

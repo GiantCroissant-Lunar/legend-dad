@@ -1,7 +1,7 @@
 ---
 type: curve
 status: draft
-articy-id: ""
+articy-id: "72057594037930512"
 curve_kind: monster_scaling
 applies_to: ""
 data_points:

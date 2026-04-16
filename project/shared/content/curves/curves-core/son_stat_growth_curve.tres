@@ -7,11 +7,11 @@ script = ExtResource("1_def")
 kind = "stat_growth"
 applies_to = "son"
 data_points = [
-	{ "level": 1, "max_hp": 15, "max_mp": 10, "atk": 5, "def": 3, "spd": 7 },
-	{ "level": 7, "max_hp": 50, "max_mp": 25, "atk": 12, "def": 8, "spd": 10 },
-	{ "level": 10, "max_hp": 70, "max_mp": 35, "atk": 18, "def": 12, "spd": 12 },
-	{ "level": 15, "max_hp": 110, "max_mp": 50, "atk": 28, "def": 20, "spd": 14 },
-	{ "level": 20, "max_hp": 160, "max_mp": 65, "atk": 38, "def": 28, "spd": 16 },
-	{ "level": 25, "max_hp": 210, "max_mp": 80, "atk": 46, "def": 34, "spd": 18 },
-	{ "level": 30, "max_hp": 270, "max_mp": 99, "atk": 55, "def": 40, "spd": 20 },
+	{ "atk": 5, "def": 3, "level": 1, "max_hp": 15, "max_mp": 10, "spd": 7 },
+	{ "atk": 12, "def": 8, "level": 7, "max_hp": 50, "max_mp": 25, "spd": 10 },
+	{ "atk": 18, "def": 12, "level": 10, "max_hp": 70, "max_mp": 35, "spd": 12 },
+	{ "atk": 28, "def": 20, "level": 15, "max_hp": 110, "max_mp": 50, "spd": 14 },
+	{ "atk": 38, "def": 28, "level": 20, "max_hp": 160, "max_mp": 65, "spd": 16 },
+	{ "atk": 46, "def": 34, "level": 25, "max_hp": 210, "max_mp": 80, "spd": 18 },
+	{ "atk": 55, "def": 40, "level": 30, "max_hp": 270, "max_mp": 99, "spd": 20 },
 ]

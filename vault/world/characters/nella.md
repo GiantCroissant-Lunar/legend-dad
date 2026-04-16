@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930126"
 tags: [fishmonger, archetype, saltmere-port, rumor-source, father-era, son-era]
 connections:
   - "[[Saltmere Port]]"

@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930421"
 tags: [main-quest, son-era, hollows-rest, refugees, main-arc-tie-in]
 connections:
   - "[[Aric]]"

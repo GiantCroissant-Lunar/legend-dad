@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930311"
 tags: [town, hidden, son-era, refugee-settlement, hub]
 connections:
   - "[[Hollow's Rest]]"

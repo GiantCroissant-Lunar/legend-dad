@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930382"
 tags: [town, coastal, harbor, hub]
 connections:
   - "[[Saltmere Port]]"

@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930186"
 tags: [elder, refugee-leader, hollows-rest, son-era, thornwall-exile]
 connections:
   - "[[Hollow's Rest]]"

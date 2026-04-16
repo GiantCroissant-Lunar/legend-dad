@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930114"
 tags: [armorer, archetype, lastwatch, joint-militia, father-era]
 connections:
   - "[[Lastwatch]]"

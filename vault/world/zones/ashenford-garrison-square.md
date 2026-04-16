@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930285"
 tags: [town, vanguard, hub, military]
 connections:
   - "[[Ashenford]]"

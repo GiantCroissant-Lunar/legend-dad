@@ -1,7 +1,7 @@
 ---
 type: location
 status: draft
-articy-id: ""
+articy-id: "72057594037930225"
 tags: [settlement, son-era, refugees, forest, hidden]
 connections:
   - "[[Whispering Woods]]"

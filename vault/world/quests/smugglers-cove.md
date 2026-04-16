@@ -1,7 +1,7 @@
 ---
 type: quest
 status: draft
-articy-id: ""
+articy-id: "72057594037930434"
 tags: [side-quest, son-era, saltmere-port, supply-run, character-beat]
 connections:
   - "[[Aric]]"

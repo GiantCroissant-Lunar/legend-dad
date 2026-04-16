@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930066"
 tags: [innkeeper, archetype, saltmere-port, service-npc, father-era, son-era]
 connections:
   - "[[Saltmere Port]]"

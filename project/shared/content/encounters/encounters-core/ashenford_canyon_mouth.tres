@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EncounterTable" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://lib/resources/encounter_table.gd" id="1_def"]
+
+[resource]
+script = ExtResource("1_def")
+zone_id = "ashenford_canyon_mouth"
+encounter_rate = 0.08
+difficulty_tier = 4
+entries = [
+	{ "bestiary_id": "crystal_crawler", "weight": 2, "era": "son" },
+	{ "bestiary_id": "shade_wisp", "weight": 1, "era": "son" },
+]

@@ -1,7 +1,7 @@
 ---
 type: curve
 status: draft
-articy-id: ""
+articy-id: "72057594037930535"
 curve_kind: stat_growth
 applies_to: son
 data_points:

@@ -1,7 +1,7 @@
 ---
 type: zone
 status: draft
-articy-id: ""
+articy-id: "72057594037930367"
 tags: [coastal, overworld, encounter, wilderness]
 connections:
   - "[[Saltmere Port]]"

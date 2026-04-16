@@ -1,7 +1,7 @@
 ---
 type: character
 status: draft
-articy-id: ""
+articy-id: "72057594037930150"
 tags: [iron-vanguard, quartermaster, archetype, ashenford, service-npc, father-era, son-era]
 connections:
   - "[[Ashenford]]"
