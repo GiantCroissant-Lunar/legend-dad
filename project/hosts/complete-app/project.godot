@@ -27,6 +27,11 @@ LocationManager="*res://scripts/location_manager.gd"
 GameConfig="*res://scripts/game_config.gd"
 TimeService="*res://scripts/time_service.gd"
 ActivityLog="*res://scripts/ui/activity_log.gd"
+PhantomCameraManager="*uid://duq6jhf6unyis"
+
+[dotnet]
+
+project/assembly_name="complete-app"
 
 [editor_plugins]
 

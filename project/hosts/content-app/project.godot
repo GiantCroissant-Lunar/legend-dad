@@ -21,6 +21,11 @@ BeehaveGlobalMetrics="*uid://c3ktl6ontsdt7"
 BeehaveGlobalDebugger="*uid://bl3ma400hpvsh"
 ECS="*uid://dfqwl5njvdnmq"
 GUIDE="*res://addons/guide/guide.gd"
+PhantomCameraManager="*uid://duq6jhf6unyis"
+
+[dotnet]
+
+project/assembly_name="content-app"
 
 [editor_plugins]
 

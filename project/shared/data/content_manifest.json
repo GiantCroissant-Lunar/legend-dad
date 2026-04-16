@@ -1,55 +1,10 @@
 {
   "schema_version": 1,
   "bundles": {
-    "hud-core": {
-      "kind": "hud",
-      "policy": "eager",
-      "pck": "hud-core@09edde.pck",
-      "deps": [],
-      "provides": {
-        "widgets": [
-          "activity_log_panel",
-          "minimap"
-        ]
-      },
-      "content_hash": "09edde"
-    },
-    "hud-battle": {
-      "kind": "hud",
-      "policy": "lazy",
-      "pck": "hud-battle@b9d664.pck",
-      "deps": [
-        "hud-core"
-      ],
-      "provides": {
-        "widgets": [
-          "battle_overlay"
-        ]
-      },
-      "content_hash": "b9d664"
-    },
-    "enemies-core": {
-      "kind": "enemies",
-      "policy": "eager",
-      "pck": "enemies-core@463b56.pck",
-      "deps": [],
-      "provides": {
-        "enemies": [
-          "slime",
-          "bandit",
-          "wolf",
-          "skeleton",
-          "dracky",
-          "metal_scorpion",
-          "magician"
-        ]
-      },
-      "content_hash": "463b56"
-    },
     "spells-core": {
       "kind": "spells",
       "policy": "eager",
-      "pck": "spells-core@d99fd9.pck",
+      "pck": "spells-core@11a805.pck",
       "deps": [],
       "provides": {
         "spells": [
@@ -60,7 +15,92 @@
           "stopspell"
         ]
       },
-      "content_hash": "d99fd9"
+      "content_hash": "11a805"
+    },
+    "hud-battle": {
+      "kind": "hud",
+      "policy": "lazy",
+      "pck": "hud-battle@c73794.pck",
+      "deps": [
+        "hud-core"
+      ],
+      "provides": {
+        "widgets": [
+          "battle_overlay"
+        ]
+      },
+      "content_hash": "c73794"
+    },
+    "hud-core": {
+      "kind": "hud",
+      "policy": "eager",
+      "pck": "hud-core@ae0cf7.pck",
+      "deps": [],
+      "provides": {
+        "widgets": [
+          "activity_log_panel",
+          "minimap"
+        ]
+      },
+      "content_hash": "ae0cf7"
+    },
+    "enemies-core": {
+      "kind": "enemies",
+      "policy": "eager",
+      "pck": "enemies-core@b1b149.pck",
+      "deps": [],
+      "provides": {
+        "enemies": [
+          "bandit",
+          "crystal_crawler",
+          "dracky",
+          "iron_borer",
+          "magician",
+          "metal_scorpion",
+          "moss_lurker",
+          "shade_wisp",
+          "skeleton",
+          "slime",
+          "thornbriar_stalker",
+          "wolf"
+        ]
+      },
+      "content_hash": "b1b149"
+    },
+    "encounters-core": {
+      "kind": "encounters",
+      "policy": "eager",
+      "pck": "encounters-core@0d9986.pck",
+      "deps": [],
+      "provides": {
+        "encounters": [
+          "ashenford_canyon_mouth",
+          "hollow_s_rest_hidden_path",
+          "iron_peaks_trail",
+          "iron_peaks_upper_mines",
+          "lastwatch_broken_bailey",
+          "saltmere_chalk_estuary",
+          "whispering_woods_deep",
+          "whispering_woods_edge"
+        ]
+      },
+      "content_hash": "0d9986"
+    },
+    "curves-core": {
+      "kind": "curves",
+      "policy": "eager",
+      "pck": "curves-core@a3465f.pck",
+      "deps": [],
+      "provides": {
+        "curves": [
+          "father_stat_growth_curve",
+          "father_xp_to_level_curve",
+          "monster_scaling_curve",
+          "son_stat_growth_curve",
+          "son_xp_to_level_curve"
+        ]
+      },
+      "content_hash": "a3465f"
     }
   }
 }
