@@ -42,7 +42,7 @@
         },
         "type": {
           "type": "string",
-          "enum": ["character", "location", "zone", "faction", "quest", "item", "event", "lore", "bestiary"],
+          "enum": ["character", "location", "zone", "faction", "quest", "item", "event", "lore", "bestiary", "curve"],
           "description": "Entity type, maps to articy template"
         },
         "status": {
@@ -57,8 +57,40 @@
         },
         "template_properties": {
           "type": "object",
-          "additionalProperties": { "type": "string" },
-          "description": "Flat key-value map matching articy template fields"
+          "additionalProperties": true,
+          "description": "Key-value map matching articy template fields. Narrative fields are strings; mechanical fields (battle_stats, actions, encounter_table, etc.) use structured types.",
+          "properties": {
+            "battle_stats": {
+              "$ref": "#/$defs/battle_stats"
+            },
+            "actions": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/action" }
+            },
+            "group_size_min": { "type": "integer", "minimum": 1, "default": 1 },
+            "group_size_max": { "type": "integer", "minimum": 1, "default": 1 },
+            "zone_affinity": {
+              "type": "array",
+              "items": { "type": "string" }
+            },
+            "encounter_table": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/encounter_entry" }
+            },
+            "encounter_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "difficulty_tier": { "type": "integer", "minimum": 1, "maximum": 10 },
+            "recommended_level_min": { "type": "integer", "minimum": 1 },
+            "recommended_level_max": { "type": "integer", "minimum": 1 },
+            "curve_kind": {
+              "type": "string",
+              "enum": ["xp_to_level", "stat_growth", "monster_scaling"]
+            },
+            "applies_to": { "type": "string" },
+            "data_points": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/curve_data_point" }
+            }
+          }
         },
         "connections": {
           "type": "array",
@@ -94,6 +126,61 @@
           "type": "string",
           "description": "Relationship type (e.g. member_of, mentor, located_in)"
         }
+      }
+    },
+    "battle_stats": {
+      "type": "object",
+      "required": ["max_hp", "atk", "def", "spd", "xp_reward", "gold_reward"],
+      "additionalProperties": false,
+      "properties": {
+        "max_hp":      { "type": "integer", "minimum": 1 },
+        "max_mp":      { "type": "integer", "minimum": 0, "default": 0 },
+        "atk":         { "type": "integer", "minimum": 0 },
+        "def":         { "type": "integer", "minimum": 0 },
+        "spd":         { "type": "integer", "minimum": 1 },
+        "level":       { "type": "integer", "minimum": 1, "default": 1 },
+        "xp_reward":   { "type": "integer", "minimum": 0 },
+        "gold_reward": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "action": {
+      "type": "object",
+      "required": ["id", "kind", "frequency"],
+      "additionalProperties": false,
+      "properties": {
+        "id":             { "type": "string" },
+        "kind":           { "type": "string", "enum": ["attack", "spell", "status_inflict"] },
+        "frequency":      { "type": "number", "minimum": 0, "maximum": 1 },
+        "power_min":      { "type": "integer", "minimum": 0 },
+        "power_max":      { "type": "integer", "minimum": 0 },
+        "status_effect":  { "type": "string" },
+        "target_kind":    { "type": "string", "enum": ["self", "enemy", "all_enemies"] },
+        "spell_id":       { "type": "string" }
+      }
+    },
+    "encounter_entry": {
+      "type": "object",
+      "required": ["bestiary", "weight", "era"],
+      "additionalProperties": false,
+      "properties": {
+        "bestiary": { "type": "string", "description": "Vault wikilink to the bestiary entry" },
+        "weight":   { "type": "integer", "minimum": 1 },
+        "era":      { "type": "string", "enum": ["father", "son", "both"] }
+      }
+    },
+    "curve_data_point": {
+      "type": "object",
+      "required": ["level"],
+      "additionalProperties": false,
+      "properties": {
+        "level":        { "type": "integer", "minimum": 1, "maximum": 99 },
+        "xp_required":  { "type": "integer", "minimum": 0 },
+        "max_hp":       { "type": "integer" },
+        "max_mp":       { "type": "integer" },
+        "atk":          { "type": "integer" },
+        "def":          { "type": "integer" },
+        "spd":          { "type": "integer" },
+        "level_offset": { "type": "integer" }
       }
     }
   }
