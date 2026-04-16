@@ -88,10 +88,11 @@ namespace LegendDad.Articy
         public Status Status { get; set; }
 
         /// <summary>
-        /// Flat key-value map matching articy template fields
+        /// Key-value map matching articy template fields. Narrative fields are strings; mechanical
+        /// fields (battle_stats, actions, encounter_table, etc.) use structured types.
         /// </summary>
         [JsonProperty("template_properties")]
-        public Dictionary<string, string> TemplateProperties { get; set; }
+        public TemplateProperties TemplateProperties { get; set; }
 
         /// <summary>
         /// Entity type, maps to articy template
@@ -122,14 +123,173 @@ namespace LegendDad.Articy
     }
 
     /// <summary>
+    /// Key-value map matching articy template fields. Narrative fields are strings; mechanical
+    /// fields (battle_stats, actions, encounter_table, etc.) use structured types.
+    /// </summary>
+    public partial class TemplateProperties
+    {
+        /// <summary>
+        /// Captures narrative text fields (overview, backstory, etc.) that are not
+        /// declared as explicit properties but come through as additionalProperties.
+        /// </summary>
+        [JsonExtensionData]
+        public Dictionary<string, Newtonsoft.Json.Linq.JToken> NarrativeFields { get; set; }
+
+        [JsonProperty("actions", NullValueHandling = NullValueHandling.Ignore)]
+        public ActionElement[] Actions { get; set; }
+
+        [JsonProperty("applies_to", NullValueHandling = NullValueHandling.Ignore)]
+        public string AppliesTo { get; set; }
+
+        [JsonProperty("battle_stats", NullValueHandling = NullValueHandling.Ignore)]
+        public BattleStats BattleStats { get; set; }
+
+        [JsonProperty("curve_kind", NullValueHandling = NullValueHandling.Ignore)]
+        public CurveKind? CurveKind { get; set; }
+
+        [JsonProperty("data_points", NullValueHandling = NullValueHandling.Ignore)]
+        public DataPointElement[] DataPoints { get; set; }
+
+        [JsonProperty("difficulty_tier", NullValueHandling = NullValueHandling.Ignore)]
+        public long? DifficultyTier { get; set; }
+
+        [JsonProperty("encounter_rate", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonConverter(typeof(MinMaxValueCheckConverter))]
+        public double? EncounterRate { get; set; }
+
+        [JsonProperty("encounter_table", NullValueHandling = NullValueHandling.Ignore)]
+        public EncounterTableElement[] EncounterTable { get; set; }
+
+        [JsonProperty("group_size_max", NullValueHandling = NullValueHandling.Ignore)]
+        public long? GroupSizeMax { get; set; }
+
+        [JsonProperty("group_size_min", NullValueHandling = NullValueHandling.Ignore)]
+        public long? GroupSizeMin { get; set; }
+
+        [JsonProperty("recommended_level_max", NullValueHandling = NullValueHandling.Ignore)]
+        public long? RecommendedLevelMax { get; set; }
+
+        [JsonProperty("recommended_level_min", NullValueHandling = NullValueHandling.Ignore)]
+        public long? RecommendedLevelMin { get; set; }
+
+        [JsonProperty("zone_affinity", NullValueHandling = NullValueHandling.Ignore)]
+        public string[] ZoneAffinity { get; set; }
+    }
+
+    public partial class ActionElement
+    {
+        [JsonProperty("frequency")]
+        [JsonConverter(typeof(MinMaxValueCheckConverter))]
+        public double Frequency { get; set; }
+
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("kind")]
+        public Kind Kind { get; set; }
+
+        [JsonProperty("power_max", NullValueHandling = NullValueHandling.Ignore)]
+        public long? PowerMax { get; set; }
+
+        [JsonProperty("power_min", NullValueHandling = NullValueHandling.Ignore)]
+        public long? PowerMin { get; set; }
+
+        [JsonProperty("spell_id", NullValueHandling = NullValueHandling.Ignore)]
+        public string SpellId { get; set; }
+
+        [JsonProperty("status_effect", NullValueHandling = NullValueHandling.Ignore)]
+        public string StatusEffect { get; set; }
+
+        [JsonProperty("target_kind", NullValueHandling = NullValueHandling.Ignore)]
+        public TargetKind? TargetKind { get; set; }
+    }
+
+    public partial class BattleStats
+    {
+        [JsonProperty("atk")]
+        public long Atk { get; set; }
+
+        [JsonProperty("def")]
+        public long Def { get; set; }
+
+        [JsonProperty("gold_reward")]
+        public long GoldReward { get; set; }
+
+        [JsonProperty("level", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Level { get; set; }
+
+        [JsonProperty("max_hp")]
+        public long MaxHp { get; set; }
+
+        [JsonProperty("max_mp", NullValueHandling = NullValueHandling.Ignore)]
+        public long? MaxMp { get; set; }
+
+        [JsonProperty("spd")]
+        public long Spd { get; set; }
+
+        [JsonProperty("xp_reward")]
+        public long XpReward { get; set; }
+    }
+
+    public partial class DataPointElement
+    {
+        [JsonProperty("atk", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Atk { get; set; }
+
+        [JsonProperty("def", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Def { get; set; }
+
+        [JsonProperty("level")]
+        public long Level { get; set; }
+
+        [JsonProperty("level_offset", NullValueHandling = NullValueHandling.Ignore)]
+        public long? LevelOffset { get; set; }
+
+        [JsonProperty("max_hp", NullValueHandling = NullValueHandling.Ignore)]
+        public long? MaxHp { get; set; }
+
+        [JsonProperty("max_mp", NullValueHandling = NullValueHandling.Ignore)]
+        public long? MaxMp { get; set; }
+
+        [JsonProperty("spd", NullValueHandling = NullValueHandling.Ignore)]
+        public long? Spd { get; set; }
+
+        [JsonProperty("xp_required", NullValueHandling = NullValueHandling.Ignore)]
+        public long? XpRequired { get; set; }
+    }
+
+    public partial class EncounterTableElement
+    {
+        /// <summary>
+        /// Vault wikilink to the bestiary entry
+        /// </summary>
+        [JsonProperty("bestiary")]
+        public string Bestiary { get; set; }
+
+        [JsonProperty("era")]
+        public Era Era { get; set; }
+
+        [JsonProperty("weight")]
+        public long Weight { get; set; }
+    }
+
+    /// <summary>
     /// Diff status vs previous manifest
     /// </summary>
     public enum Status { New, Unchanged, Updated };
 
+    public enum Kind { Attack, Spell, StatusInflict };
+
+    public enum TargetKind { AllEnemies, Enemy, Self };
+
+    public enum CurveKind { MonsterScaling, StatGrowth, XpToLevel };
+
+    public enum Era { Both, Father, Son };
+
     /// <summary>
     /// Entity type, maps to articy template
     /// </summary>
-    public enum TypeEnum { Bestiary, Character, Event, Faction, Item, Location, Lore, Quest, Zone };
+    public enum TypeEnum { Bestiary, Character, Curve, Event, Faction, Item, Location, Lore, Quest, Zone };
 
     public partial class ImportManifest
     {
@@ -150,6 +310,10 @@ namespace LegendDad.Articy
             Converters =
             {
                 StatusConverter.Singleton,
+                KindConverter.Singleton,
+                TargetKindConverter.Singleton,
+                CurveKindConverter.Singleton,
+                EraConverter.Singleton,
                 TypeEnumConverter.Singleton,
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
@@ -230,6 +394,224 @@ namespace LegendDad.Articy
         public static readonly StatusConverter Singleton = new StatusConverter();
     }
 
+    internal class MinMaxValueCheckConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(double) || t == typeof(double?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<double>(reader);
+            if (value >= 0 && value <= 1)
+            {
+                return value;
+            }
+            throw new Exception("Cannot unmarshal type double");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (double)untypedValue;
+            if (value >= 0 && value <= 1)
+            {
+                serializer.Serialize(writer, value);
+                return;
+            }
+            throw new Exception("Cannot marshal type double");
+        }
+
+        public static readonly MinMaxValueCheckConverter Singleton = new MinMaxValueCheckConverter();
+    }
+
+    internal class KindConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Kind) || t == typeof(Kind?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "attack":
+                    return Kind.Attack;
+                case "spell":
+                    return Kind.Spell;
+                case "status_inflict":
+                    return Kind.StatusInflict;
+            }
+            throw new Exception("Cannot unmarshal type Kind");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Kind)untypedValue;
+            switch (value)
+            {
+                case Kind.Attack:
+                    serializer.Serialize(writer, "attack");
+                    return;
+                case Kind.Spell:
+                    serializer.Serialize(writer, "spell");
+                    return;
+                case Kind.StatusInflict:
+                    serializer.Serialize(writer, "status_inflict");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Kind");
+        }
+
+        public static readonly KindConverter Singleton = new KindConverter();
+    }
+
+    internal class TargetKindConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(TargetKind) || t == typeof(TargetKind?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "all_enemies":
+                    return TargetKind.AllEnemies;
+                case "enemy":
+                    return TargetKind.Enemy;
+                case "self":
+                    return TargetKind.Self;
+            }
+            throw new Exception("Cannot unmarshal type TargetKind");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (TargetKind)untypedValue;
+            switch (value)
+            {
+                case TargetKind.AllEnemies:
+                    serializer.Serialize(writer, "all_enemies");
+                    return;
+                case TargetKind.Enemy:
+                    serializer.Serialize(writer, "enemy");
+                    return;
+                case TargetKind.Self:
+                    serializer.Serialize(writer, "self");
+                    return;
+            }
+            throw new Exception("Cannot marshal type TargetKind");
+        }
+
+        public static readonly TargetKindConverter Singleton = new TargetKindConverter();
+    }
+
+    internal class CurveKindConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(CurveKind) || t == typeof(CurveKind?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "monster_scaling":
+                    return CurveKind.MonsterScaling;
+                case "stat_growth":
+                    return CurveKind.StatGrowth;
+                case "xp_to_level":
+                    return CurveKind.XpToLevel;
+            }
+            throw new Exception("Cannot unmarshal type CurveKind");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (CurveKind)untypedValue;
+            switch (value)
+            {
+                case CurveKind.MonsterScaling:
+                    serializer.Serialize(writer, "monster_scaling");
+                    return;
+                case CurveKind.StatGrowth:
+                    serializer.Serialize(writer, "stat_growth");
+                    return;
+                case CurveKind.XpToLevel:
+                    serializer.Serialize(writer, "xp_to_level");
+                    return;
+            }
+            throw new Exception("Cannot marshal type CurveKind");
+        }
+
+        public static readonly CurveKindConverter Singleton = new CurveKindConverter();
+    }
+
+    internal class EraConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(Era) || t == typeof(Era?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            switch (value)
+            {
+                case "both":
+                    return Era.Both;
+                case "father":
+                    return Era.Father;
+                case "son":
+                    return Era.Son;
+            }
+            throw new Exception("Cannot unmarshal type Era");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (Era)untypedValue;
+            switch (value)
+            {
+                case Era.Both:
+                    serializer.Serialize(writer, "both");
+                    return;
+                case Era.Father:
+                    serializer.Serialize(writer, "father");
+                    return;
+                case Era.Son:
+                    serializer.Serialize(writer, "son");
+                    return;
+            }
+            throw new Exception("Cannot marshal type Era");
+        }
+
+        public static readonly EraConverter Singleton = new EraConverter();
+    }
+
     internal class TypeEnumConverter : JsonConverter
     {
         public override bool CanConvert(Type t) => t == typeof(TypeEnum) || t == typeof(TypeEnum?);
@@ -244,6 +626,8 @@ namespace LegendDad.Articy
                     return TypeEnum.Bestiary;
                 case "character":
                     return TypeEnum.Character;
+                case "curve":
+                    return TypeEnum.Curve;
                 case "event":
                     return TypeEnum.Event;
                 case "faction":
@@ -277,6 +661,9 @@ namespace LegendDad.Articy
                     return;
                 case TypeEnum.Character:
                     serializer.Serialize(writer, "character");
+                    return;
+                case TypeEnum.Curve:
+                    serializer.Serialize(writer, "curve");
                     return;
                 case TypeEnum.Event:
                     serializer.Serialize(writer, "event");

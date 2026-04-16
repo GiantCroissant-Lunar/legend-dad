@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.IO;
 using Articy.Api;
 using LegendDad.Articy;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace LegendDad.MdkPlugin
 {
 	/// <summary>
 	/// Reads import-manifest.json and creates/updates articy entities.
 	/// Maps template_properties to NarrativeProps, creative_prompts to CreativePrompts,
+	/// mechanical data to BattleStats/EncounterData/DifficultyData/CurveData features,
 	/// and metadata to PipelineMeta features.
 	/// </summary>
 	public class EntityImporter
@@ -24,12 +27,39 @@ namespace LegendDad.MdkPlugin
 		{
 			{ TypeEnum.Character, "LD_Character" },
 			{ TypeEnum.Location, "LD_Location" },
+			{ TypeEnum.Zone, "LD_Zone" },
 			{ TypeEnum.Faction, "LD_Faction" },
 			{ TypeEnum.Quest, "LD_Quest" },
 			{ TypeEnum.Item, "LD_Item" },
 			{ TypeEnum.Event, "LD_Event" },
 			{ TypeEnum.Lore, "LD_Lore" },
-			{ TypeEnum.Bestiary, "LD_Creature" }
+			{ TypeEnum.Bestiary, "LD_Creature" },
+			{ TypeEnum.Curve, "LD_Curve" }
+		};
+
+		/// <summary>
+		/// Mechanical property keys that map to specific features (not NarrativeProps).
+		/// Key = property name in manifest, Value = feature base name in template-definitions.json.
+		/// </summary>
+		private static readonly Dictionary<string, string> MechanicalPropFeature = new Dictionary<string, string>
+		{
+			// Bestiary → BattleStats
+			{ "battle_stats", "BattleStats" },
+			{ "actions", "BattleStats" },
+			{ "group_size_min", "BattleStats" },
+			{ "group_size_max", "BattleStats" },
+			{ "zone_affinity", "BattleStats" },
+			// Zone → EncounterData
+			{ "encounter_table", "EncounterData" },
+			{ "encounter_rate", "EncounterData" },
+			// Location → DifficultyData (difficulty_tier shared, resolved by entity type)
+			{ "recommended_level_min", "DifficultyData" },
+			{ "recommended_level_max", "DifficultyData" },
+			{ "difficulty_tier", "EncounterData" }, // zones use EncounterData; locations handled below
+			// Curve → CurveData
+			{ "curve_kind", "CurveData" },
+			{ "applies_to", "CurveData" },
+			{ "data_points", "CurveData" }
 		};
 
 		public EntityImporter(ApiSession session)
@@ -138,14 +168,20 @@ namespace LegendDad.MdkPlugin
 			var creativePrefix = $"{templateName}_CreativePrompts";
 			var metaPrefix = $"{templateName}_PipelineMeta";
 
-			// Set narrative template properties
 			if (entity.TemplateProperties != null)
 			{
-				foreach (var kvp in entity.TemplateProperties)
+				// Narrative text fields (overview, backstory, etc.) — captured by JsonExtensionData
+				if (entity.TemplateProperties.NarrativeFields != null)
 				{
-					var propName = $"{narrativePrefix}.{kvp.Key}";
-					TrySetProperty(obj, propName, kvp.Value);
+					foreach (var kvp in entity.TemplateProperties.NarrativeFields)
+					{
+						var propName = $"{narrativePrefix}.{kvp.Key}";
+						TrySetProperty(obj, propName, kvp.Value?.ToString() ?? "");
+					}
 				}
+
+				// Mechanical fields — route to their specific features
+				SetMechanicalProperties(obj, entity, templateName);
 			}
 
 			// Set creative prompts (normalize hyphens to underscores)
@@ -171,6 +207,71 @@ namespace LegendDad.MdkPlugin
 			if (!string.IsNullOrEmpty(entity.FlowNotes))
 			{
 				TrySetProperty(obj, $"{metaPrefix}.flow_notes", entity.FlowNotes);
+			}
+		}
+
+		/// <summary>
+		/// Set mechanical properties (battle_stats, actions, encounter_table, etc.)
+		/// on their corresponding articy features. Structured data is serialized to
+		/// JSON text since articy template properties are all Text type.
+		/// </summary>
+		private void SetMechanicalProperties(ObjectProxy obj, EntityElement entity, string templateName)
+		{
+			var props = entity.TemplateProperties;
+
+			switch (entity.Type)
+			{
+				case TypeEnum.Bestiary:
+				{
+					var prefix = $"{templateName}_BattleStats";
+					if (props.BattleStats != null)
+						TrySetProperty(obj, $"{prefix}.battle_stats", JsonConvert.SerializeObject(props.BattleStats));
+					if (props.Actions != null)
+						TrySetProperty(obj, $"{prefix}.actions", JsonConvert.SerializeObject(props.Actions));
+					if (props.GroupSizeMin.HasValue)
+						TrySetProperty(obj, $"{prefix}.group_size_min", props.GroupSizeMin.Value.ToString());
+					if (props.GroupSizeMax.HasValue)
+						TrySetProperty(obj, $"{prefix}.group_size_max", props.GroupSizeMax.Value.ToString());
+					if (props.ZoneAffinity != null)
+						TrySetProperty(obj, $"{prefix}.zone_affinity", JsonConvert.SerializeObject(props.ZoneAffinity));
+					break;
+				}
+
+				case TypeEnum.Zone:
+				{
+					var prefix = $"{templateName}_EncounterData";
+					if (props.EncounterTable != null)
+						TrySetProperty(obj, $"{prefix}.encounter_table", JsonConvert.SerializeObject(props.EncounterTable));
+					if (props.EncounterRate.HasValue)
+						TrySetProperty(obj, $"{prefix}.encounter_rate", props.EncounterRate.Value.ToString("F2"));
+					if (props.DifficultyTier.HasValue)
+						TrySetProperty(obj, $"{prefix}.difficulty_tier", props.DifficultyTier.Value.ToString());
+					break;
+				}
+
+				case TypeEnum.Location:
+				{
+					var prefix = $"{templateName}_DifficultyData";
+					if (props.RecommendedLevelMin.HasValue)
+						TrySetProperty(obj, $"{prefix}.recommended_level_min", props.RecommendedLevelMin.Value.ToString());
+					if (props.RecommendedLevelMax.HasValue)
+						TrySetProperty(obj, $"{prefix}.recommended_level_max", props.RecommendedLevelMax.Value.ToString());
+					if (props.DifficultyTier.HasValue)
+						TrySetProperty(obj, $"{prefix}.difficulty_tier", props.DifficultyTier.Value.ToString());
+					break;
+				}
+
+				case TypeEnum.Curve:
+				{
+					var prefix = $"{templateName}_CurveData";
+					if (props.CurveKind.HasValue)
+						TrySetProperty(obj, $"{prefix}.curve_kind", props.CurveKind.Value.ToString());
+					if (!string.IsNullOrEmpty(props.AppliesTo))
+						TrySetProperty(obj, $"{prefix}.applies_to", props.AppliesTo);
+					if (props.DataPoints != null)
+						TrySetProperty(obj, $"{prefix}.data_points", JsonConvert.SerializeObject(props.DataPoints));
+					break;
+				}
 			}
 		}
 

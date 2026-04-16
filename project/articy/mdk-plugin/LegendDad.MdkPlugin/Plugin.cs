@@ -189,8 +189,8 @@ namespace LegendDad.MdkPlugin
 				//   Old: {Type}_{Feature}  e.g. Character_NarrativeProps
 				//   New: LD_{Type}_{Feature}  e.g. LD_Character_NarrativeProps
 				// articy may also append numbers for duplicates.
-				var typeNames = new[] { "Character", "Location", "Faction", "Quest", "Item", "Event", "Lore", "Creature" };
-				var featureSuffixes = new[] { "NarrativeProps", "CreativePrompts", "PipelineMeta" };
+				var typeNames = new[] { "Character", "Location", "Zone", "Faction", "Quest", "Item", "Event", "Lore", "Creature", "Curve" };
+				var featureSuffixes = new[] { "NarrativeProps", "CreativePrompts", "PipelineMeta", "BattleStats", "EncounterData", "DifficultyData", "CurveData" };
 
 				foreach (var typeName in typeNames)
 				{

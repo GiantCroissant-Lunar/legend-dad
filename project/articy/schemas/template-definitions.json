@@ -47,6 +47,14 @@
             "notable_features": { "type": "Text", "display_name": "Notable Features" }
           }
         },
+        "DifficultyData": {
+          "display_name": "Difficulty Data",
+          "properties": {
+            "recommended_level_min": { "type": "Text", "display_name": "Recommended Level Min" },
+            "recommended_level_max": { "type": "Text", "display_name": "Recommended Level Max" },
+            "difficulty_tier": { "type": "Text", "display_name": "Difficulty Tier" }
+          }
+        },
         "CreativePrompts": {
           "display_name": "Creative Prompts",
           "properties": {
@@ -77,6 +85,14 @@
             "layout_and_terrain": { "type": "Text", "display_name": "Layout & Terrain" },
             "entities_and_encounters": { "type": "Text", "display_name": "Entities & Encounters" },
             "era_variants": { "type": "Text", "display_name": "Era Variants" }
+          }
+        },
+        "EncounterData": {
+          "display_name": "Encounter Data",
+          "properties": {
+            "encounter_table": { "type": "Text", "display_name": "Encounter Table (JSON)" },
+            "encounter_rate": { "type": "Text", "display_name": "Encounter Rate" },
+            "difficulty_tier": { "type": "Text", "display_name": "Difficulty Tier" }
           }
         },
         "CreativePrompts": {
@@ -252,11 +268,44 @@
             "lore_and_cultural_significance": { "type": "Text", "display_name": "Lore & Cultural Significance" }
           }
         },
+        "BattleStats": {
+          "display_name": "Battle Statistics",
+          "properties": {
+            "battle_stats": { "type": "Text", "display_name": "Battle Stats (JSON)" },
+            "actions": { "type": "Text", "display_name": "Actions (JSON)" },
+            "group_size_min": { "type": "Text", "display_name": "Group Size Min" },
+            "group_size_max": { "type": "Text", "display_name": "Group Size Max" },
+            "zone_affinity": { "type": "Text", "display_name": "Zone Affinity (JSON)" }
+          }
+        },
         "CreativePrompts": {
           "display_name": "Creative Prompts",
           "properties": {
             "creature_art": { "type": "Text", "display_name": "Creature Art Prompt" },
             "sound_design": { "type": "Text", "display_name": "Sound Design Prompt" }
+          }
+        },
+        "PipelineMeta": {
+          "display_name": "Pipeline Metadata",
+          "properties": {
+            "vault_path": { "type": "Text", "display_name": "Vault Path" },
+            "dialogue_hooks": { "type": "Text", "display_name": "Dialogue Hooks" },
+            "flow_notes": { "type": "Text", "display_name": "Flow Notes" }
+          }
+        }
+      }
+    },
+    "curve": {
+      "articy_object_type": "Entity",
+      "display_name": "Curve",
+      "technical_name": "LD_Curve",
+      "features": {
+        "CurveData": {
+          "display_name": "Curve Data",
+          "properties": {
+            "curve_kind": { "type": "Text", "display_name": "Curve Kind" },
+            "applies_to": { "type": "Text", "display_name": "Applies To" },
+            "data_points": { "type": "Text", "display_name": "Data Points (JSON)" }
           }
         },
         "PipelineMeta": {
