@@ -14,7 +14,16 @@ floor: 1
 grid-width: 24
 grid-height: 20
 era: "Both"
-last-agent-pass: "2026-04-13"
+encounter_table:
+  - bestiary: "[[Crystal Crawler]]"
+    weight: 5
+    era: "son"
+  - bestiary: "[[Iron Borer]]"
+    weight: 2
+    era: "son"
+encounter_rate: 0.20
+difficulty_tier: 5
+last-agent-pass: "2026-04-16"
 ---
 
 # Iron Peaks Upper Mines

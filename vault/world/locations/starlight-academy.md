@@ -28,7 +28,10 @@ palette-hex:
   - "#8840c0"
   - "#e8e0c8"
 ldtk-file: "project/ldtk/starlight-academy.ldtk"
-last-agent-pass: "2026-04-13"
+recommended_level_min: 8
+recommended_level_max: 15
+difficulty_tier: 8
+last-agent-pass: "2026-04-16"
 ---
 
 # Starlight Academy

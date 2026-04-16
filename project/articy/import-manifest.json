@@ -1,6 +1,6 @@
 {
   "version": "0.1.0",
-  "generated": "2026-04-16T01:13:26.506842+00:00",
+  "generated": "2026-04-16T01:16:27.117209+00:00",
   "generated_by": "vault_to_manifest",
   "entities": [
     {
@@ -183,13 +183,16 @@
       "vault_path": "vault/world/locations/iron-peaks.md",
       "articy_id": "72057594037929321",
       "type": "location",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Iron Peaks",
       "template_properties": {
         "overview": "A jagged mountain range north of Thornwall, riddled with abandoned mine tunnels and sealed caverns. The Iron Peaks are the source of the tremors threatening the region and the destination of both Kaelen's and Aric's journeys. In Kaelen's era, the peaks are dangerous but stable \u2014 the mines are abandoned, the passes are navigable, and the sealed caverns are curiosities. In Aric's era, the mountains have fractured: new crevasses split the trails, dark energy leaks from the sealed caverns, and creatures not seen in living memory emerge from the deep.",
         "atmosphere_and_appearance": "Raw, vertical, and exposed. The lower slopes are forested with twisted iron-bark pines. Above the treeline, bare rock faces are streaked with rust-colored mineral deposits that give the peaks their name. The air thins quickly. In Kaelen's era, the peaks feel abandoned but not hostile \u2014 old mine entrances, rusted rail tracks, collapsed headframes. In Aric's era, the same landscape feels actively threatening \u2014 the rock has cracked open, faint purple light pulses from deep fissures, and the iron-bark pines near the fissures have petrified into stone.",
         "history": "The Iron Peaks were mined for iron and copper for centuries by a now-scattered mining guild. The deepest tunnels were sealed two generations ago when miners broke through into a natural cavern system filled with a substance they couldn't identify \u2014 a crystalline material that hummed and produced faint light. Three miners died from exposure to the crystal's emissions. The guild sealed the breach, abandoned the mines, and the miners' families founded Thornwall. The sealed caverns have been a local legend ever since. Kaelen's father was one of the last miners to work the upper tunnels before the full abandonment.",
-        "notable_features": "- The Sealed Caverns \u2014 the deepest point of the old mines, bricked up two generations ago. Whatever is inside is the source of the tremors. In father's era: sealed, inert. In son's era: the seals are cracking, light and sound leak through.\n- The Upper Mines \u2014 abandoned mine tunnels used as the first dungeon area. Relatively safe in father's era (bats, cave-ins). In son's era: infested with crystal-mutated creatures.\n- The Iron Pass \u2014 the main trail over the peaks to the northern regions. In father's era: passable with care. In son's era: partially collapsed, requiring alternate routes.\n- Lookout Ridge \u2014 a flat outcrop with a view of Thornwall below. Used by both Kaelen and Aric as a milestone marker. In son's era, the view reveals how much the northern farms have deteriorated.\n- The Petrified Grove \u2014 iron-bark pines near the fissures that have turned to stone. Only exists in Aric's era."
+        "notable_features": "- The Sealed Caverns \u2014 the deepest point of the old mines, bricked up two generations ago. Whatever is inside is the source of the tremors. In father's era: sealed, inert. In son's era: the seals are cracking, light and sound leak through.\n- The Upper Mines \u2014 abandoned mine tunnels used as the first dungeon area. Relatively safe in father's era (bats, cave-ins). In son's era: infested with crystal-mutated creatures.\n- The Iron Pass \u2014 the main trail over the peaks to the northern regions. In father's era: passable with care. In son's era: partially collapsed, requiring alternate routes.\n- Lookout Ridge \u2014 a flat outcrop with a view of Thornwall below. Used by both Kaelen and Aric as a milestone marker. In son's era, the view reveals how much the northern farms have deteriorated.\n- The Petrified Grove \u2014 iron-bark pines near the fissures that have turned to stone. Only exists in Aric's era.",
+        "recommended_level_min": 5,
+        "recommended_level_max": 10,
+        "difficulty_tier": 5
       },
       "connections": [
         {
@@ -217,13 +220,16 @@
       "vault_path": "vault/world/locations/starlight-academy.md",
       "articy_id": "72057594037929333",
       "type": "location",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Starlight Academy",
       "template_properties": {
         "overview": "An ancient academy perched on a cliff overlooking the Moonlit Sea, founded by the Starweavers \u2014 scholars who could read meaning in the patterns of starlight. The Academy is a sprawling complex of white stone towers, covered walkways, and underground archives. It serves as both a center of learning and a repository for dangerous knowledge. The west wing has been sealed for thirty years since Elder Aldric's failed ritual. The Academy appears in the father's era as a place Kaelen visits for information and in the son's era as a diminished institution struggling to remain relevant.",
         "atmosphere_and_appearance": "The Academy is built from pale limestone that glows faintly blue under starlight \u2014 a natural property of the cliff stone, not magic. During the day, it looks like weathered white marble. At night, the entire complex takes on a soft luminescence. The architecture is vertical: narrow towers with spiral staircases, observation platforms at every level, and glass-domed reading rooms. The interior is filled with star charts, orreries, and astronomical instruments. The Sealed West Wing is visible from the courtyard \u2014 its windows are dark, its doors are chained, and ivy has claimed its lower walls.",
         "history": "Founded five hundred years ago by the Starweavers, a group of scholars who discovered that certain starlight patterns corresponded to events in the physical world. They built the Academy to study these patterns and developed a system of celestial cartography. Over centuries, the Academy's influence waned as the Starweaver bloodline thinned. Aldric's failed ritual thirty years ago was an attempt to access the Sealed Observatory at the top of the west wing, believed to contain the founders' master charts. The ritual's failure killed three scholars and collapsed the connecting bridge, effectively sealing the entire wing.",
-        "notable_features": "- The Great Library \u2014 the largest collection of star charts in the known world, spanning three underground levels. Accessible in both eras.\n- The Observatory (East) \u2014 a functioning observation dome where students study celestial patterns. Aldric teaches here.\n- The Sealed West Wing \u2014 chained doors, dark windows, ivy-covered walls. Contains the Sealed Observatory at its peak. In son's era: the chains have rusted, and faint light occasionally flickers in the upper windows.\n- The Courtyard of Charts \u2014 an open-air space with constellations inlaid in the stone floor. Used for outdoor lectures and ceremonies.\n- The Archive Vaults \u2014 deep underground chambers containing texts deemed too dangerous for the main library. Only Aldric has the key."
+        "notable_features": "- The Great Library \u2014 the largest collection of star charts in the known world, spanning three underground levels. Accessible in both eras.\n- The Observatory (East) \u2014 a functioning observation dome where students study celestial patterns. Aldric teaches here.\n- The Sealed West Wing \u2014 chained doors, dark windows, ivy-covered walls. Contains the Sealed Observatory at its peak. In son's era: the chains have rusted, and faint light occasionally flickers in the upper windows.\n- The Courtyard of Charts \u2014 an open-air space with constellations inlaid in the stone floor. Used for outdoor lectures and ceremonies.\n- The Archive Vaults \u2014 deep underground chambers containing texts deemed too dangerous for the main library. Only Aldric has the key.",
+        "recommended_level_min": 8,
+        "recommended_level_max": 15,
+        "difficulty_tier": 8
       },
       "connections": [
         {
@@ -247,13 +253,16 @@
       "vault_path": "vault/world/locations/thornwall.md",
       "articy_id": "72057594037929345",
       "type": "location",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Thornwall",
       "template_properties": {
         "overview": "A fortified farming village at the base of the Iron Peaks, named for the centuries-old thornbriar hedge that forms its outer wall. Thornwall is the starting location for both the father and son's stories. In Kaelen's era, it is a modest but thriving settlement of about two hundred people \u2014 a militia outpost, a market square, and farmland stretching south. In Aric's era twenty years later, Thornwall has contracted: the northern farms are abandoned, the thornbriar wall is patchy and dying, and the population has halved as families fled the worsening tremors.",
         "atmosphere_and_appearance": "In the father's era, Thornwall feels safe and lived-in. The thornbriar hedge is dense and green, cottages have warm hearth-light, children play near the well, and the militia practices sword forms in the square. The Iron Peaks loom to the north, snow-capped and distant. In the son's era, the same village feels hollowed out. The hedge has gaps where the briars have rotted. Abandoned cottages are boarded up. The well water tastes of iron. The militia barracks is half-empty. The Iron Peaks seem closer \u2014 their silhouette darker, as if the mountains have leaned in.",
         "history": "Thornwall was founded three generations ago by miners who abandoned the Iron Peaks after the deep tunnels became unstable. They settled at the mountain's base and turned to farming, using the natural thornbriar growth as a defensive perimeter. The village grew slowly, serving as a waypoint between the coastal trade routes and the mountain passes. Kaelen's militia heroics put Thornwall on the map; traders started making detours to visit \"the hero's village.\" After Kaelen left, the village's fame faded, and the returning tremors drove away those who had come for the legend.",
-        "notable_features": "- The Thornbriar Wall \u2014 a living hedge of ancient thornbriar, 10 feet tall and 4 feet thick, encircling the village. In father's era: dense, flowering. In son's era: patchy, with dead sections.\n- The Market Square \u2014 center of village life. In father's era: busy with traders. In son's era: mostly empty, used for militia drills.\n- The Militia Barracks \u2014 where Kaelen trained. Contains his old journal (found by Aric at age twelve). In son's era: half the bunks are empty.\n- The Elder's Cottage \u2014 home of the village elder who raised Aric. Contains maps and records of Thornwall's history.\n- The Northern Farms \u2014 fertile land stretching toward the Iron Peaks. In father's era: golden wheat fields. In son's era: fallow, cracked earth, and sinkholes."
+        "notable_features": "- The Thornbriar Wall \u2014 a living hedge of ancient thornbriar, 10 feet tall and 4 feet thick, encircling the village. In father's era: dense, flowering. In son's era: patchy, with dead sections.\n- The Market Square \u2014 center of village life. In father's era: busy with traders. In son's era: mostly empty, used for militia drills.\n- The Militia Barracks \u2014 where Kaelen trained. Contains his old journal (found by Aric at age twelve). In son's era: half the bunks are empty.\n- The Elder's Cottage \u2014 home of the village elder who raised Aric. Contains maps and records of Thornwall's history.\n- The Northern Farms \u2014 fertile land stretching toward the Iron Peaks. In father's era: golden wheat fields. In son's era: fallow, cracked earth, and sinkholes.",
+        "recommended_level_min": 1,
+        "recommended_level_max": 3,
+        "difficulty_tier": 1
       },
       "connections": [
         {
@@ -285,13 +294,16 @@
       "vault_path": "vault/world/locations/whispering-woods.md",
       "articy_id": "72057594037929357",
       "type": "location",
-      "status": "unchanged",
+      "status": "updated",
       "display_name": "Whispering Woods",
       "template_properties": {
         "overview": "A dense old-growth forest stretching between Thornwall and the coastal regions. The woods are named for the constant rustling of their canopy, which locals say sounds like murmured conversation. In Kaelen's era, the Whispering Woods are healthy and navigable \u2014 a source of timber, game, and medicinal herbs. Maren's family has patrolled these woods for generations. In Aric's era, the forest is dying from the inside out. Trees rot while standing, animal populations have collapsed, and sinkholes open without warning. The whispering has changed \u2014 it now sounds less like conversation and more like warning.",
         "atmosphere_and_appearance": "Multi-layered canopy forest with massive trunks and filtered green light. The forest floor is soft with moss and fallen leaves. Streams thread between root systems. In the father's era: lush, vibrant greens, dappled golden sunlight, wildflowers along deer trails, bird nests visible in lower branches. In the son's era: the canopy has thinned, letting in harsh white light. Bark peels from trunks revealing gray wood underneath. Streams run slower and cloudier. The moss has patches of black fungal growth. Sinkholes are visible as dark circles in the forest floor, some ringed with crystalline growth similar to the Iron Peaks fissures.",
         "history": "The Whispering Woods predate Thornwall by centuries. Local lore holds that the trees were planted by a civilization that existed before the current age \u2014 the roots go impossibly deep, and the oldest trunks are wider than cottages. The foresters who tend the woods have found carved stones deep in the undergrowth, suggesting ancient structures now buried beneath root systems. Maren's father discovered that the sinkholes appearing in the son's era follow the pattern of these buried structures, as if something below is pushing upward through the ancient foundations.",
-        "notable_features": "- The Canopy Trail \u2014 an elevated path through the treetops, maintained by foresters. In father's era: a safe travel route. In son's era: sections have collapsed where supporting trees died.\n- The Moss Clearing \u2014 a natural amphitheater where the forest floor dips and moss grows thick. Used by foresters as a campsite. In son's era: a sinkhole has opened at its center.\n- The Ancient Stones \u2014 carved stone markers half-buried in roots, inscribed with symbols no one can read. Found throughout the deep woods.\n- The Forester's Cabin \u2014 Maren's family home, at the forest's edge near Thornwall. In father's era: well-maintained. In son's era: Maren lives here alone, maintaining it stubbornly.\n- The Deep Root \u2014 the oldest tree in the forest, its trunk thirty feet across. Local legend says its roots reach underground water. In son's era: still alive but visibly stressed, its bark cracked and weeping sap."
+        "notable_features": "- The Canopy Trail \u2014 an elevated path through the treetops, maintained by foresters. In father's era: a safe travel route. In son's era: sections have collapsed where supporting trees died.\n- The Moss Clearing \u2014 a natural amphitheater where the forest floor dips and moss grows thick. Used by foresters as a campsite. In son's era: a sinkhole has opened at its center.\n- The Ancient Stones \u2014 carved stone markers half-buried in roots, inscribed with symbols no one can read. Found throughout the deep woods.\n- The Forester's Cabin \u2014 Maren's family home, at the forest's edge near Thornwall. In father's era: well-maintained. In son's era: Maren lives here alone, maintaining it stubbornly.\n- The Deep Root \u2014 the oldest tree in the forest, its trunk thirty feet across. Local legend says its roots reach underground water. In son's era: still alive but visibly stressed, its bark cracked and weeping sap.",
+        "recommended_level_min": 2,
+        "recommended_level_max": 5,
+        "difficulty_tier": 2
       },
       "connections": [
         {
@@ -321,7 +333,21 @@
         "overview": "The mountain trail ascending from the Whispering Woods tree line to the abandoned mine entrances of the Iron Peaks. A steep, winding path carved into the rock face with switchbacks and exposed ridgelines. Lookout Ridge \u2014 a flat outcrop with a panoramic view of Thornwall below \u2014 sits midway up. This zone transitions from forest to bare mountain, with increasing danger and decreasing vegetation as the player climbs.",
         "layout_and_terrain": "Tall zone (20x24 tiles), oriented with the trail climbing from south to north. Southern quarter: tree line transition \u2014 scattered iron-bark pines on rocky ground. Middle: bare rock face with a switchback trail carved into it (2-tile wide path zigzagging up). Lookout Ridge is a flat 4x4 platform on the eastern edge at the midpoint. Northern quarter: the trail reaches a plateau with the mine entrance (a dark opening in the rock face, 2 tiles wide). Impassable: cliff edges (drop-offs), large boulders, sheer rock faces. The trail itself is narrow \u2014 limited room for combat, environmental hazards (loose rocks, narrow ledges).",
         "entities_and_encounters": "**Father's era:**\n- Mountain goats (passive, ambient)\n- 1-2 hostile encounters (mountain bandits or rock creatures)\n- Lookout Ridge: rest point, vista dialogue (Kaelen comments on Thornwall below)\n- Mine entrance: locked/blocked, requires story progression to open\n\n**Son's era:**\n- Crystal-mutated creatures (tougher than forest encounters)\n- Lookout Ridge: Aric comments on Thornwall's deterioration (the northern farms are visible as brown patches)\n- Fissures in the rock face (new \u2014 glowing purple cracks, impassable but story-relevant)\n- Mine entrance: partially collapsed but passable",
-        "era_variants": "**Father \u2192 Son changes:**\n- Iron-bark pines at tree line: green, alive \u2192 some petrified (stone-gray)\n- Rock face: natural gray-brown \u2192 cracked with purple fissure lines\n- Trail: intact with carved steps \u2192 some sections crumbled, alternate paths needed\n- Lookout Ridge: clean stone platform \u2192 cracked, a fissure runs through the eastern edge\n- Mine entrance: solid wooden door frame \u2192 collapsed timbers, dark opening\n- Sky/background: clear mountain sky \u2192 slightly hazy, darker"
+        "era_variants": "**Father \u2192 Son changes:**\n- Iron-bark pines at tree line: green, alive \u2192 some petrified (stone-gray)\n- Rock face: natural gray-brown \u2192 cracked with purple fissure lines\n- Trail: intact with carved steps \u2192 some sections crumbled, alternate paths needed\n- Lookout Ridge: clean stone platform \u2192 cracked, a fissure runs through the eastern edge\n- Mine entrance: solid wooden door frame \u2192 collapsed timbers, dark opening\n- Sky/background: clear mountain sky \u2192 slightly hazy, darker",
+        "encounter_table": [
+          {
+            "bestiary": "[[Iron Borer]]",
+            "weight": 3,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Crystal Crawler]]",
+            "weight": 2,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.15,
+        "difficulty_tier": 4
       },
       "connections": [
         {
@@ -355,7 +381,21 @@
         "overview": "The first dungeon floor \u2014 abandoned mine tunnels carved into the Iron Peaks generations ago. Narrow passages, support timbers, rusted rail tracks, and collapsed sections create a maze-like environment. The player navigates through to reach the deeper levels and eventually the Sealed Cavern. In the father's era, the mines are abandoned but structurally sound. In the son's era, crystal growth has invaded the tunnels, creatures have nested, and some passages have collapsed while new ones have opened.",
         "layout_and_terrain": "Medium-large zone (24x20 tiles). Network of interconnected tunnels radiating from a central hub (the old mineshaft elevator room, 4x4 tiles, non-functional). Four main tunnel branches: north (to Sealed Cavern entrance \u2014 blocked in father's era), east (dead end with loot), south (entrance from the Trail), west (collapsed in father's era, opened by crystal growth in son's era \u2014 alternate path). Tunnels are 2-3 tiles wide. Rail tracks run along the main passages. Support timbers at regular intervals. The hub has a higher ceiling (visually lighter). Dead-end alcoves contain old mining equipment and potential loot. Walkable: tunnel floors, rail tracks. Impassable: rock walls, collapsed rubble, intact support pillars.",
         "entities_and_encounters": "**Father's era:**\n- Bats (passive, ambient \u2014 scatter when approached)\n- 1-2 cave spider encounters (basic dungeon enemies)\n- Mining equipment interactions (pickaxe \u2014 key item, lantern \u2014 light source)\n- Lore note on wall (miner's warning about the deep tunnels)\n\n**Son's era:**\n- Crystal-mutated creatures (cave spiders evolved, more aggressive)\n- Crystal growth nodes (interactable \u2014 can be broken for resources or examined with Starweaver Lens)\n- 1 mini-boss encounter in the west branch (new area opened by crystal growth)\n- Environmental hazard: unstable floor sections (shake visual, damage if lingered)",
-        "era_variants": "**Father \u2192 Son changes:**\n- Tunnel walls: rough stone \u2192 stone with crystal veins (violet lines in rock tiles)\n- Rail tracks: rusted but intact \u2192 some sections buckled by crystal growth pushing from below\n- Support timbers: weathered wood \u2192 some cracked/broken, crystal growing through gaps\n- Hub room: empty, dusty \u2192 crystal growth cluster at center (large, ambient light source)\n- North passage (to Sealed Cavern): solid brick wall \u2192 bricks cracked, violet light leaking through\n- West passage: fully collapsed rubble \u2192 rubble cleared by crystal growth, new passage opened\n- Air: dusty, stale \u2192 faint crystal haze, particles visible in light\n- Temperature: cool \u2192 warm (the crystal generates heat)"
+        "era_variants": "**Father \u2192 Son changes:**\n- Tunnel walls: rough stone \u2192 stone with crystal veins (violet lines in rock tiles)\n- Rail tracks: rusted but intact \u2192 some sections buckled by crystal growth pushing from below\n- Support timbers: weathered wood \u2192 some cracked/broken, crystal growing through gaps\n- Hub room: empty, dusty \u2192 crystal growth cluster at center (large, ambient light source)\n- North passage (to Sealed Cavern): solid brick wall \u2192 bricks cracked, violet light leaking through\n- West passage: fully collapsed rubble \u2192 rubble cleared by crystal growth, new passage opened\n- Air: dusty, stale \u2192 faint crystal haze, particles visible in light\n- Temperature: cool \u2192 warm (the crystal generates heat)",
+        "encounter_table": [
+          {
+            "bestiary": "[[Crystal Crawler]]",
+            "weight": 5,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Iron Borer]]",
+            "weight": 2,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.2,
+        "difficulty_tier": 5
       },
       "connections": [
         {
@@ -389,7 +429,8 @@
         "overview": "The quieter eastern district of Thornwall, home to the village elder's cottage, a small chapel, and a handful of residential houses. This is where Aric grew up. The Elder Quarter is where key story conversations happen \u2014 the elder's cottage contains maps, records, and Kaelen's hidden journal. In the father's era, it's a peaceful residential area. In the son's era, several houses are abandoned, but the elder's cottage remains the beating heart of the community.",
         "layout_and_terrain": "Medium zone (16x14 tiles). Flagstone paths connect the buildings. The elder's cottage is the largest structure (4x3 tiles) at the north end, with a small garden patch beside it. A chapel (3x2 tiles) sits at the south end. Four residential cottages (2x2 each) line the east and west sides. A large oak tree (2x2, impassable) grows in the center courtyard. The south exit leads to the Market. No other exits \u2014 this is a dead-end district, reflecting its quiet nature.",
         "entities_and_encounters": "**Father's era:**\n- Village elder (in cottage \u2014 dialogue: local history, advice for Kaelen)\n- 2 residents (ambient, short dialogue)\n- Chapel keeper (dialogue: lore about the region's founding)\n\n**Son's era:**\n- Village elder (aged, in cottage \u2014 dialogue: stories about Kaelen, concern for Aric)\n- Aric (found here at certain story points)\n- 1 remaining resident\n- Kaelen's Journal discovery event (triggered at militia barracks in Market, but the journal content references this area)",
-        "era_variants": "**Father \u2192 Son changes:**\n- Elder's cottage: well-maintained, garden flourishing \u2192 maintained but aged, garden smaller\n- Residential cottages: 4 occupied \u2192 2 occupied, 2 boarded up\n- Chapel: active, candles lit \u2192 still open but dusty, fewer candles\n- Oak tree: full green canopy \u2192 still alive but leaves are thinning, some bare branches\n- Flagstone: clean \u2192 moss-covered, some cracked\n- Overall: warm, lived-in \u2192 quiet, holding on"
+        "era_variants": "**Father \u2192 Son changes:**\n- Elder's cottage: well-maintained, garden flourishing \u2192 maintained but aged, garden smaller\n- Residential cottages: 4 occupied \u2192 2 occupied, 2 boarded up\n- Chapel: active, candles lit \u2192 still open but dusty, fewer candles\n- Oak tree: full green canopy \u2192 still alive but leaves are thinning, some bare branches\n- Flagstone: clean \u2192 moss-covered, some cracked\n- Overall: warm, lived-in \u2192 quiet, holding on",
+        "encounter_rate": 0
       },
       "connections": [
         {
@@ -427,7 +468,8 @@
         "overview": "The central square of Thornwall \u2014 a cobblestone plaza surrounded by shops, the village well, and the militia notice board. This is the player's hub zone in both eras. In the father's era it bustles with traders, children, and militia guards. In the son's era the same square feels half-empty: stalls are boarded up, the well bucket is rusty, and the notice board is covered in warnings about creature sightings.",
         "layout_and_terrain": "A roughly rectangular plaza (20x16 tiles). The well sits at the center (2x2 impassable). Cobblestone paths radiate from the well to four exits: north (to Thornwall North Gate), south (to the southern road), east (to the Elder Quarter), west (to the farmlands). Market stalls line the north and east edges \u2014 in father's era they have awnings and goods; in son's era half are boarded up. The militia barracks is a large building (4x3 tiles) on the west side. A small herb shop sits on the east side near the Elder Quarter exit. The ground is mostly walkable cobblestone with building tiles as impassable walls.",
         "entities_and_encounters": "**Father's era:**\n- 2-3 trader NPCs at market stalls (dialogue: local rumors, item shop)\n- 1 militia guard at the north exit (dialogue: warns about mountain paths)\n- 2 children playing near the well (ambient, non-interactive)\n- Kaelen's starting position: near the militia barracks\n\n**Son's era:**\n- 1 remaining trader (limited inventory, pessimistic dialogue)\n- 1 elderly militia guard (dialogue: stories about Kaelen, warnings about tremors)\n- Maren (companion, found near the herb shop)\n- Aric's starting position: near the well",
-        "era_variants": "**Father \u2192 Son changes:**\n- Market stalls: 6 active \u2192 2 active, 4 boarded (tile swap)\n- Well: clean stone rim \u2192 rusty bucket, cracked rim (tile swap)\n- Militia barracks: full bunks, lit windows \u2192 half-empty, dim windows\n- NPC count: ~6 \u2192 ~3\n- Ground: clean cobblestone \u2192 some cracked tiles, weeds growing through gaps\n- Notice board: trade postings \u2192 creature warning posters\n- Ambient: lively crowd sounds \u2192 wind, occasional footstep"
+        "era_variants": "**Father \u2192 Son changes:**\n- Market stalls: 6 active \u2192 2 active, 4 boarded (tile swap)\n- Well: clean stone rim \u2192 rusty bucket, cracked rim (tile swap)\n- Militia barracks: full bunks, lit windows \u2192 half-empty, dim windows\n- NPC count: ~6 \u2192 ~3\n- Ground: clean cobblestone \u2192 some cracked tiles, weeds growing through gaps\n- Notice board: trade postings \u2192 creature warning posters\n- Ambient: lively crowd sounds \u2192 wind, occasional footstep",
+        "encounter_rate": 0
       },
       "connections": [
         {
@@ -461,7 +503,8 @@
         "overview": "The fortified northern entrance to Thornwall, where the thornbriar wall is thickest and a wooden gate controls passage to the Whispering Woods and the road toward the Iron Peaks. A militia guardhouse flanks the gate. This zone serves as a transition between the safe town and the dangerous wilderness. In the father's era, the gate is well-maintained and guarded. In the son's era, the thornbriar has gaps, the gate hangs crooked, and the guardhouse is understaffed.",
         "layout_and_terrain": "Narrow zone (16x12 tiles) oriented north-south. The thornbriar wall runs east-west across the middle of the zone, with the gate opening at center (2 tiles wide). The guardhouse is a small building (3x2) on the west side of the gate. A dirt path runs north-south through the gate \u2014 south leads to the Market, north leads out to the Whispering Woods Edge. The thornbriar wall tiles are impassable except at the gate. East and west edges are dense thornbriar (impassable). A small weapons rack and training dummy sit outside the guardhouse (interactable in father's era).",
         "entities_and_encounters": "**Father's era:**\n- 2 militia guards (one at gate, one patrolling)\n- Training dummy (interactable \u2014 tutorial combat hint)\n- Weapons rack (interactable \u2014 basic equipment)\n\n**Son's era:**\n- 1 militia guard (tired, warns about forest creatures)\n- Collapsed training dummy (non-interactive flavor)\n- Empty weapons rack",
-        "era_variants": "**Father \u2192 Son changes:**\n- Thornbriar wall: dense, green, flowering \u2192 patchy, dead sections (gray tiles), gaps visible\n- Gate: solid wood, oiled hinges \u2192 warped wood, hanging slightly open\n- Guardhouse: lit windows, maintained \u2192 dim, peeling paint\n- Training area: active dummy + full rack \u2192 fallen dummy + empty rack\n- Ground: packed dirt path \u2192 same dirt but with weeds and cracks near the wall gaps"
+        "era_variants": "**Father \u2192 Son changes:**\n- Thornbriar wall: dense, green, flowering \u2192 patchy, dead sections (gray tiles), gaps visible\n- Gate: solid wood, oiled hinges \u2192 warped wood, hanging slightly open\n- Guardhouse: lit windows, maintained \u2192 dim, peeling paint\n- Training area: active dummy + full rack \u2192 fallen dummy + empty rack\n- Ground: packed dirt path \u2192 same dirt but with weeds and cracks near the wall gaps",
+        "encounter_rate": 0
       },
       "connections": [
         {
@@ -495,7 +538,26 @@
         "overview": "The deep interior of the Whispering Woods, where ancient trees block most sunlight and the canopy trail provides the only safe path above the tangled undergrowth. The Moss Clearing \u2014 a natural depression where foresters camp \u2014 sits at the center. The path north exits toward the Iron Peaks Trail. This zone has denser encounters and more exploration than the Edge. The Ancient Stones (carved markers from a forgotten civilization) are found here, hinting at the buried structures beneath the forest.",
         "layout_and_terrain": "Large zone (24x24 tiles). Dense tree coverage \u2014 only 40% of the ground is walkable. The canopy trail (elevated wooden walkway tiles) provides a safe route through the treetops in the northern half. The Moss Clearing is a 6x6 open area at the center with soft green moss tiles and a campfire ring. The Deep Root (the oldest tree, 3x3 tiles) is in the northwest corner. Ancient Stones are scattered as 1x1 interactable tiles at 4-5 locations among the roots. Paths are narrow and winding \u2014 no straight lines. A stream from the Edge zone continues through the southeast corner. Exit south: back to Edge. Exit north: to Iron Peaks Trail.",
         "entities_and_encounters": "**Father's era:**\n- 2-3 passive creatures (foxes, owls)\n- 1-2 hostile creatures (wolves, territorial)\n- Forester camp at Moss Clearing (rest point, campfire save)\n- Ancient Stone interactions (examine \u2192 lore text, Starweaver Lens reveals hidden inscriptions)\n\n**Son's era:**\n- 3-4 hostile corrupted creatures (stronger than Edge encounters)\n- Sinkhole at Moss Clearing center (where the campfire was)\n- Canopy trail sections collapsed (requires alternate ground routes)\n- Ancient Stones now glow faintly (the buried structures are activating)\n- The Deep Root is stressed \u2014 sap weeping, bark cracked",
-        "era_variants": "**Father \u2192 Son changes:**\n- Moss Clearing: green moss, campfire ring \u2192 sinkhole at center, moss blackened at edges\n- Canopy trail: intact wooden walkways \u2192 2-3 sections collapsed (fallen plank tiles)\n- Ancient Stones: inert, covered in moss \u2192 faint violet glow, moss burned away\n- Deep Root: massive healthy trunk \u2192 cracked bark, sap pools, still alive but visibly damaged\n- Tree density: unchanged, but many trees show stress (bark peeling, canopy thinning)\n- Stream: clear \u2192 cloudy with a faint violet tint near sinkhole\n- Ground: thick moss \u2192 patches of black fungal growth, crystal shards near sinkhole"
+        "era_variants": "**Father \u2192 Son changes:**\n- Moss Clearing: green moss, campfire ring \u2192 sinkhole at center, moss blackened at edges\n- Canopy trail: intact wooden walkways \u2192 2-3 sections collapsed (fallen plank tiles)\n- Ancient Stones: inert, covered in moss \u2192 faint violet glow, moss burned away\n- Deep Root: massive healthy trunk \u2192 cracked bark, sap pools, still alive but visibly damaged\n- Tree density: unchanged, but many trees show stress (bark peeling, canopy thinning)\n- Stream: clear \u2192 cloudy with a faint violet tint near sinkhole\n- Ground: thick moss \u2192 patches of black fungal growth, crystal shards near sinkhole",
+        "encounter_table": [
+          {
+            "bestiary": "[[Moss Lurker]]",
+            "weight": 3,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Thornbriar Stalker]]",
+            "weight": 4,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Shade Wisp]]",
+            "weight": 2,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.18,
+        "difficulty_tier": 3
       },
       "connections": [
         {
@@ -529,7 +591,21 @@
         "overview": "The first zone of the Whispering Woods, where the village farmlands give way to old-growth forest. A dirt path from Thornwall's north gate enters from the south and splits into a main trail heading north (to the Deep Woods) and a side path east (to the Forester's Cabin where Maren lives). The canopy is lighter here than deeper in \u2014 enough sunlight reaches the ground for wildflowers and undergrowth. This zone serves as the first wilderness area with light combat encounters.",
         "layout_and_terrain": "Large zone (24x20 tiles). The southern third is transitional \u2014 scattered trees, tall grass, the edge of Thornwall's abandoned farmland (son's era: fallow fields with sinkholes). The middle is proper forest edge \u2014 medium-density trees with a clear path winding through. The northern third is denser canopy with the path narrowing. The dirt path splits at center: main path continues north, side path goes east to the Forester's Cabin (a small structure at the map's east edge). A stream crosses the zone east-west near the north end. Walkable tiles: dirt path, grass, shallow stream crossing. Impassable: tree trunks, dense undergrowth, deep stream sections.",
         "entities_and_encounters": "**Father's era:**\n- 1-2 passive forest creatures (deer, rabbit \u2014 ambient)\n- 1 forester NPC on the path (dialogue: forest conditions, path advice)\n- Medicinal herb pickups near the stream (3-4 spots)\n\n**Son's era:**\n- 1-2 hostile corrupted creatures (first combat encounters)\n- Maren (near Forester's Cabin \u2014 companion recruitment)\n- Fewer herb spots (some replaced by fungal growth \u2014 visual cue for corruption)\n- 1 sinkhole near abandoned farmland (environmental hazard / story point)",
-        "era_variants": "**Father \u2192 Son changes:**\n- Southern farmland: golden wheat \u2192 cracked fallow earth with 1 sinkhole tile\n- Tree canopy: full green \u2192 thinned, some bare branches letting harsh light through\n- Stream: clear blue \u2192 slightly murky gray-blue\n- Wildflowers: present \u2192 mostly gone, replaced by dark fungal patches\n- Forester's Cabin: well-maintained \u2192 patched up, Maren's modifications visible\n- Path condition: clear dirt \u2192 overgrown edges, some roots breaking through\n- Creature type: passive animals \u2192 hostile corrupted creatures"
+        "era_variants": "**Father \u2192 Son changes:**\n- Southern farmland: golden wheat \u2192 cracked fallow earth with 1 sinkhole tile\n- Tree canopy: full green \u2192 thinned, some bare branches letting harsh light through\n- Stream: clear blue \u2192 slightly murky gray-blue\n- Wildflowers: present \u2192 mostly gone, replaced by dark fungal patches\n- Forester's Cabin: well-maintained \u2192 patched up, Maren's modifications visible\n- Path condition: clear dirt \u2192 overgrown edges, some roots breaking through\n- Creature type: passive animals \u2192 hostile corrupted creatures",
+        "encounter_table": [
+          {
+            "bestiary": "[[Moss Lurker]]",
+            "weight": 4,
+            "era": "son"
+          },
+          {
+            "bestiary": "[[Thornbriar Stalker]]",
+            "weight": 1,
+            "era": "son"
+          }
+        ],
+        "encounter_rate": 0.12,
+        "difficulty_tier": 2
       },
       "connections": [
         {
@@ -1161,7 +1237,7 @@
       "vault_path": "vault/world/bestiary/iron-borer.md",
       "articy_id": "72057594037929546",
       "type": "bestiary",
-      "status": "updated",
+      "status": "unchanged",
       "display_name": "Iron Borer",
       "template_properties": {
         "overview": "The Iron Borer is a segmented, worm-like creature native to the rock strata of the Iron Peaks. In Kaelen's era, a typical adult measured roughly an arm's length and was as thick as a man's wrist -- an unpleasant but manageable pest that miners dealt with as a routine hazard of underground work. Its body is covered in overlapping plates of mineral-hardened chitin that give it a metallic sheen, and its head is a ring of rotating, serrated mandibles capable of grinding through solid stone at a steady pace.\n\nBorers feed on iron-rich minerals in the rock, processing ore through their digestive systems and excreting compacted mineral waste behind them as they tunnel. Miners have long cursed them for weakening support pillars and intersecting drainage channels, but they also grudgingly acknowledged that borer tunnels sometimes revealed new ore deposits. A miner who found a fresh borer channel knew there was good iron nearby.\n\nIn Aric's era, the Iron Borers have grown dramatically. Adults now reach the length of a horse and the girth of a barrel, their mandibles capable of collapsing entire tunnel sections. The cause is unclear -- some blame the increased mineral energy released by the land's fracturing, others suggest the borers are feeding on the same crystal veins that draw the Crystal Crawlers, supercharging their growth. Whatever the reason, what was once a nuisance has become a genuine threat to anyone entering the deeper mines.",
@@ -1220,7 +1296,7 @@
       "vault_path": "vault/world/bestiary/moss-lurker.md",
       "articy_id": "72057594037929555",
       "type": "bestiary",
-      "status": "updated",
+      "status": "unchanged",
       "display_name": "Moss Lurker",
       "template_properties": {
         "overview": "The Moss Lurker is a broad, flat-bodied ambush predator that inhabits the damp forest floor of the Whispering Woods. At rest, it is virtually indistinguishable from a mossy fallen log -- its segmented back is covered in a thick layer of living moss, lichen, and small ferns that grow directly from its hide. Only the faint rhythmic rise and fall of its breathing might betray its presence to a sharp-eyed traveller.\n\nBeneath the camouflage lies a powerful creature roughly two metres long, with six squat legs ending in root-like claws that anchor it to the forest floor. Its head is little more than a wide, hinged jaw lined with rows of flat crushing teeth, designed to seize and hold rather than tear. When prey -- typically deer, boar, or an unwary human -- steps within striking distance, the Moss Lurker erupts from the ground with shocking speed, clamping down and dragging its victim to the earth.\n\nThe creature exists in both eras, though woodcutters and hunters have always known to watch for them. In Kaelen's time, experienced foresters could identify a lurker by the unnatural regularity of its shape and the absence of insects on its surface. By Aric's era, the Whispering Woods have grown denser and darker, and Moss Lurkers have spread into areas closer to the forest edge where they were never seen before.",
@@ -1280,7 +1356,7 @@
       "vault_path": "vault/world/bestiary/shade-wisp.md",
       "articy_id": "72057594037929564",
       "type": "bestiary",
-      "status": "updated",
+      "status": "unchanged",
       "display_name": "Shade Wisp",
       "template_properties": {
         "overview": "The Shade Wisp is a small, ghostly entity that manifests as a flickering sphere of pale light surrounded by wisps of shadow that trail behind it like dark smoke. No larger than a clenched fist, it drifts silently through dark spaces -- shadowed forest clearings, unlit mine tunnels, and the dim alleys of Thornwall after nightfall. Its light shifts between cold blue-white and a sickly amber depending on its state, and it moves with a drifting, moth-like unpredictability.\n\nIn Kaelen's era, Shade Wisps were a familiar and largely harmless phenomenon. Travellers knew them as corpse-candles, fool's lanterns, or simply \"the little lights.\" They appeared most often near places where the boundary between the living world and something older felt thin -- old graveyards, ruined shrines, the deepest parts of the Whispering Woods. Following one was considered foolish, as they tended to lead the unwary into bogs or off trail edges, but they posed no direct physical threat.\n\nBy Aric's time, the wisps have changed. They appear in far greater numbers, their light burns hotter and more erratic, and they have developed an aggressive territoriality. A single wisp remains little more than a nuisance, but clusters of them can drain the vitality of living creatures, leaving victims cold and exhausted. The transformation is one of the most visible signs that something fundamental has shifted in the land's spiritual fabric.",
@@ -1352,7 +1428,7 @@
       "vault_path": "vault/world/bestiary/thornbriar-stalker.md",
       "articy_id": "72057594037929573",
       "type": "bestiary",
-      "status": "updated",
+      "status": "unchanged",
       "display_name": "Thornbriar Stalker",
       "template_properties": {
         "overview": "The Thornbriar Stalker is a lean, wolf-like predator distinguished by the bony thorn-shaped growths that sprout along its spine and shoulders. Its coarse fur shifts between grey-green and dark brown depending on the season, providing natural camouflage within the dense thornbriar hedge that encircles Thornwall. Adults stand roughly hip-height to a grown man, with elongated limbs built for bursts of speed through tangled undergrowth.\n\nIn Kaelen's era, Thornbriar Stalkers were a rare but known hazard. Solitary hunters or mated pairs would occasionally drag off livestock that strayed too close to the hedge, and the town guard kept their numbers in check with seasonal culls. They were respected as dangerous but manageable -- a natural part of the thornbriar ecosystem that kept smaller vermin in balance.\n\nBy Aric's time, everything has changed. The hedge itself is weakening, its ancient root network destabilized by the fracturing of the land. Stalker packs have swelled to eight or ten members, emboldened by the thinning barrier between wild and settled land. They now hunt in coordinated groups, flanking prey with unsettling intelligence, and have begun venturing into the outer streets of Thornwall at dusk.",

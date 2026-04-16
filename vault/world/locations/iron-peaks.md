@@ -29,7 +29,10 @@ palette-hex:
   - "#d4a83f"
   - "#eddf48"
 ldtk-file: "project/ldtk/iron-peaks.ldtk"
-last-agent-pass: "2026-04-13"
+recommended_level_min: 5
+recommended_level_max: 10
+difficulty_tier: 5
+last-agent-pass: "2026-04-16"
 ---
 
 # Iron Peaks

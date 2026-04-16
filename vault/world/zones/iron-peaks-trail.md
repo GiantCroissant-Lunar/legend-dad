@@ -14,7 +14,16 @@ floor: 0
 grid-width: 20
 grid-height: 24
 era: "Both"
-last-agent-pass: "2026-04-13"
+encounter_table:
+  - bestiary: "[[Iron Borer]]"
+    weight: 3
+    era: "son"
+  - bestiary: "[[Crystal Crawler]]"
+    weight: 2
+    era: "son"
+encounter_rate: 0.15
+difficulty_tier: 4
+last-agent-pass: "2026-04-16"
 ---
 
 # Iron Peaks Trail

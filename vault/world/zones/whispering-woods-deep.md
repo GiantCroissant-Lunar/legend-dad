@@ -14,7 +14,19 @@ floor: 0
 grid-width: 24
 grid-height: 24
 era: "Both"
-last-agent-pass: "2026-04-13"
+encounter_table:
+  - bestiary: "[[Moss Lurker]]"
+    weight: 3
+    era: "son"
+  - bestiary: "[[Thornbriar Stalker]]"
+    weight: 4
+    era: "son"
+  - bestiary: "[[Shade Wisp]]"
+    weight: 2
+    era: "son"
+encounter_rate: 0.18
+difficulty_tier: 3
+last-agent-pass: "2026-04-16"
 ---
 
 # Whispering Woods Deep

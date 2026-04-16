@@ -30,7 +30,10 @@ palette-hex:
   - "#8840c0"
   - "#e8e0c8"
 ldtk-file: "project/ldtk/thornwall.ldtk"
-last-agent-pass: "2026-04-13"
+recommended_level_min: 1
+recommended_level_max: 3
+difficulty_tier: 1
+last-agent-pass: "2026-04-16"
 ---
 
 # Thornwall

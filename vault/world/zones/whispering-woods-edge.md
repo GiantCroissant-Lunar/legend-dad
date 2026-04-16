@@ -15,7 +15,16 @@ floor: 0
 grid-width: 24
 grid-height: 20
 era: "Both"
-last-agent-pass: "2026-04-13"
+encounter_table:
+  - bestiary: "[[Moss Lurker]]"
+    weight: 4
+    era: "son"
+  - bestiary: "[[Thornbriar Stalker]]"
+    weight: 1
+    era: "son"
+encounter_rate: 0.12
+difficulty_tier: 2
+last-agent-pass: "2026-04-16"
 ---
 
 # Whispering Woods Edge

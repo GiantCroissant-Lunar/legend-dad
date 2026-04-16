@@ -14,7 +14,8 @@ floor: 0
 grid-width: 20
 grid-height: 16
 era: "Both"
-last-agent-pass: "2026-04-13"
+encounter_rate: 0
+last-agent-pass: "2026-04-16"
 ---
 
 # Thornwall Market

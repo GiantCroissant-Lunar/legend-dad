@@ -28,7 +28,10 @@ palette-hex:
   - "#26222e"
   - "#16121a"
 ldtk-file: "project/ldtk/whispering-woods.ldtk"
-last-agent-pass: "2026-04-13"
+recommended_level_min: 2
+recommended_level_max: 5
+difficulty_tier: 2
+last-agent-pass: "2026-04-16"
 ---
 
 # Whispering Woods
